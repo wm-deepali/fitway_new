@@ -1,0 +1,24 @@
+<?php
+// app/Models/Feedback.php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Feedback extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'email_id',
+        'mobile_number',
+        'feedback',
+        'is_read',
+    ];
+
+    protected $casts = [
+        'is_read' => 'boolean',
+    ];
+}

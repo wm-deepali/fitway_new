@@ -171,10 +171,10 @@
         <div class="login-left">
 
             <div class="logo-box">
-                <img src="{{ $siteLogo?->image_url ?? asset('front/img/logo.png') }}" alt="Sri Harihar Ply">
+                <img src="{{ $siteLogo?->image_url ?? asset('front/img/logo.png') }}" alt="Fitway Shunty Cycle Store">
             </div>
 
-            <h2>Sri Harihar Ply</h2>
+            <h2>Fitway Shunty Cycle Store</h2>
             <p>Admin Panel</p>
         </div>
 

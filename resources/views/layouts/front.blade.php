@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>@yield('title', $seo->meta_title ?? 'Sri Harihar Ply & Hardware')</title>
+    <title>@yield('title', $seo->meta_title ?? 'Fitway Shunty Cycle Store & Hardware')</title>
     <meta name="description" content="{{ $seo->meta_description ?? '' }}">
     <meta name="keywords" content="{{ $seo->meta_keywords ?? '' }}">
     <link href="{{ asset('front/css/bootstrap.css') }}" rel="stylesheet">
@@ -161,7 +161,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-12">
                     <div class="footer-bottom">
-                        <p>Copyright © {{ now()->year }} Sri Harihar Ply &amp; Hardware. All rights reserved.</p>
+                        <p>Copyright © {{ now()->year }} Fitway Shunty Cycle Store &amp; Hardware. All rights reserved.</p>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12">
