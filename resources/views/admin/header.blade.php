@@ -42,8 +42,9 @@
         </li>
 
         {{-- CATALOG --}}
-        <li class="{{ request()->routeIs(['admin.categories.*','admin.subcategories.*','admin.minisubcategories.*','admin.products.*']) ? 'active' : '' }}">
-            <a href="#"><i class="fa-solid fa-layer-group"></i> Catalog</a>
+        <li
+            class="{{ request()->routeIs(['admin.categories.*', 'admin.subcategories.*', 'admin.subsubcategories.*', 'admin.products.*', 'admin.price-management.*']) ? 'active' : '' }}">
+            <a href="#"><i class="fa-solid fa-layer-group"></i> Gym Equipments</a>
             <ul>
                 <li class="{{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.categories.index') }}">Categories</a>
@@ -51,56 +52,59 @@
                 <li class="{{ request()->routeIs('admin.subcategories.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.subcategories.index') }}">Sub Categories</a>
                 </li>
-                <li class="{{ request()->routeIs('admin.minisubcategories.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.minisubcategories.index') }}">Mini Sub Categories</a>
+                <li class="{{ request()->routeIs('admin.subsubcategories.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.subsubcategories.index') }}">Sub Sub Categories</a>
                 </li>
                 <li class="{{ request()->routeIs('admin.products.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.products.index') }}">Products</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.price-management.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.price-management.index') }}">Price Management</a>
                 </li>
             </ul>
         </li>
 
         {{-- HOME PAGE --}}
-        <li class="{{ request()->routeIs(['admin.sliders.*','admin.about-us.*','admin.client-gallery.*','admin.portfolio.*','admin.instagram.*','admin.plan-prices.*']) ? 'active' : '' }}">
-            <a href="#"><i class="fa-solid fa-house"></i> Home Page</a>
+        <li
+            class="{{ request()->routeIs(['admin.sliders.*', 'admin.about-us.*', 'admin.client-gallery.*', 'admin.portfolio.*', 'admin.instagram.*', 'admin.plan-prices.*']) ? 'active' : '' }}">
+            <a href="#"><i class="fa-solid fa-house"></i> Content Management</a>
             <ul>
                 <li class="{{ request()->routeIs('admin.sliders.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.sliders.index') }}">Slider</a>
                 </li>
-                <li class="{{ request()->routeIs('admin.about-us.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.about-us.edit') }}">About Us & Who Are We</a>
-                </li>
+
                 <li class="{{ request()->routeIs('admin.client-gallery.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.client-gallery.index') }}">Client Gallery</a>
+                    <a href="{{ route('admin.client-gallery.index') }}">Portfolio Category</a>
                 </li>
                 <li class="{{ request()->routeIs('admin.portfolio.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.portfolio.index') }}">Portfolio</a>
                 </li>
-                <li class="{{ request()->routeIs('admin.instagram.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.instagram.index') }}">Instagram</a>
-                </li>
-                <li class="{{ request()->routeIs('admin.plan-prices.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.plan-prices.index') }}">Plan Prices</a>
-                </li>
-            </ul>
-        </li>
 
-        {{-- CONTENT --}}
-        <li class="{{ request()->routeIs(['admin.blogs.*','admin.testimonials.*']) ? 'active' : '' }}">
-            <a href="#"><i class="fa-solid fa-newspaper"></i> Content</a>
-            <ul>
                 <li class="{{ request()->routeIs('admin.blogs.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.blogs.index') }}">Blogs</a>
                 </li>
                 <li class="{{ request()->routeIs('admin.testimonials.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.testimonials.index') }}">Testimonials</a>
                 </li>
+                {{-- DYNAMIC PAGES --}}
+                <li class="{{ request()->routeIs('admin.dynamic-pages.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.dynamic-pages.index') }}"> Manage Dynamic Pages
+                    </a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.faqs.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.faqs.index') }}"> Manage Faq
+                    </a>
+                </li>
             </ul>
         </li>
 
+
+
         {{-- LEADS & SUBMISSIONS --}}
-        <li class="{{ request()->routeIs(['admin.contactUs.*','admin.inquiries.*','admin.setupMyGym.*','admin.productEnquiries.*','admin.newsletter.*','admin.feedbacks.*','admin.bmi-calculator.*']) ? 'active' : '' }}">
-            <a href="#"><i class="fa-solid fa-inbox"></i> Leads &amp; Submissions</a>
+        <li
+            class="{{ request()->routeIs(['admin.contactUs.*', 'admin.inquiries.*', 'admin.setupMyGym.*', 'admin.productEnquiries.*', 'admin.newsletter.*', 'admin.feedbacks.*', 'admin.bmi-calculator.*']) ? 'active' : '' }}">
+            <a href="#"><i class="fa-solid fa-inbox"></i> Contact & Inquiries</a>
             <ul>
                 <li class="{{ request()->routeIs('admin.contactUs.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.contactUs.index') }}">Contact Us</a>
@@ -131,6 +135,16 @@
             <a href="{{ route('admin.settings.edit') }}">
                 <i class="fa-solid fa-gear"></i> Settings
             </a>
+        </li>
+
+        <li class="{{ request()->routeIs('admin.instagram.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.instagram.index') }}">Instagram</a>
+        </li>
+        <li class="{{ request()->routeIs('admin.plan-prices.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.plan-prices.index') }}">Plan Prices</a>
+        </li>
+        <li class="{{ request()->routeIs('admin.about-us.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.about-us.edit') }}">About Us & Who Are We</a>
         </li>
 
     </ul>

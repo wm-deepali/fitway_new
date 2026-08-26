@@ -5,15 +5,17 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         Schema::create('product_categories', function (Blueprint $table) {
             $table->id();
             $table->string('category_name');
+            $table->text('short_description')->nullable();
             $table->string('slug')->unique();
             $table->string('image')->nullable();
+            $table->string('banner_type')->default('image'); // image | video
+            $table->string('banner')->nullable();
             $table->string('premium')->default('normal'); // normal | premium
             $table->boolean('status')->default(true);      // true = active
             $table->string('meta_title')->nullable();

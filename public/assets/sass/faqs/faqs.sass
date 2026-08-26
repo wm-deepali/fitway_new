@@ -1,0 +1,240 @@
+@import "../_common"
+
+// =========================
+// Banner
+// =========================
+.banner
+    .bg
+        position: relative
+
+        &::before
+            content: ''
+            position: absolute
+            inset: 0
+            background: linear-gradient(
+                360deg,
+                rgba(0, 0, 0, 0.74) 12%,
+                rgba(0, 0, 0, 0) 55%,
+                rgba(0, 0, 0, 0.74) 100%
+            )
+            z-index: 1
+            pointer-events: none
+
+        .content
+            width: 100%
+            max-width: 540px
+            h1
+                font-family: $Kugile
+
+.faq-secA
+    padding: 90px 0 50px
+    background: var(--black)
+
+    @include media(767)
+        padding: 60px 0 30px
+
+    .heading
+        width: 100%
+        max-width: 490px
+        margin: 0 auto
+        text-align: center
+
+        .label
+            display: inline-block
+            font-size: 12.5px
+            font-weight: 700
+            letter-spacing: 1.2px
+            text-transform: uppercase
+            color: var(--primary)
+            margin-bottom: 14px
+
+        h3
+            margin-bottom: 14px
+
+        p
+            font-size: 15px
+            line-height: 1.8
+            color: rgba(255,255,255,0.55)
+
+
+.faq-secB
+    padding: 0 0 90px
+    background: var(--black)
+
+    @include media(767)
+        padding: 0 0 60px
+
+    // -------------------- Category Group --------------------
+    .faq-group
+        max-width: 800px
+        margin: 0 auto 50px
+
+        &:last-child
+            margin-bottom: 0
+
+        &__title
+            font-size: 20px
+            font-weight: 700
+            font-family: $Poppins
+            color: $white
+            margin: 0 0 22px
+            padding-left: 4px
+            position: relative
+            display: flex
+            align-items: center
+            gap: 12px
+
+            &::before
+                content: ""
+                width: 4px
+                height: 20px
+                border-radius: 4px
+                background: var(--primary)
+                flex-shrink: 0
+
+            @include media(575)
+                font-size: 17px
+
+    // -------------------- Accordion (unchanged) --------------------
+    .accordion-wrapper
+        max-width: 800px
+        margin: 0 auto
+
+    .accordion-item
+        background: rgba(255, 255, 255, .03)
+        border: 1px solid rgba(255, 255, 255, .08)
+        border-radius: 8px
+        margin-bottom: 15px
+        overflow: hidden
+        transition: all 0.3s ease
+
+        &:hover
+            border-color: rgba(255, 255, 255, .18)
+            background: rgba(255, 255, 255, .05)
+
+        &.active
+            border-color: var(--primary)
+            background: rgba(255, 255, 255, .05)
+
+            .accordion-icon
+                color: var(--primary)
+
+            .accordion-header
+                h4
+                    color: var(--primary)
+
+    .accordion-header
+        display: flex
+        justify-content: space-between
+        align-items: center
+        padding: 20px 25px
+        cursor: pointer
+        transition: all 0.3s ease
+
+        h4
+            font-size: 16px
+            font-weight: 600
+            color: rgba(255, 255, 255, .8)
+            margin: 0
+            flex: 1
+            font-family: $Poppins
+            padding-right: 20px
+            transition: color .3s ease
+
+            @include media(375)
+                font-size: 14px
+
+    .accordion-icon
+        font-size: 24px
+        font-weight: 300
+        color: rgba(255, 255, 255, .45)
+        transition: all 0.3s ease
+        width: 30px
+        height: 30px
+        display: flex
+        align-items: center
+        justify-content: center
+        flex-shrink: 0
+
+    .accordion-content
+        padding: 0 25px 20px
+        padding-right: 3rem
+        display: none
+        background: transparent
+
+        p
+            padding: 20px 0
+            margin: 0
+            font-size: 14px
+            color: rgba(255, 255, 255, .55)
+            font-weight: 400
+            line-height: 1.8
+
+            @include media(375)
+                font-size: 12px
+
+        ul
+            margin-left: 20px
+
+            li
+                font-size: 14px
+                color: rgba(255, 255, 255, .55)
+                font-weight: 400
+                line-height: 1.8
+                list-style-type: disc
+
+                @include media(375)
+                    font-size: 12px
+
+
+.faq-secC
+    padding: 0 0 90px
+    background: var(--black)
+
+    @include media(767)
+        padding: 0 0 60px
+
+    &__box
+        background: var(--gradient-a)
+        border-radius: 28px
+        padding: 70px 40px
+        text-align: center
+
+        @include media(540)
+            padding: 44px 24px
+
+        h3
+            font-size: 30px
+            font-weight: 700
+            color: $white
+            margin-bottom: 14px
+
+            @include media(540)
+                font-size: 24px
+
+        p
+            font-size: 15px
+            color: rgba(255,255,255,0.55)
+            max-width: 480px
+            margin: 0 auto 34px
+            line-height: 1.7
+
+    &__btns
+        display: flex
+        align-items: center
+        justify-content: center
+        gap: 14px
+        flex-wrap: wrap
+
+        @include media(480)
+            flex-direction: column
+            align-items: stretch
+
+        .btn-outline-white
+            background: transparent
+            color: $white
+            border: 1px solid rgba(255,255,255,0.25)
+
+            &:hover
+                background: rgba(255,255,255,0.08)
+                border-color: $white

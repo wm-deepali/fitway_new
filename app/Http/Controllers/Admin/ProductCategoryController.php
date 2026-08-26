@@ -43,19 +43,36 @@ class ProductCategoryController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'category_name' => 'required|string|max:255',
-            'image'         => 'required|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
-            'meta_title'       => 'nullable|string|max:255',
-            'meta_keywords'    => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
+            'category_name'     => 'required|string|max:255',
+            'short_description' => 'nullable|string|max:1000',
+            'image'              => 'required|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'banner_type'        => 'required|in:image,video',
+            'banner_image'       => 'required_if:banner_type,image|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'banner_video'       => 'required_if:banner_type,video|mimes:mp4,mov,avi,webm|max:51200',
+            'meta_title'         => 'nullable|string|max:255',
+            'meta_keywords'      => 'nullable|string|max:255',
+            'meta_description'  => 'nullable|string',
         ]);
 
         $imagePath = $request->file('image')->store('categories', 'public');
 
+        $bannerPath = $request->boolean('banner_type') === false && $request->banner_type === 'video'
+            ? null
+            : null; // placeholder, overwritten below
+
+        if ($request->banner_type === 'video') {
+            $bannerPath = $request->file('banner_video')->store('categories/banners', 'public');
+        } else {
+            $bannerPath = $request->file('banner_image')->store('categories/banners', 'public');
+        }
+
         ProductCategory::create([
             'category_name'     => $request->category_name,
             'slug'               => ProductCategory::generateUniqueSlug($request->category_name),
+            'short_description' => $request->short_description,
             'image'              => $imagePath,
+            'banner_type'        => $request->banner_type,
+            'banner'             => $bannerPath,
             'premium'            => $request->input('premium') ?: 'normal',
             'status'             => $request->boolean('status', true),
             'meta_title'         => $request->meta_title,
@@ -75,16 +92,22 @@ class ProductCategoryController extends Controller
     public function update(Request $request, ProductCategory $category)
     {
         $this->validate($request, [
-            'category_name' => 'required|string|max:255',
-            'image'         => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
-            'meta_title'       => 'nullable|string|max:255',
-            'meta_keywords'    => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
+            'category_name'     => 'required|string|max:255',
+            'short_description' => 'nullable|string|max:1000',
+            'image'              => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'banner_type'        => 'required|in:image,video',
+            'banner_image'       => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'banner_video'       => 'nullable|mimes:mp4,mov,avi,webm|max:51200',
+            'meta_title'         => 'nullable|string|max:255',
+            'meta_keywords'      => 'nullable|string|max:255',
+            'meta_description'  => 'nullable|string',
         ]);
 
         $data = [
             'category_name'     => $request->category_name,
             'slug'               => ProductCategory::generateUniqueSlug($request->category_name, $category->id),
+            'short_description' => $request->short_description,
+            'banner_type'        => $request->banner_type,
             'premium'            => $request->input('premium') ?: 'normal',
             'status'             => $request->boolean('status', true),
             'meta_title'         => $request->meta_title,
@@ -99,6 +122,18 @@ class ProductCategoryController extends Controller
             $data['image'] = $request->file('image')->store('categories', 'public');
         }
 
+        if ($request->banner_type === 'video' && $request->hasFile('banner_video')) {
+            if ($category->banner) {
+                Storage::disk('public')->delete($category->banner);
+            }
+            $data['banner'] = $request->file('banner_video')->store('categories/banners', 'public');
+        } elseif ($request->banner_type === 'image' && $request->hasFile('banner_image')) {
+            if ($category->banner) {
+                Storage::disk('public')->delete($category->banner);
+            }
+            $data['banner'] = $request->file('banner_image')->store('categories/banners', 'public');
+        }
+
         $category->update($data);
 
         $redirectTo = $request->input('redirect') ?: route('admin.categories.index');
@@ -110,6 +145,10 @@ class ProductCategoryController extends Controller
     {
         if ($category->image) {
             Storage::disk('public')->delete($category->image);
+        }
+
+        if ($category->banner) {
+            Storage::disk('public')->delete($category->banner);
         }
 
         $category->delete();

@@ -14,23 +14,27 @@ class Product extends Model
     protected $fillable = [
         'category_id',
         'sub_cat_id',
-        'mini_sub_cat_id',
+        'sub_sub_cat_id',
         'name',
         'slug',
-        'previous_price',
-        'new_price',
+        'mrp',
+        'discount_type',
+        'discount_value',
+        'offered_price',
+        'purchase_price',
         'description',
         'image',
         'status',
         'meta_title',
-        'meta_keywords',
         'meta_description',
     ];
 
     protected $casts = [
+        'mrp'            => 'decimal:2',
+        'discount_value' => 'decimal:2',
+        'offered_price'  => 'decimal:2',
+        'purchase_price' => 'decimal:2',
         'status'         => 'boolean',
-        'previous_price' => 'decimal:2',
-        'new_price'      => 'decimal:2',
     ];
 
     public function category()
@@ -43,9 +47,9 @@ class Product extends Model
         return $this->belongsTo(ProductSubCategory::class, 'sub_cat_id');
     }
 
-    public function miniSubCategory()
+    public function subSubCategory()
     {
-        return $this->belongsTo(ProductMiniSubCategory::class, 'mini_sub_cat_id');
+        return $this->belongsTo(ProductSubSubCategory::class, 'sub_sub_cat_id');
     }
 
     public function scopeActive($query)
@@ -53,6 +57,36 @@ class Product extends Model
         return $query->where('status', true);
     }
 
+    /**
+     * Public URL for the stored image, or null if none.
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        return $this->image ? asset('storage/' . $this->image) : null;
+    }
+
+    /**
+     * Alt text for the product image: Sub Sub Category + product name.
+     */
+    public function getImageAltAttribute(): string
+    {
+        return trim(($this->subSubCategory?->name ?? '') . ' ' . $this->name);
+    }
+
+    /**
+     * Storefront-ready price string. Falls back to "Price on Request"
+     * when no offered price has been set.
+     */
+    public function getDisplayPriceAttribute(): string
+    {
+        return $this->offered_price !== null
+            ? '₹' . number_format((float) $this->offered_price, 2)
+            : 'Price on Request';
+    }
+
+    /**
+     * Unique slug from the product name, ignoring the current product on update.
+     */
     public static function generateUniqueSlug(string $name, ?int $ignoreId = null): string
     {
         $slug = Str::slug($name);

@@ -36,6 +36,7 @@
     }
     textarea.form-control-styled { height: auto; padding: 10px 12px; resize: vertical; }
     .form-control-styled:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(48,61,137,.12); }
+    .form-control-styled[readonly] { background: var(--bg); color: var(--text-hint); }
     .form-error { color: #b22222; font-size: 12px; margin-top: 5px; }
     .toggle-row { display: flex; align-items: center; gap: 10px; }
     .switch { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
@@ -46,6 +47,9 @@
     .switch input:checked + .switch-slider::before { transform: translateX(18px); }
     .form-actions { display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
     .current-img-preview { width: 72px; height: 72px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--border); margin-bottom: 10px; display: block; }
+    .radio-pill-row { display: flex; gap: 10px; }
+    .radio-pill { display: flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; font-size: 13px; cursor: pointer; }
+    .radio-pill input { margin: 0; }
     </style>
 
     <div class="app-content content container-fluid">
@@ -80,11 +84,58 @@
                     </div>
 
                     <div class="form-field">
+                        <label for="slug">Slug</label>
+                        <input type="text" id="slug" name="slug" class="form-control-styled" readonly
+                            value="{{ old('slug') }}" placeholder="Auto-generated from category name">
+                        <div class="hint">Generated automatically — used for the URL and canonical tag</div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="short_description">Short Description</label>
+                        <textarea id="short_description" name="short_description" rows="3"
+                            class="form-control-styled @error('short_description') is-invalid @enderror"
+                            placeholder="Enter a short description">{{ old('short_description') }}</textarea>
+                        @error('short_description') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
                         <label for="image">Image</label>
                         <input type="file" id="image" name="image"
                             class="form-control-styled @error('image') is-invalid @enderror" required>
                         <div class="hint">JPG, PNG, GIF, WEBP or SVG — max 2MB</div>
                         @error('image') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label>Banner Type</label>
+                        <div class="radio-pill-row">
+                            <label class="radio-pill">
+                                <input type="radio" name="banner_type" value="image"
+                                    {{ old('banner_type', 'image') == 'image' ? 'checked' : '' }}
+                                    onchange="toggleBannerUpload(this.value)">
+                                Image
+                            </label>
+                            <label class="radio-pill">
+                                <input type="radio" name="banner_type" value="video"
+                                    {{ old('banner_type') == 'video' ? 'checked' : '' }}
+                                    onchange="toggleBannerUpload(this.value)">
+                                Video
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-field" id="banner_image_field">
+                        <label for="banner_image">Banner Image</label>
+                        <input type="file" id="banner_image" name="banner_image"
+                            class="form-control-styled @error('banner_image') is-invalid @enderror" accept="image/*">
+                        @error('banner_image') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field" id="banner_video_field" style="display:none">
+                        <label for="banner_video">Banner Video</label>
+                        <input type="file" id="banner_video" name="banner_video"
+                            class="form-control-styled @error('banner_video') is-invalid @enderror" accept="video/*">
+                        @error('banner_video') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
 
                     <div class="form-field toggle-row">
@@ -110,12 +161,6 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="meta_keywords">Meta Keywords</label>
-                        <input type="text" id="meta_keywords" name="meta_keywords" class="form-control-styled"
-                            value="{{ old('meta_keywords') }}" placeholder="Enter meta keywords">
-                    </div>
-
-                    <div class="form-field">
                         <label for="meta_description">Meta Description</label>
                         <textarea id="meta_description" name="meta_description" rows="4"
                             class="form-control-styled">{{ old('meta_description') }}</textarea>
@@ -135,4 +180,20 @@
     </div>
 </div>
 
-@include('admin.footer')e
+<script>
+    function toggleBannerUpload(type) {
+        document.getElementById('banner_image_field').style.display = type === 'image' ? 'block' : 'none';
+        document.getElementById('banner_video_field').style.display = type === 'video' ? 'block' : 'none';
+    }
+
+    document.getElementById('category_name').addEventListener('keyup', function () {
+        document.getElementById('slug').value = this.value
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+    });
+</script>
+
+@include('admin.footer')

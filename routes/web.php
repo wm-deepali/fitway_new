@@ -6,7 +6,7 @@ use App\Http\Controllers\Admin\{
     LogoutController,
     ProductCategoryController,
     ProductSubCategoryController,
-    ProductMiniSubCategoryController,
+    ProductSubSubCategoryController,
     ProductController,
     SliderController,
     AboutUsController,
@@ -23,8 +23,12 @@ use App\Http\Controllers\Admin\{
     SetupMyGymController,
     ProductEnquiryController,
     NewsletterController,
-    FeedbackController
-
+    FeedbackController,
+    PriceManagementController,
+    DynamicPageController,
+    FaqController,
+    AdminSettingController,
+    AnnouncementController
 
 };
 
@@ -36,6 +40,22 @@ use App\Http\Controllers\FrontController;
 
 Route::controller(FrontController::class)->group(function () {
     Route::get('/', 'home')->name('home');
+    Route::get('/about-us', 'aboutUs')->name('about-us');
+    Route::get('/contact-us', 'contactUs')->name('contact-us');
+    Route::get('/faqs', 'faqs')->name('faqs');
+    Route::get('/blogs', 'blogs')->name('blogs');
+    Route::get('/products', 'products')->name('products');
+    Route::get('/portfolio', 'portfolio')->name('portfolio');
+    Route::get('/cart', 'cart')->name('cart');
+    Route::get('/product-detail', 'productDetail')->name('product-detail');
+    Route::get('/thank-you', 'thankYou')->name('thank-you');
+    Route::get('/blog-details', 'blogDetail')->name('blog-details');
+    Route::get('/commercial-gym-setup', 'commercialGymSetup')->name('commercial-gym-setup');
+    Route::get('/home-gym-setup', 'homeGymSetup')->name('home-gym-setup');
+    Route::get('/corporate-gym-setup', 'corporateGymSetup')->name('corporate-gym-setup');
+    Route::get('/outdoor-gym-setup', 'outdoorGymSetup')->name('outdoor-gym-setup');
+    Route::get('/resorts-gym-setup', 'resortsGymSetup')->name('resorts-gym-setup');
+
 });
 
 
@@ -71,13 +91,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('subcategories/{subcategory}', [ProductSubCategoryController::class, 'update'])->name('subcategories.update');
         Route::delete('subcategories/{subcategory}', [ProductSubCategoryController::class, 'destroy'])->name('subcategories.destroy');
 
-        Route::get('mini-subcategories', [ProductMiniSubCategoryController::class, 'index'])->name('minisubcategories.index');
-        Route::get('mini-subcategories/create', [ProductMiniSubCategoryController::class, 'create'])->name('minisubcategories.create');
-        Route::post('mini-subcategories', [ProductMiniSubCategoryController::class, 'store'])->name('minisubcategories.store');
-        Route::get('mini-subcategories/{minisubcategory}/edit', [ProductMiniSubCategoryController::class, 'edit'])->name('minisubcategories.edit');
-        Route::put('mini-subcategories/{minisubcategory}', [ProductMiniSubCategoryController::class, 'update'])->name('minisubcategories.update');
-        Route::delete('mini-subcategories/{minisubcategory}', [ProductMiniSubCategoryController::class, 'destroy'])->name('minisubcategories.destroy');
-        Route::get('mini-subcategories/get-subcategories', [ProductMiniSubCategoryController::class, 'getSubCategories'])->name('minisubcategories.getSubCategories');
+        Route::get('sub-sub-categories', [ProductSubSubCategoryController::class, 'index'])->name('subsubcategories.index');
+        Route::get('sub-sub-categories/create', [ProductSubSubCategoryController::class, 'create'])->name('subsubcategories.create');
+        Route::post('sub-sub-categories', [ProductSubSubCategoryController::class, 'store'])->name('subsubcategories.store');
+        Route::get('sub-sub-categories/{subsubcategory}/edit', [ProductSubSubCategoryController::class, 'edit'])->name('subsubcategories.edit');
+        Route::put('sub-sub-categories/{subsubcategory}', [ProductSubSubCategoryController::class, 'update'])->name('subsubcategories.update');
+        Route::delete('sub-sub-categories/{subsubcategory}', [ProductSubSubCategoryController::class, 'destroy'])->name('subsubcategories.destroy');
+        Route::get('sub-sub-categories/get-subcategories', [ProductSubSubCategoryController::class, 'getSubCategories'])->name('subsubcategories.getSubCategories');
 
         Route::get('products', [ProductController::class, 'index'])->name('products.index');
         Route::get('products/create', [ProductController::class, 'create'])->name('products.create');
@@ -86,7 +106,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::put('products/{product}', [ProductController::class, 'update'])->name('products.update');
         Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
         Route::get('products/get-subcategories', [ProductController::class, 'getSubCategories'])->name('products.getSubCategories');
-        Route::get('products/get-minisubcategories', [ProductController::class, 'getMiniSubCategories'])->name('products.getMiniSubCategories');
+        Route::get('products/sub-sub-categories', [ProductController::class, 'getSubSubCategories'])->name('products.getSubSubCategories');
+
+        Route::get('price-management', [PriceManagementController::class, 'index'])->name('price-management.index');
+        Route::post('price-management/{product}', [PriceManagementController::class, 'update'])->name('price-management.update');
+        Route::get('price-management-export', [PriceManagementController::class, 'export'])->name('price-management.export');
+        Route::post('price-management-import', [PriceManagementController::class, 'importStore'])->name('price-management.import');
+        Route::get('price-management/{product}/logs', [PriceManagementController::class, 'logs'])->name('price-management.logs');
 
         Route::get('sliders', [SliderController::class, 'index'])->name('sliders.index');
         Route::get('sliders/create', [SliderController::class, 'create'])->name('sliders.create');
@@ -181,5 +207,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('feedbacks/{feedback}', [FeedbackController::class, 'show'])->name('feedbacks.show');
         Route::delete('feedbacks/{feedback}', [FeedbackController::class, 'destroy'])->name('feedbacks.destroy');
 
+        Route::resource('dynamic-pages', DynamicPageController::class)->names('dynamic-pages');
+        Route::resource('faqs', FaqController::class)->names('faqs');
+        Route::resource('announcements', AnnouncementController::class)->names('announcements');
+
+        Route::get('/admin-setting', [AdminSettingController::class, 'index'])->name('admin-setting.index');
+        Route::post('/smtp-settings/store', [AdminSettingController::class, 'smtpSettingStore'])->name('smtp-settings.store');
+        Route::post('admin-setting/google-setting', [AdminSettingController::class, 'googleSettingStore'])->name('admin-setting.google-setting');
     });
 });

@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\ProductCategory;
-use App\Models\ProductMiniSubCategory;
+use App\Models\ProductSubSubCategory;
 use App\Models\ProductSubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -15,7 +15,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with(['category', 'subCategory', 'miniSubCategory']);
+        $query = Product::with(['category', 'subCategory', 'subSubCategory']);
 
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
@@ -29,7 +29,7 @@ class ProductController extends Controller
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        $sortable = ['id', 'name', 'new_price', 'status'];
+        $sortable = ['id', 'name', 'offered_price', 'status'];
         $sortBy = in_array($request->sort_by, $sortable) ? $request->sort_by : 'id';
         $sortOrder = $request->sort_order === 'asc' ? 'asc' : 'desc';
 
@@ -54,36 +54,26 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'category_id'      => 'required|exists:product_categories,id',
-            'sub_cat_id'        => 'nullable|exists:product_sub_categories,id',
-            'mini_sub_cat_id'   => 'nullable|exists:product_mini_sub_categories,id',
-            'name'              => 'required|string|max:255',
-            'previous_price'    => 'nullable|numeric',
-            'new_price'         => 'nullable|numeric',
-            'description'       => 'required|string',
-            'image'             => 'required|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
-            'meta_title'       => 'nullable|string|max:255',
-            'meta_keywords'    => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
-        ]);
+        $validated = $this->validate($request, $this->rules());
 
         $imagePath = $request->file('image')->store('products', 'public');
 
         Product::create([
-            'category_id'       => $request->category_id,
-            'sub_cat_id'         => $request->sub_cat_id,
-            'mini_sub_cat_id'    => $request->mini_sub_cat_id,
-            'name'               => $request->name,
-            'slug'               => Product::generateUniqueSlug($request->name),
-            'previous_price'     => $request->previous_price,
-            'new_price'          => $request->new_price,
-            'description'        => $request->description,
-            'image'              => $imagePath,
-            'status'             => $request->boolean('status', true),
-            'meta_title'         => $request->meta_title,
-            'meta_keywords'      => $request->meta_keywords,
-            'meta_description'   => $request->meta_description,
+            'category_id'      => $validated['category_id'],
+            'sub_cat_id'        => $validated['sub_cat_id'] ?? null,
+            'sub_sub_cat_id'    => $validated['sub_sub_cat_id'] ?? null,
+            'name'              => $validated['name'],
+            'slug'              => Product::generateUniqueSlug($validated['name']),
+            'mrp'               => $validated['mrp'] ?? null,
+            'discount_type'     => $validated['discount_type'] ?? null,
+            'discount_value'    => $validated['discount_value'] ?? null,
+            'offered_price'     => $validated['offered_price'] ?? null,
+            'purchase_price'    => $validated['purchase_price'] ?? null,
+            'description'       => $validated['description'],
+            'image'             => $imagePath,
+            'status'            => $request->boolean('status', true),
+            'meta_title'        => $validated['meta_title'] ?? null,
+            'meta_description'  => $validated['meta_description'] ?? null,
         ]);
 
         return redirect()->route('admin.products.index')
@@ -97,43 +87,33 @@ class ProductController extends Controller
             ->where('category_id', $product->category_id)
             ->orderBy('name')
             ->get();
-        $miniSubCategories = ProductMiniSubCategory::active()
+        $subSubCategories = ProductSubSubCategory::active()
             ->where('sub_cat_id', $product->sub_cat_id)
             ->orderBy('name')
             ->get();
 
-        return view('admin.products.edit', compact('product', 'parentCategories', 'subCategories', 'miniSubCategories'));
+        return view('admin.products.edit', compact('product', 'parentCategories', 'subCategories', 'subSubCategories'));
     }
 
     public function update(Request $request, Product $product)
     {
-        $this->validate($request, [
-            'category_id'      => 'required|exists:product_categories,id',
-            'sub_cat_id'        => 'nullable|exists:product_sub_categories,id',
-            'mini_sub_cat_id'   => 'nullable|exists:product_mini_sub_categories,id',
-            'name'              => 'required|string|max:255',
-            'previous_price'    => 'nullable|numeric',
-            'new_price'         => 'nullable|numeric',
-            'description'       => 'required|string',
-            'image'             => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
-            'meta_title'       => 'nullable|string|max:255',
-            'meta_keywords'    => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
-        ]);
+        $validated = $this->validate($request, $this->rules($product->id));
 
         $data = [
-            'category_id'       => $request->category_id,
-            'sub_cat_id'         => $request->sub_cat_id,
-            'mini_sub_cat_id'    => $request->mini_sub_cat_id,
-            'name'               => $request->name,
-            'slug'               => Product::generateUniqueSlug($request->name, $product->id),
-            'previous_price'     => $request->previous_price,
-            'new_price'          => $request->new_price,
-            'description'        => $request->description,
-            'status'             => $request->boolean('status', true),
-            'meta_title'         => $request->meta_title,
-            'meta_keywords'      => $request->meta_keywords,
-            'meta_description'   => $request->meta_description,
+            'category_id'      => $validated['category_id'],
+            'sub_cat_id'        => $validated['sub_cat_id'] ?? null,
+            'sub_sub_cat_id'    => $validated['sub_sub_cat_id'] ?? null,
+            'name'              => $validated['name'],
+            'slug'              => Product::generateUniqueSlug($validated['name'], $product->id),
+            'mrp'               => $validated['mrp'] ?? null,
+            'discount_type'     => $validated['discount_type'] ?? null,
+            'discount_value'    => $validated['discount_value'] ?? null,
+            'offered_price'     => $validated['offered_price'] ?? null,
+            'purchase_price'    => $validated['purchase_price'] ?? null,
+            'description'       => $validated['description'],
+            'status'            => $request->boolean('status', true),
+            'meta_title'        => $validated['meta_title'] ?? null,
+            'meta_description'  => $validated['meta_description'] ?? null,
         ];
 
         if ($request->hasFile('image')) {
@@ -181,18 +161,37 @@ class ProductController extends Controller
     }
 
     /**
-     * AJAX: mini sub-categories belonging to a sub-category.
+     * AJAX: sub-sub-categories belonging to a sub-category.
      */
-    public function getMiniSubCategories(Request $request)
+    public function getSubSubCategories(Request $request)
     {
-        $miniSubCategories = ProductMiniSubCategory::active()
+        $subSubCategories = ProductSubSubCategory::active()
             ->where('sub_cat_id', $request->sub_cat_id)
             ->orderBy('name')
             ->get(['id', 'name']);
 
         return response()->json([
             'success' => true,
-            'data'    => $miniSubCategories,
+            'data'    => $subSubCategories,
         ]);
+    }
+
+    private function rules(?int $productId = null): array
+    {
+        return [
+            'category_id'      => 'required|exists:product_categories,id',
+            'sub_cat_id'        => 'nullable|exists:product_sub_categories,id',
+            'sub_sub_cat_id'    => 'nullable|exists:product_sub_sub_categories,id',
+            'name'              => 'required|string|max:255',
+            'mrp'               => 'nullable|numeric|min:0',
+            'discount_type'     => 'nullable|in:flat,percentage',
+            'discount_value'    => 'nullable|numeric|min:0',
+            'offered_price'     => 'nullable|numeric|min:0',
+            'purchase_price'    => 'nullable|numeric|min:0',
+            'description'       => 'required|string',
+            'image'             => ($productId ? 'nullable' : 'required') . '|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'meta_title'        => 'nullable|string|max:255',
+            'meta_description'  => 'nullable|string',
+        ];
     }
 }

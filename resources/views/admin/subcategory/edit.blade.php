@@ -36,6 +36,7 @@
     select.form-control-styled { appearance: auto; }
     textarea.form-control-styled { height: auto; padding: 10px 12px; resize: vertical; }
     .form-control-styled:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(48,61,137,.12); }
+    .form-control-styled[readonly] { background: var(--bg); color: var(--text-hint); }
     .form-error { color: #b22222; font-size: 12px; margin-top: 5px; }
     .toggle-row { display: flex; align-items: center; gap: 10px; }
     .switch { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
@@ -46,6 +47,10 @@
     .switch input:checked + .switch-slider::before { transform: translateX(18px); }
     .form-actions { display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
     .current-img-preview { width: 72px; height: 72px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--border); margin-bottom: 10px; display: block; }
+    .current-video-preview { max-width: 240px; border-radius: var(--radius-sm); border: 1px solid var(--border); margin-bottom: 10px; display: block; }
+    .radio-pill-row { display: flex; gap: 10px; }
+    .radio-pill { display: flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; font-size: 13px; cursor: pointer; }
+    .radio-pill input { margin: 0; }
     </style>
 
     <div class="app-content content container-fluid">
@@ -62,16 +67,15 @@
                         Edit
                     </div>
                 </div>
-                <a href="{{ request('redirect', route('admin.subcategories.index')) }}" class="btn-secondary-dash">
+                <a href="{{ route('admin.subcategories.index') }}" class="btn-secondary-dash">
                     <i class="fa fa-arrow-left"></i> Back to List
                 </a>
             </div>
 
             <div class="cat-card">
-                <form action="{{ route('admin.subcategories.update', $subcategory->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.subcategories.update', $subcategory) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <input type="hidden" name="redirect" value="{{ request('redirect') }}">
 
                     <div class="form-field">
                         <label for="category_id">Parent Category</label>
@@ -79,8 +83,7 @@
                             class="form-control-styled @error('category_id') is-invalid @enderror" required>
                             <option value="">Select Category</option>
                             @foreach($parentCategories as $parent)
-                                <option value="{{ $parent->id }}"
-                                    {{ old('category_id', $subcategory->category_id) == $parent->id ? 'selected' : '' }}>
+                                <option value="{{ $parent->id }}" {{ old('category_id', $subcategory->category_id) == $parent->id ? 'selected' : '' }}>
                                     {{ $parent->category_name }}
                                 </option>
                             @endforeach
@@ -92,8 +95,23 @@
                         <label for="name">Sub Category Name</label>
                         <input type="text" id="name" name="name"
                             class="form-control-styled @error('name') is-invalid @enderror"
-                            value="{{ old('name', $subcategory->name) }}" required>
+                            value="{{ old('name', $subcategory->name) }}" placeholder="Enter sub category name" required>
                         @error('name') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="slug">Slug</label>
+                        <input type="text" id="slug" name="slug" class="form-control-styled" readonly
+                            value="{{ old('slug', $subcategory->slug) }}">
+                        <div class="hint">Regenerated from sub category name — used for the URL and canonical tag</div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="short_description">Short Description</label>
+                        <textarea id="short_description" name="short_description" rows="3"
+                            class="form-control-styled @error('short_description') is-invalid @enderror"
+                            placeholder="Enter a short description">{{ old('short_description', $subcategory->short_description) }}</textarea>
+                        @error('short_description') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
 
                     <div class="form-field">
@@ -103,8 +121,48 @@
                         @endif
                         <input type="file" id="image" name="image"
                             class="form-control-styled @error('image') is-invalid @enderror">
-                        <div class="hint">Leave blank to keep the current image — JPG, PNG, GIF, WEBP or SVG, max 2MB</div>
+                        <div class="hint">JPG, PNG, GIF, WEBP or SVG — max 2MB. Leave blank to keep current image.</div>
                         @error('image') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label>Banner Type</label>
+                        <div class="radio-pill-row">
+                            <label class="radio-pill">
+                                <input type="radio" name="banner_type" value="image"
+                                    {{ old('banner_type', $subcategory->banner_type) == 'image' ? 'checked' : '' }}
+                                    onchange="toggleBannerUpload(this.value)">
+                                Image
+                            </label>
+                            <label class="radio-pill">
+                                <input type="radio" name="banner_type" value="video"
+                                    {{ old('banner_type', $subcategory->banner_type) == 'video' ? 'checked' : '' }}
+                                    onchange="toggleBannerUpload(this.value)">
+                                Video
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-field" id="banner_image_field" style="display:{{ old('banner_type', $subcategory->banner_type) == 'video' ? 'none' : 'block' }}">
+                        <label for="banner_image">Banner Image</label>
+                        @if($subcategory->banner_type === 'image' && $subcategory->banner)
+                            <img src="{{ asset('storage/' . $subcategory->banner) }}" class="current-img-preview" alt="{{ $subcategory->name }} banner">
+                        @endif
+                        <input type="file" id="banner_image" name="banner_image"
+                            class="form-control-styled @error('banner_image') is-invalid @enderror" accept="image/*">
+                        <div class="hint">Leave blank to keep current banner.</div>
+                        @error('banner_image') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field" id="banner_video_field" style="display:{{ old('banner_type', $subcategory->banner_type) == 'video' ? 'block' : 'none' }}">
+                        <label for="banner_video">Banner Video</label>
+                        @if($subcategory->banner_type === 'video' && $subcategory->banner)
+                            <video src="{{ asset('storage/' . $subcategory->banner) }}" class="current-video-preview" controls></video>
+                        @endif
+                        <input type="file" id="banner_video" name="banner_video"
+                            class="form-control-styled @error('banner_video') is-invalid @enderror" accept="video/*">
+                        <div class="hint">Leave blank to keep current banner.</div>
+                        @error('banner_video') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
 
                     <div class="form-field toggle-row">
@@ -118,13 +176,13 @@
                     <div class="form-field">
                         <label for="meta_title">Meta Title</label>
                         <input type="text" id="meta_title" name="meta_title" class="form-control-styled"
-                            value="{{ old('meta_title', $subcategory->meta_title) }}">
+                            value="{{ old('meta_title', $subcategory->meta_title) }}" placeholder="Enter meta title">
                     </div>
 
                     <div class="form-field">
                         <label for="meta_keywords">Meta Keywords</label>
                         <input type="text" id="meta_keywords" name="meta_keywords" class="form-control-styled"
-                            value="{{ old('meta_keywords', $subcategory->meta_keywords) }}">
+                            value="{{ old('meta_keywords', $subcategory->meta_keywords) }}" placeholder="Enter meta keywords">
                     </div>
 
                     <div class="form-field">
@@ -137,7 +195,7 @@
                         <button type="submit" class="btn-primary-dash">
                             <i class="fa fa-check"></i> Update Sub Category
                         </button>
-                        <a href="{{ request('redirect', route('admin.subcategories.index')) }}" class="btn-secondary-dash">Cancel</a>
+                        <a href="{{ route('admin.subcategories.index') }}" class="btn-secondary-dash">Cancel</a>
                     </div>
 
                 </form>
@@ -146,5 +204,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    function toggleBannerUpload(type) {
+        document.getElementById('banner_image_field').style.display = type === 'image' ? 'block' : 'none';
+        document.getElementById('banner_video_field').style.display = type === 'video' ? 'block' : 'none';
+    }
+
+    document.getElementById('name').addEventListener('keyup', function () {
+        document.getElementById('slug').value = this.value
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+    });
+</script>
 
 @include('admin.footer')

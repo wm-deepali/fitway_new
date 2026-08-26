@@ -1,0 +1,251 @@
+@import '../_var'
+
+footer
+  position: relative
+  z-index: 1
+  overflow: hidden
+  color: #ffffff
+  background: var(--black)
+
+  // ---------- trust strip ----------
+  .footer-wrapper
+    background: var(--gray-sec)
+
+    .footer-top
+      display: flex
+      justify-content: space-between
+      flex-wrap: wrap
+      gap: 24px
+      margin: 0 auto
+      padding: 20px 0
+      width: var(--container)
+      list-style: none
+
+      @include media(767)
+        flex-direction: column
+
+      li
+        display: flex
+        gap: 14px
+        align-items: center
+
+        svg ,img
+          flex-shrink: 0
+          width: 36px
+          height: 36px
+          color: var(--primary)
+          filter: invert(52%) sepia(95%) saturate(1600%) hue-rotate(158deg) brightness(88%) contrast(101%)
+
+        .content
+          text-align: left
+
+          p
+            margin: 0
+            color: var(--primary)
+            font-weight: 600
+            font-size: 14px
+
+          span
+            font-size: 12px
+            color: var(--text)
+
+  // ---------- main footer ----------
+  .footer-wrapper-bottom
+    background: var(--black)
+
+    .footer-middle
+      padding: 60px 0
+
+      @include media(767)
+        padding: 40px 0
+
+      .container
+        display: grid
+        grid-template-columns: 21% 16% 26% 31%
+        gap: 40px
+        max-width: var(--container)
+        margin: 0 auto
+
+        @include media(1024)
+          grid-template-columns: 1fr 1fr
+          row-gap: 40px
+
+        @include media(575)
+          grid-template-columns: 1fr
+
+    h5
+      text-transform: uppercase
+      font-size: 14px
+      font-weight: 700
+      letter-spacing: .04em
+      margin-bottom: 20px
+      color: #ffffff
+
+    // ----- colA: logo + contact -----
+    .colA
+      .logo
+        display: inline-block
+        width: 160px
+        padding: 6px
+        border-radius: 6px
+        background: #ffffff
+        margin-bottom: 24px
+
+        img
+          width: 100%
+          display: block
+
+      .contact-info
+        list-style: none
+        margin-bottom: 24px
+
+        li
+          margin-bottom: 16px
+
+          .label
+            display: block
+            font-size: 12px
+            text-transform: uppercase
+            letter-spacing: .04em
+            color: rgba(255, 255, 255, .5)
+            margin-bottom: 4px
+
+          p
+            margin: 0
+            font-size: 14px
+            color: rgba(255, 255, 255, .85)
+            line-height: 1.5
+
+          a
+            color: rgba(255, 255, 255, .85)
+
+            &:hover
+              color: var(--primary)
+
+      .social
+        display: flex
+        gap: 14px
+        list-style: none
+
+        a
+          display: flex
+          align-items: center
+          justify-content: center
+          width: 38px
+          height: 38px
+          border-radius: 50%
+          border: 1px solid rgba(255, 255, 255, .25)
+          color: #ffffff
+          transition: all .2s ease
+
+          svg
+            width: 18px
+            height: 18px
+
+          &:hover
+            background: var(--primary)
+            border-color: var(--primary)
+
+    // ----- colB: quick links -----
+    .colB
+      ul
+        list-style: none
+
+        li
+          margin-bottom: 10px
+
+        a
+          font-size: 14px
+          color: rgba(255, 255, 255, .7)
+          transition: color .2s ease
+
+          &:hover
+            color: #ffffff
+
+    // ----- colC: blog posts -----
+    .colC
+      .blog-list
+        list-style: none
+
+        li
+          display: flex
+          gap: 12px
+          margin-bottom: 18px
+
+          &:last-child
+            margin-bottom: 0
+
+          img
+            width: 60px
+            height: 60px
+            border-radius: 8px
+            object-fit: cover
+            flex-shrink: 0
+
+          .content
+            display: flex
+            flex-direction: column
+            gap: 4px
+
+            a
+              font-size: 13.5px
+              font-weight: 600
+              line-height: 1.35
+              color: rgba(255, 255, 255, .9)
+
+              &:hover
+                color: var(--primary)
+
+            span
+              font-size: 12px
+              color: rgba(255, 255, 255, .45)
+
+    // ----- colD: newsletter -----
+    .colD
+      .desc
+        font-size: 13.5px
+        line-height: 1.6
+        color: rgba(255, 255, 255, .65)
+        margin-bottom: 20px
+
+      .form
+        --inputsize: 46px
+        --labelbefore: rgba(255, 255, 255, .55)
+        --labelafter: rgba(255, 255, 255, .8)
+        --borderbefore: rgba(255, 255, 255, .3)
+        --color: #ffffff
+
+        display: flex
+        align-items: center
+        gap: 10px
+        padding: 5px 5px 5px 18px
+
+        .form-group
+          flex: 1
+
+          input
+            color: #ffffff !important
+
+        
+
+    // ---------- bottom bar ----------
+    .footer-bottom
+      border-top: 1px solid rgba(255, 255, 255, .12)
+      padding: 20px 0
+
+      .container
+        display: flex
+        justify-content: space-between
+        align-items: center
+        max-width: var(--container)
+        margin: 0 auto
+
+        @include media(767)
+          flex-direction: column
+          gap: 10px
+          text-align: center
+
+        .copyright
+          font-size: 12px
+          font-weight: 500
+          color: rgba(255, 255, 255, .6)

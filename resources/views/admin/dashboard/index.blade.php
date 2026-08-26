@@ -482,8 +482,111 @@
         </div>
       </div>
 
+      <!-- KPI cards -->
+      <div class="row g-3 mb-3">
+        <div class="col-md-3 col-sm-6">
+          <div class="kpi-card">
+            <div class="kpi-icon purple"><i class="fa-solid fa-box"></i></div>
+            <div class="kpi-label">Products</div>
+            <div class="kpi-value">{{ $counts['products'] }}</div>
+            <div class="kpi-divider"></div>
+            <div class="kpi-sub">{{ $counts['categories'] }} categories · {{ $counts['subcategories'] }} sub-categories
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="kpi-card">
+            <div class="kpi-icon blue"><i class="fa-solid fa-images"></i></div>
+            <div class="kpi-label">Slider Banners</div>
+            <div class="kpi-value">{{ $counts['sliders'] }}</div>
+            <div class="kpi-divider"></div>
+            <div class="kpi-sub">Currently on homepage</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="kpi-card">
+            <div class="kpi-icon amber"><i class="fa-solid fa-comment-dots"></i></div>
+            <div class="kpi-label">Testimonials</div>
+            <div class="kpi-value">{{ $counts['testimonials'] }}</div>
+            <div class="kpi-divider"></div>
+            <div class="kpi-sub">{{ $counts['feedbacks'] }} feedbacks received</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6">
+          <div class="kpi-card">
+            <div class="kpi-icon green"><i class="fa-solid fa-inbox"></i></div>
+            <div class="kpi-label">Leads &amp; Enquiries</div>
+            <div class="kpi-value">
+              {{ $counts['contacts'] + $counts['inquiries'] + $counts['setupMyGym'] + $counts['productEnq'] }}</div>
+            <div class="kpi-divider"></div>
+            <div class="kpi-sub">{{ $counts['newsletter'] }} newsletter subscribers</div>
+          </div>
+        </div>
+      </div>
 
-  
+      <!-- Chart + Latest leads -->
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="cardx">
+            <h5>Products by Category</h5>
+            <div class="chart-wrap">
+              <canvas id="categoryChart"></canvas>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="cardx">
+            <h5>Latest Contact Enquiries</h5>
+            <table class="dash-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Message</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                @forelse($latestLeads as $lead)
+                  <tr>
+                    <td>{{ $lead->name }}</td>
+                    <td>{{ Str::limit($lead->message, 40) }}</td>
+                    <td>{{ $lead->created_at->format('d M, Y') }}</td>
+                  </tr>
+                @empty
+                  <tr>
+                    <td colspan="3" class="text-center text-secondary">No enquiries yet</td>
+                  </tr>
+                @endforelse
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        const categoryChart = new Chart(document.getElementById('categoryChart'), {
+          type: 'bar',
+          data: {
+            labels: @json($categoryDistribution->pluck('name')),
+            datasets: [{
+              label: 'Products',
+              data: @json($categoryDistribution->pluck('products_count')),
+              backgroundColor: '#303d89',
+              borderRadius: 6,
+              maxBarThickness: 36
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: { y: { beginAtZero: true, ticks: { precision: 0 } } }
+          }
+        });
+      </script>
+
+
 
     </div><!-- /content-area -->
   </div><!-- /container-fluid -->

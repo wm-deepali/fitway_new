@@ -98,8 +98,8 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="mini_sub_cat_id">Mini Sub Category</label>
-                        <select id="mini_sub_cat_id" name="mini_sub_cat_id"
+                        <label for="sub_sub_cat_id">Sub Sub Category</label>
+                        <select id="sub_sub_cat_id" name="sub_sub_cat_id"
                             class="form-control-styled" disabled>
                             <option value="">Select Sub Category First</option>
                         </select>
@@ -111,26 +111,60 @@
                             class="form-control-styled @error('name') is-invalid @enderror"
                             value="{{ old('name') }}" placeholder="Enter product name" required>
                         @error('name') <div class="form-error">{{ $message }}</div> @enderror
+                        <div class="hint">Slug is generated automatically from the product name.</div>
                     </div>
 
                     <div class="form-row-2">
                         <div class="form-field">
-                            <label for="previous_price">Previous Price</label>
-                            <input type="text" id="previous_price" name="previous_price" class="form-control-styled"
-                                value="{{ old('previous_price') }}" placeholder="Enter previous price">
+                            <label for="mrp">MRP</label>
+                            <input type="text" id="mrp" name="mrp"
+                                class="form-control-styled @error('mrp') is-invalid @enderror"
+                                value="{{ old('mrp') }}" placeholder="Enter MRP">
+                            @error('mrp') <div class="form-error">{{ $message }}</div> @enderror
                         </div>
                         <div class="form-field">
-                            <label for="new_price">New Price</label>
-                            <input type="text" id="new_price" name="new_price" class="form-control-styled"
-                                value="{{ old('new_price') }}" placeholder="Enter new price">
+                            <label for="purchase_price">Purchase Price</label>
+                            <input type="text" id="purchase_price" name="purchase_price"
+                                class="form-control-styled @error('purchase_price') is-invalid @enderror"
+                                value="{{ old('purchase_price') }}" placeholder="Enter purchase price">
+                            @error('purchase_price') <div class="form-error">{{ $message }}</div> @enderror
                         </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-field">
+                            <label for="discount_type">Discount Type</label>
+                            <select id="discount_type" name="discount_type"
+                                class="form-control-styled @error('discount_type') is-invalid @enderror">
+                                <option value="">No Discount</option>
+                                <option value="flat" {{ old('discount_type') === 'flat' ? 'selected' : '' }}>Flat</option>
+                                <option value="percentage" {{ old('discount_type') === 'percentage' ? 'selected' : '' }}>Percentage</option>
+                            </select>
+                            @error('discount_type') <div class="form-error">{{ $message }}</div> @enderror
+                        </div>
+                        <div class="form-field">
+                            <label for="discount_value">Discount Value</label>
+                            <input type="text" id="discount_value" name="discount_value"
+                                class="form-control-styled @error('discount_value') is-invalid @enderror"
+                                value="{{ old('discount_value') }}" placeholder="e.g. 10">
+                            @error('discount_value') <div class="form-error">{{ $message }}</div> @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="offered_price">Offered Price</label>
+                        <input type="text" id="offered_price" name="offered_price"
+                            class="form-control-styled @error('offered_price') is-invalid @enderror"
+                            value="{{ old('offered_price') }}" placeholder="Auto-calculated from MRP and discount, or enter manually">
+                        <div class="hint">Leave blank to show "Price on Request" on the storefront.</div>
+                        @error('offered_price') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
 
                     <div class="form-field">
                         <label for="image">Image</label>
                         <input type="file" id="image" name="image"
                             class="form-control-styled @error('image') is-invalid @enderror" required>
-                        <div class="hint">JPG, PNG, GIF, WEBP or SVG — max 2MB</div>
+                        <div class="hint">JPG, PNG, GIF, WEBP or SVG — max 2MB. Alt tag is generated automatically from Sub Sub Category + product name.</div>
                         @error('image') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
 
@@ -153,12 +187,6 @@
                         <label for="meta_title">Meta Title</label>
                         <input type="text" id="meta_title" name="meta_title" class="form-control-styled"
                             value="{{ old('meta_title') }}" placeholder="Enter meta title">
-                    </div>
-
-                    <div class="form-field">
-                        <label for="meta_keywords">Meta Keywords</label>
-                        <input type="text" id="meta_keywords" name="meta_keywords" class="form-control-styled"
-                            value="{{ old('meta_keywords') }}" placeholder="Enter meta keywords">
                     </div>
 
                     <div class="form-field">
@@ -191,18 +219,46 @@
 function restrictNumber(e) {
     this.value = this.value.replace(/[^\d.]/g, '');
 }
-document.getElementById('previous_price').addEventListener('input', restrictNumber);
-document.getElementById('new_price').addEventListener('input', restrictNumber);
+['mrp', 'purchase_price', 'discount_value', 'offered_price'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', restrictNumber);
+});
+
+// Auto-calculate Offered Price from MRP + Discount, but stop once the admin edits it manually.
+let offeredPriceTouched = false;
+document.getElementById('offered_price').addEventListener('input', function () {
+    offeredPriceTouched = true;
+});
+
+function recalcOfferedPrice() {
+    if (offeredPriceTouched) return;
+
+    const mrp = parseFloat(document.getElementById('mrp').value) || 0;
+    const type = document.getElementById('discount_type').value;
+    const value = parseFloat(document.getElementById('discount_value').value) || 0;
+
+    if (!mrp) return;
+
+    let offered = mrp;
+    if (type === 'flat') offered = mrp - value;
+    if (type === 'percentage') offered = mrp - (mrp * value / 100);
+
+    document.getElementById('offered_price').value = offered > 0 ? offered.toFixed(2) : 0;
+}
+
+['mrp', 'discount_type', 'discount_value'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', recalcOfferedPrice);
+    document.getElementById(id).addEventListener('change', recalcOfferedPrice);
+});
 
 document.getElementById('category_id').addEventListener('change', function () {
     const categoryId = this.value;
     const subSelect = document.getElementById('sub_cat_id');
-    const miniSelect = document.getElementById('mini_sub_cat_id');
+    const subSubSelect = document.getElementById('sub_sub_cat_id');
 
     subSelect.innerHTML = '<option value="">Loading…</option>';
     subSelect.disabled = true;
-    miniSelect.innerHTML = '<option value="">Select Sub Category First</option>';
-    miniSelect.disabled = true;
+    subSubSelect.innerHTML = '<option value="">Select Sub Category First</option>';
+    subSubSelect.disabled = true;
 
     if (!categoryId) {
         subSelect.innerHTML = '<option value="">Select Category First</option>';
@@ -225,27 +281,27 @@ document.getElementById('category_id').addEventListener('change', function () {
 
 document.getElementById('sub_cat_id').addEventListener('change', function () {
     const subCatId = this.value;
-    const miniSelect = document.getElementById('mini_sub_cat_id');
+    const subSubSelect = document.getElementById('sub_sub_cat_id');
 
-    miniSelect.innerHTML = '<option value="">Loading…</option>';
-    miniSelect.disabled = true;
+    subSubSelect.innerHTML = '<option value="">Loading…</option>';
+    subSubSelect.disabled = true;
 
     if (!subCatId) {
-        miniSelect.innerHTML = '<option value="">Select Sub Category First</option>';
+        subSubSelect.innerHTML = '<option value="">Select Sub Category First</option>';
         return;
     }
 
-    fetch("{{ route('admin.products.getMiniSubCategories') }}?sub_cat_id=" + subCatId)
+    fetch("{{ route('admin.products.getSubSubCategories') }}?sub_cat_id=" + subCatId)
         .then(res => res.json())
         .then(res => {
-            miniSelect.innerHTML = '<option value="">Select Mini Sub Category</option>';
-            res.data.forEach(mini => {
+            subSubSelect.innerHTML = '<option value="">Select Sub Sub Category</option>';
+            res.data.forEach(subSub => {
                 const opt = document.createElement('option');
-                opt.value = mini.id;
-                opt.textContent = mini.name;
-                miniSelect.appendChild(opt);
+                opt.value = subSub.id;
+                opt.textContent = subSub.name;
+                subSubSelect.appendChild(opt);
             });
-            miniSelect.disabled = false;
+            subSubSelect.disabled = false;
         });
 });
 </script>

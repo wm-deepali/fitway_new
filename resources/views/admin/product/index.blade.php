@@ -8,9 +8,7 @@
     :root {
         --bg: #f1f2f4; --surface: #ffffff; --border: #e3e5e8;
         --text-primary: #202223; --text-secondary:#6d7175; --text-hint:#8c9196;
-        --accent: #303d89; --green: #007a5e; --green-bg: #e3f1ec;
-        --red: #b22222; --red-bg: #fce8e8;
-        --radius-sm: 8px; --radius-md: 12px;
+        --accent: #303d89; --radius-sm: 8px; --radius-md: 12px;
         --shadow-card: 0 1px 3px rgba(0,0,0,.08), 0 0 0 1px var(--border);
         --font: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     }
@@ -22,55 +20,45 @@
     .cat-breadcrumb a { color: var(--accent); text-decoration: none; }
     .cat-breadcrumb a:hover { text-decoration: underline; }
     .cat-breadcrumb span { margin: 0 5px; }
-    .btn-primary-dash { display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: #fff !important; border: none; border-radius: var(--radius-sm); padding: 8px 16px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none !important; box-shadow: 0 1px 3px rgba(48,61,137,.25); }
+    .btn-primary-dash { display: inline-flex; align-items: center; gap: 6px; background: var(--accent); color: #fff !important; border: none; border-radius: var(--radius-sm); padding: 9px 18px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none !important; box-shadow: 0 1px 3px rgba(48,61,137,.25); }
     .btn-primary-dash:hover { background: #252f70; }
-    .btn-secondary-dash { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); color: var(--text-primary) !important; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 16px; font-size: 13px; font-weight: 500; cursor: pointer; text-decoration: none !important; }
+    .btn-secondary-dash { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); color: var(--text-primary) !important; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 18px; font-size: 13px; font-weight: 500; cursor: pointer; text-decoration: none !important; }
     .btn-secondary-dash:hover { background: var(--bg); }
-    .cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-card); overflow: hidden; }
-    .filter-bar { padding: 16px 20px; border-bottom: 1px solid var(--border); background: var(--surface); }
-    .filter-bar .form-row-inner { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
-    .filter-group { display: flex; flex-direction: column; gap: 5px; }
-    .filter-group label { font-size: 12px; font-weight: 600; color: var(--text-secondary); letter-spacing: .03em; text-transform: uppercase; }
-    .filter-control { height: 36px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0 11px; font-size: 13px; color: var(--text-primary); background: var(--surface); outline: none; font-family: var(--font); min-width: 160px; }
-    .filter-control:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(48,61,137,.12); }
-    .filter-control-wide { min-width: 220px; }
-    .filter-actions { display: flex; gap: 8px; align-items: center; }
-    .cat-table-wrap { overflow-x: auto; }
-    .cat-table { width: 100%; border-collapse: collapse; font-size: 13px; font-family: var(--font); }
-    .cat-table thead th { font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--text-hint); padding: 10px 16px; border-bottom: 1px solid var(--border); background: #fafafa; text-align: left; white-space: nowrap; }
-    .cat-table tbody tr { border-bottom: 1px solid var(--border); }
-    .cat-table tbody tr:last-child { border-bottom: none; }
-    .cat-table tbody tr:hover { background: #fafbfc; }
-    .cat-table tbody td { padding: 12px 16px; vertical-align: middle; }
-    .sort-link { color: var(--text-hint); text-decoration: none; font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; display: inline-flex; align-items: center; gap: 4px; }
-    .sort-link:hover { color: var(--text-primary); text-decoration: none; }
-    .sort-link .fa-sort { opacity: .4; }
-    .sort-link .fa-sort-up, .sort-link .fa-sort-down { color: var(--accent); opacity: 1; }
-    .cat-img { width: 44px; height: 44px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--border); }
-    .cat-img-placeholder { width: 44px; height: 44px; border-radius: var(--radius-sm); background: var(--bg); display: flex; align-items: center; justify-content: center; color: var(--text-hint); font-size: 16px; border: 1px solid var(--border); }
-    .cat-name-cell strong { display: block; font-weight: 600; font-size: 13px; }
-    .cat-name-cell small { font-size: 11.5px; color: var(--text-hint); margin-top: 1px; display: block; }
-    .price-cell .new-price { font-weight: 700; color: var(--text-primary); font-size: 13.5px; }
-    .price-cell .old-price { font-size: 11.5px; color: var(--text-hint); text-decoration: line-through; margin-left: 6px; }
-    .pill { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 600; padding: 3px 9px; border-radius: 20px; white-space: nowrap; }
-    .pill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; display: inline-block; }
-    .pill-active  { background: var(--green-bg); color: var(--green); }
-    .pill-active::before  { background: var(--green); }
-    .pill-inactive { background: var(--red-bg); color: var(--red); }
-    .pill-inactive::before { background: var(--red); }
-    .action-btn { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary); font-size: 12px; cursor: pointer; text-decoration: none; }
-    .action-btn:hover { background: var(--bg); color: var(--text-primary); }
-    .action-btn-danger:hover { background: var(--red-bg); border-color: #f5c6c6; color: var(--red); }
-    .empty-state { text-align: center; padding: 64px 20px; }
-    .empty-state .empty-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--bg); display: inline-flex; align-items: center; justify-content: center; font-size: 22px; color: var(--text-hint); margin-bottom: 14px; }
-    .empty-state p { font-size: 14px; color: var(--text-secondary); margin: 6px 0 16px; }
-    .cat-pagination { padding: 14px 20px; border-top: 1px solid var(--border); display: flex; justify-content: center; background: var(--surface); }
-    .id-chip { display: inline-block; background: var(--bg); color: var(--text-secondary); font-size: 11px; font-weight: 700; padding: 2px 7px; border-radius: 6px; font-family: 'SF Mono', 'Fira Code', monospace; }
-    @media (max-width: 768px) {
-        .cat-page { padding: 16px; }
-        .filter-bar .form-row-inner { flex-direction: column; }
-        .filter-control { min-width: 100%; }
+    .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary) !important; text-decoration: none !important; cursor: pointer; }
+    .icon-btn:hover { background: var(--bg); }
+    .icon-btn.danger:hover { background: #fdecec; color: #b22222 !important; border-color: #f3c6c6; }
+    .cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-card); }
+    .filters-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .form-control-styled {
+        height: 38px; border: 1px solid var(--border); border-radius: var(--radius-sm);
+        padding: 0 12px; font-size: 13px; font-family: var(--font); color: var(--text-primary);
+        outline: none; background: var(--surface);
     }
+    .filters-bar select.form-control-styled { min-width: 160px; }
+    .filters-bar input[type="text"].form-control-styled { min-width: 220px; }
+    .filters-bar .clear-link { font-size: 12.5px; color: var(--text-hint); text-decoration: none; }
+    .filters-bar .clear-link:hover { color: var(--accent); }
+    table.products-table { width: 100%; border-collapse: collapse; }
+    table.products-table th, table.products-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); font-size: 13px; vertical-align: middle; }
+    table.products-table th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-hint); font-weight: 650; }
+    table.products-table th a { color: inherit; text-decoration: none; }
+    table.products-table th a:hover { color: var(--accent); }
+    table.products-table tbody tr:hover { background: #fafbfc; }
+    .prod-cell { display: flex; align-items: center; gap: 10px; }
+    .prod-cell img { width: 40px; height: 40px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); }
+    .prod-name { font-weight: 600; }
+    .prod-slug { font-size: 11.5px; color: var(--text-hint); }
+    .cat-path { font-size: 12px; color: var(--text-secondary); }
+    .price-offered { font-weight: 600; }
+    .price-mrp { color: var(--text-hint); text-decoration: line-through; font-size: 11.5px; margin-left: 6px; }
+    .price-request { color: var(--text-hint); font-style: italic; }
+    .badge { display: inline-block; padding: 3px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 600; }
+    .badge.active { background: #e4f5e9; color: #1e7a3f; }
+    .badge.inactive { background: #f1f2f4; color: var(--text-hint); }
+    .row-actions { display: flex; gap: 6px; }
+    .empty-state { padding: 48px 20px; text-align: center; color: var(--text-hint); font-size: 13.5px; }
+    .pagination-wrap { padding: 16px 20px; border-top: 1px solid var(--border); }
+    @media (max-width: 768px) { table.products-table { display: block; overflow-x: auto; } }
     </style>
 
     <div class="app-content content container-fluid">
@@ -82,7 +70,7 @@
                     <div class="cat-breadcrumb">
                         <a href="{{ route('admin.dashboard') }}">Dashboard</a>
                         <span>›</span>
-                        Manage Products
+                        Products
                     </div>
                 </div>
                 <a href="{{ route('admin.products.create') }}" class="btn-primary-dash">
@@ -91,172 +79,107 @@
             </div>
 
             <div class="cat-card">
+                <form action="{{ route('admin.products.index') }}" method="GET" class="filters-bar" id="filters-form">
+                    <select id="category_id" name="category_id" class="form-control-styled">
+                        <option value="">All Categories</option>
+                        @foreach($parentCategories as $parent)
+                            <option value="{{ $parent->id }}" {{ request('category_id') == $parent->id ? 'selected' : '' }}>
+                                {{ $parent->category_name }}
+                            </option>
+                        @endforeach
+                    </select>
 
-                <div class="filter-bar">
-                    <form method="GET">
-                        <div class="form-row-inner">
+                    <select id="sub_cat_id" name="sub_cat_id" class="form-control-styled">
+                        <option value="">All Sub Categories</option>
+                        @foreach($subCategories as $sub)
+                            <option value="{{ $sub->id }}" {{ request('sub_cat_id') == $sub->id ? 'selected' : '' }}>
+                                {{ $sub->name }}
+                            </option>
+                        @endforeach
+                    </select>
 
-                            <div class="filter-group">
-                                <label>Category</label>
-                                <select name="category_id" id="filterCategory" class="filter-control">
-                                    <option value="">All Categories</option>
-                                    @foreach($parentCategories as $parent)
-                                        <option value="{{ $parent->id }}"
-                                            {{ request('category_id') == $parent->id ? 'selected' : '' }}>
-                                            {{ $parent->category_name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                    <input type="text" name="search" class="form-control-styled" placeholder="Search products…" value="{{ request('search') }}">
 
-                            <div class="filter-group">
-                                <label>Sub Category</label>
-                                <select name="sub_cat_id" id="filterSubCategory" class="filter-control">
-                                    <option value="">All Sub Categories</option>
-                                    @foreach($subCategories as $sub)
-                                        <option value="{{ $sub->id }}"
-                                            {{ request('sub_cat_id') == $sub->id ? 'selected' : '' }}>
-                                            {{ $sub->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+                    <button type="submit" class="btn-secondary-dash">
+                        <i class="fa fa-filter"></i> Filter
+                    </button>
 
-                            <div class="filter-group" style="flex:1">
-                                <label>Search</label>
-                                <input type="text" name="search" value="{{ request('search') }}"
-                                    class="filter-control filter-control-wide"
-                                    placeholder="Search product name…">
-                            </div>
+                    @if(request()->hasAny(['category_id', 'sub_cat_id', 'search']))
+                        <a href="{{ route('admin.products.index') }}" class="clear-link">Clear filters</a>
+                    @endif
+                </form>
 
-                            <div class="filter-actions">
-                                <button type="submit" class="btn-primary-dash">
-                                    <i class="fa fa-search"></i> Search
-                                </button>
-                                <a href="{{ route('admin.products.index') }}" class="btn-secondary-dash">
-                                    <i class="fa fa-refresh"></i> Reset
-                                </a>
-                            </div>
-
-                        </div>
-                    </form>
-                </div>
-
-                <div class="cat-table-wrap">
-
-                    @php
-                        function prodSortUrl($column) {
-                            $direction = request('sort_by') == $column && request('sort_order') == 'asc' ? 'desc' : 'asc';
-                            return request()->fullUrlWithQuery(['sort_by' => $column, 'sort_order' => $direction]);
-                        }
-                        function prodSortIcon($column) {
-                            if (request('sort_by') != $column) return '<i class="fa fa-sort"></i>';
-                            return request('sort_order') == 'asc'
-                                ? '<i class="fa fa-sort-up" style="color:var(--accent)"></i>'
-                                : '<i class="fa fa-sort-down" style="color:var(--accent)"></i>';
-                        }
-                    @endphp
-
-                    <table class="cat-table">
+                @if($products->isEmpty())
+                    <div class="empty-state">No products found.</div>
+                @else
+                    <table class="products-table">
                         <thead>
                             <tr>
-                                <th>
-                                    <a href="{{ prodSortUrl('id') }}" class="sort-link">ID {!! prodSortIcon('id') !!}</a>
-                                </th>
-                                <th>Image</th>
-                                <th>
-                                    <a href="{{ prodSortUrl('name') }}" class="sort-link">Name {!! prodSortIcon('name') !!}</a>
-                                </th>
-                                <th>Category</th>
-                                <th>
-                                    <a href="{{ prodSortUrl('new_price') }}" class="sort-link">Price {!! prodSortIcon('new_price') !!}</a>
-                                </th>
-                                <th>
-                                    <a href="{{ prodSortUrl('status') }}" class="sort-link">Status {!! prodSortIcon('status') !!}</a>
-                                </th>
-                                <th style="width:90px">Actions</th>
+                                <th>Product</th>
+                                <th>Category Path</th>
+                                <th><a href="{{ request()->fullUrlWithQuery(['sort_by' => 'offered_price', 'sort_order' => request('sort_by') === 'offered_price' && request('sort_order') === 'asc' ? 'desc' : 'asc']) }}">Price</a></th>
+                                <th><a href="{{ request()->fullUrlWithQuery(['sort_by' => 'status', 'sort_order' => request('sort_by') === 'status' && request('sort_order') === 'asc' ? 'desc' : 'asc']) }}">Status</a></th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
-
                         <tbody>
-                            @forelse($products as $product)
-                                <tr id="row{{ $product->id }}">
-
-                                    <td><span class="id-chip">{{ $product->id }}</span></td>
-
+                            @foreach($products as $product)
+                                <tr id="product-row-{{ $product->id }}">
                                     <td>
-                                        @if($product->image)
-                                            <img src="{{ asset('storage/' . $product->image) }}"
-                                                class="cat-img" alt="{{ $product->name }}">
-                                        @else
-                                            <div class="cat-img-placeholder">
-                                                <i class="fa fa-image"></i>
+                                        <div class="prod-cell">
+                                            @if($product->image_url)
+                                                <img src="{{ $product->image_url }}" alt="{{ $product->image_alt }}">
+                                            @else
+                                                <img src="{{ asset('Admin/images/no-image.png') }}" alt="{{ $product->name }}">
+                                            @endif
+                                            <div>
+                                                <div class="prod-name">{{ $product->name }}</div>
+                                                <div class="prod-slug">{{ $product->slug }}</div>
                                             </div>
-                                        @endif
-                                    </td>
-
-                                    <td>
-                                        <div class="cat-name-cell">
-                                            <strong>{{ $product->name }}</strong>
-                                            <small>{{ $product->subCategory->name ?? '' }}{{ $product->miniSubCategory ? ' / '.$product->miniSubCategory->name : '' }}</small>
                                         </div>
                                     </td>
-
-                                    <td style="color:var(--text-secondary);font-size:13px">
-                                        {{ $product->category->category_name ?? '—' }}
+                                    <td>
+                                        <div class="cat-path">
+                                            {{ $product->category->category_name ?? '—' }}
+                                            @if($product->subCategory) › {{ $product->subCategory->name }} @endif
+                                            @if($product->subSubCategory) › {{ $product->subSubCategory->name }} @endif
+                                        </div>
                                     </td>
-
-                                    <td class="price-cell">
-                                        <span class="new-price">₹{{ number_format($product->new_price, 2) }}</span>
-                                        @if($product->previous_price)
-                                            <span class="old-price">₹{{ number_format($product->previous_price, 2) }}</span>
+                                    <td>
+                                        @if($product->offered_price !== null)
+                                            <span class="price-offered">₹{{ number_format($product->offered_price, 2) }}</span>
+                                            @if($product->mrp && $product->mrp > $product->offered_price)
+                                                <span class="price-mrp">₹{{ number_format($product->mrp, 2) }}</span>
+                                            @endif
+                                        @else
+                                            <span class="price-request">Price on Request</span>
                                         @endif
                                     </td>
-
                                     <td>
-                                        {!! $product->status
-                                            ? '<span class="pill pill-active">Active</span>'
-                                            : '<span class="pill pill-inactive">Inactive</span>' !!}
+                                        <span class="badge {{ $product->status ? 'active' : 'inactive' }}">
+                                            {{ $product->status ? 'Active' : 'Inactive' }}
+                                        </span>
                                     </td>
-
                                     <td>
-                                        <div style="display:flex;gap:6px">
-                                            <a href="{{ route('admin.products.edit', ['product' => $product->id, 'redirect' => request()->fullUrl()]) }}"
-                                                class="action-btn" title="Edit">
+                                        <div class="row-actions">
+                                            <a href="{{ route('admin.products.edit', $product) }}" class="icon-btn" title="Edit">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <button class="action-btn action-btn-danger"
-                                                onclick="deleteProduct({{ $product->id }})" title="Delete">
+                                            <button type="button" class="icon-btn danger" title="Delete"
+                                                onclick="deleteProduct({{ $product->id }})">
                                                 <i class="fa fa-trash"></i>
                                             </button>
                                         </div>
                                     </td>
-
                                 </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="7">
-                                        <div class="empty-state">
-                                            <div class="empty-icon">
-                                                <i class="fa fa-box-open"></i>
-                                            </div>
-                                            <strong style="font-size:14px;color:var(--text-primary)">No products found</strong>
-                                            <p>Try adjusting your filters or add a new product to get started.</p>
-                                            <a href="{{ route('admin.products.create') }}" class="btn-primary-dash">
-                                                <i class="fa fa-plus"></i> Add Product
-                                            </a>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @endforelse
+                            @endforeach
                         </tbody>
                     </table>
-                </div>
 
-                <div class="cat-pagination">
-                    {{ $products->links() }}
-                </div>
-
+                    <div class="pagination-wrap">
+                        {{ $products->appends(request()->query())->links() }}
+                    </div>
+                @endif
             </div>
 
         </div>
@@ -266,44 +189,21 @@
 @include('admin.footer')
 
 <script>
-function deleteProduct(id) {
-    Swal.fire({
-        title: 'Delete Product?',
-        text: "This action cannot be undone.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#b22222',
-        cancelButtonColor: '#6d7175',
-        confirmButtonText: 'Yes, Delete'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                url: "{{ url('admin/products') }}/" + id,
-                type: "DELETE",
-                data: { _token: "{{ csrf_token() }}" },
-                beforeSend: function () { Swal.showLoading(); },
-                success: function (res) {
-                    Swal.fire('Deleted!', res.message, 'success');
-                    $("#row" + id).fadeOut(300, function () { $(this).remove(); });
-                },
-                error: function () {
-                    Swal.fire('Error!', 'Something went wrong', 'error');
-                }
-            });
-        }
-    });
-}
-
-document.getElementById('filterCategory').addEventListener('change', function () {
+document.getElementById('category_id').addEventListener('change', function () {
+    const subSelect = document.getElementById('sub_cat_id');
     const categoryId = this.value;
-    const subSelect = document.getElementById('filterSubCategory');
-    subSelect.innerHTML = '<option value="">All Sub Categories</option>';
 
-    if (!categoryId) return;
+    subSelect.innerHTML = '<option value="">Loading…</option>';
+
+    if (!categoryId) {
+        subSelect.innerHTML = '<option value="">All Sub Categories</option>';
+        return;
+    }
 
     fetch("{{ route('admin.products.getSubCategories') }}?category_id=" + categoryId)
         .then(res => res.json())
         .then(res => {
+            subSelect.innerHTML = '<option value="">All Sub Categories</option>';
             res.data.forEach(sub => {
                 const opt = document.createElement('option');
                 opt.value = sub.id;
@@ -312,4 +212,36 @@ document.getElementById('filterCategory').addEventListener('change', function ()
             });
         });
 });
+
+function deleteProduct(productId) {
+    Swal.fire({
+        title: 'Delete this product?',
+        text: 'This action cannot be undone.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Delete',
+        confirmButtonColor: '#b22222',
+        cancelButtonText: 'Cancel',
+    }).then((result) => {
+        if (!result.isConfirmed) return;
+
+        fetch(`/admin/products/${productId}`, {
+            method: 'DELETE',
+            headers: {
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                'Accept': 'application/json',
+            },
+        })
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    document.getElementById(`product-row-${productId}`).remove();
+                    Swal.fire('Deleted', res.message, 'success');
+                } else {
+                    Swal.fire('Error', res.message || 'Something went wrong.', 'error');
+                }
+            })
+            .catch(() => Swal.fire('Error', 'Something went wrong.', 'error'));
+    });
+}
 </script>

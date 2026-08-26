@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class DynamicPage extends Model
+{
+    use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'slug',
+        'content',
+        'meta_title',
+        'meta_keywords',
+        'meta_description',
+        'status',
+    ];
+
+    protected $casts = [
+        'status' => 'integer',
+    ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+}

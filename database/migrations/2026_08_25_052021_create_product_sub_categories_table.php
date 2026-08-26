@@ -13,8 +13,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('category_id')->constrained('product_categories')->cascadeOnDelete();
             $table->string('name');
+            $table->text('short_description')->nullable();
             $table->string('slug')->unique();
             $table->string('image')->nullable();
+            $table->string('banner_type')->default('image'); // image | video
+            $table->string('banner')->nullable();
             $table->boolean('status')->default(true);
             $table->string('meta_title')->nullable();
             $table->string('meta_keywords')->nullable();

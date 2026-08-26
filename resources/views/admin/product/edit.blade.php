@@ -35,6 +35,7 @@
         outline: none; transition: border-color .15s, box-shadow .15s; background: var(--surface);
     }
     select.form-control-styled { appearance: auto; }
+    select.form-control-styled:disabled { background: var(--bg); color: var(--text-hint); }
     textarea.form-control-styled { height: auto; padding: 10px 12px; resize: vertical; }
     .form-control-styled:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(48,61,137,.12); }
     .form-error { color: #b22222; font-size: 12px; margin-top: 5px; }
@@ -46,7 +47,9 @@
     .switch input:checked + .switch-slider { background: var(--accent); }
     .switch input:checked + .switch-slider::before { transform: translateX(18px); }
     .form-actions { display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
-    .current-img-preview { width: 72px; height: 72px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--border); margin-bottom: 10px; display: block; }
+    .current-image { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .current-image img { width: 64px; height: 64px; object-fit: cover; border-radius: var(--radius-sm); border: 1px solid var(--border); }
+    .current-image .label { font-size: 12px; color: var(--text-hint); }
     @media (max-width: 640px) { .form-row-2 { grid-template-columns: 1fr; } }
     </style>
 
@@ -64,16 +67,16 @@
                         Edit
                     </div>
                 </div>
-                <a href="{{ request('redirect', route('admin.products.index')) }}" class="btn-secondary-dash">
+                <a href="{{ route('admin.products.index') }}" class="btn-secondary-dash">
                     <i class="fa fa-arrow-left"></i> Back to List
                 </a>
             </div>
 
             <div class="cat-card">
-                <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.products.update', $product) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <input type="hidden" name="redirect" value="{{ request('redirect') }}">
+                    <input type="hidden" name="redirect" value="{{ request()->query('redirect') }}">
 
                     <div class="form-row-2">
                         <div class="form-field">
@@ -82,8 +85,7 @@
                                 class="form-control-styled @error('category_id') is-invalid @enderror" required>
                                 <option value="">Select Category</option>
                                 @foreach($parentCategories as $parent)
-                                    <option value="{{ $parent->id }}"
-                                        {{ old('category_id', $product->category_id) == $parent->id ? 'selected' : '' }}>
+                                    <option value="{{ $parent->id }}" {{ old('category_id', $product->category_id) == $parent->id ? 'selected' : '' }}>
                                         {{ $parent->category_name }}
                                     </option>
                                 @endforeach
@@ -96,8 +98,7 @@
                             <select id="sub_cat_id" name="sub_cat_id" class="form-control-styled">
                                 <option value="">Select Sub Category</option>
                                 @foreach($subCategories as $sub)
-                                    <option value="{{ $sub->id }}"
-                                        {{ old('sub_cat_id', $product->sub_cat_id) == $sub->id ? 'selected' : '' }}>
+                                    <option value="{{ $sub->id }}" {{ old('sub_cat_id', $product->sub_cat_id) == $sub->id ? 'selected' : '' }}>
                                         {{ $sub->name }}
                                     </option>
                                 @endforeach
@@ -106,13 +107,12 @@
                     </div>
 
                     <div class="form-field">
-                        <label for="mini_sub_cat_id">Mini Sub Category</label>
-                        <select id="mini_sub_cat_id" name="mini_sub_cat_id" class="form-control-styled">
-                            <option value="">Select Mini Sub Category</option>
-                            @foreach($miniSubCategories as $mini)
-                                <option value="{{ $mini->id }}"
-                                    {{ old('mini_sub_cat_id', $product->mini_sub_cat_id) == $mini->id ? 'selected' : '' }}>
-                                    {{ $mini->name }}
+                        <label for="sub_sub_cat_id">Sub Sub Category</label>
+                        <select id="sub_sub_cat_id" name="sub_sub_cat_id" class="form-control-styled">
+                            <option value="">Select Sub Sub Category</option>
+                            @foreach($subSubCategories as $subSub)
+                                <option value="{{ $subSub->id }}" {{ old('sub_sub_cat_id', $product->sub_sub_cat_id) == $subSub->id ? 'selected' : '' }}>
+                                    {{ $subSub->name }}
                                 </option>
                             @endforeach
                         </select>
@@ -122,31 +122,68 @@
                         <label for="name">Product Name</label>
                         <input type="text" id="name" name="name"
                             class="form-control-styled @error('name') is-invalid @enderror"
-                            value="{{ old('name', $product->name) }}" required>
+                            value="{{ old('name', $product->name) }}" placeholder="Enter product name" required>
                         @error('name') <div class="form-error">{{ $message }}</div> @enderror
+                        <div class="hint">Slug: {{ $product->slug }} (regenerates automatically if you change the name)</div>
                     </div>
 
                     <div class="form-row-2">
                         <div class="form-field">
-                            <label for="previous_price">Previous Price</label>
-                            <input type="text" id="previous_price" name="previous_price" class="form-control-styled"
-                                value="{{ old('previous_price', $product->previous_price) }}">
+                            <label for="mrp">MRP</label>
+                            <input type="text" id="mrp" name="mrp"
+                                class="form-control-styled @error('mrp') is-invalid @enderror"
+                                value="{{ old('mrp', $product->mrp) }}" placeholder="Enter MRP">
+                            @error('mrp') <div class="form-error">{{ $message }}</div> @enderror
                         </div>
                         <div class="form-field">
-                            <label for="new_price">New Price</label>
-                            <input type="text" id="new_price" name="new_price" class="form-control-styled"
-                                value="{{ old('new_price', $product->new_price) }}">
+                            <label for="purchase_price">Purchase Price</label>
+                            <input type="text" id="purchase_price" name="purchase_price"
+                                class="form-control-styled @error('purchase_price') is-invalid @enderror"
+                                value="{{ old('purchase_price', $product->purchase_price) }}" placeholder="Enter purchase price">
+                            @error('purchase_price') <div class="form-error">{{ $message }}</div> @enderror
+                        </div>
+                    </div>
+
+                    <div class="form-row-2">
+                        <div class="form-field">
+                            <label for="discount_type">Discount Type</label>
+                            <select id="discount_type" name="discount_type"
+                                class="form-control-styled @error('discount_type') is-invalid @enderror">
+                                <option value="">No Discount</option>
+                                <option value="flat" {{ old('discount_type', $product->discount_type) === 'flat' ? 'selected' : '' }}>Flat</option>
+                                <option value="percentage" {{ old('discount_type', $product->discount_type) === 'percentage' ? 'selected' : '' }}>Percentage</option>
+                            </select>
+                            @error('discount_type') <div class="form-error">{{ $message }}</div> @enderror
+                        </div>
+                        <div class="form-field">
+                            <label for="discount_value">Discount Value</label>
+                            <input type="text" id="discount_value" name="discount_value"
+                                class="form-control-styled @error('discount_value') is-invalid @enderror"
+                                value="{{ old('discount_value', $product->discount_value) }}" placeholder="e.g. 10">
+                            @error('discount_value') <div class="form-error">{{ $message }}</div> @enderror
                         </div>
                     </div>
 
                     <div class="form-field">
-                        <label for="image">Image</label>
+                        <label for="offered_price">Offered Price</label>
+                        <input type="text" id="offered_price" name="offered_price"
+                            class="form-control-styled @error('offered_price') is-invalid @enderror"
+                            value="{{ old('offered_price', $product->offered_price) }}" placeholder="Auto-calculated from MRP and discount, or enter manually">
+                        <div class="hint">Leave blank to show "Price on Request" on the storefront.</div>
+                        @error('offered_price') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
                         @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" class="current-img-preview" alt="{{ $product->name }}">
+                            <div class="current-image">
+                                <img src="{{ $product->image_url }}" alt="{{ $product->image_alt }}">
+                                <span class="label">Current image</span>
+                            </div>
                         @endif
+                        <label for="image">{{ $product->image ? 'Replace Image' : 'Image' }}</label>
                         <input type="file" id="image" name="image"
                             class="form-control-styled @error('image') is-invalid @enderror">
-                        <div class="hint">Leave blank to keep the current image — JPG, PNG, GIF, WEBP or SVG, max 2MB</div>
+                        <div class="hint">JPG, PNG, GIF, WEBP or SVG — max 2MB. Leave blank to keep the current image. Alt tag is generated automatically from Sub Sub Category + product name.</div>
                         @error('image') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
 
@@ -168,13 +205,7 @@
                     <div class="form-field">
                         <label for="meta_title">Meta Title</label>
                         <input type="text" id="meta_title" name="meta_title" class="form-control-styled"
-                            value="{{ old('meta_title', $product->meta_title) }}">
-                    </div>
-
-                    <div class="form-field">
-                        <label for="meta_keywords">Meta Keywords</label>
-                        <input type="text" id="meta_keywords" name="meta_keywords" class="form-control-styled"
-                            value="{{ old('meta_keywords', $product->meta_keywords) }}">
+                            value="{{ old('meta_title', $product->meta_title) }}" placeholder="Enter meta title">
                     </div>
 
                     <div class="form-field">
@@ -187,7 +218,7 @@
                         <button type="submit" class="btn-primary-dash">
                             <i class="fa fa-check"></i> Update Product
                         </button>
-                        <a href="{{ request('redirect', route('admin.products.index')) }}" class="btn-secondary-dash">Cancel</a>
+                        <a href="{{ route('admin.products.index') }}" class="btn-secondary-dash">Cancel</a>
                     </div>
 
                 </form>
@@ -207,16 +238,46 @@
 function restrictNumber(e) {
     this.value = this.value.replace(/[^\d.]/g, '');
 }
-document.getElementById('previous_price').addEventListener('input', restrictNumber);
-document.getElementById('new_price').addEventListener('input', restrictNumber);
+['mrp', 'purchase_price', 'discount_value', 'offered_price'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', restrictNumber);
+});
 
-document.getElementById('category_id').addEventListener('change', function () {
-    const categoryId = this.value;
+// Auto-calculate Offered Price from MRP + Discount, but stop once the admin edits it manually.
+let offeredPriceTouched = false;
+document.getElementById('offered_price').addEventListener('input', function () {
+    offeredPriceTouched = true;
+});
+
+function recalcOfferedPrice() {
+    if (offeredPriceTouched) return;
+
+    const mrp = parseFloat(document.getElementById('mrp').value) || 0;
+    const type = document.getElementById('discount_type').value;
+    const value = parseFloat(document.getElementById('discount_value').value) || 0;
+
+    if (!mrp) return;
+
+    let offered = mrp;
+    if (type === 'flat') offered = mrp - value;
+    if (type === 'percentage') offered = mrp - (mrp * value / 100);
+
+    document.getElementById('offered_price').value = offered > 0 ? offered.toFixed(2) : 0;
+}
+
+['mrp', 'discount_type', 'discount_value'].forEach(function (id) {
+    document.getElementById(id).addEventListener('input', recalcOfferedPrice);
+    document.getElementById(id).addEventListener('change', recalcOfferedPrice);
+});
+
+function loadSubCategories(categoryId, selectedSubCatId) {
     const subSelect = document.getElementById('sub_cat_id');
+    const subSubSelect = document.getElementById('sub_sub_cat_id');
+
     subSelect.innerHTML = '<option value="">Loading…</option>';
+    subSubSelect.innerHTML = '<option value="">Select Sub Category First</option>';
 
     if (!categoryId) {
-        subSelect.innerHTML = '<option value="">Select Sub Category</option>';
+        subSelect.innerHTML = '<option value="">Select Category First</option>';
         return;
     }
 
@@ -228,31 +289,43 @@ document.getElementById('category_id').addEventListener('change', function () {
                 const opt = document.createElement('option');
                 opt.value = sub.id;
                 opt.textContent = sub.name;
+                if (selectedSubCatId && sub.id == selectedSubCatId) opt.selected = true;
                 subSelect.appendChild(opt);
             });
         });
-});
+}
 
-document.getElementById('sub_cat_id').addEventListener('change', function () {
-    const subCatId = this.value;
-    const miniSelect = document.getElementById('mini_sub_cat_id');
-    miniSelect.innerHTML = '<option value="">Loading…</option>';
+function loadSubSubCategories(subCatId, selectedSubSubCatId) {
+    const subSubSelect = document.getElementById('sub_sub_cat_id');
+
+    subSubSelect.innerHTML = '<option value="">Loading…</option>';
 
     if (!subCatId) {
-        miniSelect.innerHTML = '<option value="">Select Mini Sub Category</option>';
+        subSubSelect.innerHTML = '<option value="">Select Sub Category First</option>';
         return;
     }
 
-    fetch("{{ route('admin.products.getMiniSubCategories') }}?sub_cat_id=" + subCatId)
+    fetch("{{ route('admin.products.getSubSubCategories') }}?sub_cat_id=" + subCatId)
         .then(res => res.json())
         .then(res => {
-            miniSelect.innerHTML = '<option value="">Select Mini Sub Category</option>';
-            res.data.forEach(mini => {
+            subSubSelect.innerHTML = '<option value="">Select Sub Sub Category</option>';
+            res.data.forEach(subSub => {
                 const opt = document.createElement('option');
-                opt.value = mini.id;
-                opt.textContent = mini.name;
-                miniSelect.appendChild(opt);
+                opt.value = subSub.id;
+                opt.textContent = subSub.name;
+                if (selectedSubSubCatId && subSub.id == selectedSubSubCatId) opt.selected = true;
+                subSubSelect.appendChild(opt);
             });
         });
+}
+
+// Category change: reload sub categories (fresh selection, no pre-selected sub-sub).
+document.getElementById('category_id').addEventListener('change', function () {
+    loadSubCategories(this.value, null);
+});
+
+// Sub category change: reload sub-sub categories (fresh selection).
+document.getElementById('sub_cat_id').addEventListener('change', function () {
+    loadSubSubCategories(this.value, null);
 });
 </script>

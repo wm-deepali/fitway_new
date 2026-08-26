@@ -1,0 +1,154 @@
+@import "../_common"
+
+// =========================
+// Banner
+// =========================
+.banner
+    .bg
+        position: relative
+
+        &::before
+            content: ''
+            position: absolute
+            inset: 0
+            background: linear-gradient(
+                360deg,
+                rgba(0, 0, 0, 0.74) 12%,
+                rgba(0, 0, 0, 0) 55%,
+                rgba(0, 0, 0, 0.74) 100%
+            )
+            z-index: 1
+            pointer-events: none
+
+        .content
+            width: 100%
+            max-width: 540px
+            h1
+                font-family: $Kugile
+
+
+.blog-secA
+    padding: 90px 0
+    background: var(--black)
+
+    .heading
+        width: 100%
+        max-width: 440px
+        margin: 0 auto 60px
+        text-align: center
+
+        h3
+            margin-bottom: 12px
+
+    .blog-grid
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+        gap: 30px
+
+        @include media(991)
+            grid-template-columns: 1fr 1fr
+
+        @include media(675)
+            grid-template-columns: 1fr
+
+    .blog-card
+        background: #101010
+        border: 1px solid rgba(255,255,255,0.08)
+        border-radius: 22px
+        overflow: hidden
+        display: flex
+        flex-direction: column
+        transition: border-color .35s ease, transform .35s ease, box-shadow .35s ease
+
+        &:hover
+            border-color: rgba(255,255,255,0.2)
+            transform: translateY(-8px)
+            box-shadow: 0 20px 40px rgba(0,0,0,0.35)
+
+            .img
+                img
+                    transform: scale(1.08)
+
+            .content
+                a
+                    gap: 12px
+
+        .img
+            position: relative
+            width: 100%
+            height: 230px
+            overflow: hidden
+
+            img
+                width: 100%
+                height: 100%
+                object-fit: cover
+                transition: transform .6s ease
+
+            &::after
+                content: ""
+                position: absolute
+                inset: 0
+                background: linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(10,10,10,0.85) 100%)
+
+            .tag
+                position: absolute
+                top: 18px
+                left: 18px
+                background: var(--primary)
+                color: $white
+                font-size: 11.5px
+                font-weight: 700
+                text-transform: uppercase
+                letter-spacing: 0.6px
+                padding: 7px 14px
+                border-radius: 30px
+                z-index: 1
+
+        .content
+            padding: 30px
+            display: flex
+            flex-direction: column
+            flex: 1
+
+            .date
+                display: inline-flex
+                align-items: center
+                gap: 8px
+                font-size: 12px
+                font-weight: 600
+                letter-spacing: 0.5px
+                text-transform: uppercase
+                color: rgba(255,255,255,0.4)
+                margin-bottom: 14px
+
+                &::before
+                    content: ""
+                    width: 6px
+                    height: 6px
+                    border-radius: 50%
+                    background: var(--primary)
+
+            h4
+                font-size: 20px
+                font-weight: 700
+                line-height: 1.4
+                font-family: $Poppins
+                color: $white
+                margin-bottom: 12px
+
+            p
+                font-size: 14px
+                line-height: 1.7
+                color: rgba(255,255,255,0.55)
+                margin-bottom: 24px
+                flex: 1
+
+            a
+                display: inline-flex
+                align-items: center
+                gap: 8px
+                width: fit-content
+                transition: gap .25s ease
+
+

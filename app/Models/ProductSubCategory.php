@@ -15,7 +15,10 @@ class ProductSubCategory extends Model
         'category_id',
         'name',
         'slug',
+        'short_description',
         'image',
+        'banner_type',
+        'banner',
         'status',
         'meta_title',
         'meta_keywords',
@@ -33,7 +36,7 @@ class ProductSubCategory extends Model
 
     public function products()
     {
-        return $this->hasMany(Product::class, 'sub_cat_id');
+        return $this->hasMany(Product::class, 'sub_category_id');
     }
 
     public function scopeActive($query)
@@ -49,7 +52,7 @@ class ProductSubCategory extends Model
 
         while (
             static::where('slug', $slug)
-                ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
+                ->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))
                 ->exists()
         ) {
             $slug = $original . '-' . $i++;
