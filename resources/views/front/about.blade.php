@@ -11,17 +11,9 @@
 
     <section class="banner">
         <div class="bg">
-            <video
-                autoplay
-                muted
-                loop
-                playsinline
-                class="bg-video"
-                src="{{ asset('assets/video/banner2.mp4') }}"
-                poster="{{ asset('assets/video/poster/banner2.png') }}"
-            >
-                <source src="{{ asset('assets/video/banner2.mp4') }}" type="video/mp4" />
-            </video>
+           
+
+            <img src="{{ asset('assets/images/home/about-banner.jpg') }}"/>
 
             <nav class="breadcrumb left breadcrumb-light" aria-label="Breadcrumb">
                 <ul>
@@ -55,284 +47,294 @@
         </div>
     </section>
 
-    <section class="about-intro">
-        <div class="container">
-            <div class="about-intro__grid">
-                <div class="about-intro__img">
-                    <img
-                        src="{{ asset('assets/images/home/GymDesign.avif') }}"
-                        alt="Fitway Gym Space"
-                    />
-                    <div class="about-intro__badge">
-                        <strong>10+</strong>
-                        <span>Years of Experience</span>
-                    </div>
-                </div>
-
-                <div class="about-intro__content">
-                    <div class="heading">
-                        <h3>About <span>Fitway</span></h3>
-                        <p>Building better spaces for better performance.</p>
-                    </div>
-                    <p class="about-intro__text">
-                        Fitway is your trusted partner for premium fitness equipment and
-                        complete gym setup solutions. From selecting the right equipment
-                        to designing, planning and installing complete fitness spaces,
-                        we help turn every vision into a functional training
-                        environment.
-                    </p>
-
-                    <span class="about-intro__label">We Serve</span>
-
-                    <ul class="about-intro__list">
-                        <li>Home Gyms</li>
-                        <li>Commercial Gyms</li>
-                        <li>Corporate Fitness Centres</li>
-                        <li>Hotels &amp; Resorts</li>
-                        <li>Outdoor &amp; Open Gyms</li>
-                    </ul>
+<section class="about-intro">
+    <div class="container">
+        <div class="about-intro__grid">
+            <div class="about-intro__img">
+               
+                <img
+                    src="{{ asset('assets/images/home/about-sec.jpg') }}"
+                    alt="Fitway Gym Space"
+                />
+                <div class="about-intro__badge">
+                    <strong>10+</strong>
+                    <span>Years of Experience</span>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="about-services">
-        <div class="container">
-            <div class="heading">
-                <h3>What We <span>Do</span></h3>
-                <p>
-                    Whether you need a single machine or a complete turnkey gym setup,
-                    Fitway provides everything required to build a high-performing
-                    fitness space.
+            <div class="about-intro__content">
+                <div class="heading">
+                    <h3>About <span>Fitway</span></h3>
+                    <p>Gym equipment and setups that actually get used.</p>
+                </div>
+                <p class="about-intro__text">
+                    We've fitted out everything from single-room home gyms to
+                    full commercial floors — strength racks, cardio lines,
+                    functional training rigs, flooring, mirrors, the works.
+                    Ten-plus years of sourcing, installing and servicing
+                    equipment means we know what holds up under daily use and
+                    what doesn't. You tell us the space and the goal, we
+                    handle the equipment list, layout and install.
                 </p>
-            </div>
 
-            <div class="about-services__grid">
-                <div class="about-services__card">
-                    <div class="about-services__img">
-                        <img
-                            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&amp;w=1200&amp;auto=format&amp;fit=crop"
-                            alt="Premium Gym Equipment"
-                        />
-                        <span class="about-services__index">01</span>
-                    </div>
-                    <div class="about-services__content">
-                        <h4>Premium Gym Equipment</h4>
-                        <p>
-                            From cardio and strength machines to functional training and
-                            free weights, we provide reliable equipment for every fitness
-                            requirement.
-                        </p>
-                        <a href="{{ route('products') }}" class="about-services__link">
-                            Explore Equipment
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M5 12h14M13 6l6 6-6 6"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+                <span class="about-intro__label">We Serve</span>
 
-                <div class="about-services__card">
-                    <div class="about-services__img">
-                        <img
-                            src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&amp;w=1200&amp;auto=format&amp;fit=crop"
-                            alt="Complete Gym Setup"
-                        />
-                        <span class="about-services__index">02</span>
-                    </div>
-                    <div class="about-services__content">
-                        <h4>Complete Gym Setup</h4>
-                        <p>
-                            From space planning and equipment selection to installation
-                            and final setup, we create complete fitness environments from
-                            start to finish.
-                        </p>
-                        <a href="{{ route('commercial-gym-setup') }}" class="about-services__link">
-                            Explore Gym Solutions
-                            <svg viewBox="0 0 24 24">
-                                <path
-                                    d="M5 12h14M13 6l6 6-6 6"
-                                    stroke="currentColor"
-                                    fill="none"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
+                <ul class="about-intro__list">
+                    <li>Home Gyms</li>
+                    <li>Commercial Gyms</li>
+                    <li>Corporate Fitness Centres</li>
+                    <li>Hotels &amp; Resorts</li>
+                    <li>Outdoor &amp; Open Gyms</li>
+                </ul>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="about-vm">
-        <div class="container">
-            <div class="heading">
-                <h3>Vision &amp; <span>Mission</span></h3>
-                <p>Two ideas that guide everything we design, build and deliver.</p>
-            </div>
+<section class="about-services">
+    <div class="container">
+        <div class="heading">
+            <h3>What We <span>Do</span></h3>
+            <p>
+                Buying one treadmill or fitting out an entire floor — either
+                way, we handle sourcing, delivery and setup.
+            </p>
+        </div>
 
-            <div class="about-vm__grid">
-                <div class="about-vm__card">
-                    <span class="about-vm__icon">
-                        <svg viewBox="0 0 24 24">
-                            <path
-                                d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"
-                                stroke="currentColor"
-                                fill="none"
-                                stroke-width="1.8"
-                            />
-                            <circle
-                                cx="12"
-                                cy="12"
-                                r="3"
-                                stroke="currentColor"
-                                fill="none"
-                                stroke-width="1.8"
-                            />
-                        </svg>
-                    </span>
-                    <span class="about-vm__label">Our Vision</span>
-                    <h4>
-                        To make quality fitness accessible through better spaces and
-                        smarter solutions.
-                    </h4>
-                    <p>
-                        We aim to create fitness environments that inspire healthier
-                        lifestyles, stronger communities and better performance.
-                    </p>
+        <div class="about-services__grid">
+            <div class="about-services__card">
+                <div class="about-services__img">
+                    <img
+                        src="{{ asset('assets/images/home/commercil-gym.jpg') }}"
+                        alt="Premium Gym Equipment"
+                    />
+                    <span class="about-services__index">01</span>
                 </div>
-
-                <div class="about-vm__card about-vm__card--primary">
-                    <span class="about-vm__icon">
+                <div class="about-services__content">
+                    <h4>Gym Equipment Supply</h4>
+                    <p>
+                        Treadmills, cross trainers, power racks, plate-loaded
+                        machines, dumbbells, kettlebells and functional
+                        training gear — sourced from brands built for
+                        commercial-grade daily use, not just showroom looks.
+                    </p>
+                    <a href="{{ route('products') }}" class="about-services__link">
+                        Explore Equipment
                         <svg viewBox="0 0 24 24">
                             <path
-                                d="M13 2L3 14h7l-1 8 11-14h-7l1-8z"
+                                d="M5 12h14M13 6l6 6-6 6"
                                 stroke="currentColor"
                                 fill="none"
-                                stroke-width="1.8"
+                                stroke-width="2"
+                                stroke-linecap="round"
                                 stroke-linejoin="round"
                             />
                         </svg>
-                    </span>
-                    <span class="about-vm__label">Our Mission</span>
-                    <h4>
-                        To deliver complete fitness solutions built around every
-                        client's unique needs.
-                    </h4>
-                    <p>
-                        From premium equipment to end-to-end gym setup, we focus on
-                        quality, functionality and long-term value.
-                    </p>
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section class="about-founder">
-        <div class="container">
-            <div class="about-founder__grid">
-                <div class="about-founder__img">
+            <div class="about-services__card">
+                <div class="about-services__img">
                     <img
-                        src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&amp;w=1200&amp;auto=format&amp;fit=crop"
-                        alt="Founder, Fitway"
+                        src="{{ asset('assets/images/home/Complete.jpg') }}"
+                        alt="Complete Gym Setup"
                     />
-                    <div class="about-founder__quote-badge">
+                    <span class="about-services__index">02</span>
+                </div>
+                <div class="about-services__content">
+                    <h4>Full Gym Setup</h4>
+                    <p>
+                        Site visit, floor plan, equipment zoning, flooring
+                        and mirror installation, right through to the final
+                        walkthrough — one team, one timeline, no juggling
+                        multiple vendors.
+                    </p>
+                    <a href="{{ route('commercial-gym-setup') }}" class="about-services__link">
+                        Explore Gym Solutions
                         <svg viewBox="0 0 24 24">
                             <path
-                                d="M7 7h5v5c0 2.5-2 4.5-4.5 4.5v-2c1.4 0 2.5-1.1 2.5-2.5H7V7zm9 0h5v5c0 2.5-2 4.5-4.5 4.5v-2c1.4 0 2.5-1.1 2.5-2.5h-3V7z"
-                                fill="currentColor"
+                                d="M5 12h14M13 6l6 6-6 6"
+                                stroke="currentColor"
+                                fill="none"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
                             />
                         </svg>
-                    </div>
-                </div>
-
-                <div class="about-founder__content">
-                    <div class="heading heading--left">
-                        <h3>The People Behind <span>Fitway</span></h3>
-                        <p>Built on experience. Driven by fitness.</p>
-                    </div>
-
-                    <p class="about-founder__text">
-                        Fitway was built with a simple vision — to make professional
-                        fitness solutions easier to access and better suited to every
-                        space. With a focus on quality, trust and long-term
-                        relationships, we continue to help individuals and businesses
-                        create fitness spaces that perform.
-                    </p>
-
-                    <blockquote class="about-founder__quote">
-                        "Our goal is not just to supply equipment. We want to help
-                        people create spaces where fitness becomes a part of everyday
-                        life."
-                    </blockquote>
-
-                    <div class="about-founder__footer">
-                        <div class="about-founder__person">
-                            <h5>Founder Name</h5>
-                            <span>Founder, Fitway</span>
-                        </div>
-
-                        <a href="#" class="btn btn-primary">Meet Our Founder</a>
-                    </div>
+                    </a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="about-why">
-        <div class="container">
-            <div class="heading">
-                <h3>Why <span>Fitway</span></h3>
+<section class="about-vm">
+    <div class="container">
+        <div class="heading">
+            <h3>Vision &amp; <span>Mission</span></h3>
+            <p>What drives how we pick equipment and plan every setup.</p>
+        </div>
+
+        <div class="about-vm__grid">
+            <div class="about-vm__card">
+                <span class="about-vm__icon">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-width="1.8"
+                        />
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="3"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-width="1.8"
+                        />
+                    </svg>
+                </span>
+                <span class="about-vm__label">Our Vision</span>
+                <h4>
+                    Good equipment shouldn't be reserved for big-budget
+                    commercial chains.
+                </h4>
                 <p>
-                    Four reasons businesses and homeowners choose Fitway for their
-                    fitness spaces.
+                    Whether it's a single home gym or a multi-branch
+                    facility, everyone deserves equipment that's built to
+                    last and set up properly from day one.
                 </p>
             </div>
 
-            <div class="about-why__grid">
-                <div class="about-why__item">
-                    <span class="about-why__num">01</span>
-                    <h5>End-to-End Solutions</h5>
-                    <p>
-                        From planning to installation, we handle the complete process.
-                    </p>
+            <div class="about-vm__card about-vm__card--primary">
+                <span class="about-vm__icon">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M13 2L3 14h7l-1 8 11-14h-7l1-8z"
+                            stroke="currentColor"
+                            fill="none"
+                            stroke-width="1.8"
+                            stroke-linejoin="round"
+                        />
+                    </svg>
+                </span>
+                <span class="about-vm__label">Our Mission</span>
+                <h4>
+                    Fewer vendors, fewer delays, and equipment that matches
+                    what the space actually needs.
+                </h4>
+                <p>
+                    We plan around your budget, footprint and member volume
+                    — not just what's easiest to sell — so the setup holds
+                    up years after installation.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="about-founder">
+    <div class="container">
+        <div class="about-founder__grid">
+            <div class="about-founder__img">
+                <img
+                    src="{{ asset('assets/images/home/founder.png') }}"
+                    alt="Founder, Fitway"
+                />
+                <div class="about-founder__quote-badge">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M7 7h5v5c0 2.5-2 4.5-4.5 4.5v-2c1.4 0 2.5-1.1 2.5-2.5H7V7zm9 0h5v5c0 2.5-2 4.5-4.5 4.5v-2c1.4 0 2.5-1.1 2.5-2.5h-3V7z"
+                            fill="currentColor"
+                        />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="about-founder__content">
+                <div class="heading heading--left">
+                    <h3>The People Behind <span>Fitway</span></h3>
+                    <p>Started small, learned the hard way, built from there.</p>
                 </div>
 
-                <div class="about-why__item">
-                    <span class="about-why__num">02</span>
-                    <h5>Quality Equipment</h5>
-                    <p>
-                        Reliable fitness equipment built for performance and durability.
-                    </p>
-                </div>
+                <p class="about-founder__text">
+                    Fitway started with a handful of home gym installs and
+                    grew into full commercial fit-outs the same way most
+                    good businesses do — one referral at a time. What hasn't
+                    changed is the approach: recommend what the space needs,
+                    not what's easiest to sell, and stand behind the
+                    equipment after it's installed.
+                </p>
 
-                <div class="about-why__item">
-                    <span class="about-why__num">03</span>
-                    <h5>Expert Guidance</h5>
-                    <p>
-                        The right recommendations based on your space and requirements.
-                    </p>
-                </div>
+                <blockquote class="about-founder__quote">
+                    "Most gym setups fail because nobody planned for how the
+                    space would actually get used. We start there, then
+                    figure out the equipment."
+                </blockquote>
 
-                <div class="about-why__item">
-                    <span class="about-why__num">04</span>
-                    <h5>Built Around You</h5>
-                    <p>
-                        Every gym solution is planned according to your goals and
-                        budget.
-                    </p>
+                <div class="about-founder__footer">
+                    <div class="about-founder__person">
+                        <h5>Founder Name</h5>
+                        <span>Rajiv Arora (Shunty)</span>
+                    </div>
+
+                    <a href="#" class="btn btn-primary">Meet Our Founder</a>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<section class="about-why">
+    <div class="container">
+        <div class="heading">
+            <h3>Why <span>Fitway</span></h3>
+            <p>
+                What clients tell us matters most once the equipment is
+                actually in use.
+            </p>
+        </div>
+
+        <div class="about-why__grid">
+            <div class="about-why__item">
+                <span class="about-why__num">01</span>
+                <h5>One Team, Start to Finish</h5>
+                <p>
+                    Same team for equipment selection, delivery and
+                    installation — no handoffs, no gaps in accountability.
+                </p>
+            </div>
+
+            <div class="about-why__item">
+                <span class="about-why__num">02</span>
+                <h5>Equipment That Holds Up</h5>
+                <p>
+                    Sourced for daily commercial use, not just to look good
+                    on day one.
+                </p>
+            </div>
+
+            <div class="about-why__item">
+                <span class="about-why__num">03</span>
+                <h5>Straight Recommendations</h5>
+                <p>
+                    We'll tell you if a machine isn't worth it for your
+                    space — even if it costs us the sale.
+                </p>
+            </div>
+
+            <div class="about-why__item">
+                <span class="about-why__num">04</span>
+                <h5>Setups Built for Your Budget</h5>
+                <p>
+                    Phased rollouts, tiered equipment options — whatever
+                    fits how you actually want to spend.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
 
 @endsection

@@ -428,6 +428,10 @@
                 min-width: 100%;
             }
         }
+          .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary) !important; text-decoration: none !important; cursor: pointer; }
+    .icon-btn:hover { background: var(--bg); }
+    .icon-btn.danger:hover { background: #fdecec; color: #b22222 !important; border-color: #f3c6c6; }
+     .row-actions { display: flex; gap: 6px; }
     </style>
 
     <div class="app-content content container-fluid">
@@ -523,13 +527,15 @@
                                     <td>{{ $category->status ? 'Active' : 'Inactive' }}</td>
                                     <td>{{ $category->premium ? 'Yes' : 'No' }}</td>
                                     <td>
-                                        <a href="{{ route('admin.categories.edit', $category) }}">Edit</a>
-                                        <form action="{{ route('admin.categories.destroy', $category) }}" method="POST"
-                                            style="display:inline">
-                                            @csrf @method('DELETE')
-                                            <button type="submit"
-                                                onclick="return confirm('Delete this category?')">Delete</button>
-                                        </form>
+                                        <div class="row-actions">
+                                             <a href="{{ route('admin.categories.edit', $category) }}" class="icon-btn" title="Edit">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                         <button type="button" class="icon-btn danger" title="Delete"
+                                                onclick="deleteCategory({{ $category->id }})">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                         </div>
                                     </td>
                                 </tr>
                             @endforeach

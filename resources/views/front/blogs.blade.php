@@ -11,18 +11,7 @@
 
     <section class="banner">
         <div class="bg">
-            <video
-                autoplay
-                muted
-                loop
-                playsinline
-                class="bg-video"
-                src="{{ asset('assets/video/banner2.mp4') }}"
-                poster="{{ asset('assets/video/poster/banner2.png') }}"
-            >
-                <source src="{{ asset('assets/video/banner2.mp4') }}" type="video/mp4" />
-            </video>
-
+              <img src="{{ asset('assets/images/home/blog-banner.jpg') }}"/>
             <nav class="breadcrumb left breadcrumb-light" aria-label="Breadcrumb">
                 <ul>
                     <li>
@@ -66,9 +55,9 @@
           <div class="blog-grid">
             <!-- Card 1 -->
             <div class="blog-card">
-              <a href="blog-details.html" class="img">
+              <a href="#" class="img">
                 <img
-                  src="assets/images/home/gym1.jpg"
+                  src="{{ asset('assets/images/home/home-setup.jpg') }}"
                   alt="How to Set Up a Commercial Gym"
                 />
                 <span class="tag">Gym Setup</span>
@@ -80,16 +69,16 @@
                   Key things to consider when designing a functional and
                   high-performing gym space.
                 </p>
-                <a href="blog-details.html" class="btn btn-primary"
+                <a href="#" class="btn btn-primary"
                   >Read More</a
                 >
               </div>
             </div>
             <!-- Card 2 -->
             <div class="blog-card">
-              <a href="blog-details.html" class="img">
+              <a href="#" class="img">
                 <img
-                  src="assets/images/home/gym2.jpg"
+                  src="{{ asset('assets/images/home/Home-Strength.jpg') }}"
                   alt="Home Gym Equipment Guide"
                 />
                 <span class="tag">Home Fitness</span>
@@ -101,16 +90,16 @@
                   Build an effective home workout space with the right fitness
                   equipment.
                 </p>
-                <a href="blog-details.html" class="btn btn-primary"
+                <a href="#" class="btn btn-primary"
                   >Read More</a
                 >
               </div>
             </div>
             <!-- Card 3 -->
             <div class="blog-card">
-              <a href="blog-details.html" class="img">
+              <a href="#" class="img">
                 <img
-                  src="assets/images/home/gym3.jpg"
+                  src="{{ asset('assets/images/home/Commercial-Equipment.jpg') }}"
                   alt="Gym Space Planning"
                 />
                 <span class="tag">Planning</span>
@@ -122,16 +111,16 @@
                   Learn how the right layout can improve movement, safety and
                   workout flow.
                 </p>
-                <a href="blog-details.html" class="btn btn-primary"
+                <a href="#" class="btn btn-primary"
                   >Read More</a
                 >
               </div>
             </div>
             <!-- Card 4 -->
             <div class="blog-card">
-              <a href="blog-details.html" class="img">
+              <a href="#" class="img">
                 <img
-                  src="assets/images/home/gym1.jpg"
+                  src="{{ asset('assets/images/home/CorporateGyms.jpg') }}"
                   alt="Cardio Equipment Guide"
                 />
                 <span class="tag">Equipment</span>
@@ -143,16 +132,16 @@
                   Find the right cardio machines based on your space, goals and
                   users.
                 </p>
-                <a href="blog-details.html" class="btn btn-primary"
+                <a href="#" class="btn btn-primary"
                   >Read More</a
                 >
               </div>
             </div>
             <!-- Card 5 -->
             <div class="blog-card">
-              <a href="blog-details.html" class="img">
+              <a href="#" class="img">
                 <img
-                  src="assets/images/home/gym2.jpg"
+                  src="{{ asset('assets/images/home/CorporateGyms.jpg') }}"
                   alt="Corporate Gym Benefits"
                 />
                 <span class="tag">Corporate Fitness</span>
@@ -164,16 +153,16 @@
                   Discover how corporate gyms can support healthier and happier
                   workplaces.
                 </p>
-                <a href="blog-details.html" class="btn btn-primary"
+                <a href="#" class="btn btn-primary"
                   >Read More</a
                 >
               </div>
             </div>
             <!-- Card 6 -->
             <div class="blog-card">
-              <a href="blog-details.html" class="img">
+              <a href="#" class="img">
                 <img
-                  src="assets/images/home/gym3.jpg"
+                  src="{{ asset('assets/images/home/Outdoor-Equipment.jpg') }}"
                   alt="Outdoor Gym Setup"
                 />
                 <span class="tag">Outdoor Fitness</span>
@@ -185,7 +174,7 @@
                   Everything you need to consider when planning a durable
                   open-air gym.
                 </p>
-                <a href="blog-details.html" class="btn btn-primary"
+                <a href="#" class="btn btn-primary"
                   >Read More</a
                 >
               </div>

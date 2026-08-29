@@ -7,17 +7,7 @@
 <!-- HERO + LEAD FORM -->
 <section class="gym-setup-hero" id="home">
   <div class="gym-setup-hero__bg">
-    <video
-      playsinline=""
-      autoplay=""
-      muted=""
-      loop=""
-      width="100%"
-      height="100%"
-      poster="{{ asset('assets/video/poster/banner3.png') }}"
-    >
-      <source src="{{ asset('assets/video/banner3.mp4') }}" type="video/mp4" />
-    </video>
+    <img src="{{ asset('assets/images/home/Commercial-Equipment-banner.jpg') }}" alt="Commercial gym setup space">
     <div class="gym-setup-hero__overlay"></div>
   </div>
   <div class="container">
@@ -29,8 +19,8 @@
         <p>From space planning and gym design to commercial-grade equipment, delivery and professional installation, Fitway provides complete commercial gym setup solutions tailored to your business, space and budget.</p>
 
         <ul class="gym-setup-hero__points">
-          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Smart Space Planning</li>
-          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Commercial-Grade Equipment</li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Complete Space Planning</li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Premium Equipment Selection</li>
           <li><svg viewBox="0 0 24 24" width="18" height="18"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Professional Installation</li>
         </ul>
 
@@ -89,7 +79,7 @@
 
             <div class="contact-form__group">
               <label for="details">Enter Details (If any)</label>
-              <textarea id="details" name="details" rows="2" placeholder="Tell us more about your requirement..."></textarea>
+              <textarea id="details" name="details" rows="2" placeholder="Tell us more about your commercial gym requirement..."></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary contact-form__cta">Get Free Consultation</button>
@@ -107,7 +97,7 @@
   <div class="container">
     <div class="gym-setup-intro__grid">
       <div class="gym-setup-intro__media reveal">
-        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80" alt="Modern commercial gym floor">
+        <img src="{{ asset('assets/images/home/Commercial-Equipment.jpg') }}" alt="Modern commercial gym floor">
       </div>
       <div class="gym-setup-intro__content reveal">
         <span class="label">Complete Commercial Gym Setup</span>
@@ -141,8 +131,8 @@
         <div class="gym-setup-services__icon">
           <svg viewBox="0 0 24 24" width="28" height="28"><path d="M3 9l9-6 9 6v11a1 1 0 01-1 1H4a1 1 0 01-1-1V9z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
         </div>
-        <h3>Commercial Gym Planning</h3>
-        <p>We help you plan a gym business that matches your target members, goals and available budget.</p>
+        <h3>Space Planning</h3>
+        <p>We map your available floor area into clear training zones for a smooth member experience.</p>
       </article>
 
       <article class="gym-setup-services__card reveal">
@@ -150,8 +140,8 @@
         <div class="gym-setup-services__icon">
           <svg viewBox="0 0 24 24" width="28" height="28"><path d="M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
         </div>
-        <h3>Space Planning &amp; Zoning</h3>
-        <p>We map your available floor area into clear training zones for a smooth member experience.</p>
+        <h3>Gym Design &amp; Layout</h3>
+        <p>Create a smart equipment layout that supports better movement, training zones and member flow.</p>
       </article>
 
       <article class="gym-setup-services__card reveal">
@@ -159,8 +149,8 @@
         <div class="gym-setup-services__icon">
           <svg viewBox="0 0 24 24" width="28" height="28"><path d="M6.5 6.5l11 11M4 12h16M6.5 17.5l11-11" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
         </div>
-        <h3>Gym Design &amp; Layout</h3>
-        <p>Create a smart equipment layout that supports better movement, training zones and member flow.</p>
+        <h3>Equipment Selection</h3>
+        <p>Choose the right mix of cardio, strength and functional equipment built for daily high-usage training.</p>
       </article>
 
       <article class="gym-setup-services__card reveal">
@@ -168,8 +158,8 @@
         <div class="gym-setup-services__icon">
           <svg viewBox="0 0 24 24" width="28" height="28"><path d="M3 7h18M3 12h18M3 17h18" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
         </div>
-        <h3>Commercial Equipment Selection</h3>
-        <p>Choose the right mix of cardio, strength and functional equipment built for daily high-usage training.</p>
+        <h3>Equipment Supply</h3>
+        <p>Get quality commercial-grade equipment selected specifically for your gym's training goals.</p>
       </article>
 
       <article class="gym-setup-services__card reveal">
@@ -177,7 +167,7 @@
         <div class="gym-setup-services__icon">
           <svg viewBox="0 0 24 24" width="28" height="28"><path d="M3 12h13l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
         </div>
-        <h3>Equipment Supply &amp; Installation</h3>
+        <h3>Delivery &amp; Installation</h3>
         <p>Our team manages equipment delivery and professional installation for a smooth commercial setup.</p>
       </article>
 
@@ -186,7 +176,7 @@
         <div class="gym-setup-services__icon">
           <svg viewBox="0 0 24 24" width="28" height="28"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
         </div>
-        <h3>Final Setup &amp; Project Support</h3>
+        <h3>Final Setup &amp; Support</h3>
         <p>We help ensure your commercial gym is properly set up and ready to welcome members.</p>
       </article>
 
@@ -219,13 +209,13 @@
       </div>
       <div class="gym-setup-process__step reveal">
         <span class="gym-setup-process__num">03</span>
-        <h3>Gym Planning</h3>
-        <p>We create the right layout and equipment strategy for your gym.</p>
+        <h3>Selection</h3>
+        <p>Our team helps select commercial equipment based on your goals, space and budget.</p>
       </div>
       <div class="gym-setup-process__step reveal">
         <span class="gym-setup-process__num">04</span>
-        <h3>Equipment &amp; Installation</h3>
-        <p>We supply, deliver and professionally install commercial equipment.</p>
+        <h3>Installation</h3>
+        <p>We deliver and professionally install commercial equipment at your facility.</p>
       </div>
       <div class="gym-setup-process__step reveal">
         <span class="gym-setup-process__num">05</span>
@@ -268,47 +258,47 @@
     <div class="gym-setup-equipment__grid">
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80" alt="Cardio equipment">
+        <img src="{{ asset('assets/images/home/Cardio-Equipment.jpg') }}" alt="Commercial cardio equipment">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
-          <h3>Commercial Cardio Equipment</h3>
+          <h3>Cardio Equipment</h3>
           <p>Treadmills, bikes and cross trainers built for daily commercial use.</p>
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
         </div>
       </a>
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="{{ asset('assets/images/home/GymDesign.avif') }}" alt="Strength training machines">
+        <img src="{{ asset('assets/images/home/Strength Equipment.jpg') }}" alt="Commercial strength training machines">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
-          <h3>Strength Training Machines</h3>
+          <h3>Strength Equipment</h3>
           <p>Professional-grade machines built for high-usage fitness environments.</p>
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
         </div>
       </a>
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80" alt="Free weights dumbbells">
+        <img src="{{ asset('assets/images/home/Free Weights.jpg') }}" alt="Free weights dumbbells for commercial gym">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
-          <h3>Free Weights &amp; Dumbbells</h3>
+          <h3>Free Weights</h3>
           <p>Durable dumbbells, barbells and plates built for commercial training floors.</p>
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
         </div>
       </a>
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80" alt="Functional training area">
+        <img src="{{ asset('assets/images/home/private-trianer.avif') }}" alt="Functional training area for gym">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
-          <h3>Functional Training Equipment</h3>
+          <h3>Functional Training</h3>
           <p>Versatile equipment built for modern group and performance training zones.</p>
           <svg viewBox="0 0 24 24" width="20" height="20"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
         </div>
       </a>
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=800&q=80" alt="Benches and squat racks">
+        <img src="{{ asset('assets/images/home/guy-gym.jpg') }}" alt="Benches and squat racks for commercial gym">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
           <h3>Benches &amp; Racks</h3>
@@ -318,7 +308,7 @@
       </a>
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=800&q=80" alt="Gym accessories">
+        <img src="{{ asset('assets/images/home/3d-gym-equipment.jpg') }}" alt="Commercial gym accessories">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
           <h3>Gym Accessories</h3>
@@ -342,35 +332,35 @@
     <div class="gym-setup-products-services__grid">
 
       <div class="gym-setup-products-services__block reveal">
-        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Gym equipment lineup">
+        <img src="{{ asset('assets/images/home/commercil-gym.jpg') }}" alt="Commercial gym equipment lineup">
         <div class="gym-setup-products-services__overlay"></div>
         <div class="gym-setup-products-services__content">
           <span class="label">Commercial Gym Equipment</span>
           <h3>Equip Your Fitness Business.</h3>
-          <p>Professional equipment designed for performance, durability and daily commercial use.</p>
+          <p>Explore equipment selected for performance, durability and every type of commercial training environment.</p>
           <ul>
-            <li>Commercial Cardio</li>
-            <li>Strength Machines</li>
-            <li>Plate Loaded Equipment</li>
+            <li>Cardio Equipment</li>
+            <li>Strength Equipment</li>
             <li>Free Weights</li>
             <li>Functional Training</li>
+            <li>Benches &amp; Racks</li>
           </ul>
           <a href="#equipment" class="btn btn-outline-white">Explore Equipment</a>
         </div>
       </div>
 
       <div class="gym-setup-products-services__block reveal">
-        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80" alt="Complete gym setup service">
+        <img src="{{ asset('assets/images/home/Complete.jpg') }}" alt="Complete commercial gym setup service">
         <div class="gym-setup-products-services__overlay"></div>
         <div class="gym-setup-products-services__content">
           <span class="label">Complete Commercial Gym Setup</span>
           <h3>We Build the Complete Experience.</h3>
-          <p>From planning your floor layout to installing every machine, Fitway helps manage your complete commercial gym project.</p>
+          <p>From planning your floor layout to installing the final piece of equipment, our team helps bring your commercial gym to life.</p>
           <ul>
             <li>Space Planning</li>
-            <li>Gym Layout</li>
+            <li>Gym Design</li>
             <li>Equipment Selection</li>
-            <li>Equipment Supply</li>
+            <li>Supply</li>
             <li>Installation</li>
             <li>Final Setup</li>
           </ul>
@@ -387,18 +377,18 @@
   <div class="container">
     <div class="heading">
       <h3>Gym Solutions <span>for Every Business</span></h3>
-      <p>Every commercial fitness business has different requirements. Fitway helps you plan the right equipment and setup based on your members, available space and training goals.</p>
+      <p>Every commercial fitness business has different requirements. Fitway helps you plan the right equipment and setup based on your members, available space and budget.</p>
     </div>
 
     <div class="gym-setup-requirements__grid">
 
       <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1584735175315-9d5df23860e6?auto=format&fit=crop&w=800&q=80" alt="Full-service commercial gym">
+        <img src="{{ asset('assets/images/home/commercil-gym.jpg') }}" alt="Commercial gym facility">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
           <span class="label">Commercial Gym</span>
           <h3>Full-Service Commercial Gym</h3>
-          <p>Build a complete, professional gym with the right equipment, layout and training zones.</p>
+          <p>Create a complete, professional gym designed around your business goals and available area.</p>
           <span class="gym-setup-requirements__arrow">
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
           </span>
@@ -406,12 +396,12 @@
       </a>
 
       <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Boutique fitness studio">
+        <img src="{{ asset('assets/images/home/Gym-Expansion.jpg') }}" alt="Boutique fitness studio">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
           <span class="label">Fitness Studio</span>
           <h3>Boutique Fitness Studio</h3>
-          <p>Smart, space-efficient solutions designed around specialised group and studio training.</p>
+          <p>Space-efficient equipment and layouts designed for specialised group and studio training.</p>
           <span class="gym-setup-requirements__arrow">
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
           </span>
@@ -419,12 +409,12 @@
       </a>
 
       <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=800&q=80" alt="Strength and conditioning gym">
+        <img src="{{ asset('assets/images/home/private-trianer.avif') }}" alt="Strength and conditioning gym">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
-          <span class="label">Strength &amp; Conditioning</span>
+          <span class="label">Strength Training</span>
           <h3>Strength &amp; Conditioning Gym</h3>
-          <p>Purpose-built equipment and layouts for performance-focused strength facilities.</p>
+          <p>Turn a commercial space into a purpose-built facility for performance-focused training.</p>
           <span class="gym-setup-requirements__arrow">
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
           </span>
@@ -432,12 +422,12 @@
       </a>
 
       <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=800&q=80" alt="Functional training centre">
+        <img src="{{ asset('assets/images/home/gym1.jpg') }}" alt="Functional training centre">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
           <span class="label">Functional Training</span>
           <h3>Functional Training Centre</h3>
-          <p>Dynamic training zones designed for functional and group performance workouts.</p>
+          <p>Create a durable, dynamic space designed for functional and group performance workouts.</p>
           <span class="gym-setup-requirements__arrow">
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
           </span>
@@ -445,12 +435,12 @@
       </a>
 
       <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80" alt="Fitness centre health club">
+        <img src="{{ asset('assets/images/home/health-club.jpg') }}" alt="Fitness centre health club">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
           <span class="label">Health Club</span>
           <h3>Fitness Centre / Health Club</h3>
-          <p>Complete equipment and setup solutions for high-performance fitness facilities.</p>
+          <p>A premium, fully equipped facility designed to match your business scale and member needs.</p>
           <span class="gym-setup-requirements__arrow">
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
           </span>
@@ -458,7 +448,7 @@
       </a>
 
        <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80" alt="Gym expansion and upgrade">
+        <img src="{{ asset('assets/images/home/Gym-Expansion.jpg') }}" alt="Gym expansion and upgrade">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
           <span class="label">Expansion</span>
@@ -503,9 +493,9 @@
 
     <ul class="gym-setup-why__list">
       <li class="reveal"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Complete Project Support</li>
-      <li class="reveal"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Commercial Equipment Expertise</li>
-      <li class="reveal"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Custom Gym Planning</li>
-      <li class="reveal"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Professional Installation</li>
+      <li class="reveal"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Professional Gym Planning</li>
+      <li class="reveal"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Custom Commercial Solutions</li>
+      <li class="reveal"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Expert Installation Team</li>
       <li class="reveal"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Single Point of Contact</li>
       <li class="reveal"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2"/></svg>Solutions Based on Your Budget</li>
     </ul>
@@ -525,7 +515,7 @@
 
           <div class="swiper-slide">
             <article class="gym-setup-projects__card">
-              <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80" alt="Premium commercial gym project">
+              <img src="{{ asset('assets/images/home/gymPremium.jpg') }}" alt="Premium commercial gym project">
               <div class="gym-setup-projects__info">
                 <span class="label">Commercial Gym</span>
                 <h3>Premium Commercial Gym</h3>
@@ -536,7 +526,7 @@
 
           <div class="swiper-slide">
             <article class="gym-setup-projects__card">
-              <img src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=900&q=80" alt="Modern fitness centre project">
+              <img src="{{ asset('assets/images/home/mordern.jpg') }}" alt="Modern fitness centre project">
               <div class="gym-setup-projects__info">
                 <span class="label">Fitness Centre</span>
                 <h3>Modern Fitness Centre</h3>
@@ -547,7 +537,7 @@
 
           <div class="swiper-slide">
             <article class="gym-setup-projects__card">
-              <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=900&q=80" alt="Strength and performance studio">
+              <img src="{{ asset('assets/images/home/Strength Equipment.jpg') }}" alt="Strength and performance studio">
               <div class="gym-setup-projects__info">
                 <span class="label">Strength Training</span>
                 <h3>Strength &amp; Performance Studio</h3>
@@ -558,7 +548,7 @@
 
           <div class="swiper-slide">
             <article class="gym-setup-projects__card">
-              <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&w=900&q=80" alt="Full service commercial gym setup project">
+              <img src="{{ asset('assets/images/home/commercil-gym.jpg') }}" alt="Full service commercial gym setup project">
               <div class="gym-setup-projects__info">
                 <span class="label">Complete Fitness Space</span>
                 <h3>Complete Commercial Gym Setup</h3>
@@ -720,7 +710,7 @@
 <!-- FINAL CTA -->
 <section class="gym-setup-cta">
   <div class="gym-setup-cta__bg">
-    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1600&q=80" alt="Premium commercial gym space ready for setup">
+    <img src="{{ asset('assets/images/home/form-banner.jpg') }}" alt="Premium commercial gym space ready for setup">
     <div class="gym-setup-cta__overlay"></div>
   </div>
   <div class="container">
@@ -905,7 +895,7 @@
 
     <div class="grid">
       <div class="img">
-        <img src="{{ asset('assets/images/home/gym1.jpg') }}" alt="">
+        <img src="{{ asset('assets/images/home/ready-contact.jpg') }}" alt="">
       </div>
 
       <!-- Right: Contact Form -->

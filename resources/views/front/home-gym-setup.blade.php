@@ -7,17 +7,8 @@
 <!-- HERO + LEAD FORM -->
 <section class="gym-setup-hero" id="home">
   <div class="gym-setup-hero__bg">
-    <video
-      playsinline=""
-      autoplay=""
-      muted=""
-      loop=""
-      width="100%"
-      height="100%"
-      poster="{{ asset('assets/video/poster/banner3.png') }}"
-    >
-      <source src="{{ asset('assets/video/banner3.mp4') }}" type="video/mp4" />
-    </video>
+
+      <img src="{{ asset('assets/images/home/home-setup.jpg') }}" alt="Home gym setup space">
     <div class="gym-setup-hero__overlay"></div>
   </div>
   <div class="container">
@@ -89,7 +80,7 @@
 
             <div class="contact-form__group">
               <label for="details">Enter Details (If any)</label>
-              <textarea id="details" name="details" rows="2" placeholder="Tell us more about your requirement..."></textarea>
+              <textarea id="details" name="details" rows="2" placeholder="Tell us more about your home gym requirement..."></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary contact-form__cta">Get Free Consultation</button>
@@ -107,7 +98,7 @@
   <div class="container">
     <div class="gym-setup-intro__grid">
       <div class="gym-setup-intro__media reveal">
-        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80" alt="Modern commercial gym floor">
+        <img src="{{ asset('assets/images/home/Home-Equipment.jpg') }}" alt="Personalized home gym setup">
       </div>
       <div class="gym-setup-intro__content reveal">
         <span class="label">Complete Home Gym Setup</span>
@@ -268,7 +259,7 @@
     <div class="gym-setup-equipment__grid">
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80" alt="Cardio equipment">
+        <img src="{{ asset('assets/images/home/Cardio-Equipment.jpg') }}" alt="Cardio equipment for home gym">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
           <h3>Cardio Equipment</h3>
@@ -278,7 +269,7 @@
       </a>
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="{{ asset('assets/images/home/GymDesign.avif') }}" alt="Strength training machines">
+        <img src="{{ asset('assets/images/home/Strength Equipment.jpg') }}" alt="Strength training machines for home gym">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
           <h3>Strength Equipment</h3>
@@ -288,7 +279,7 @@
       </a>
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80" alt="Free weights dumbbells">
+        <img src="{{ asset('assets/images/home/Free Weights.jpg') }}" alt="Free weights dumbbells for home gym">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
           <h3>Free Weights</h3>
@@ -298,7 +289,7 @@
       </a>
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80" alt="Functional training area">
+        <img src="{{ asset('assets/images/home/gym1.jpg') }}" alt="Functional training area at home">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
           <h3>Functional Training</h3>
@@ -308,7 +299,7 @@
       </a>
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=800&q=80" alt="Benches and squat racks">
+        <img src="{{ asset('assets/images/home/guy-gym.jpg') }}" alt="Benches and squat racks for home gym">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
           <h3>Benches &amp; Racks</h3>
@@ -318,7 +309,7 @@
       </a>
 
       <a href="#contact" class="gym-setup-equipment__card reveal">
-        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=800&q=80" alt="Gym accessories">
+        <img src="{{ asset('assets/images/home/3d-gym-equipment.jpg') }}" alt="Home gym accessories">
         <div class="gym-setup-equipment__overlay"></div>
         <div class="gym-setup-equipment__info">
           <h3>Gym Accessories</h3>
@@ -342,7 +333,7 @@
     <div class="gym-setup-products-services__grid">
 
       <div class="gym-setup-products-services__block reveal">
-        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Gym equipment lineup">
+        <img src="{{ asset('assets/images/home/commercil-gym.jpg') }}" alt="Home gym equipment lineup">
         <div class="gym-setup-products-services__overlay"></div>
         <div class="gym-setup-products-services__content">
           <span class="label">Gym Equipment</span>
@@ -360,7 +351,7 @@
       </div>
 
       <div class="gym-setup-products-services__block reveal">
-        <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80" alt="Complete gym setup service">
+        <img src="{{ asset('assets/images/home/complete-home-gym.jpg') }}" alt="Complete home gym setup service">
         <div class="gym-setup-products-services__overlay"></div>
         <div class="gym-setup-products-services__content">
           <span class="label">Complete Home Gym Setup</span>
@@ -393,11 +384,11 @@
     <div class="gym-setup-requirements__grid">
 
       <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1584735175315-9d5df23860e6?auto=format&fit=crop&w=800&q=80" alt="Personal and home gym">
+        <img src="{{ asset('assets/images/home/home-setup.jpg') }}" alt="Compact home gym setup">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
           <span class="label">Home Gym</span>
-          <h3>Personal &amp; Home Gym</h3>
+          <h3>Compact Home Gym</h3>
           <p>Create a personalised training space designed around your fitness goals and available area.</p>
           <span class="gym-setup-requirements__arrow">
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
@@ -406,11 +397,11 @@
       </a>
 
       <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80" alt="Compact apartment gym">
+        <img src="{{ asset('assets/images/home/gymApartment.jpg') }}" alt="Compact apartment gym setup">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
           <span class="label">Apartment Gym</span>
-          <h3>Compact Apartment Gym</h3>
+          <h3>Apartment Gym</h3>
           <p>Space-efficient equipment and layouts designed for smaller homes and apartments.</p>
           <span class="gym-setup-requirements__arrow">
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
@@ -419,11 +410,11 @@
       </a>
 
       <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=800&q=80" alt="Garage gym conversion">
+        <img src="{{ asset('assets/images/home/Garagegym-conversion.jpg') }}" alt="Dedicated fitness room conversion">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
-          <span class="label">Garage Gym</span>
-          <h3>Garage &amp; Basement Gym</h3>
+          <span class="label">Fitness Room</span>
+          <h3>Dedicated Fitness Room</h3>
           <p>Turn an unused garage or basement into a fully functional training space.</p>
           <span class="gym-setup-requirements__arrow">
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
@@ -432,11 +423,11 @@
       </a>
 
       <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=800&q=80" alt="Outdoor home gym">
+        <img src="{{ asset('assets/images/home/Home-Strength.jpg') }}" alt="Multi-purpose home fitness area">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
-          <span class="label">Outdoor Space</span>
-          <h3>Outdoor &amp; Patio Gym</h3>
+          <span class="label">Flexible Space</span>
+          <h3>Multi-Purpose Fitness Area</h3>
           <p>Create a durable, weather-ready fitness space in your backyard or patio.</p>
           <span class="gym-setup-requirements__arrow">
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
@@ -445,7 +436,7 @@
       </a>
 
       <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80" alt="Premium luxury home gym">
+        <img src="{{ asset('assets/images/home/gymPremium.jpg') }}" alt="Premium luxury home gym setup">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
           <span class="label">Premium Setup</span>
@@ -458,11 +449,11 @@
       </a>
 
        <a href="#contact" class="gym-setup-requirements__card reveal">
-        <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80" alt="Home wellness room">
+        <img src="{{ asset('assets/images/home/wellness.jpg') }}" alt="Personal training space at home">
         <div class="gym-setup-requirements__overlay"></div>
         <div class="gym-setup-requirements__info">
-          <span class="label">Wellness Room</span>
-          <h3>Home Wellness Room</h3>
+          <span class="label">Training Space</span>
+          <h3>Personal Training Space</h3>
           <p>Combine fitness and recovery equipment for a complete personal wellness space.</p>
           <span class="gym-setup-requirements__arrow">
             <svg viewBox="0 0 24 24" width="18" height="18"><path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2"/></svg>
@@ -525,7 +516,7 @@
 
           <div class="swiper-slide">
             <article class="gym-setup-projects__card">
-              <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80" alt="Premium home gym project">
+              <img src="{{ asset('assets/images/home/Home-Cardio.jpg') }}" alt="Premium home gym project">
               <div class="gym-setup-projects__info">
                 <span class="label">Home Gym</span>
                 <h3>Premium Home Gym</h3>
@@ -536,7 +527,7 @@
 
           <div class="swiper-slide">
             <article class="gym-setup-projects__card">
-              <img src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=900&q=80" alt="Apartment fitness corner project">
+              <img src="{{ asset('assets/images/home/gymApartment.jpg') }}" alt="Apartment fitness corner project">
               <div class="gym-setup-projects__info">
                 <span class="label">Apartment Gym</span>
                 <h3>Compact Apartment Setup</h3>
@@ -547,18 +538,18 @@
 
           <div class="swiper-slide">
             <article class="gym-setup-projects__card">
-              <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=900&q=80" alt="Garage gym conversion project">
+              <img src="{{ asset('assets/images/home/Home-Strength.jpg') }}" alt="Home gym room conversion project">
               <div class="gym-setup-projects__info">
-                <span class="label">Garage Gym</span>
-                <h3>Garage Gym Conversion</h3>
-                <p>An unused garage transformed into a fully functional strength training space.</p>
+                <span class="label">Fitness Room</span>
+                <h3>Dedicated Fitness Room Setup</h3>
+                <p>An unused room transformed into a fully functional strength training space.</p>
               </div>
             </article>
           </div>
 
           <div class="swiper-slide">
             <article class="gym-setup-projects__card">
-              <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&w=900&q=80" alt="Full service home gym setup project">
+              <img src="{{ asset('assets/images/home/Complete.jpg') }}" alt="Full service home gym setup project">
               <div class="gym-setup-projects__info">
                 <span class="label">Complete Home Setup</span>
                 <h3>Full-Service Home Gym Setup</h3>
@@ -720,7 +711,7 @@
 <!-- FINAL CTA -->
 <section class="gym-setup-cta">
   <div class="gym-setup-cta__bg">
-    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1600&q=80" alt="Premium home gym space ready for setup">
+    <img src="{{ asset('assets/images/home/form-banner.jpg') }}" alt="Premium home gym space ready for setup">
     <div class="gym-setup-cta__overlay"></div>
   </div>
   <div class="container">
@@ -905,7 +896,7 @@
 
     <div class="grid">
       <div class="img">
-        <img src="{{ asset('assets/images/home/gym1.jpg') }}" alt="">
+        <img src="{{ asset('assets/images/home/ready-contact.jpg') }}" alt="">
       </div>
 
       <!-- Right: Contact Form -->

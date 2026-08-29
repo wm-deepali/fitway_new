@@ -42,14 +42,14 @@ class ProductController extends Controller
             ->orderBy('name')
             ->get();
 
-        return view('admin.products.index', compact('products', 'parentCategories', 'subCategories'));
+        return view('admin.product.index', compact('products', 'parentCategories', 'subCategories'));
     }
 
     public function create()
     {
         $parentCategories = ProductCategory::active()->orderBy('category_name')->get();
 
-        return view('admin.products.create', compact('parentCategories'));
+        return view('admin.product.create', compact('parentCategories'));
     }
 
     public function store(Request $request)
@@ -88,11 +88,11 @@ class ProductController extends Controller
             ->orderBy('name')
             ->get();
         $subSubCategories = ProductSubSubCategory::active()
-            ->where('sub_cat_id', $product->sub_cat_id)
+            ->where('sub_category_id', $product->sub_cat_id)
             ->orderBy('name')
             ->get();
 
-        return view('admin.products.edit', compact('product', 'parentCategories', 'subCategories', 'subSubCategories'));
+        return view('admin.product.edit', compact('product', 'parentCategories', 'subCategories', 'subSubCategories'));
     }
 
     public function update(Request $request, Product $product)
@@ -166,7 +166,7 @@ class ProductController extends Controller
     public function getSubSubCategories(Request $request)
     {
         $subSubCategories = ProductSubSubCategory::active()
-            ->where('sub_cat_id', $request->sub_cat_id)
+            ->where('sub_category_id', $request->sub_cat_id)
             ->orderBy('name')
             ->get(['id', 'name']);
 

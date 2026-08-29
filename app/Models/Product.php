@@ -58,11 +58,13 @@ class Product extends Model
     }
 
     /**
-     * Public URL for the stored image, or null if none.
+     * Public URL for the stored image, falls back to the no-image placeholder.
      */
-    public function getImageUrlAttribute(): ?string
+    public function getImageUrlAttribute(): string
     {
-        return $this->image ? asset('storage/' . $this->image) : null;
+        return $this->image
+            ? asset('storage/' . $this->image)
+            : asset('assets/images/no-image.svg');
     }
 
     /**
@@ -71,6 +73,16 @@ class Product extends Model
     public function getImageAltAttribute(): string
     {
         return trim(($this->subSubCategory?->name ?? '') . ' ' . $this->name);
+    }
+
+    /**
+     * "Commercial Equipment · Cardio" style breadcrumb for the card badge.
+     */
+    public function getCategoryPathAttribute(): string
+    {
+        return collect([$this->category?->category_name, $this->subCategory?->name])
+            ->filter()
+            ->implode(' · ');
     }
 
     /**

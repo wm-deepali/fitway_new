@@ -61,14 +61,14 @@
                         @forelse($portfolios as $portfolio)
                             <tr>
                                 <td>
-                                    @if($portfolio->image)
-                                        <img src="{{ asset('products/'.$portfolio->image) }}" class="row-img">
-                                    @else
-                                        —
-                                    @endif
+@if($portfolio->image)
+    <img src="{{ $portfolio->image_url }}" class="row-img">
+@else
+    —
+@endif
                                 </td>
                                 <td>{{ $portfolio->name }}</td>
-                                <td>{{ $portfolio->gallery->name ?? '—' }}</td>
+                                <td>{{ $portfolio->category->name ?? '—' }}</td>
                                 <td class="row-desc">{{ strip_tags($portfolio->description) }}</td>
                                 <td>
                                     <div class="row-actions">

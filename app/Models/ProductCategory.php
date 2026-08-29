@@ -29,6 +29,11 @@ class ProductCategory extends Model
         'status' => 'boolean',
     ];
 
+    public function subCategories()
+    {
+        return $this->hasMany(ProductSubCategory::class, 'category_id');
+    }
+
     public function products()
     {
         return $this->hasMany(Product::class, 'category_id');
@@ -37,6 +42,21 @@ class ProductCategory extends Model
     public function scopeActive($query)
     {
         return $query->where('status', true);
+    }
+
+    /**
+     * Public URL for the banner image, falls back to the no-image placeholder.
+     * Only handles banner_type = 'image'; video banners return null here.
+     */
+    public function getBannerUrlAttribute(): ?string
+    {
+        if ($this->banner_type === 'video') {
+            return null;
+        }
+
+        return $this->banner
+            ? asset('storage/' . $this->banner)
+            : asset('assets/images/no-image.svg');
     }
 
     public static function generateUniqueSlug(string $name, ?int $ignoreId = null): string

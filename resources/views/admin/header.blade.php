@@ -74,7 +74,7 @@
                 </li>
 
                 <li class="{{ request()->routeIs('admin.client-gallery.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.client-gallery.index') }}">Portfolio Category</a>
+                    <a href="{{ route('admin.portfolio-category.index') }}">Portfolio Category</a>
                 </li>
                 <li class="{{ request()->routeIs('admin.portfolio.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.portfolio.index') }}">Portfolio</a>

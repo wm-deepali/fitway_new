@@ -34,6 +34,13 @@
     .form-control-styled:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(48,61,137,.12); }
     .form-error { color: #b22222; font-size: 12px; margin-top: 5px; }
     .form-actions { display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .switch-field { display: flex; align-items: center; gap: 10px; }
+    .switch { position: relative; display: inline-block; width: 42px; height: 24px; flex-shrink: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .switch-slider { position: absolute; cursor: pointer; inset: 0; background-color: #ccc; transition: .2s; border-radius: 24px; }
+    .switch-slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: #fff; transition: .2s; border-radius: 50%; }
+    .switch input:checked + .switch-slider { background-color: var(--accent); }
+    .switch input:checked + .switch-slider:before { transform: translateX(18px); }
     </style>
 
     <div class="app-content content container-fluid">
@@ -41,22 +48,22 @@
 
             <div class="cat-page-header">
                 <div>
-                    <h1>Edit Gallery Entry</h1>
+                    <h1>Edit Portfolio Category</h1>
                     <div class="cat-breadcrumb">
                         <a href="{{ route('admin.dashboard') }}">Dashboard</a>
                         <span>›</span>
-                        <a href="{{ route('admin.client-gallery.index') }}">Client Gallery</a>
+                        <a href="{{ route('admin.portfolio-category.index') }}">Portfolio Categories</a>
                         <span>›</span>
                         Edit
                     </div>
                 </div>
-                <a href="{{ route('admin.client-gallery.index') }}" class="btn-secondary-dash">
+                <a href="{{ route('admin.portfolio-category.index') }}" class="btn-secondary-dash">
                     <i class="fa fa-arrow-left"></i> Back to List
                 </a>
             </div>
 
             <div class="cat-card">
-                <form action="{{ route('admin.client-gallery.update', $gallery) }}" method="POST">
+                <form action="{{ route('admin.portfolio-category.update', $portfolioCategory) }}" method="POST">
                     @csrf
                     @method('PUT')
 
@@ -64,15 +71,26 @@
                         <label for="name">Name</label>
                         <input type="text" id="name" name="name"
                             class="form-control-styled @error('name') is-invalid @enderror"
-                            value="{{ old('name', $gallery->name) }}" placeholder="Enter name" required>
+                            value="{{ old('name', $portfolioCategory->name) }}" placeholder="Enter category name" required>
                         @error('name') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label>Status</label>
+                        <div class="switch-field">
+                            <label class="switch">
+                                <input type="checkbox" name="status" value="1" {{ old('status', $portfolioCategory->status) ? 'checked' : '' }}>
+                                <span class="switch-slider"></span>
+                            </label>
+                            <span>Active</span>
+                        </div>
                     </div>
 
                     <div class="form-actions">
                         <button type="submit" class="btn-primary-dash">
-                            <i class="fa fa-check"></i> Update
+                            <i class="fa fa-check"></i> Save
                         </button>
-                        <a href="{{ route('admin.client-gallery.index') }}" class="btn-secondary-dash">Cancel</a>
+                        <a href="{{ route('admin.portfolio-category.index') }}" class="btn-secondary-dash">Cancel</a>
                     </div>
                 </form>
             </div>

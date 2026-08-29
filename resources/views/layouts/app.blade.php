@@ -38,6 +38,7 @@
   </head>
   <body>
     <header>
+      @if(request()->routeIs('home') || request()->is('dynamic') || request()->is('dynamic/*'))
       <div class="top_header">
         <div class="container">
           <div class="announcement-bar">
@@ -82,6 +83,8 @@
           </div>
         </div>
       </div>
+
+      @endif
       <div class="container-fluid">
         <div class="header-wrapper">
           <!-- Logo -->
@@ -105,7 +108,7 @@
               <li class="hasDropDown">
                 <a href="javascript:void(0)">
                   Gym Solutions
-                  <img src="{{ asset('images/icon/arrow.svg') }}" alt="" />
+                  <!--<img src="{{ asset('images/icon/arrow.svg') }}" alt="" />-->
                 </a>
 
                 <ul class="dropdown-menu">
@@ -134,7 +137,7 @@
               <li class="hasDropDown">
                 <a href="javascript:void(0)">
                   Equipment
-                  <img src="{{ asset('images/icon/arrow.svg') }}" alt="" />
+                  <!--<img src="{{ asset('images/icon/arrow.svg') }}" alt="" />-->
                 </a>
 
                 <ul class="dropdown-menu">
@@ -178,18 +181,18 @@
               </li>
 
               <li>
-                <button class="btn btn-primary" data-model=".enquire-pop">
+                <button class="btn btn-black" data-model=".enquire-pop">
                   Start Your Gym Project
                 </button>
               </li>
 
-              <li class="ham-btn-wrapper">
+                 <li class="ham-btn-wrapper">
                 <button type="button" class="ham-btn" data-model=".ham-pop">
-                  <div class="dot">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                  </div>
+                 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                  <path d="M0 0h24v24H0z" fill="none" />
+                  <path fill="none" stroke="currentColor" stroke-linecap="round" d="M3.5 7.5h17M3.5 12h14m-14 4.5h17" />
+                </svg>
+
                 </button>
               </li>
             </ul>
@@ -270,7 +273,7 @@
                 </li>
                 <li>
                   <span class="label">Working Hours</span>
-                  <p>Monday - Sunday: 07:00 - 22:00</p>
+                  <p>Monday - Sunday: 10:00 - 22:00</p>
                 </li>
                 <li>
                   <span class="label">Email</span>
@@ -284,7 +287,7 @@
 
               <ul class="social">
                 <li>
-                  <a href="javascript:void(0)" aria-label="Facebook">
+                  <a href="https://www.facebook.com/fitwaygymequipmentslko/" target="_blank" rel="noopener" aria-label="Facebook">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="1em"
@@ -299,7 +302,22 @@
                   </a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)" aria-label="WhatsApp">
+                  <a href="https://www.instagram.com/fitwayindiaa/" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        fill="currentColor"
+                        d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47a4.9 4.9 0 0 0-1.77 1.15A4.9 4.9 0 0 0 2.53 5.45c-.25.64-.42 1.37-.47 2.43C2.01 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43a4.9 4.9 0 0 0 1.15 1.77 4.9 4.9 0 0 0 1.77 1.15c.64.25 1.37.42 2.43.47C8.94 21.99 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.15 4.9 4.9 0 0 0 1.15-1.77c.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.15-1.77A4.9 4.9 0 0 0 18.55 2.53c-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2m0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.51.21 1.86.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.13.35.3.88.34 1.86.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.51-.34 1.86-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.35.13-.88.3-1.86.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.51-.21-1.86-.34a3.1 3.1 0 0 1-1.15-.75 3.1 3.1 0 0 1-.75-1.15c-.13-.35-.3-.88-.34-1.86C3.81 14.99 3.8 14.67 3.8 12s.01-2.99.06-4.04c.04-.98.21-1.51.34-1.86.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.35-.13.88-.3 1.86-.34C9.01 3.81 9.33 3.8 12 3.8M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10m0 1.8a3.2 3.2 0 1 1 0 6.4 3.2 3.2 0 0 1 0-6.4m5.2-2.9a1.17 1.17 0 1 0 0 2.34 1.17 1.17 0 0 0 0-2.34"
+                      />
+                    </svg>
+                  </a>
+                </li>
+                <li>
+                  <a href="https://wa.me/919839570700" target="_blank" rel="noopener" aria-label="WhatsApp">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="1em"
@@ -314,7 +332,7 @@
                   </a>
                 </li>
                 <li>
-                  <a href="javascript:void(0)" aria-label="YouTube">
+                  <a href="https://www.youtube.com/@fitway5722" target="_blank" rel="noopener" aria-label="YouTube">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="1em"
@@ -336,9 +354,12 @@
               <h5>Quick Links</h5>
               <ul>
                 <li><a href="{{ route('home') }}">Home</a></li>
-                <li><a href="{{ route('products') }}">Gym Solutions</a></li>
-                <li><a href="{{ route('products') }}">Equipment</a></li>
-                <li><a href="{{ route('portfolio') }}">Projects</a></li>
+                <li><a href="{{ route('commercial-gym-setup') }}">Commercial Gym Setup</a></li>
+                <li><a href="{{ route('home-gym-setup') }}">Home Gym Setup</a></li>
+                <li><a href="{{ route('outdoor-gym-setup') }}">Outdoor Gym Setup</a></li>
+                <li><a href="{{ route('products') }}">Commercial Equipment</a></li>
+                <li><a href="{{ route('products') }}">Home Gym Equipment</a></li>
+                <li><a href="{{ route('portfolio') }}">Our Works</a></li>
                 <li><a href="{{ route('about-us') }}">About Us</a></li>
                 <li><a href="{{ route('blogs') }}">Blogs</a></li>
                 <li><a href="{{ route('faqs') }}">Faqs</a></li>
@@ -358,9 +379,9 @@
                   />
                   <div class="content">
                     <a href="javascript:void(0)"
-                      >7 Best Shoulder Exercises You're Not Doing</a
+                      >How to Start Commercial Gym in India</a
                     >
-                    <span>February 07, 2017</span>
+                    <span>August 07, 2026</span>
                   </div>
                 </li>
                 <li>
@@ -370,9 +391,9 @@
                   />
                   <div class="content">
                     <a href="javascript:void(0)"
-                      >8 Things You Should Never Do On Chest Day</a
+                      >5 Popular Machines required for Home Gym</a
                     >
-                    <span>February 12, 2017</span>
+                    <span>August 12, 2026</span>
                   </div>
                 </li>
                 <li>
@@ -382,11 +403,24 @@
                   />
                   <div class="content">
                     <a href="javascript:void(0)"
-                      >Louis Williams Instinctive Back Workout</a
+                      >How to Setup Outdoor Gym in Your Lawn</a
                     >
-                    <span>February 17, 2017</span>
+                    <span>August 17, 2026</span>
                   </div>
                 </li>
+                <li>
+                  <img
+                    src="{{ asset('assets/images/home/blog1.jpg') }}"
+                    alt="8 Things You Should Never Do On Chest Day"
+                  />
+                  <div class="content">
+                    <a href="javascript:void(0)"
+                      >Best Gym Excercise to do at Home</a
+                    >
+                    <span>August 18, 2026</span>
+                  </div>
+                </li>
+                
               </ul>
             </div>
 
@@ -395,7 +429,7 @@
               <h5>Newsletter</h5>
               <p class="desc">
                 Fitway — gym equipment & commercial gym setup experts. Get
-                workout tips, product drops and project stories in your inbox.
+                free consultation & tips, product drops and project stories in your inbox.
               </p>
               <form class="form" method="POST" action="#">
                 @csrf
@@ -432,15 +466,160 @@
         <div class="footer-bottom">
           <div class="container">
             <p class="copyright">
-              © {{ date('Y') }} Fitway Gym Equipment. All rights reserved.
+              © {{ date('Y') }} Fitway India. All rights reserved.
             </p>
-            <p class="copyright">Built for people who build gyms.</p>
+           <p class="copyright">Design & Maintained by <a href="https://webmingo.com" target="_blank" rel="noopener">Web Mingo</a>.</p>
           </div>
         </div>
       </div>
     </footer>
 
     <!-- ================= modals-pop-ups ================= -->
+
+
+    <div class="ham-pop">
+  <button class="close close-btn">
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 26 26"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M0.5 0.5L25.5 25.5M0.5 25.5L25.5 0.5"
+        stroke="black"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      ></path>
+    </svg>
+  </button>
+
+  <div class="model-body">
+    <div class="mid-list">
+      <ul class="nav-list">
+        <li class="{{ request()->routeIs('home') ? 'active' : '' }}">
+          <a href="{{ route('home') }}">Home</a>
+        </li>
+
+        <li class="hasDropdown">
+          <div class="plu-ico"></div>
+          <a href="javascript:void(0)">Gym Solutions</a>
+          <div class="dropdown-menu-ham">
+            <ul>
+              <li>
+                <a href="{{ route('home-gym-setup') }}" target="_blank">Home Gym Setup</a>
+              </li>
+              <li>
+                <a href="{{ route('commercial-gym-setup') }}" target="_blank">Commercial Gym Setup</a>
+              </li>
+              <li>
+                <a href="{{ route('corporate-gym-setup') }}" target="_blank">Corporate Gym Setup</a>
+              </li>
+              <li>
+                <a href="{{ route('outdoor-gym-setup') }}" target="_blank">Outdoor / Open Gym Setup</a>
+              </li>
+              <li>
+                <a href="{{ route('resorts-gym-setup') }}" target="_blank">Hotels &amp; Resorts Gym Setup</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="hasDropdown">
+          <div class="plu-ico"></div>
+          <a href="javascript:void(0)">Equipment</a>
+          <div class="dropdown-menu-ham">
+            <ul>
+              <li>
+                <a href="{{ route('products') }}">Commercial Equipments</a>
+              </li>
+              <li>
+                <a href="{{ route('products') }}">Home Gym Equipments</a>
+              </li>
+              <li>
+                <a href="{{ route('products') }}">Outdoor Equipments</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+
+        <li class="{{ request()->routeIs('portfolio') ? 'active' : '' }}">
+          <a href="{{ route('portfolio') }}">Projects</a>
+        </li>
+
+        <li class="{{ request()->routeIs('blogs') ? 'active' : '' }}">
+          <a href="{{ route('blogs') }}">Blogs</a>
+        </li>
+
+         <li class="{{ request()->routeIs('faqs') ? 'active' : '' }}">
+          <a href="{{ route('faqs') }}">faqs</a>
+        </li>
+
+        <li class="{{ request()->routeIs('about-us') ? 'active' : '' }}">
+          <a href="{{ route('about-us') }}">About Us</a>
+        </li>
+
+        <li class="{{ request()->routeIs('contact-us') ? 'active' : '' }}">
+          <a href="{{ route('contact-us') }}">Contact</a>
+        </li>
+
+         
+
+      </ul>
+    </div>
+
+    <div class="bottom-list">
+      <div class="social-icons">
+        <a href="#" target="_blank" title="Facebook">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14 13.5H16.5L17.5 9.5H14V7.5C14 6.47 14 5.5 16 5.5H17.5V2.14C17.174 2.097 15.943 2 14.643 2C11.928 2 10 3.657 10 6.7V9.5H7V13.5H10V22H14V13.5Z"
+              fill="#666666"
+            ></path>
+          </svg>
+        </a>
+        <a href="#" title="Instagram" target="_blank">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M17.34 5.46C17.1027 5.46 16.8707 5.53038 16.6733 5.66224C16.476 5.79409 16.3222 5.98151 16.2313 6.20078C16.1405 6.42005 16.1168 6.66133 16.1631 6.89411C16.2094 7.12689 16.3236 7.34071 16.4915 7.50853C16.6593 7.67635 16.8731 7.79064 17.1059 7.83694C17.3387 7.88324 17.5799 7.85948 17.7992 7.76866C18.0185 7.67783 18.2059 7.52402 18.3378 7.32668C18.4696 7.12935 18.54 6.89734 18.54 6.66C18.54 6.34174 18.4136 6.03652 18.1885 5.81147C17.9635 5.58643 17.6583 5.46 17.34 5.46ZM21.94 7.88C21.9206 7.0503 21.7652 6.2294 21.48 5.45C21.2257 4.78313 20.83 4.17928 20.32 3.68C19.8248 3.16743 19.2196 2.77418 18.55 2.53C17.7727 2.23616 16.9508 2.07721 16.12 2.06C15.06 2 14.72 2 12 2C9.28 2 8.94 2 7.88 2.06C7.04915 2.07721 6.22734 2.23616 5.45 2.53C4.78168 2.77665 4.17693 3.16956 3.68 3.68C3.16743 4.17518 2.77418 4.78044 2.53 5.45C2.23616 6.22734 2.07721 7.04915 2.06 7.88C2 8.94 2 9.28 2 12C2 14.72 2 15.06 2.06 16.12C2.07721 16.9508 2.23616 17.7727 2.53 18.55C2.77418 19.2196 3.16743 19.8248 3.68 20.32C4.17693 20.8304 4.78168 21.2234 5.45 21.47C6.22734 21.7638 7.04915 21.9228 7.88 21.94C8.94 22 9.28 22 12 22C14.72 22 15.06 22 16.12 21.94C16.9508 21.9228 17.7727 21.7638 18.55 21.47C19.2196 21.2258 19.8248 20.8326 20.32 20.32C20.8322 19.8226 21.2283 19.2182 21.48 18.55C21.7652 17.7706 21.9206 16.9497 21.94 16.12C21.94 15.06 22 14.72 22 12C22 9.28 22 8.94 21.94 7.88ZM20.14 16C20.1327 16.6348 20.0178 17.2637 19.8 17.86C19.6403 18.2952 19.3839 18.6884 19.05 19.01C18.7256 19.3405 18.3332 19.5964 17.9 19.76C17.3037 19.9778 16.6748 20.0927 16.04 20.1C15.04 20.15 14.67 20.16 12.04 20.16C9.41 20.16 9.04 20.16 8.04 20.1C7.38089 20.1123 6.72459 20.0109 6.1 19.8C5.68578 19.6281 5.31136 19.3728 5 19.05C4.66809 18.7287 4.41484 18.3352 4.26 17.9C4.01586 17.2952 3.88044 16.6519 3.86 16C3.86 15 3.8 14.63 3.8 12C3.8 9.37 3.8 9 3.86 8C3.86448 7.35106 3.98295 6.70795 4.21 6.1C4.38605 5.67791 4.65627 5.30166 5 5C5.30381 4.65617 5.67929 4.3831 6.1 4.2C6.70955 3.98004 7.352 3.86508 8 3.86C9 3.86 9.37 3.8 12 3.8C14.63 3.8 15 3.8 16 3.86C16.6348 3.86728 17.2637 3.98225 17.86 4.2C18.3144 4.36865 18.7223 4.64285 19.05 5C19.3777 5.30718 19.6338 5.68273 19.8 6.1C20.0223 6.70893 20.1373 7.35178 20.14 8C20.19 9 20.2 9.37 20.2 12C20.2 14.63 20.19 15 20.14 16ZM12 6.87C10.9858 6.87198 9.99496 7.17453 9.15265 7.73942C8.31035 8.30431 7.65438 9.1062 7.26763 10.0438C6.88089 10.9813 6.78072 12.0125 6.97979 13.0069C7.17886 14.0014 7.66824 14.9145 8.38608 15.631C9.10392 16.3474 10.018 16.835 11.0129 17.0321C12.0077 17.2293 13.0387 17.1271 13.9755 16.7385C14.9123 16.35 15.7129 15.6924 16.2761 14.849C16.8394 14.0056 17.14 13.0142 17.14 12C17.1413 11.3251 17.0092 10.6566 16.7512 10.033C16.4933 9.40931 16.1146 8.84281 15.6369 8.36605C15.1592 7.88929 14.5919 7.51168 13.9678 7.25493C13.3436 6.99818 12.6749 6.86736 12 6.87ZM12 15.33C11.3414 15.33 10.6976 15.1347 10.15 14.7688C9.60234 14.4029 9.17552 13.8828 8.92348 13.2743C8.67144 12.6659 8.6055 11.9963 8.73398 11.3503C8.86247 10.7044 9.17963 10.111 9.64533 9.64533C10.111 9.17963 10.7044 8.86247 11.3503 8.73398C11.9963 8.6055 12.6659 8.67144 13.2743 8.92348C13.8828 9.17552 14.4029 9.60234 14.7688 10.15C15.1347 10.6976 15.33 11.3414 15.33 12C15.33 12.4373 15.2439 12.8703 15.0765 13.2743C14.9092 13.6784 14.6639 14.0454 14.3547 14.3547C14.0454 14.6639 13.6784 14.9092 13.2743 15.0765C12.8703 15.2439 12.4373 15.33 12 15.33Z"
+              fill="#666666"
+            ></path>
+          </svg>
+        </a>
+        <a href="#" target="_blank" title="LinkedIn">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M6.94 5.00002C6.93974 5.53046 6.72877 6.03906 6.35351 6.41394C5.97825 6.78883 5.46944 6.99929 4.939 6.99902C4.40857 6.99876 3.89997 6.78779 3.52508 6.41253C3.1502 6.03727 2.93974 5.52846 2.94 4.99802C2.94027 4.46759 3.15124 3.95899 3.5265 3.5841C3.90176 3.20922 4.41057 2.99876 4.941 2.99902C5.47144 2.99929 5.98004 3.21026 6.35492 3.58552C6.72981 3.96078 6.94027 4.46959 6.94 5.00002ZM7 8.48002H3V21H7V8.48002ZM13.32 8.48002H9.34V21H13.28V14.43C13.28 10.77 18.05 10.43 18.05 14.43V21H22V13.07C22 6.90002 14.94 7.13002 13.28 10.16L13.32 8.48002Z"
+              fill="#666666"
+            ></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
     <div class="overlay"></div>
     <div class="model enquire-pop">
       <button type="button" class="close" aria-label="Close enquiry form">

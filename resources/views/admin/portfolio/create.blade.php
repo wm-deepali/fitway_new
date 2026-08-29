@@ -67,9 +67,9 @@
                         <select id="cat_id" name="cat_id"
                             class="form-control-styled @error('cat_id') is-invalid @enderror" required>
                             <option value="">Select Category</option>
-                            @foreach($galleries as $gallery)
-                                <option value="{{ $gallery->id }}" {{ old('cat_id') == $gallery->id ? 'selected' : '' }}>
-                                    {{ $gallery->name }}
+                            @foreach($portfolioCategories as $category)
+                                <option value="{{ $category->id }}" {{ old('cat_id') == $category->id ? 'selected' : '' }}>
+                                    {{ $category->name }}
                                 </option>
                             @endforeach
                         </select>
@@ -92,13 +92,23 @@
                         @error('description') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
 
-                    <div class="form-field">
+                                        <div class="form-field">
                         <label for="file">Image</label>
                         <input type="file" id="file" name="file"
                             class="form-control-styled @error('file') is-invalid @enderror" required>
                         <div class="hint">JPG, PNG, GIF, WEBP or SVG — max 2MB</div>
                         @error('file') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
+
+                    <div class="form-field">
+                        <label for="video">Video (optional)</label>
+                        <input type="file" id="video" name="video"
+                            class="form-control-styled @error('video') is-invalid @enderror">
+                        <div class="hint">MP4, MOV, AVI or WEBM — max 20MB</div>
+                        @error('video') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    
 
                     <div class="form-actions">
                         <button type="submit" class="btn-primary-dash">

@@ -7,17 +7,7 @@
       <!-- HERO + LEAD FORM -->
       <section class="gym-setup-hero" id="home">
   <div class="gym-setup-hero__bg">
-    <video
-      playsinline=""
-      autoplay=""
-      muted=""
-      loop=""
-      width="100%"
-      height="100%"
-      poster="{{ asset('assets/video/poster/banner3.png')}}"
-    >
-      <source src="{{ asset('assets/video/banner3.mp4')}}" type="video/mp4" />
-    </video>
+    <img src="{{ asset('assets/images/home/CorporateGyms.jpg') }}" alt="Corporate office gym setup">
     <div class="gym-setup-hero__overlay"></div>
   </div>
 
@@ -72,6 +62,7 @@
             method="post"
             novalidate
           >
+            @csrf
 
             <div class="contact-form__group">
               <label for="fullName">Full Name</label>
@@ -206,7 +197,7 @@
           <div class="gym-setup-intro__grid">
             <div class="gym-setup-intro__media reveal">
               <img
-                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80"
+                src="{{ asset('assets/images/home/complete-corprate-gym.jpg') }}"
                 alt="Modern corporate gym floor"
               />
             </div>
@@ -489,8 +480,8 @@
           <div class="gym-setup-equipment__grid">
             <a href="#contact" class="gym-setup-equipment__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80"
-                alt="Cardio equipment"
+                src="{{ asset('assets/images/home/Cardio-Equipment.jpg') }}"
+                alt="Cardio equipment for corporate gym"
               />
               <div class="gym-setup-equipment__overlay"></div>
               <div class="gym-setup-equipment__info">
@@ -512,8 +503,8 @@
 
             <a href="#contact" class="gym-setup-equipment__card reveal">
               <img
-                src="{{ asset('assets/images/home/GymDesign.avif')}}"
-                alt="Strength training machines"
+                src="{{ asset('assets/images/home/Strength Equipment.jpg') }}"
+                alt="Strength training machines for office gym"
               />
               <div class="gym-setup-equipment__overlay"></div>
               <div class="gym-setup-equipment__info">
@@ -535,8 +526,8 @@
 
             <a href="#contact" class="gym-setup-equipment__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80"
-                alt="Free weights dumbbells"
+                src="{{ asset('assets/images/home/Free Weights.jpg') }}"
+                alt="Free weights dumbbells for workplace gym"
               />
               <div class="gym-setup-equipment__overlay"></div>
               <div class="gym-setup-equipment__info">
@@ -558,8 +549,8 @@
 
             <a href="#contact" class="gym-setup-equipment__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80"
-                alt="Functional training area"
+                src="{{ asset('assets/images/home/private-trianer.avif') }}"
+                alt="Functional training area for employees"
               />
               <div class="gym-setup-equipment__overlay"></div>
               <div class="gym-setup-equipment__info">
@@ -581,8 +572,8 @@
 
             <a href="#contact" class="gym-setup-equipment__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=800&q=80"
-                alt="Benches and squat racks"
+                src="{{ asset('assets/images/home/guy-gym.jpg') }}"
+                alt="Benches and squat racks for corporate gym"
               />
               <div class="gym-setup-equipment__overlay"></div>
               <div class="gym-setup-equipment__info">
@@ -604,8 +595,8 @@
 
             <a href="#contact" class="gym-setup-equipment__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=800&q=80"
-                alt="Gym accessories"
+                src="{{ asset('assets/images/home/3d-gym-equipment.jpg') }}"
+                alt="Gym accessories for office wellness space"
               />
               <div class="gym-setup-equipment__overlay"></div>
               <div class="gym-setup-equipment__info">
@@ -641,8 +632,8 @@
           <div class="gym-setup-products-services__grid">
             <div class="gym-setup-products-services__block reveal">
               <img
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80"
-                alt="Gym equipment lineup"
+                src="{{ asset('assets/images/home/Complete.jpg') }}"
+                alt="Corporate gym equipment lineup"
               />
               <div class="gym-setup-products-services__overlay"></div>
               <div class="gym-setup-products-services__content">
@@ -667,8 +658,8 @@
 
             <div class="gym-setup-products-services__block reveal">
               <img
-                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80"
-                alt="Complete gym setup service"
+                src="{{ asset('assets/images/home/complete-corprate-gym2.jpg') }}"
+                alt="Complete corporate gym setup service"
               />
               <div class="gym-setup-products-services__overlay"></div>
               <div class="gym-setup-products-services__content">
@@ -711,7 +702,7 @@
           <div class="gym-setup-requirements__grid">
             <a href="#contact" class="gym-setup-requirements__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1584735175315-9d5df23860e6?auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('assets/images/home/office-gym.jpg') }}"
                 alt="Corporate office gym"
               />
               <div class="gym-setup-requirements__overlay"></div>
@@ -737,7 +728,7 @@
 
             <a href="#contact" class="gym-setup-requirements__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('assets/images/home/it-park.jpg') }}"
                 alt="IT park fitness centre"
               />
               <div class="gym-setup-requirements__overlay"></div>
@@ -763,7 +754,7 @@
 
             <a href="#contact" class="gym-setup-requirements__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('assets/images/home/wellness.jpg') }}"
                 alt="Employee wellness room"
               />
               <div class="gym-setup-requirements__overlay"></div>
@@ -789,7 +780,7 @@
 
             <a href="#contact" class="gym-setup-requirements__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('assets/images/home/business-parl.jpg') }}"
                 alt="Business park outdoor fitness space"
               />
               <div class="gym-setup-requirements__overlay"></div>
@@ -815,7 +806,7 @@
 
             <a href="#contact" class="gym-setup-requirements__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('assets/images/home/Ready-Operate.avif') }}"
                 alt="Premium corporate fitness centre"
               />
               <div class="gym-setup-requirements__overlay"></div>
@@ -841,7 +832,7 @@
 
             <a href="#contact" class="gym-setup-requirements__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('assets/images/home/Recovery-Space.jpg') }}"
                 alt="Corporate recovery and wellness space"
               />
               <div class="gym-setup-requirements__overlay"></div>
@@ -980,7 +971,7 @@
                 <div class="swiper-slide">
                   <article class="gym-setup-projects__card">
                     <img
-                      src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80"
+                      src="{{ asset('assets/images/home/Ready-Operate.avif') }}"
                       alt="Premium corporate gym project"
                     />
                     <div class="gym-setup-projects__info">
@@ -997,7 +988,7 @@
                 <div class="swiper-slide">
                   <article class="gym-setup-projects__card">
                     <img
-                      src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=900&q=80"
+                      src="{{ asset('assets/images/home/it-park.jpg') }}"
                       alt="IT park fitness corner project"
                     />
                     <div class="gym-setup-projects__info">
@@ -1014,7 +1005,7 @@
                 <div class="swiper-slide">
                   <article class="gym-setup-projects__card">
                     <img
-                      src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=900&q=80"
+                      src="{{ asset('assets/images/home/wellness.jpg') }}"
                       alt="Office wellness room conversion project"
                     />
                     <div class="gym-setup-projects__info">
@@ -1031,7 +1022,7 @@
                 <div class="swiper-slide">
                   <article class="gym-setup-projects__card">
                     <img
-                      src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&w=900&q=80"
+                      src="{{ asset('assets/images/home/complete-corprate-gym.jpg') }}"
                       alt="Full service corporate gym setup project"
                     />
                     <div class="gym-setup-projects__info">
@@ -1247,7 +1238,7 @@
       <section class="gym-setup-cta">
         <div class="gym-setup-cta__bg">
           <img
-            src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1600&q=80"
+            src="{{ asset('assets/images/home/form-banner.jpg') }}"
             alt="Premium corporate gym space ready for setup"
           />
           <div class="gym-setup-cta__overlay"></div>
@@ -1461,12 +1452,13 @@
 
           <div class="grid">
             <div class="img">
-              <img src="{{ asset('assets/images/home/gym1.jpg')}}" alt="" />
+              <img src="{{ asset('assets/images/home/ready-contact.jpg') }}" alt="" />
             </div>
 
             <!-- Right: Contact Form -->
             <div class="contact-form2">
               <form class="contact-form__form" method="post">
+                @csrf
                 <div class="contact-form__group">
                   <label for="fullName">Full Name</label>
                   <input

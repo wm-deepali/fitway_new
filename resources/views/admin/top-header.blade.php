@@ -5,12 +5,12 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-  <meta name="description" content="Srii Harihar Ply a exlcusive store for Lucknowi Chikan kaari">
-  <meta name="keywords" content="Srii Harihar Ply">
+  <meta name="description" content="Fitway Shunty Cycle Store a exlcusive store for Lucknowi Chikan kaari">
+  <meta name="keywords" content="Fitway Shunty Cycle Store">
   <meta name="author" content="Webmingo">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-  <title>Admin Dashboard | Srii Harihar Ply</title>
+  <title>Admin Dashboard | Fitway Shunty Cycle Store</title>
   <link rel="icon" type="image/png" href="{{ asset('assets/images/android-chrome-512x512.png') }}">
   <!--  <title>Krishna Chikan | @yield('title')</title> -->
 

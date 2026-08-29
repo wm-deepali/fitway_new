@@ -8,10 +8,7 @@
   <!-- HERO + LEAD FORM -->
   <section class="gym-setup-hero" id="home">
     <div class="gym-setup-hero__bg">
-      <video playsinline="" autoplay="" muted="" loop="" width="100%" height="100%"
-        poster="{{ asset('assets/video/poster/banner3.png')}}">
-        <source src="{{ asset('assets/video/banner3.mp4')}}" type="video/mp4" />
-      </video>
+      <img src="{{ asset('assets/images/home/outdoor-banner.jpg') }}" alt="outdoor  gym setup">
       <div class="gym-setup-hero__overlay"></div>
     </div>
 
@@ -19,15 +16,15 @@
       <div class="gym-setup-hero__grid">
 
         <div class="gym-setup-hero__content reveal">
-          <span class="label">Corporate Gym Setup</span>
+          <span class="label">Outdoor / Open Gym Setup</span>
 
-          <h1>Build a Healthier Workplace.</h1>
+          <h1>Build Fitness Spaces Under the Open Sky.</h1>
 
           <p>
-            Create a workplace fitness space that supports employee wellness,
-            health and productivity. Fitway provides complete corporate gym
-            solutions from space planning and equipment selection to
-            professional installation.
+            Create a durable and engaging outdoor fitness space designed for
+            communities, parks, residential societies and public areas. Fitway
+            provides complete outdoor gym solutions from space planning and
+            equipment selection to professional installation.
           </p>
 
           <ul class="gym-setup-hero__points">
@@ -35,21 +32,21 @@
               <svg viewBox="0 0 24 24" width="18" height="18">
                 <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2" />
               </svg>
-              Employee-Focused Fitness Solutions
+              Smart Outdoor Space Planning
             </li>
 
             <li>
               <svg viewBox="0 0 24 24" width="18" height="18">
                 <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2" />
               </svg>
-              Premium Commercial Equipment
+              Durable Weather-Resistant Equipment
             </li>
 
             <li>
               <svg viewBox="0 0 24 24" width="18" height="18">
                 <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2" />
               </svg>
-              Complete Setup &amp; Installation
+              Professional Installation &amp; Support
             </li>
           </ul>
 
@@ -92,26 +89,26 @@
                 <div class="contact-form__checkbox-list">
 
                   <label class="contact-form__checkbox">
-                    <input type="checkbox" name="requirement" value="Corporate Gym Equipment">
+                    <input type="checkbox" name="requirement" value="Outdoor Gym Equipment">
                     <span class="contact-form__checkbox-box"></span>
                     <span class="contact-form__checkbox-label">
-                      Corporate Gym Equipment
+                      Outdoor Gym Equipment
                     </span>
                   </label>
 
                   <label class="contact-form__checkbox">
-                    <input type="checkbox" name="requirement" value="Workplace Space Planning">
+                    <input type="checkbox" name="requirement" value="Outdoor Space Planning">
                     <span class="contact-form__checkbox-box"></span>
                     <span class="contact-form__checkbox-label">
-                      Workplace Space Planning
+                      Outdoor Space Planning
                     </span>
                   </label>
 
                   <label class="contact-form__checkbox">
-                    <input type="checkbox" name="requirement" value="Complete Corporate Gym Setup">
+                    <input type="checkbox" name="requirement" value="Complete Open Gym Setup">
                     <span class="contact-form__checkbox-box"></span>
                     <span class="contact-form__checkbox-label">
-                      Complete Corporate Gym Setup
+                      Complete Open Gym Setup
                     </span>
                   </label>
 
@@ -130,7 +127,7 @@
                 <label for="details">Enter Details (If any)</label>
 
                 <textarea id="details" name="details" rows="2"
-                  placeholder="Tell us about your corporate fitness space..."></textarea>
+                  placeholder="Tell us about your outdoor fitness space..."></textarea>
               </div>
 
               <button type="submit" class="btn btn-primary contact-form__cta">
@@ -154,34 +151,34 @@
     <div class="container">
       <div class="gym-setup-intro__grid">
         <div class="gym-setup-intro__media reveal">
-          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80"
-            alt="Modern corporate gym floor" />
+          <img src="{{ asset('assets/images/home/Outdoor-Equipment.jpg') }}"
+            alt="Open outdoor gym space in a park" />
         </div>
         <div class="gym-setup-intro__content reveal">
-          <span class="label">Complete Corporate Gym Setup</span>
-          <h2>More Than Equipment. A Healthier Workplace.</h2>
+          <span class="label">Complete Outdoor Gym Setup</span>
+          <h2>Fitness Beyond Four Walls.</h2>
           <p>
-            A great corporate fitness space needs more than a few machines
-            in a break room. It needs smart use of available office space,
-            the right equipment mix and a layout built around your
-            employees' wellbeing.
+            An outdoor gym is more than simply placing equipment in an
+            open area. It needs smart use of available space, the right
+            equipment mix and a layout built around safety and community
+            use.
           </p>
 
           <ul class="gym-setup-intro__points">
             <li>
               <svg viewBox="0 0 24 24" width="20" height="20">
                 <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2" />
-              </svg>Smart Office Space Planning
+              </svg>Smart Open Space Planning
             </li>
             <li>
               <svg viewBox="0 0 24 24" width="20" height="20">
                 <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2" />
-              </svg>Right Equipment Selection
+              </svg>Durable Outdoor Equipment
             </li>
             <li>
               <svg viewBox="0 0 24 24" width="20" height="20">
                 <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2" />
-              </svg>End-to-End Installation
+              </svg>Safe &amp; Professional Installation
             </li>
           </ul>
 
@@ -197,8 +194,8 @@
       <div class="heading">
         <h3>What <span>We Do</span></h3>
         <p>
-          From an empty office corner to a fully functional workplace gym,
-          we manage every important part of your setup.
+          From an empty open plot to a fully functional outdoor gym, we
+          manage every important part of your setup.
         </p>
       </div>
 
@@ -211,10 +208,10 @@
                 stroke-width="1.6" />
             </svg>
           </div>
-          <h3>Space Planning</h3>
+          <h3>Outdoor Space Planning</h3>
           <p>
-            We help you make the best use of your available office area,
-            break room or floor space for a functional workplace gym.
+            We help you make the best use of your available park, plot
+            or society area for a functional outdoor gym.
           </p>
         </article>
 
@@ -226,10 +223,10 @@
                 stroke-width="1.6" />
             </svg>
           </div>
-          <h3>Gym Design &amp; Layout</h3>
+          <h3>Open Gym Layout Design</h3>
           <p>
-            Create a smart, space-efficient layout that fits your office
-            and supports easy employee access.
+            Create a smart, space-efficient layout that fits your area
+            and supports easy access for all users.
           </p>
         </article>
 
@@ -243,7 +240,7 @@
           <h3>Equipment Selection</h3>
           <p>
             Choose the right mix of cardio, strength and functional
-            equipment suited to your employees' fitness needs.
+            equipment suited to your community's fitness needs.
           </p>
         </article>
 
@@ -254,10 +251,10 @@
               <path d="M3 7h18M3 12h18M3 17h18" fill="none" stroke="currentColor" stroke-width="1.6" />
             </svg>
           </div>
-          <h3>Equipment Supply</h3>
+          <h3>Weather-Resistant Equipment Supply</h3>
           <p>
-            Get quality corporate gym equipment selected specifically for
-            your workplace and employee wellness goals.
+            Get quality outdoor gym equipment selected specifically for
+            your space and community fitness goals.
           </p>
         </article>
 
@@ -268,10 +265,10 @@
               <path d="M3 12h13l-4-4m4 4l-4 4" fill="none" stroke="currentColor" stroke-width="1.6" />
             </svg>
           </div>
-          <h3>Delivery &amp; Installation</h3>
+          <h3>Delivery &amp; Professional Installation</h3>
           <p>
             Our team manages equipment delivery and professional
-            installation right at your office or business park.
+            installation right at your park, society or public space.
           </p>
         </article>
 
@@ -282,10 +279,10 @@
               <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="1.6" />
             </svg>
           </div>
-          <h3>Final Setup &amp; Support</h3>
+          <h3>Final Safety Check &amp; Support</h3>
           <p>
-            We help ensure your workplace gym is properly set up and ready
-            for your employees to use.
+            We help ensure your outdoor gym is properly set up and ready
+            for the community to use.
           </p>
         </article>
       </div>
@@ -302,8 +299,8 @@
       <div class="heading">
         <h3>How <span>It Works</span></h3>
         <p>
-          Our structured process helps turn your office space into a
-          complete and functional employee wellness gym.
+          Our structured process helps turn your open space into a
+          complete and functional outdoor fitness zone.
         </p>
       </div>
 
@@ -312,24 +309,24 @@
           <span class="gym-setup-process__num">01</span>
           <h3>Consultation</h3>
           <p>
-            We understand your company's wellness goals, available space
-            and employee requirements.
+            We understand the available outdoor space, users and your
+            project goals.
           </p>
         </div>
         <div class="gym-setup-process__step reveal">
           <span class="gym-setup-process__num">02</span>
-          <h3>Planning</h3>
+          <h3>Site Planning</h3>
           <p>
-            We plan the right layout and identify the equipment required
-            for your workplace gym.
+            We plan the layout for safe movement and effective use of
+            the space.
           </p>
         </div>
         <div class="gym-setup-process__step reveal">
           <span class="gym-setup-process__num">03</span>
           <h3>Selection</h3>
           <p>
-            Our team helps select equipment based on employee needs, space
-            and budget.
+            Our team helps select durable, weather-resistant equipment
+            based on your requirements.
           </p>
         </div>
         <div class="gym-setup-process__step reveal">
@@ -337,13 +334,13 @@
           <h3>Installation</h3>
           <p>
             We deliver and professionally install the equipment at your
-            workplace.
+            location.
           </p>
         </div>
         <div class="gym-setup-process__step reveal">
           <span class="gym-setup-process__num">05</span>
-          <h3>Ready to Train</h3>
-          <p>Your corporate gym is prepared, equipped and ready for your employees.</p>
+          <h3>Ready to Move</h3>
+          <p>Your outdoor fitness space is ready for the community to enjoy.</p>
         </div>
       </div>
 
@@ -359,10 +356,10 @@
       <div class="gym-setup-mid-cta__inner reveal">
         <div class="gym-setup-mid-cta__text">
           <span class="label">Ready to Get Started?</span>
-          <h2>Have a Space? Let's Build a Healthier Workplace.</h2>
+          <h2>Have an Open Space? Let's Turn It Into a Fitness Space.</h2>
           <p>
-            Tell us about your office and wellness goals, and our team will
-            help you plan the right equipment and corporate gym setup.
+            Tell us about your space and community goals, and our team
+            will help you plan the right equipment and outdoor gym setup.
           </p>
         </div>
         <div class="gym-setup-mid-cta__actions">
@@ -377,23 +374,22 @@
   <section class="gym-setup-equipment" id="equipment">
     <div class="container">
       <div class="heading">
-        <h3>Everything Your Corporate Gym Needs <span>to Perform</span></h3>
+        <h3>Everything Your Outdoor Gym Needs <span>to Perform</span></h3>
         <p>
-          Build a complete employee wellness space with the right equipment
+          Build a complete outdoor fitness space with the right equipment
           for cardio, strength, functional training and more.
         </p>
       </div>
 
       <div class="gym-setup-equipment__grid">
         <a href="#contact" class="gym-setup-equipment__card reveal">
-          <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80"
-            alt="Cardio equipment" />
+          <img src="{{ asset('assets/images/home/outdoor-gym.jpg') }}" alt="Outdoor cardio equipment" />
           <div class="gym-setup-equipment__overlay"></div>
           <div class="gym-setup-equipment__info">
-            <h3>Cardio Equipment</h3>
+            <h3>Outdoor Cardio Equipment</h3>
             <p>
-              Treadmills, bikes and cross trainers built for daily
-              workplace use.
+              Steppers, cycles and cross trainers built for daily
+              outdoor use.
             </p>
             <svg viewBox="0 0 24 24" width="20" height="20">
               <path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2" />
@@ -402,12 +398,12 @@
         </a>
 
         <a href="#contact" class="gym-setup-equipment__card reveal">
-          <img src="{{ asset('assets/images/home/GymDesign.avif')}}" alt="Strength training machines" />
+          <img src="{{ asset('assets/images/home/Outdoor-Strength-Equipment.jpg') }}" alt="Outdoor strength equipment" />
           <div class="gym-setup-equipment__overlay"></div>
           <div class="gym-setup-equipment__info">
-            <h3>Strength Equipment</h3>
+            <h3>Outdoor Strength Equipment</h3>
             <p>
-              Space-smart machines designed for effective employee
+              Space-smart machines designed for effective outdoor
               training.
             </p>
             <svg viewBox="0 0 24 24" width="20" height="20">
@@ -417,30 +413,13 @@
         </a>
 
         <a href="#contact" class="gym-setup-equipment__card reveal">
-          <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80"
-            alt="Free weights dumbbells" />
-          <div class="gym-setup-equipment__overlay"></div>
-          <div class="gym-setup-equipment__info">
-            <h3>Free Weights</h3>
-            <p>
-              Dumbbells, barbells, plates and essentials for workplace
-              training.
-            </p>
-            <svg viewBox="0 0 24 24" width="20" height="20">
-              <path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2" />
-            </svg>
-          </div>
-        </a>
-
-        <a href="#contact" class="gym-setup-equipment__card reveal">
-          <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80"
-            alt="Functional training area" />
+          <img src="{{ asset('assets/images/home/private-trianer.avif') }}" alt="Functional training equipment" />
           <div class="gym-setup-equipment__overlay"></div>
           <div class="gym-setup-equipment__info">
             <h3>Functional Training</h3>
             <p>
-              Versatile equipment for movement and performance during work
-              breaks.
+              Versatile equipment for movement and performance during
+              open-air training.
             </p>
             <svg viewBox="0 0 24 24" width="20" height="20">
               <path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2" />
@@ -449,13 +428,12 @@
         </a>
 
         <a href="#contact" class="gym-setup-equipment__card reveal">
-          <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=800&q=80"
-            alt="Benches and squat racks" />
+          <img src="{{ asset('assets/images/home/Bodyweight-Stations.jpg') }}" alt="Bodyweight training station" />
           <div class="gym-setup-equipment__overlay"></div>
           <div class="gym-setup-equipment__info">
-            <h3>Benches &amp; Racks</h3>
+            <h3>Bodyweight Stations</h3>
             <p>
-              Sturdy, space-conscious foundations for safe employee
+              Sturdy, space-conscious stations for safe outdoor
               strength training.
             </p>
             <svg viewBox="0 0 24 24" width="20" height="20">
@@ -465,13 +443,28 @@
         </a>
 
         <a href="#contact" class="gym-setup-equipment__card reveal">
-          <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=800&q=80"
-            alt="Gym accessories" />
+          <img src="{{ asset('assets/images/home/OutdoorFitness.jpg') }}" alt="Outdoor fitness stations" />
           <div class="gym-setup-equipment__overlay"></div>
           <div class="gym-setup-equipment__info">
-            <h3>Gym Accessories</h3>
+            <h3>Outdoor Fitness Stations</h3>
             <p>
-              Essential add-ons to complete your employee wellness space.
+              Sturdy, space-conscious foundations for safe community
+              training.
+            </p>
+            <svg viewBox="0 0 24 24" width="20" height="20">
+              <path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2" />
+            </svg>
+          </div>
+        </a>
+
+        <a href="#contact" class="gym-setup-equipment__card reveal">
+          <img src="{{ asset('assets/images/home/Community-Fitness.jpg') }}" alt="Community fitness equipment" />
+          <div class="gym-setup-equipment__overlay"></div>
+          <div class="gym-setup-equipment__info">
+            <h3>Community Fitness Equipment</h3>
+            <p>
+              Essential add-ons to complete your community open gym
+              space.
             </p>
             <svg viewBox="0 0 24 24" width="20" height="20">
               <path d="M7 17L17 7M17 7H9M17 7v8" fill="none" stroke="currentColor" stroke-width="2" />
@@ -488,49 +481,47 @@
       <div class="heading">
         <h3>Equipment <span>Meets Expertise</span></h3>
         <p>
-          From individual corporate gym equipment to complete workplace
+          From individual outdoor gym equipment to complete open gym
           solutions, Fitway helps you build every part of your setup.
         </p>
       </div>
 
       <div class="gym-setup-products-services__grid">
         <div class="gym-setup-products-services__block reveal">
-          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80"
-            alt="Gym equipment lineup" />
+          <img src="{{ asset('assets/images/home/outdoor-gym.jpg') }}" alt="Gym equipment lineup" />
           <div class="gym-setup-products-services__overlay"></div>
           <div class="gym-setup-products-services__content">
-            <span class="label">Gym Equipment</span>
-            <h3>Equip Your Workplace Space.</h3>
+            <span class="label">Durable Outdoor Fitness Equipment</span>
+            <h3>Equip Your Open Space.</h3>
             <p>
               Explore equipment selected for performance, durability and
-              every type of corporate training environment.
+              every type of outdoor training environment.
             </p>
             <ul>
-              <li>Cardio Equipment</li>
-              <li>Strength Equipment</li>
-              <li>Free Weights</li>
+              <li>Outdoor Cardio Equipment</li>
+              <li>Outdoor Strength Equipment</li>
               <li>Functional Training</li>
-              <li>Benches &amp; Racks</li>
+              <li>Bodyweight Stations</li>
+              <li>Community Equipment</li>
             </ul>
             <a href="#equipment" class="btn btn-outline-white">Explore Equipment</a>
           </div>
         </div>
 
         <div class="gym-setup-products-services__block reveal">
-          <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80"
-            alt="Complete gym setup service" />
+          <img src="{{ asset('assets/images/home/complate-outdoor.jpg') }}" alt="Complete gym setup service" />
           <div class="gym-setup-products-services__overlay"></div>
           <div class="gym-setup-products-services__content">
-            <span class="label">Complete Corporate Gym Setup</span>
+            <span class="label">Complete Outdoor Gym Setup</span>
             <h3>We Build the Complete Experience.</h3>
             <p>
-              From planning your office space to installing the final
-              piece of equipment, our team helps bring your workplace gym
+              From planning your open space to installing the final
+              piece of equipment, our team helps bring your outdoor gym
               to life.
             </p>
             <ul>
               <li>Space Planning</li>
-              <li>Gym Design</li>
+              <li>Layout Design</li>
               <li>Equipment Selection</li>
               <li>Supply</li>
               <li>Installation</li>
@@ -547,25 +538,24 @@
   <section class="gym-setup-requirements" id="Solutions">
     <div class="container">
       <div class="heading">
-        <h3>Corporate Gym Solutions <span>for Every Workplace</span></h3>
+        <h3>Outdoor Gym Solutions <span>for Every Space</span></h3>
         <p>
-          Every workplace has different requirements. Fitway helps you
-          plan the right equipment and setup based on your employees,
+          Every open space has different requirements. Fitway helps you
+          plan the right equipment and setup based on your users,
           available space and budget.
         </p>
       </div>
 
       <div class="gym-setup-requirements__grid">
         <a href="#contact" class="gym-setup-requirements__card reveal">
-          <img src="https://images.unsplash.com/photo-1584735175315-9d5df23860e6?auto=format&fit=crop&w=800&q=80"
-            alt="Corporate office gym" />
+          <img src="{{ asset('assets/images/home/Residential-Gym1.jpg') }}" alt="Residential society open gym" />
           <div class="gym-setup-requirements__overlay"></div>
           <div class="gym-setup-requirements__info">
-            <span class="label">Corporate Gym</span>
-            <h3>Corporate Office Gym</h3>
+            <span class="label">Residential Gym</span>
+            <h3>Residential Society Gym</h3>
             <p>
-              Create a dedicated employee training space designed around
-              your company's wellness goals and available area.
+              Create a dedicated outdoor fitness space designed around
+              your residents' wellness goals and available area.
             </p>
             <span class="gym-setup-requirements__arrow">
               <svg viewBox="0 0 24 24" width="18" height="18">
@@ -576,15 +566,14 @@
         </a>
 
         <a href="#contact" class="gym-setup-requirements__card reveal">
-          <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80"
-            alt="IT park fitness centre" />
+          <img src="{{ asset('assets/images/home/Public-Park-Gym1.jpg') }}" alt="Public park gym" />
           <div class="gym-setup-requirements__overlay"></div>
           <div class="gym-setup-requirements__info">
-            <span class="label">IT Park Gym</span>
-            <h3>IT Park Fitness Centre</h3>
+            <span class="label">Park Gym</span>
+            <h3>Public Park Gym</h3>
             <p>
               Space-efficient equipment and layouts designed for shared
-              facilities in IT and business parks.
+              use in public parks and green spaces.
             </p>
             <span class="gym-setup-requirements__arrow">
               <svg viewBox="0 0 24 24" width="18" height="18">
@@ -595,15 +584,14 @@
         </a>
 
         <a href="#contact" class="gym-setup-requirements__card reveal">
-          <img src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=800&q=80"
-            alt="Employee wellness room" />
+          <img src="{{ asset('assets/images/home/School-Fitness1.jpg') }}" alt="School fitness zone" />
           <div class="gym-setup-requirements__overlay"></div>
           <div class="gym-setup-requirements__info">
-            <span class="label">Wellness Room</span>
-            <h3>Employee Wellness Room</h3>
+            <span class="label">School Fitness Zone</span>
+            <h3>School &amp; College Fitness Zone</h3>
             <p>
-              Turn an unused office area into a fully functional wellness
-              and training space for your team.
+              Turn an unused campus area into a fully functional fitness
+              zone for students and staff.
             </p>
             <span class="gym-setup-requirements__arrow">
               <svg viewBox="0 0 24 24" width="18" height="18">
@@ -614,15 +602,14 @@
         </a>
 
         <a href="#contact" class="gym-setup-requirements__card reveal">
-          <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=800&q=80"
-            alt="Business park outdoor fitness space" />
+          <img src="{{ asset('assets/images/home/Community-Fitness1.jpg') }}" alt="Community open gym" />
           <div class="gym-setup-requirements__overlay"></div>
           <div class="gym-setup-requirements__info">
-            <span class="label">Business Park</span>
-            <h3>Business Park Fitness Zone</h3>
+            <span class="label">Community Gym</span>
+            <h3>Community Open Gym</h3>
             <p>
-              Create a durable, welcoming fitness space for teams across a
-              shared business park campus.
+              Create a durable, welcoming fitness space for shared use
+              across your community or neighbourhood.
             </p>
             <span class="gym-setup-requirements__arrow">
               <svg viewBox="0 0 24 24" width="18" height="18">
@@ -633,15 +620,14 @@
         </a>
 
         <a href="#contact" class="gym-setup-requirements__card reveal">
-          <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80"
-            alt="Premium corporate fitness centre" />
+          <img src="{{ asset('assets/images/home/Township-Setup1.jpg') }}" alt="Township fitness space" />
           <div class="gym-setup-requirements__overlay"></div>
           <div class="gym-setup-requirements__info">
-            <span class="label">Premium Setup</span>
-            <h3>Premium Corporate Fitness Centre</h3>
+            <span class="label">Township Setup</span>
+            <h3>Township Fitness Space</h3>
             <p>
-              A premium, fully equipped training space designed to match
-              your company's brand and workplace culture.
+              A fully equipped outdoor fitness space designed to match
+              your township's scale and community culture.
             </p>
             <span class="gym-setup-requirements__arrow">
               <svg viewBox="0 0 24 24" width="18" height="18">
@@ -652,15 +638,14 @@
         </a>
 
         <a href="#contact" class="gym-setup-requirements__card reveal">
-          <img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80"
-            alt="Corporate recovery and wellness space" />
+          <img src="{{ asset('assets/images/home/Recreational-Space1.jpg') }}" alt="Resort recreational fitness area" />
           <div class="gym-setup-requirements__overlay"></div>
           <div class="gym-setup-requirements__info">
-            <span class="label">Recovery Space</span>
-            <h3>Employee Recovery &amp; Wellness Space</h3>
+            <span class="label">Recreational Space</span>
+            <h3>Resort &amp; Recreational Fitness Area</h3>
             <p>
-              Combine fitness and recovery equipment for a complete
-              employee wellness experience at work.
+              Combine outdoor and recreational equipment for a complete
+              fitness experience at your property.
             </p>
             <span class="gym-setup-requirements__arrow">
               <svg viewBox="0 0 24 24" width="18" height="18">
@@ -680,18 +665,18 @@
         <h3>Why <span>Fitway</span></h3>
         <p>
           We combine equipment knowledge, planning and professional
-          execution to help build workplace fitness spaces around real
-          employee needs.
+          execution to help build outdoor fitness spaces around real
+          community needs.
         </p>
       </div>
 
       <div class="gym-setup-why__stats">
         <div class="gym-setup-why__stat reveal">
-          <h4>100+</h4>
-          <p>Corporate Gyms Set Up</p>
+          <h4>Trusted</h4>
+          <p>Outdoor Gym Partner</p>
         </div>
         <div class="gym-setup-why__stat reveal">
-          <h4>500+</h4>
+          <h4>Durable</h4>
           <p>Equipment Delivered</p>
         </div>
         <div class="gym-setup-why__stat reveal">
@@ -713,12 +698,12 @@
         <li class="reveal">
           <svg viewBox="0 0 24 24" width="20" height="20">
             <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2" />
-          </svg>Commercial Equipment Expertise
+          </svg>Outdoor Equipment Expertise
         </li>
         <li class="reveal">
           <svg viewBox="0 0 24 24" width="20" height="20">
             <path d="M20 6L9 17l-5-5" fill="none" stroke="currentColor" stroke-width="2" />
-          </svg>Custom Fitness Solutions for Teams
+          </svg>Custom Fitness Solutions for Communities
         </li>
         <li class="reveal">
           <svg viewBox="0 0 24 24" width="20" height="20">
@@ -745,7 +730,7 @@
       <div class="heading">
         <h3>Our <span>Work</span></h3>
         <p>
-          Explore workplace fitness spaces designed, equipped and
+          Explore outdoor fitness spaces designed, equipped and
           delivered by Fitway.
         </p>
       </div>
@@ -754,14 +739,13 @@
           <div class="swiper-wrapper">
             <div class="swiper-slide">
               <article class="gym-setup-projects__card">
-                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80"
-                  alt="Premium corporate gym project" />
+                <img src="{{ asset('assets/images/home/Residential-Gym.jpg') }}" alt="Residential outdoor fitness zone project" />
                 <div class="gym-setup-projects__info">
-                  <span class="label">Corporate Gym</span>
-                  <h3>Premium Corporate Gym</h3>
+                  <span class="label">Residential Gym</span>
+                  <h3>Residential Outdoor Fitness Zone</h3>
                   <p>
-                    A complete workplace gym setup designed with dedicated
-                    training zones and premium equipment.
+                    A complete outdoor gym setup designed with dedicated
+                    training zones for society residents.
                   </p>
                 </div>
               </article>
@@ -769,14 +753,13 @@
 
             <div class="swiper-slide">
               <article class="gym-setup-projects__card">
-                <img src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=900&q=80"
-                  alt="IT park fitness corner project" />
+                <img src="{{ asset('assets/images/home/Community-Fitness1.jpg') }}" alt="Community open gym project" />
                 <div class="gym-setup-projects__info">
-                  <span class="label">IT Park Gym</span>
-                  <h3>Compact IT Park Setup</h3>
+                  <span class="label">Community Gym</span>
+                  <h3>Community Open Gym</h3>
                   <p>
-                    A space-efficient fitness corner designed for a shared
-                    IT park facility.
+                    A space-efficient outdoor gym designed for shared
+                    community use.
                   </p>
                 </div>
               </article>
@@ -784,14 +767,13 @@
 
             <div class="swiper-slide">
               <article class="gym-setup-projects__card">
-                <img src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=900&q=80"
-                  alt="Office wellness room conversion project" />
+                <img src="{{ asset('assets/images/home/Public-Park-Gym.jpg') }}" alt="Public park fitness space project" />
                 <div class="gym-setup-projects__info">
-                  <span class="label">Wellness Room</span>
-                  <h3>Office Wellness Room Conversion</h3>
+                  <span class="label">Park Gym</span>
+                  <h3>Public Park Fitness Space</h3>
                   <p>
-                    An unused office area transformed into a fully
-                    functional employee training space.
+                    An open park area transformed into a fully
+                    functional public fitness space.
                   </p>
                 </div>
               </article>
@@ -799,13 +781,12 @@
 
             <div class="swiper-slide">
               <article class="gym-setup-projects__card">
-                <img src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&w=900&q=80"
-                  alt="Full service corporate gym setup project" />
+                <img src="{{ asset('assets/images/home/complate-outdoor.jpg') }}" alt="Full service outdoor gym setup project" />
                 <div class="gym-setup-projects__info">
                   <span class="label">Complete Setup</span>
-                  <h3>Full-Service Corporate Gym Setup</h3>
+                  <h3>Outdoor Training Area</h3>
                   <p>
-                    From planning to installation, a complete workplace
+                    From planning to installation, a complete outdoor
                     fitness space delivered by Fitway.
                   </p>
                 </div>
@@ -834,10 +815,10 @@
   <section class="home-secI" id="testimonials">
     <div class="container">
       <div class="heading">
-        <h3>Trusted by <span>Companies</span></h3>
+        <h3>Trusted by <span>Communities</span></h3>
 
         <p>
-          From quality equipment to complete corporate gym setup
+          From quality equipment to complete outdoor gym setup
           solutions, our clients trust Fitway to deliver reliable
           products and professional support.
         </p>
@@ -852,10 +833,10 @@
                 <span class="quote-mark">&#8220;</span>
 
                 <p>
-                  Fitway helped us set up our employee gym from planning
-                  the layout to installation. The team understood our
-                  workplace and goals, and made the entire process smooth
-                  and professionally managed.
+                  Fitway helped us set up our society's open gym from
+                  planning the layout to installation. The team
+                  understood our space and goals, and made the entire
+                  process smooth and professionally managed.
                 </p>
 
                 <div class="test_author">
@@ -863,7 +844,7 @@
 
                   <div class="author-info">
                     <h5>Rahul Sharma</h5>
-                    <span>HR Manager</span>
+                    <span>Society Secretary</span>
                   </div>
                 </div>
               </div>
@@ -875,10 +856,10 @@
                 <span class="quote-mark">&#8220;</span>
 
                 <p>
-                  We were looking for the right combination of cardio and
-                  strength equipment for our office wellness room. Fitway
-                  guided us through the selection process and delivered a
-                  setup that worked perfectly for our employees.
+                  We were looking for the right combination of cardio
+                  and strength equipment for our park. Fitway guided us
+                  through the selection process and delivered a setup
+                  that worked perfectly for our visitors.
                 </p>
 
                 <div class="test_author">
@@ -886,7 +867,7 @@
 
                   <div class="author-info">
                     <h5>Amit Patel</h5>
-                    <span>Facility Manager</span>
+                    <span>Parks Facility Officer</span>
                   </div>
                 </div>
               </div>
@@ -900,8 +881,8 @@
                 <p>
                   From the initial discussion to the final installation,
                   the Fitway team was supportive and professional. They
-                  helped us make better use of our office space and
-                  create a practical wellness environment for our team.
+                  helped us make better use of our campus space and
+                  create a practical fitness zone for students.
                 </p>
 
                 <div class="test_author">
@@ -909,7 +890,7 @@
 
                   <div class="author-info">
                     <h5>Neha Mehta</h5>
-                    <span>Workplace Operations Head</span>
+                    <span>School Administrator</span>
                   </div>
                 </div>
               </div>
@@ -923,8 +904,9 @@
                 <p>
                   The quality of the equipment and the installation
                   support were excellent. Fitway provided us with a
-                  complete solution instead of simply supplying machines,
-                  which made the entire project much easier to manage.
+                  complete solution instead of simply supplying
+                  machines, which made the entire project much easier to
+                  manage.
                 </p>
 
                 <div class="test_author">
@@ -932,7 +914,7 @@
 
                   <div class="author-info">
                     <h5>Karan Malhotra</h5>
-                    <span>Corporate Project Manager</span>
+                    <span>Township Project Manager</span>
                   </div>
                 </div>
               </div>
@@ -945,9 +927,10 @@
 
                 <p>
                   Fitway helped us choose equipment that matched our
-                  employees' needs and budget. The team handled delivery
-                  and installation efficiently, and our corporate gym was
-                  ready to use without any unnecessary complications.
+                  community's needs and budget. The team handled
+                  delivery and installation efficiently, and our open
+                  gym was ready to use without any unnecessary
+                  complications.
                 </p>
 
                 <div class="test_author">
@@ -955,7 +938,7 @@
 
                   <div class="author-info">
                     <h5>Sameer Khan</h5>
-                    <span>Business Park Facility Head</span>
+                    <span>Community Association Head</span>
                   </div>
                 </div>
               </div>
@@ -987,17 +970,16 @@
   <!-- FINAL CTA -->
   <section class="gym-setup-cta">
     <div class="gym-setup-cta__bg">
-      <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1600&q=80"
-        alt="Premium corporate gym space ready for setup" />
+      <img src="{{ asset('assets/images/home/form-banner.jpg') }}" alt="Open outdoor gym space ready for setup" />
       <div class="gym-setup-cta__overlay"></div>
     </div>
     <div class="container">
       <div class="gym-setup-cta__content">
         <span class="label">Ready to Build?</span>
-        <h2>Let's Build Your Corporate Gym.</h2>
+        <h2>Ready to Build an Outdoor Fitness Space?</h2>
         <p>
-          Share your workplace and wellness goals with our team and get
-          the right equipment and setup solution for your company.
+          Share your space and community goals with our team and get the
+          right equipment and setup solution for your project.
         </p>
         <div class="gym-setup-cta__actions">
           <a href="#home" class="btn btn-primary gym-setup-cta__scroll">Get Free Consultation</a>
@@ -1013,12 +995,12 @@
       <div class="heading">
         <h3>
           Questions Before You
-          <span>Start Your Corporate Gym?</span>
+          <span>Start Your Outdoor Gym?</span>
         </h3>
 
         <p>
-          Find answers about corporate gym planning, equipment selection,
-          installation and complete workplace setup solutions.
+          Find answers about outdoor gym planning, equipment selection,
+          installation and complete open gym setup solutions.
         </p>
       </div>
 
@@ -1026,15 +1008,15 @@
         <!-- FAQ 01 -->
         <div class="accordion-item active">
           <div class="accordion-header">
-            <h4>Does Fitway provide complete corporate gym setup solutions?</h4>
+            <h4>What is an outdoor gym?</h4>
             <span class="accordion-icon">−</span>
           </div>
 
           <div class="accordion-content" style="display: block">
             <p>
-              Yes. Fitway can support your corporate gym project from
-              initial consultation and space planning to equipment
-              selection, supply, installation and final setup.
+              An outdoor gym is an open-air fitness space equipped with
+              durable equipment designed for parks, societies, schools
+              and other public areas.
             </p>
           </div>
         </div>
@@ -1042,16 +1024,15 @@
         <!-- FAQ 02 -->
         <div class="accordion-item">
           <div class="accordion-header">
-            <h4>Can Fitway help me plan my office fitness space?</h4>
+            <h4>Which equipment is suitable for outdoor use?</h4>
             <span class="accordion-icon">+</span>
           </div>
 
           <div class="accordion-content">
             <p>
-              Yes. Our team can help you plan a practical layout based on
-              your available office area, employee count, equipment
-              requirements and the overall wellness experience you want to
-              create.
+              Outdoor gyms typically use weather-resistant cardio,
+              strength, functional and bodyweight equipment built to
+              handle daily outdoor exposure.
             </p>
           </div>
         </div>
@@ -1059,15 +1040,15 @@
         <!-- FAQ 03 -->
         <div class="accordion-item">
           <div class="accordion-header">
-            <h4>How do you select the right equipment for our employees?</h4>
+            <h4>Is the equipment weather-resistant?</h4>
             <span class="accordion-icon">+</span>
           </div>
 
           <div class="accordion-content">
             <p>
-              Equipment is selected based on your employees' fitness
-              needs, available space, wellness goals and budget to create
-              a balanced and functional workplace training environment.
+              Yes. Fitway supplies equipment built with weather-resistant
+              materials designed to hold up well through varying weather
+              conditions.
             </p>
           </div>
         </div>
@@ -1075,16 +1056,15 @@
         <!-- FAQ 04 -->
         <div class="accordion-item">
           <div class="accordion-header">
-            <h4>Can you set up a corporate gym within our budget?</h4>
+            <h4>Can you install an outdoor gym in a park?</h4>
             <span class="accordion-icon">+</span>
           </div>
 
           <div class="accordion-content">
             <p>
-              Yes. We can help recommend suitable equipment and setup
-              solutions based on your available budget while focusing on
-              the most important requirements of your employee wellness
-              space.
+              Yes. We work with parks and public spaces to plan a safe
+              layout and install durable equipment suited for everyday
+              community use.
             </p>
           </div>
         </div>
@@ -1092,16 +1072,15 @@
         <!-- FAQ 05 -->
         <div class="accordion-item">
           <div class="accordion-header">
-            <h4>What equipment is required for a corporate gym?</h4>
+            <h4>Can residential societies set up an open gym?</h4>
             <span class="accordion-icon">+</span>
           </div>
 
           <div class="accordion-content">
             <p>
-              Depending on your requirements, your corporate gym can
-              include cardio equipment, strength machines, free weights,
-              functional training equipment, benches, racks and essential
-              fitness accessories.
+              Yes. Fitway helps societies plan and set up open gyms in
+              common areas, designed around residents' needs and
+              available space.
             </p>
           </div>
         </div>
@@ -1109,18 +1088,15 @@
         <!-- FAQ 06 -->
         <div class="accordion-item">
           <div class="accordion-header">
-            <h4>
-              Does Fitway provide equipment delivery and installation?
-            </h4>
+            <h4>How much space is required?</h4>
             <span class="accordion-icon">+</span>
           </div>
 
           <div class="accordion-content">
             <p>
-              Yes. As part of our complete corporate gym setup support,
-              Fitway can manage equipment delivery, positioning and
-              professional installation to help prepare your workplace
-              space for use.
+              Space needed depends on the number of equipment stations
+              planned. Our team assesses your available area and
+              recommends a layout that fits comfortably.
             </p>
           </div>
         </div>
@@ -1128,15 +1104,15 @@
         <!-- FAQ 07 -->
         <div class="accordion-item">
           <div class="accordion-header">
-            <h4>Does Fitway offer maintenance and support after installation?</h4>
+            <h4>Is outdoor gym equipment safe?</h4>
             <span class="accordion-icon">+</span>
           </div>
 
           <div class="accordion-content">
             <p>
-              Yes. We offer ongoing maintenance and support services to
-              help keep your corporate gym equipment in good working
-              condition for your employees.
+              Yes. Our equipment and layouts are planned with safety in
+              mind, including secure installation suited for users of
+              all age groups.
             </p>
           </div>
         </div>
@@ -1144,17 +1120,15 @@
         <!-- FAQ 08 -->
         <div class="accordion-item">
           <div class="accordion-header">
-            <h4>
-              What information do you need to start planning our corporate gym?
-            </h4>
+            <h4>Do you provide installation?</h4>
             <span class="accordion-icon">+</span>
           </div>
 
           <div class="accordion-content">
             <p>
-              We typically need details about your available office
-              space, employee count, wellness goals, preferred equipment
-              and approximate budget to understand your needs better.
+              Yes. As part of our complete outdoor gym setup support,
+              Fitway manages equipment delivery, positioning and
+              professional installation on-site.
             </p>
           </div>
         </div>
@@ -1162,16 +1136,31 @@
         <!-- FAQ 09 -->
         <div class="accordion-item">
           <div class="accordion-header">
-            <h4>How do we get started with our corporate gym project?</h4>
+            <h4>Do you provide maintenance support?</h4>
+            <span class="accordion-icon">+</span>
+          </div>
+
+          <div class="accordion-content">
+            <p>
+              Yes. We offer ongoing maintenance and support services to
+              help keep your outdoor gym equipment in good working
+              condition.
+            </p>
+          </div>
+        </div>
+
+        <!-- FAQ 10 -->
+        <div class="accordion-item">
+          <div class="accordion-header">
+            <h4>How can I start an outdoor gym project?</h4>
             <span class="accordion-icon">+</span>
           </div>
 
           <div class="accordion-content">
             <p>
               Simply share your project requirements through our enquiry
-              form. Our team will get in touch to understand your
-              workplace and help you explore the right equipment and
-              corporate gym setup solution.
+              form. Our team will get in touch to understand your space
+              and help you explore the right open gym setup solution.
             </p>
           </div>
         </div>
@@ -1183,20 +1172,20 @@
     <div class="container">
       <div class="heading">
         <h3>
-          Ready to Build Your
-          <span>Corporate Gym?</span>
+          Ready to Create Your
+          <span>Outdoor Fitness Space?</span>
         </h3>
 
         <p>
-          Tell us about your space, business goals and requirements. Our
-          team will help you plan the right corporate gym equipment and
-          complete setup solution.
+          Tell us about your space, community goals and requirements.
+          Our team will help you plan the right outdoor gym equipment
+          and complete setup solution.
         </p>
       </div>
 
       <div class="grid">
         <div class="img">
-          <img src="{{ asset('assets/images/home/gym1.jpg')}}" alt="" />
+          <img src="{{ asset('assets/images/home/ready-contact.jpg') }}" alt="" />
         </div>
 
         <!-- Right: Contact Form -->
@@ -1224,27 +1213,27 @@
 
               <div class="contact-form__checkbox-list">
                 <label class="contact-form__checkbox">
-                  <input type="checkbox" name="interest" value="Corporate Gym Equipment" />
+                  <input type="checkbox" name="interest" value="Outdoor Gym Equipment" />
                   <span class="contact-form__checkbox-box"></span>
-                  <span class="contact-form__checkbox-label">Corporate Gym Equipment</span>
+                  <span class="contact-form__checkbox-label">Outdoor Gym Equipment</span>
                 </label>
 
                 <label class="contact-form__checkbox">
-                  <input type="checkbox" name="interest" value="Workplace Space Planning" />
+                  <input type="checkbox" name="interest" value="Outdoor Space Planning" />
                   <span class="contact-form__checkbox-box"></span>
-                  <span class="contact-form__checkbox-label">Workplace Space Planning</span>
+                  <span class="contact-form__checkbox-label">Outdoor Space Planning</span>
                 </label>
 
                 <label class="contact-form__checkbox">
-                  <input type="checkbox" name="interest" value="Complete Corporate Gym Setup" />
+                  <input type="checkbox" name="interest" value="Complete Open Gym Setup" />
                   <span class="contact-form__checkbox-box"></span>
-                  <span class="contact-form__checkbox-label">Complete Corporate Gym Setup</span>
+                  <span class="contact-form__checkbox-label">Complete Open Gym Setup</span>
                 </label>
 
                 <label class="contact-form__checkbox">
-                  <input type="checkbox" name="interest" value="Equipment Installation" />
+                  <input type="checkbox" name="interest" value="Installation Services" />
                   <span class="contact-form__checkbox-box"></span>
-                  <span class="contact-form__checkbox-label">Equipment Installation</span>
+                  <span class="contact-form__checkbox-label">Installation Services</span>
                 </label>
 
                 <label class="contact-form__checkbox">

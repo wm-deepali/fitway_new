@@ -36,16 +36,16 @@
     }
 
     .login-left {
-        width: 45%;
-        background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-        color: #fff;
-        text-align: center;
-        padding: 50px 30px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
+    width: 45%;
+    background: linear-gradient(135deg, #569ff7, #6ca7ee);
+    color: #fff;
+    text-align: center;
+    padding: 50px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
     .logo-box {
         background: rgba(0, 0, 0, 0.2);
@@ -75,10 +75,10 @@
     }
 
     .login-left p {
-        font-size: 13.5px;
+        font-size: 14px;
         opacity: .9;
         margin: 0;
-        color: var(--accent-light);
+        color: #fff;
     }
 
     .login-right {
@@ -123,7 +123,7 @@
         padding: 12px;
         border-radius: var(--radius-sm);
         border: none;
-        background: var(--accent);
+        background: #69a6ef;
         color: #fff;
         font-weight: 600;
         font-size: 14px;
@@ -131,7 +131,7 @@
     }
 
     .btn-login:hover {
-        background: var(--accent-dark);
+        background: #69a6ef;
     }
 
     .form-check-label {
@@ -171,7 +171,7 @@
         <div class="login-left">
 
             <div class="logo-box">
-                <img src="{{ $siteLogo?->image_url ?? asset('front/img/logo.png') }}" alt="Fitway Shunty Cycle Store">
+                <img src="{{ $siteLogo?->image_url ?? asset('assets/images/logo.png') }}" alt="Fitway Shunty Cycle Store">
             </div>
 
             <h2>Fitway Shunty Cycle Store</h2>

@@ -11,7 +11,7 @@ use App\Http\Controllers\Admin\{
     SliderController,
     AboutUsController,
     PlanPriceController,
-    GalleryController,
+    PortfolioCategoryController,
     PortfolioController,
     BMICalculatorController,
     SettingController,
@@ -40,14 +40,17 @@ use App\Http\Controllers\FrontController;
 
 Route::controller(FrontController::class)->group(function () {
     Route::get('/', 'home')->name('home');
+    Route::get('/products', 'products')->name('products');
+    Route::get('/products/{category}', 'products')->name('products.category');
+    Route::get('/products/{category}/{subCategory}', 'products')->name('products.subcategory');
+    Route::get('/products/{category}/{subCategory}/{subSubCategory}', 'products')->name('products.subsubcategory');
+    Route::get('/product/{slug}', 'productDetail')->name('product-detail');
     Route::get('/about-us', 'aboutUs')->name('about-us');
     Route::get('/contact-us', 'contactUs')->name('contact-us');
     Route::get('/faqs', 'faqs')->name('faqs');
     Route::get('/blogs', 'blogs')->name('blogs');
-    Route::get('/products', 'products')->name('products');
     Route::get('/portfolio', 'portfolio')->name('portfolio');
     Route::get('/cart', 'cart')->name('cart');
-    Route::get('/product-detail', 'productDetail')->name('product-detail');
     Route::get('/thank-you', 'thankYou')->name('thank-you');
     Route::get('/blog-details', 'blogDetail')->name('blog-details');
     Route::get('/commercial-gym-setup', 'commercialGymSetup')->name('commercial-gym-setup');
@@ -134,13 +137,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('{planPrice}', [PlanPriceController::class, 'destroy'])->name('destroy');
         });
 
-        Route::prefix('client-gallery')->name('client-gallery.')->group(function () {
-            Route::get('/', [GalleryController::class, 'index'])->name('index');
-            Route::get('create', [GalleryController::class, 'create'])->name('create');
-            Route::post('/', [GalleryController::class, 'store'])->name('store');
-            Route::get('{gallery}/edit', [GalleryController::class, 'edit'])->name('edit');
-            Route::put('{gallery}', [GalleryController::class, 'update'])->name('update');
-            Route::delete('{gallery}', [GalleryController::class, 'destroy'])->name('destroy');
+        Route::prefix('portfolio-category')->name('portfolio-category.')->group(function () {
+            Route::get('/', [PortfolioCategoryController::class, 'index'])->name('index');
+            Route::get('create', [PortfolioCategoryController::class, 'create'])->name('create');
+            Route::post('/', [PortfolioCategoryController::class, 'store'])->name('store');
+            Route::get('{portfolio_category}/edit', [PortfolioCategoryController::class, 'edit'])->name('edit');
+            Route::put('{portfolio_category}', [PortfolioCategoryController::class, 'update'])->name('update');
+            Route::delete('{portfolio_category}', [PortfolioCategoryController::class, 'destroy'])->name('destroy');
         });
 
         Route::prefix('portfolio')->name('portfolio.')->group(function () {

@@ -16,10 +16,10 @@
                 muted=""
                 loop=""
                 playsinline=""
-                src="{{ asset('assets/video/banner3.mp4') }}"
-                poster="{{ asset('assets/video/poster/banner.png') }}"
+                src="{{ asset('assets/video/cart.mp4') }}"
+                poster="{{ asset('assets/video/poster/cart.png') }}"
             >
-                <source src="{{ asset('assets/video/banner3.mp4') }}" type="video/mp4" />
+                <source src="{{ asset('assets/video/cart.mp4') }}" type="video/mp4" />
             </video>
 
             <div class="bg-overlay"></div>

@@ -1,4 +1,5 @@
 <?php
+// database/migrations/xxxx_xx_xx_create_portfolios_table.php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -10,10 +11,12 @@ return new class extends Migration
     {
         Schema::create('portfolios', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('cat_id')->nullable();
+            $table->foreignId('cat_id')->constrained('portfolio_categories')->cascadeOnDelete();
             $table->string('name');
-            $table->text('description')->nullable();
+            $table->string('subtitle')->nullable(); // e.g. "Gym Setup & Equipment"
             $table->string('image')->nullable();
+            $table->string('video')->nullable();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

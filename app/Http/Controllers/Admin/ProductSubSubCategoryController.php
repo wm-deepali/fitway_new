@@ -55,9 +55,10 @@ class ProductSubSubCategoryController extends Controller
 
     public function store(Request $request)
     {
+        
         $this->validate($request, [
             'category_id'     => 'required|exists:product_categories,id',
-            'sub_category_id' => 'required|exists:product_sub_categories,id',
+            'sub_cat_id' => 'required|exists:product_sub_categories,id',
             'name'             => 'required|string|max:255',
             'image'            => 'required|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
             'meta_title'       => 'nullable|string|max:255',
@@ -69,7 +70,7 @@ class ProductSubSubCategoryController extends Controller
 
         ProductSubSubCategory::create([
             'category_id'       => $request->category_id,
-            'sub_category_id'   => $request->sub_category_id,
+            'sub_category_id'   => $request->sub_cat_id,
             'name'               => $request->name,
             'slug'               => ProductSubSubCategory::generateUniqueSlug($request->name),
             'image'              => $imagePath,
@@ -98,17 +99,16 @@ class ProductSubSubCategoryController extends Controller
     {
         $this->validate($request, [
             'category_id'     => 'required|exists:product_categories,id',
-            'sub_category_id' => 'required|exists:product_sub_categories,id',
+            'sub_cat_id' => 'required|exists:product_sub_categories,id',
             'name'             => 'required|string|max:255',
             'image'            => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
             'meta_title'       => 'nullable|string|max:255',
             'meta_keywords'    => 'nullable|string|max:255',
             'meta_description' => 'nullable|string',
         ]);
-
         $data = [
             'category_id'      => $request->category_id,
-            'sub_category_id'  => $request->sub_category_id,
+            'sub_category_id'  => $request->sub_cat_id,
             'name'              => $request->name,
             'slug'              => ProductSubSubCategory::generateUniqueSlug($request->name, $subsubcategory->id),
             'status'            => $request->boolean('status', true),
@@ -123,6 +123,7 @@ class ProductSubSubCategoryController extends Controller
             }
             $data['image'] = $request->file('image')->store('sub-sub-categories', 'public');
         }
+
 
         $subsubcategory->update($data);
 

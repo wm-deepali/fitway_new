@@ -130,7 +130,7 @@
                                             @if($product->image_url)
                                                 <img src="{{ $product->image_url }}" alt="{{ $product->image_alt }}">
                                             @else
-                                                <img src="{{ asset('Admin/images/no-image.png') }}" alt="{{ $product->name }}">
+                                                <img src="{{ asset('Admin/images/no-image.svg') }}" alt="{{ $product->name }}">
                                             @endif
                                             <div>
                                                 <div class="prod-name">{{ $product->name }}</div>
@@ -177,7 +177,7 @@
                     </table>
 
                     <div class="pagination-wrap">
-                        {{ $products->appends(request()->query())->links() }}
+                        {{ $products->links('pagination::bootstrap-4') }}
                     </div>
                 @endif
             </div>

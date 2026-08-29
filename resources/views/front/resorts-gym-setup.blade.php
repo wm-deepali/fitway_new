@@ -7,17 +7,7 @@
       <!-- HERO + LEAD FORM -->
    <section class="gym-setup-hero" id="home">
   <div class="gym-setup-hero__bg">
-    <video
-      playsinline=""
-      autoplay=""
-      muted=""
-      loop=""
-      width="100%"
-      height="100%"
-      poster="{{ asset('assets/video/poster/banner3.png')}}"
-    >
-      <source src="{{ asset('assets/video/banner3.mp4')}}" type="video/mp4" />
-    </video>
+    <img src="{{ asset('assets/images/home/resort-banner.jpg') }}" alt="Hotels & Resorts Gym Setup">
 
     <div class="gym-setup-hero__overlay"></div>
   </div>
@@ -32,10 +22,10 @@
         <h1>Elevate Every Guest's Fitness Experience.</h1>
 
         <p>
-          From boutique hotels to luxury resorts, Fitway creates premium fitness
-          spaces designed around your property, guest expectations and available
-          space. From planning and equipment selection to installation, we
-          deliver complete hotel and resort gym solutions.
+          Create a premium fitness space designed around your property and
+          your guests. Fitway provides complete hotel and resort gym
+          solutions, from space planning and equipment selection to
+          professional installation and final setup.
         </p>
 
         <ul class="gym-setup-hero__points">
@@ -48,7 +38,7 @@
                 stroke-width="2"
               />
             </svg>
-            Guest-Focused Gym Planning
+            Guest-Focused Fitness Planning
           </li>
 
           <li>
@@ -160,7 +150,7 @@
                   <input
                     type="checkbox"
                     name="requirement"
-                    value="Gym Space Planning"
+                    value="Resort Fitness Planning"
                   />
                   <span class="contact-form__checkbox-box"></span>
                   <span class="contact-form__checkbox-label">
@@ -232,17 +222,19 @@
           <div class="gym-setup-intro__grid">
             <div class="gym-setup-intro__media reveal">
               <img
-                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80"
-                alt="Modern commercial gym floor"
+                src="{{ asset('assets/images/home/Complete-Resort.jpg') }}"
+                alt="Modern hotel gym floor"
               />
             </div>
             <div class="gym-setup-intro__content reveal">
-              <span class="label">Complete Home Gym Setup</span>
-              <h2>More Than Equipment. A Personalized Space.</h2>
+              <span class="label">Complete Hotel &amp; Resort Gym Setup</span>
+              <h2>More Than a Gym. A Better Guest Experience.</h2>
               <p>
-                A great home gym needs more than a few machines in a corner. It
-                needs smart space planning, the right equipment mix and a layout
-                built around how you actually train.
+                A well-planned hotel or resort gym gives guests a convenient
+                and premium way to maintain their fitness routine while
+                travelling. Fitway helps create functional fitness spaces
+                that match your property, available space and guest
+                expectations.
               </p>
 
               <ul class="gym-setup-intro__points">
@@ -264,7 +256,7 @@
                       stroke="currentColor"
                       stroke-width="2"
                     /></svg
-                  >Right Equipment Selection
+                  >Premium Equipment Selection
                 </li>
                 <li>
                   <svg viewBox="0 0 24 24" width="20" height="20">
@@ -274,7 +266,7 @@
                       stroke="currentColor"
                       stroke-width="2"
                     /></svg
-                  >End-to-End Installation
+                  >Complete Setup &amp; Installation
                 </li>
               </ul>
 
@@ -290,8 +282,8 @@
           <div class="heading">
             <h3>What <span>We Do</span></h3>
             <p>
-              From an empty room to a fully functional home gym, we manage every
-              important part of your setup.
+              From an empty space to a fully functional hotel gym, we manage
+              every important part of your setup.
             </p>
           </div>
 
@@ -308,10 +300,10 @@
                   />
                 </svg>
               </div>
-              <h3>Space Planning</h3>
+              <h3>Hotel Gym Space Planning</h3>
               <p>
-                We help you make the best use of your available room, garage or
-                spare space for a functional home gym.
+                We help you plan a fitness space that works efficiently
+                within your available property area.
               </p>
             </article>
 
@@ -327,10 +319,10 @@
                   />
                 </svg>
               </div>
-              <h3>Gym Design &amp; Layout</h3>
+              <h3>Fitness Centre Layout</h3>
               <p>
-                Create a smart, space-efficient layout that fits your home and
-                supports comfortable movement.
+                Create a comfortable and functional layout for smooth
+                movement and a better guest experience.
               </p>
             </article>
 
@@ -348,8 +340,8 @@
               </div>
               <h3>Equipment Selection</h3>
               <p>
-                Choose the right mix of cardio, strength and functional
-                equipment for your fitness goals.
+                Choose the right cardio, strength and functional equipment
+                for your guests' fitness needs.
               </p>
             </article>
 
@@ -365,10 +357,10 @@
                   />
                 </svg>
               </div>
-              <h3>Equipment Supply</h3>
+              <h3>Premium Equipment Supply</h3>
               <p>
-                Get quality home gym equipment selected specifically for your
-                space and training needs.
+                Get durable and reliable equipment suitable for hospitality
+                environments and daily guest use.
               </p>
             </article>
 
@@ -386,8 +378,8 @@
               </div>
               <h3>Delivery &amp; Installation</h3>
               <p>
-                Our team manages equipment delivery and professional
-                installation right at your home.
+                Our team manages professional delivery, placement and
+                installation with a smooth setup process.
               </p>
             </article>
 
@@ -403,10 +395,10 @@
                   />
                 </svg>
               </div>
-              <h3>Final Setup &amp; Support</h3>
+              <h3>Maintenance &amp; Support</h3>
               <p>
-                We help ensure your home gym is properly set up and ready for
-                your first workout.
+                We help maintain your fitness equipment and keep the facility
+                ready for guests.
               </p>
             </article>
           </div>
@@ -425,8 +417,8 @@
           <div class="heading">
             <h3>How <span>It Works</span></h3>
             <p>
-              Our structured process helps turn your spare space into a complete
-              and functional home gym.
+              Our structured process helps turn your property space into a
+              complete and functional guest fitness facility.
             </p>
           </div>
 
@@ -435,24 +427,24 @@
               <span class="gym-setup-process__num">01</span>
               <h3>Consultation</h3>
               <p>
-                We understand your fitness goals, available space and personal
-                requirements.
+                We understand your property, available space, guest profile
+                and fitness requirements.
               </p>
             </div>
             <div class="gym-setup-process__step reveal">
               <span class="gym-setup-process__num">02</span>
-              <h3>Planning</h3>
+              <h3>Space Planning</h3>
               <p>
-                We plan the right layout and identify the equipment required for
-                your home gym.
+                We create a practical layout that fits naturally within your
+                hotel or resort.
               </p>
             </div>
             <div class="gym-setup-process__step reveal">
               <span class="gym-setup-process__num">03</span>
               <h3>Selection</h3>
               <p>
-                Our team helps select equipment based on your goals, space and
-                budget.
+                Our team selects premium equipment based on guest needs,
+                usage and available space.
               </p>
             </div>
             <div class="gym-setup-process__step reveal">
@@ -460,13 +452,13 @@
               <h3>Installation</h3>
               <p>
                 We deliver and professionally install the equipment at your
-                home.
+                property.
               </p>
             </div>
             <div class="gym-setup-process__step reveal">
               <span class="gym-setup-process__num">05</span>
-              <h3>Ready to Train</h3>
-              <p>Your home gym is prepared, equipped and ready for action.</p>
+              <h3>Ready for Guests</h3>
+              <p>Your fitness space is prepared and ready to become part of the guest experience.</p>
             </div>
           </div>
 
@@ -482,10 +474,11 @@
           <div class="gym-setup-mid-cta__inner reveal">
             <div class="gym-setup-mid-cta__text">
               <span class="label">Ready to Get Started?</span>
-              <h2>Have a Space? Let's Build Something Great.</h2>
+              <h2>Have a Space? Create a Better Guest Experience.</h2>
               <p>
-                Tell us about your room and goals, and our team will help you
-                plan the right equipment and home gym setup.
+                Tell us about your hotel or resort property and our team
+                will help you plan the right fitness space and equipment
+                solution.
               </p>
             </div>
             <div class="gym-setup-mid-cta__actions">
@@ -504,24 +497,25 @@
       <section class="gym-setup-equipment" id="equipment">
         <div class="container">
           <div class="heading">
-            <h3>Everything Your Home Gym Needs <span>to Perform</span></h3>
+            <h3>Everything Your Hotel Gym Needs <span>to Perform</span></h3>
             <p>
-              Build a complete training space with the right equipment for
-              cardio, strength, functional training and more.
+              Build a complete guest fitness space with the right equipment
+              for cardio, strength, functional training and more.
             </p>
           </div>
 
           <div class="gym-setup-equipment__grid">
             <a href="#contact" class="gym-setup-equipment__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('assets/images/home/Cardio-Equipment.jpg') }}"
                 alt="Cardio equipment"
               />
               <div class="gym-setup-equipment__overlay"></div>
               <div class="gym-setup-equipment__info">
                 <h3>Cardio Equipment</h3>
                 <p>
-                  Compact treadmills, bikes and cross trainers for home use.
+                  Treadmills, bikes and cross trainers built for daily guest
+                  use.
                 </p>
                 <svg viewBox="0 0 24 24" width="20" height="20">
                   <path
@@ -536,14 +530,14 @@
 
             <a href="#contact" class="gym-setup-equipment__card reveal">
               <img
-                src="{{ asset('assets/images/home/GymDesign.avif')}}"
+                src="{{ asset('assets/images/home/Strength Equipment.jpg') }}"
                 alt="Strength training machines"
               />
               <div class="gym-setup-equipment__overlay"></div>
               <div class="gym-setup-equipment__info">
                 <h3>Strength Equipment</h3>
                 <p>
-                  Space-smart machines designed for effective home training.
+                  Space-smart machines designed for effective guest training.
                 </p>
                 <svg viewBox="0 0 24 24" width="20" height="20">
                   <path
@@ -558,59 +552,14 @@
 
             <a href="#contact" class="gym-setup-equipment__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('assets/images/home/Free Weights.jpg') }}"
                 alt="Free weights dumbbells"
               />
               <div class="gym-setup-equipment__overlay"></div>
               <div class="gym-setup-equipment__info">
                 <h3>Free Weights</h3>
                 <p>
-                  Dumbbells, barbells, plates and essentials for home training.
-                </p>
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path
-                    d="M7 17L17 7M17 7H9M17 7v8"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                </svg>
-              </div>
-            </a>
-
-            <a href="#contact" class="gym-setup-equipment__card reveal">
-              <img
-                src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=800&q=80"
-                alt="Functional training area"
-              />
-              <div class="gym-setup-equipment__overlay"></div>
-              <div class="gym-setup-equipment__info">
-                <h3>Functional Training</h3>
-                <p>
-                  Versatile, compact equipment for movement and performance at
-                  home.
-                </p>
-                <svg viewBox="0 0 24 24" width="20" height="20">
-                  <path
-                    d="M7 17L17 7M17 7H9M17 7v8"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  />
-                </svg>
-              </div>
-            </a>
-
-            <a href="#contact" class="gym-setup-equipment__card reveal">
-              <img
-                src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=800&q=80"
-                alt="Benches and squat racks"
-              />
-              <div class="gym-setup-equipment__overlay"></div>
-              <div class="gym-setup-equipment__info">
-                <h3>Benches &amp; Racks</h3>
-                <p>
-                  Sturdy, space-conscious foundations for safe strength
+                  Dumbbells, barbells, plates and essentials for guest
                   training.
                 </p>
                 <svg viewBox="0 0 24 24" width="20" height="20">
@@ -626,14 +575,60 @@
 
             <a href="#contact" class="gym-setup-equipment__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('assets/images/home/private-trianer.avif') }}"
+                alt="Functional training area"
+              />
+              <div class="gym-setup-equipment__overlay"></div>
+              <div class="gym-setup-equipment__info">
+                <h3>Functional Training</h3>
+                <p>
+                  Versatile equipment for movement and performance during a
+                  guest's stay.
+                </p>
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path
+                    d="M7 17L17 7M17 7H9M17 7v8"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                </svg>
+              </div>
+            </a>
+
+            <a href="#contact" class="gym-setup-equipment__card reveal">
+              <img
+                src="{{ asset('assets/images/home/complete-corprate-gym.jpg') }}"
+                alt="Multi-use training equipment"
+              />
+              <div class="gym-setup-equipment__overlay"></div>
+              <div class="gym-setup-equipment__info">
+                <h3>Multi-Use Training Equipment</h3>
+                <p>
+                  Sturdy, space-conscious equipment built for safe, everyday
+                  guest use.
+                </p>
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                  <path
+                    d="M7 17L17 7M17 7H9M17 7v8"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                </svg>
+              </div>
+            </a>
+
+            <a href="#contact" class="gym-setup-equipment__card reveal">
+              <img
+                src="{{ asset('assets/images/home/3d-gym-equipment.jpg') }}"
                 alt="Gym accessories"
               />
               <div class="gym-setup-equipment__overlay"></div>
               <div class="gym-setup-equipment__info">
-                <h3>Gym Accessories</h3>
+                <h3>Fitness Accessories</h3>
                 <p>
-                  Essential add-ons to complete your personal training space.
+                  Essential add-ons to complete your hotel's fitness space.
                 </p>
                 <svg viewBox="0 0 24 24" width="20" height="20">
                   <path
@@ -655,31 +650,31 @@
           <div class="heading">
             <h3>Equipment <span>Meets Expertise</span></h3>
             <p>
-              From individual home gym equipment to complete space solutions,
-              Fitway helps you build every part of your setup.
+              From individual hotel gym equipment to complete property
+              solutions, Fitway helps you build every part of your setup.
             </p>
           </div>
 
           <div class="gym-setup-products-services__grid">
             <div class="gym-setup-products-services__block reveal">
               <img
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80"
+                src="{{ asset('assets/images/home/Premium-resort.jpg') }}"
                 alt="Gym equipment lineup"
               />
               <div class="gym-setup-products-services__overlay"></div>
               <div class="gym-setup-products-services__content">
-                <span class="label">Gym Equipment</span>
-                <h3>Equip Your Home Space.</h3>
+                <span class="label">Premium Gym Equipment</span>
+                <h3>Equipment Designed for Every Guest.</h3>
                 <p>
-                  Explore equipment selected for performance, durability and
-                  every type of home training environment.
+                  Explore reliable, premium and easy-to-use equipment
+                  selected for every type of hospitality fitness space.
                 </p>
                 <ul>
                   <li>Cardio Equipment</li>
                   <li>Strength Equipment</li>
                   <li>Free Weights</li>
                   <li>Functional Training</li>
-                  <li>Benches &amp; Racks</li>
+                  <li>Multi-Use Equipment</li>
                 </ul>
                 <a href="#equipment" class="btn btn-outline-white"
                   >Explore Equipment</a
@@ -689,20 +684,21 @@
 
             <div class="gym-setup-products-services__block reveal">
               <img
-                src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=80"
+                src="{{ asset('assets/images/home/Complete-Resort.jpg') }}"
                 alt="Complete gym setup service"
               />
               <div class="gym-setup-products-services__overlay"></div>
               <div class="gym-setup-products-services__content">
-                <span class="label">Complete Home Gym Setup</span>
-                <h3>We Build the Complete Experience.</h3>
+                <span class="label">Complete Hotel Gym Setup</span>
+                <h3>From Empty Space to Guest-Ready Fitness.</h3>
                 <p>
-                  From planning your space to installing the final piece of
-                  equipment, our team helps bring your home gym to life.
+                  From planning your property to installing the final piece
+                  of equipment, our team helps bring your guest fitness space
+                  to life.
                 </p>
                 <ul>
                   <li>Space Planning</li>
-                  <li>Gym Design</li>
+                  <li>Fitness Centre Layout</li>
                   <li>Equipment Selection</li>
                   <li>Supply</li>
                   <li>Installation</li>
@@ -721,27 +717,27 @@
       <section class="gym-setup-requirements" id="Solutions">
         <div class="container">
           <div class="heading">
-            <h3>Home Gym Solutions <span>for Every Space</span></h3>
+            <h3>Fitness Solutions <span>for Every Property</span></h3>
             <p>
-              Every home has different requirements. Fitway helps you plan the
-              right equipment and setup based on your goals, available space and
-              budget.
+              Every hotel and resort has different requirements. Fitway
+              helps you plan the right equipment and setup based on your
+              guests, available space and budget.
             </p>
           </div>
 
           <div class="gym-setup-requirements__grid">
             <a href="#contact" class="gym-setup-requirements__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1584735175315-9d5df23860e6?auto=format&fit=crop&w=800&q=80"
-                alt="Personal and home gym"
+                src="{{ asset('assets/images/home/Luxury-Hotel-Gym.jpg') }}"
+                alt="Luxury hotel gym"
               />
               <div class="gym-setup-requirements__overlay"></div>
               <div class="gym-setup-requirements__info">
-                <span class="label">Home Gym</span>
-                <h3>Personal &amp; Home Gym</h3>
+                <span class="label">Luxury Hotel</span>
+                <h3>Luxury Hotel Gym</h3>
                 <p>
-                  Create a personalised training space designed around your
-                  fitness goals and available area.
+                  Create a premium training space designed around your
+                  luxury property and its guest expectations.
                 </p>
                 <span class="gym-setup-requirements__arrow">
                   <svg viewBox="0 0 24 24" width="18" height="18">
@@ -758,16 +754,16 @@
 
             <a href="#contact" class="gym-setup-requirements__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=800&q=80"
-                alt="Compact apartment gym"
+                src="{{ asset('assets/images/home/Resort-Gyms.jpg') }}"
+                alt="Resort fitness centre"
               />
               <div class="gym-setup-requirements__overlay"></div>
               <div class="gym-setup-requirements__info">
-                <span class="label">Apartment Gym</span>
-                <h3>Compact Apartment Gym</h3>
+                <span class="label">Resort Gym</span>
+                <h3>Resort Fitness Centre</h3>
                 <p>
-                  Space-efficient equipment and layouts designed for smaller
-                  homes and apartments.
+                  Space-efficient equipment and layouts designed for shared
+                  guest facilities at your resort.
                 </p>
                 <span class="gym-setup-requirements__arrow">
                   <svg viewBox="0 0 24 24" width="18" height="18">
@@ -784,16 +780,16 @@
 
             <a href="#contact" class="gym-setup-requirements__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=800&q=80"
-                alt="Garage gym conversion"
+                src="{{ asset('assets/images/home/Boutique-Hotel-Gym.jpg') }}"
+                alt="Boutique hotel gym"
               />
               <div class="gym-setup-requirements__overlay"></div>
               <div class="gym-setup-requirements__info">
-                <span class="label">Garage Gym</span>
-                <h3>Garage &amp; Basement Gym</h3>
+                <span class="label">Boutique Hotel</span>
+                <h3>Boutique Hotel Gym</h3>
                 <p>
-                  Turn an unused garage or basement into a fully functional
-                  training space.
+                  Turn an unused property area into a fully functional
+                  fitness space that matches your brand.
                 </p>
                 <span class="gym-setup-requirements__arrow">
                   <svg viewBox="0 0 24 24" width="18" height="18">
@@ -810,16 +806,16 @@
 
             <a href="#contact" class="gym-setup-requirements__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?auto=format&fit=crop&w=800&q=80"
-                alt="Outdoor home gym"
+                src="{{ asset('assets/images/home/Wellness-Retreat-fitness.jpg') }}"
+                alt="Wellness retreat fitness space"
               />
               <div class="gym-setup-requirements__overlay"></div>
               <div class="gym-setup-requirements__info">
-                <span class="label">Outdoor Space</span>
-                <h3>Outdoor &amp; Patio Gym</h3>
+                <span class="label">Wellness Retreat</span>
+                <h3>Wellness Retreat Fitness Space</h3>
                 <p>
-                  Create a durable, weather-ready fitness space in your backyard
-                  or patio.
+                  Create a durable, welcoming fitness space designed to
+                  complement your retreat's wellness offerings.
                 </p>
                 <span class="gym-setup-requirements__arrow">
                   <svg viewBox="0 0 24 24" width="18" height="18">
@@ -836,42 +832,42 @@
 
             <a href="#contact" class="gym-setup-requirements__card reveal">
               <img
-                src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80"
-                alt="Premium luxury home gym"
+                src="{{ asset('assets/images/home/Holiday-Resort-Gym.jpg') }}"
+                alt="Holiday resort gym"
+              />
+              <div class="gym-setup-requirements__overlay"></div>
+              <div class="gym-setup-requirements__info">
+                <span class="label">Holiday Resort</span>
+                <h3>Holiday Resort Gym</h3>
+                <p>
+                  A fully equipped training space designed to match your
+                  resort's guest volume and recreational culture.
+                </p>
+                <span class="gym-setup-requirements__arrow">
+                  <svg viewBox="0 0 24 24" width="18" height="18">
+                    <path
+                      d="M7 17L17 7M17 7H9M17 7v8"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    />
+                  </svg>
+                </span>
+              </div>
+            </a>
+
+            <a href="#contact" class="gym-setup-requirements__card reveal">
+              <img
+                src="{{ asset('assets/images/home/hospital-fintenss.jpg') }}"
+                alt="Premium hospitality fitness centre"
               />
               <div class="gym-setup-requirements__overlay"></div>
               <div class="gym-setup-requirements__info">
                 <span class="label">Premium Setup</span>
-                <h3>Luxury Home Gym</h3>
+                <h3>Premium Hospitality Fitness Centre</h3>
                 <p>
-                  A premium, fully equipped training space designed to match
-                  your home and lifestyle.
-                </p>
-                <span class="gym-setup-requirements__arrow">
-                  <svg viewBox="0 0 24 24" width="18" height="18">
-                    <path
-                      d="M7 17L17 7M17 7H9M17 7v8"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    />
-                  </svg>
-                </span>
-              </div>
-            </a>
-
-            <a href="#contact" class="gym-setup-requirements__card reveal">
-              <img
-                src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80"
-                alt="Home wellness room"
-              />
-              <div class="gym-setup-requirements__overlay"></div>
-              <div class="gym-setup-requirements__info">
-                <span class="label">Wellness Room</span>
-                <h3>Home Wellness Room</h3>
-                <p>
-                  Combine fitness and recovery equipment for a complete personal
-                  wellness space.
+                  Combine premium equipment and thoughtful design for a
+                  complete guest wellness experience.
                 </p>
                 <span class="gym-setup-requirements__arrow">
                   <svg viewBox="0 0 24 24" width="18" height="18">
@@ -896,18 +892,18 @@
             <h3>Why <span>Fitway</span></h3>
             <p>
               We combine equipment knowledge, planning and professional
-              execution to help create home fitness spaces built around real
-              requirements.
+              execution to help create hospitality fitness spaces built
+              around real guest needs.
             </p>
           </div>
 
           <div class="gym-setup-why__stats">
             <div class="gym-setup-why__stat reveal">
-              <h4>100+</h4>
-              <p>Home Gyms Set Up</p>
+              <h4>Trusted</h4>
+              <p>Hospitality Gym Partner</p>
             </div>
             <div class="gym-setup-why__stat reveal">
-              <h4>500+</h4>
+              <h4>Premium</h4>
               <p>Equipment Delivered</p>
             </div>
             <div class="gym-setup-why__stat reveal">
@@ -939,7 +935,7 @@
                   stroke="currentColor"
                   stroke-width="2"
                 /></svg
-              >Quality Equipment Selection
+              >Premium Equipment Selection
             </li>
             <li class="reveal">
               <svg viewBox="0 0 24 24" width="20" height="20">
@@ -949,7 +945,7 @@
                   stroke="currentColor"
                   stroke-width="2"
                 /></svg
-              >Personalized Fitness Solutions
+              >Custom Fitness Solutions for Properties
             </li>
             <li class="reveal">
               <svg viewBox="0 0 24 24" width="20" height="20">
@@ -991,8 +987,8 @@
           <div class="heading">
             <h3>Our <span>Work</span></h3>
             <p>
-              Explore home fitness spaces designed, equipped and delivered by
-              Fitway.
+              Explore hotel and resort fitness spaces designed, equipped and
+              delivered by Fitway.
             </p>
           </div>
           <div class="gym-setup-projects__wrap">
@@ -1001,14 +997,14 @@
                 <div class="swiper-slide">
                   <article class="gym-setup-projects__card">
                     <img
-                      src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=80"
-                      alt="Premium home gym project"
+                      src="{{ asset('assets/images/home/Luxury-Hotel-Gym.jpg') }}"
+                      alt="Luxury hotel fitness centre project"
                     />
                     <div class="gym-setup-projects__info">
-                      <span class="label">Home Gym</span>
-                      <h3>Premium Home Gym</h3>
+                      <span class="label">Luxury Hotel</span>
+                      <h3>Luxury Hotel Fitness Centre</h3>
                       <p>
-                        A complete home gym setup designed with dedicated
+                        A complete hotel gym setup designed with dedicated
                         training zones and premium equipment.
                       </p>
                     </div>
@@ -1018,15 +1014,15 @@
                 <div class="swiper-slide">
                   <article class="gym-setup-projects__card">
                     <img
-                      src="https://images.unsplash.com/photo-1571731956672-f2b94d7dd0cb?auto=format&fit=crop&w=900&q=80"
-                      alt="Apartment fitness corner project"
+                      src="{{ asset('assets/images/home/Resort-Gyms.jpg') }}"
+                      alt="Resort wellness gym project"
                     />
                     <div class="gym-setup-projects__info">
-                      <span class="label">Apartment Gym</span>
-                      <h3>Compact Apartment Setup</h3>
+                      <span class="label">Resort Gym</span>
+                      <h3>Resort Wellness Gym</h3>
                       <p>
-                        A space-efficient training corner designed for a compact
-                        apartment.
+                        A guest-focused fitness space designed for a resort's
+                        wellness facilities.
                       </p>
                     </div>
                   </article>
@@ -1035,15 +1031,15 @@
                 <div class="swiper-slide">
                   <article class="gym-setup-projects__card">
                     <img
-                      src="https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?auto=format&fit=crop&w=900&q=80"
-                      alt="Garage gym conversion project"
+                      src="{{ asset('assets/images/home/Boutique-Hotel-Gym.jpg') }}"
+                      alt="Boutique hotel training space project"
                     />
                     <div class="gym-setup-projects__info">
-                      <span class="label">Garage Gym</span>
-                      <h3>Garage Gym Conversion</h3>
+                      <span class="label">Boutique Hotel</span>
+                      <h3>Boutique Hotel Training Space</h3>
                       <p>
-                        An unused garage transformed into a fully functional
-                        strength training space.
+                        An unused property area transformed into a fully
+                        functional guest training space.
                       </p>
                     </div>
                   </article>
@@ -1052,15 +1048,15 @@
                 <div class="swiper-slide">
                   <article class="gym-setup-projects__card">
                     <img
-                      src="https://images.unsplash.com/photo-1593079831268-3381b0db4a77?auto=format&fit=crop&w=900&q=80"
-                      alt="Full service home gym setup project"
+                      src="{{ asset('assets/images/home/compleate-setup-resort.jgp.jpg') }}"
+                      alt="Full service premium guest fitness facility project"
                     />
                     <div class="gym-setup-projects__info">
-                      <span class="label">Complete Home Setup</span>
-                      <h3>Full-Service Home Gym Setup</h3>
+                      <span class="label">Complete Setup</span>
+                      <h3>Premium Guest Fitness Facility</h3>
                       <p>
-                        From planning to installation, a complete home fitness
-                        space delivered by Fitway.
+                        From planning to installation, a complete guest
+                        fitness space delivered by Fitway.
                       </p>
                     </div>
                   </article>
@@ -1104,12 +1100,12 @@
       <section class="home-secI" id="testimonials">
         <div class="container">
           <div class="heading">
-            <h3>Trusted by <span>Homeowners</span></h3>
+            <h3>Trusted by <span>Properties</span></h3>
 
             <p>
-              From quality equipment to complete home gym setup solutions, our
-              clients trust Fitway to deliver reliable products and professional
-              support.
+              From quality equipment to complete hotel and resort gym setup
+              solutions, our clients trust Fitway to deliver reliable
+              products and professional support.
             </p>
           </div>
 
@@ -1122,10 +1118,10 @@
                     <span class="quote-mark">&#8220;</span>
 
                     <p>
-                      Fitway helped us set up our home gym from planning the
-                      layout to installation. The team understood our space and
-                      goals, and made the entire process smooth and
-                      professionally managed.
+                      Fitway helped us set up our hotel gym from planning the
+                      layout to installation. The team understood our
+                      property and guest experience goals, and made the
+                      entire process smooth and professionally managed.
                     </p>
 
                     <div class="test_author">
@@ -1133,7 +1129,7 @@
 
                       <div class="author-info">
                         <h5>Rahul Sharma</h5>
-                        <span>Home Gym Owner</span>
+                        <span>Hotel Owner</span>
                       </div>
                     </div>
                   </div>
@@ -1146,9 +1142,9 @@
 
                     <p>
                       We were looking for the right combination of cardio and
-                      strength equipment for our spare room. Fitway guided us
-                      through the selection process and delivered a setup that
-                      worked perfectly for our space.
+                      strength equipment for our resort's fitness centre.
+                      Fitway guided us through the selection process and
+                      delivered a setup that worked perfectly for our guests.
                     </p>
 
                     <div class="test_author">
@@ -1156,7 +1152,7 @@
 
                       <div class="author-info">
                         <h5>Amit Patel</h5>
-                        <span>Apartment Gym Owner</span>
+                        <span>Resort Manager</span>
                       </div>
                     </div>
                   </div>
@@ -1168,10 +1164,10 @@
                     <span class="quote-mark">&#8220;</span>
 
                     <p>
-                      From the initial discussion to the final installation, the
-                      Fitway team was supportive and professional. They helped
-                      us make better use of our garage and create a practical
-                      training environment.
+                      From the initial discussion to the final installation,
+                      the Fitway team was supportive and professional. They
+                      helped us make better use of our property space and
+                      create a practical fitness facility for our guests.
                     </p>
 
                     <div class="test_author">
@@ -1179,7 +1175,7 @@
 
                       <div class="author-info">
                         <h5>Neha Mehta</h5>
-                        <span>Home Gym Owner</span>
+                        <span>Hospitality Project Manager</span>
                       </div>
                     </div>
                   </div>
@@ -1191,10 +1187,10 @@
                     <span class="quote-mark">&#8220;</span>
 
                     <p>
-                      The quality of the equipment and the installation support
-                      were excellent. Fitway provided us with a complete
-                      solution instead of simply supplying machines, which made
-                      the entire project much easier to manage.
+                      The quality of the equipment and the installation
+                      support were excellent. Fitway provided us with a
+                      complete solution instead of simply supplying machines,
+                      which made the entire project much easier to manage.
                     </p>
 
                     <div class="test_author">
@@ -1202,7 +1198,7 @@
 
                       <div class="author-info">
                         <h5>Karan Malhotra</h5>
-                        <span>Home Gym Project Owner</span>
+                        <span>Boutique Hotel Owner</span>
                       </div>
                     </div>
                   </div>
@@ -1214,10 +1210,11 @@
                     <span class="quote-mark">&#8220;</span>
 
                     <p>
-                      Fitway helped us choose equipment that matched our space
-                      and budget. The team handled delivery and installation
-                      efficiently, and our home gym was ready to use without any
-                      unnecessary complications.
+                      Fitway helped us choose equipment that matched our
+                      guests' needs and our property's budget. The team
+                      handled delivery and installation efficiently, and our
+                      fitness centre was ready to use without any unnecessary
+                      complications.
                     </p>
 
                     <div class="test_author">
@@ -1225,7 +1222,7 @@
 
                       <div class="author-info">
                         <h5>Sameer Khan</h5>
-                        <span>Homeowner</span>
+                        <span>Wellness Facility Manager</span>
                       </div>
                     </div>
                   </div>
@@ -1268,18 +1265,19 @@
       <section class="gym-setup-cta">
         <div class="gym-setup-cta__bg">
           <img
-            src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?auto=format&fit=crop&w=1600&q=80"
-            alt="Premium home gym space ready for setup"
+            src="{{ asset('assets/images/home/form-banner.jpg') }}"
+            alt="Premium hotel gym space ready for setup"
           />
           <div class="gym-setup-cta__overlay"></div>
         </div>
         <div class="container">
           <div class="gym-setup-cta__content">
             <span class="label">Ready to Build?</span>
-            <h2>Let's Build Your Home Gym.</h2>
+            <h2>Ready to Elevate Your Guest Experience?</h2>
             <p>
-              Share your space and goals with our team and get the right
-              equipment and setup solution for your home.
+              Create a premium fitness space for your hotel or resort with
+              the right equipment, smart planning and professional
+              installation from Fitway.
             </p>
             <div class="gym-setup-cta__actions">
               <a href="#home" class="btn btn-primary gym-setup-cta__scroll"
@@ -1299,12 +1297,12 @@
           <div class="heading">
             <h3>
               Questions Before You
-              <span>Start Your Home Gym?</span>
+              <span>Start Your Hotel Gym?</span>
             </h3>
 
             <p>
-              Find answers about home gym planning, equipment selection,
-              installation and complete setup solutions.
+              Find answers about hotel and resort gym planning, equipment
+              selection, installation and complete setup solutions.
             </p>
           </div>
 
@@ -1312,15 +1310,15 @@
             <!-- FAQ 01 -->
             <div class="accordion-item active">
               <div class="accordion-header">
-                <h4>Does Fitway provide complete home gym setup solutions?</h4>
+                <h4>Does Fitway set up hotel and resort gyms?</h4>
                 <span class="accordion-icon">−</span>
               </div>
 
               <div class="accordion-content" style="display: block">
                 <p>
-                  Yes. Fitway can support your home gym project from initial
-                  consultation and space planning to equipment selection,
-                  supply, installation and final setup.
+                  Yes. Fitway can support your hotel or resort gym project
+                  from initial consultation and space planning to equipment
+                  selection, supply, installation and final setup.
                 </p>
               </div>
             </div>
@@ -1328,16 +1326,16 @@
             <!-- FAQ 02 -->
             <div class="accordion-item">
               <div class="accordion-header">
-                <h4>Can Fitway help me plan my home gym space?</h4>
+                <h4>What equipment is suitable for hotels and resorts?</h4>
                 <span class="accordion-icon">+</span>
               </div>
 
               <div class="accordion-content">
                 <p>
-                  Yes. Our team can help you plan a practical layout based on
-                  your available room, spare space or garage, equipment
-                  requirements and the overall training experience you want to
-                  create.
+                  Depending on your property, your fitness centre can include
+                  cardio equipment, strength machines, free weights,
+                  functional training equipment and essential fitness
+                  accessories suited for guest use.
                 </p>
               </div>
             </div>
@@ -1345,15 +1343,15 @@
             <!-- FAQ 03 -->
             <div class="accordion-item">
               <div class="accordion-header">
-                <h4>How do you select the right equipment for my home gym?</h4>
+                <h4>How much space is needed?</h4>
                 <span class="accordion-icon">+</span>
               </div>
 
               <div class="accordion-content">
                 <p>
-                  Equipment is selected based on your fitness goals, available
-                  space, training preferences and budget to create a balanced
-                  and functional home training environment.
+                  Space needed depends on your guest volume, equipment
+                  requirements and available property area. Our team assesses
+                  your space and recommends the right layout.
                 </p>
               </div>
             </div>
@@ -1361,15 +1359,15 @@
             <!-- FAQ 04 -->
             <div class="accordion-item">
               <div class="accordion-header">
-                <h4>Can I set up a home gym within a specific budget?</h4>
+                <h4>Can you design a gym based on guest requirements?</h4>
                 <span class="accordion-icon">+</span>
               </div>
 
               <div class="accordion-content">
                 <p>
-                  Yes. We can help recommend suitable equipment and setup
-                  solutions based on your available budget while focusing on the
-                  most important requirements of your home fitness space.
+                  Yes. Our team can help you plan a practical layout based on
+                  your guest profile, available area, equipment requirements
+                  and the overall experience you want to create.
                 </p>
               </div>
             </div>
@@ -1377,16 +1375,15 @@
             <!-- FAQ 05 -->
             <div class="accordion-item">
               <div class="accordion-header">
-                <h4>What types of equipment can be included in a home gym?</h4>
+                <h4>Do you provide equipment installation?</h4>
                 <span class="accordion-icon">+</span>
               </div>
 
               <div class="accordion-content">
                 <p>
-                  Depending on your requirements, your home gym can include
-                  cardio equipment, strength machines, free weights, functional
-                  training equipment, benches, racks and essential fitness
-                  accessories.
+                  Yes. As part of our complete gym setup support, Fitway can
+                  manage equipment delivery, positioning and professional
+                  installation to help prepare your space for guests.
                 </p>
               </div>
             </div>
@@ -1394,17 +1391,15 @@
             <!-- FAQ 06 -->
             <div class="accordion-item">
               <div class="accordion-header">
-                <h4>
-                  Does Fitway provide equipment delivery and installation?
-                </h4>
+                <h4>Can the gym match our property's style?</h4>
                 <span class="accordion-icon">+</span>
               </div>
 
               <div class="accordion-content">
                 <p>
-                  Yes. As part of our complete home gym setup support, Fitway
-                  can manage equipment delivery, positioning and professional
-                  installation to help prepare your space for use.
+                  Yes. We can help plan a fitness space that complements your
+                  property's brand, design language and overall guest
+                  experience.
                 </p>
               </div>
             </div>
@@ -1412,15 +1407,15 @@
             <!-- FAQ 07 -->
             <div class="accordion-item">
               <div class="accordion-header">
-                <h4>Can you help set up a gym from an empty room?</h4>
+                <h4>Do you provide maintenance support?</h4>
                 <span class="accordion-icon">+</span>
               </div>
 
               <div class="accordion-content">
                 <p>
-                  Yes. Whether you are starting with an empty room, garage or
-                  spare space, Fitway can help you plan the setup and select the
-                  right equipment for your project.
+                  Yes. We offer ongoing maintenance and support services to
+                  help keep your fitness centre equipment in good working
+                  condition for your guests.
                 </p>
               </div>
             </div>
@@ -1428,17 +1423,15 @@
             <!-- FAQ 08 -->
             <div class="accordion-item">
               <div class="accordion-header">
-                <h4>
-                  What information do you need to start planning my home gym?
-                </h4>
+                <h4>Can you work within a specific budget?</h4>
                 <span class="accordion-icon">+</span>
               </div>
 
               <div class="accordion-content">
                 <p>
-                  We typically need details about your available space, fitness
-                  goals, preferred equipment, training style and approximate
-                  budget to understand your needs better.
+                  Yes. We can help recommend suitable equipment and setup
+                  solutions based on your available budget while focusing on
+                  the most important requirements of your fitness space.
                 </p>
               </div>
             </div>
@@ -1446,16 +1439,32 @@
             <!-- FAQ 09 -->
             <div class="accordion-item">
               <div class="accordion-header">
-                <h4>How do I get started with my home gym project?</h4>
+                <h4>How long does a hotel gym setup take?</h4>
+                <span class="accordion-icon">+</span>
+              </div>
+
+              <div class="accordion-content">
+                <p>
+                  Timelines vary based on the scope of the project, but our
+                  team works to plan and deliver your setup efficiently with
+                  minimal disruption to your property.
+                </p>
+              </div>
+            </div>
+
+            <!-- FAQ 10 -->
+            <div class="accordion-item">
+              <div class="accordion-header">
+                <h4>How do we start a hotel or resort gym project?</h4>
                 <span class="accordion-icon">+</span>
               </div>
 
               <div class="accordion-content">
                 <p>
                   Simply share your project requirements through our enquiry
-                  form. Our team will get in touch to understand your space and
-                  help you explore the right equipment and home gym setup
-                  solution.
+                  form. Our team will get in touch to understand your
+                  property and help you explore the right equipment and gym
+                  setup solution.
                 </p>
               </div>
             </div>
@@ -1467,19 +1476,19 @@
         <div class="container">
           <div class="heading">
             <h3>
-              Ready to Build Your
-              <span>Dream Home Gym?</span>
+              Ready to Build a Better
+              <span>Guest Fitness Experience?</span>
             </h3>
 
             <p>
-              Explore premium home gym equipment and complete setup solutions
-              designed for your space and goals.
+              Tell us about your hotel or resort property and our team will
+              help you plan the right fitness space for your guests.
             </p>
           </div>
 
           <div class="grid">
             <div class="img">
-              <img src="{{ asset('assets/images/home/gym1.jpg')}}" alt="" />
+              <img src="{{ asset('assets/images/home/ready-contact.jpg') }}" alt="" />
             </div>
 
             <!-- Right: Contact Form -->
@@ -1527,11 +1536,11 @@
                       <input
                         type="checkbox"
                         name="interest"
-                        value="Gym Equipment"
+                        value="Hotel Gym Equipment"
                       />
                       <span class="contact-form__checkbox-box"></span>
                       <span class="contact-form__checkbox-label"
-                        >Gym Equipment</span
+                        >Hotel Gym Equipment</span
                       >
                     </label>
 
@@ -1539,11 +1548,11 @@
                       <input
                         type="checkbox"
                         name="interest"
-                        value="Home Gym Setup"
+                        value="Resort Fitness Planning"
                       />
                       <span class="contact-form__checkbox-box"></span>
                       <span class="contact-form__checkbox-label"
-                        >Home Gym Setup</span
+                        >Resort Fitness Planning</span
                       >
                     </label>
 
@@ -1551,11 +1560,11 @@
                       <input
                         type="checkbox"
                         name="interest"
-                        value="Apartment Gym Setup"
+                        value="Complete Gym Setup"
                       />
                       <span class="contact-form__checkbox-box"></span>
                       <span class="contact-form__checkbox-label"
-                        >Apartment Gym Setup</span
+                        >Complete Gym Setup</span
                       >
                     </label>
 
@@ -1563,11 +1572,11 @@
                       <input
                         type="checkbox"
                         name="interest"
-                        value="Garage Gym Setup"
+                        value="Equipment Installation"
                       />
                       <span class="contact-form__checkbox-box"></span>
                       <span class="contact-form__checkbox-label"
-                        >Garage Gym Setup</span
+                        >Equipment Installation</span
                       >
                     </label>
 
@@ -1575,23 +1584,11 @@
                       <input
                         type="checkbox"
                         name="interest"
-                        value="Outdoor / Patio Gym Setup"
+                        value="Maintenance Services"
                       />
                       <span class="contact-form__checkbox-box"></span>
                       <span class="contact-form__checkbox-label"
-                        >Outdoor / Patio Gym Setup</span
-                      >
-                    </label>
-
-                    <label class="contact-form__checkbox">
-                      <input
-                        type="checkbox"
-                        name="interest"
-                        value="Luxury Home Gym Setup"
-                      />
-                      <span class="contact-form__checkbox-box"></span>
-                      <span class="contact-form__checkbox-label"
-                        >Luxury Home Gym Setup</span
+                        >Maintenance Services</span
                       >
                     </label>
 

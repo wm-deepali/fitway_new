@@ -34,14 +34,26 @@ class ProductSubCategory extends Model
         return $this->belongsTo(ProductCategory::class, 'category_id');
     }
 
+    public function subSubCategories()
+    {
+        return $this->hasMany(ProductSubSubCategory::class, 'sub_category_id');
+    }
+
     public function products()
     {
-        return $this->hasMany(Product::class, 'sub_category_id');
+        return $this->hasMany(Product::class, 'sub_cat_id');
     }
 
     public function scopeActive($query)
     {
         return $query->where('status', true);
+    }
+
+    public function getImageUrlAttribute(): string
+    {
+        return $this->image
+            ? asset('storage/' . $this->image)
+            : asset('assets/images/no-image.svg');
     }
 
     public static function generateUniqueSlug(string $name, ?int $ignoreId = null): string

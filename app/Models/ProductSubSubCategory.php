@@ -47,6 +47,13 @@ class ProductSubSubCategory extends Model
         return $query->where('status', true);
     }
 
+public function getImageUrlAttribute(): string
+    {
+        return $this->image
+            ? asset('storage/' . $this->image)
+            : asset('assets/images/no-image.svg');
+    }
+
     public static function generateUniqueSlug(string $name, ?int $ignoreId = null): string
     {
         $slug = Str::slug($name);

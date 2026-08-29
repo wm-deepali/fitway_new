@@ -11,17 +11,9 @@
 
     <section class="banner">
         <div class="bg">
-            <video
-                autoplay
-                muted
-                loop
-                playsinline
-                class="bg-video"
-                src="{{ asset('assets/video/banner2.mp4') }}"
-                poster="{{ asset('assets/video/poster/banner2.png') }}"
-            >
-                <source src="{{ asset('assets/video/banner2.mp4') }}" type="video/mp4" />
-            </video>
+           
+
+            <img src="{{ asset('assets/images/home/contact-banner.jpg') }}"/>
 
             <nav class="breadcrumb left breadcrumb-light" aria-label="Breadcrumb">
                 <ul>
@@ -159,7 +151,7 @@
                             </span>
                             <div>
                                 <span class="contact-info__title">Working Hours</span>
-                                <p>Monday - Sunday: 07:00 - 22:00</p>
+                                <p>Monday - Sunday: 10:00 - 22:00</p>
                             </div>
                         </div>
                     </div>
