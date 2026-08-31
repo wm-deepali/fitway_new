@@ -9,7 +9,6 @@ use Illuminate\Http\Request;
 
 class ContactUsController extends Controller
 {
-
     public function index(Request $request)
     {
         $query = ContactUs::query();
@@ -17,7 +16,8 @@ class ContactUsController extends Controller
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('email_id', 'like', '%' . $request->search . '%');
+                  ->orWhere('email_id', 'like', '%' . $request->search . '%')
+                  ->orWhere('mobile_number', 'like', '%' . $request->search . '%');
             });
         }
 

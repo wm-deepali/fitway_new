@@ -24,7 +24,7 @@
     .btn-primary-dash:hover { background: #252f70; }
     .btn-secondary-dash { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); color: var(--text-primary) !important; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 9px 18px; font-size: 13px; font-weight: 500; cursor: pointer; text-decoration: none !important; }
     .btn-secondary-dash:hover { background: var(--bg); }
-    .cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: 24px; max-width: 640px; }
+    .cat-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-card); padding: 24px; max-width: 720px; }
     .form-field { margin-bottom: 18px; }
     .form-field label { display: block; font-size: 12.5px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; letter-spacing: .02em; }
     .form-field .hint { font-size: 11.5px; color: var(--text-hint); margin-top: 4px; }
@@ -34,6 +34,7 @@
         outline: none; transition: border-color .15s, box-shadow .15s; background: var(--surface);
     }
     .form-control-styled:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(48,61,137,.12); }
+    textarea.form-control-styled { height: auto; padding: 10px 12px; resize: vertical; }
     .form-error { color: #b22222; font-size: 12px; margin-top: 5px; }
     .toggle-row { display: flex; align-items: center; gap: 10px; }
     .switch { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
@@ -80,6 +81,30 @@
                     </div>
 
                     <div class="form-field">
+                        <label for="tag">Tag / Subtitle</label>
+                        <input type="text" id="tag" name="tag"
+                            class="form-control-styled @error('tag') is-invalid @enderror"
+                            value="{{ old('tag', $blog->tag) }}" placeholder="e.g. Gym Setup, Equipment Guide">
+                        <div class="hint">Shown as the small badge on the blog card</div>
+                        @error('tag') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="excerpt">Short Description</label>
+                        <textarea id="excerpt" name="excerpt" rows="3"
+                            class="form-control-styled @error('excerpt') is-invalid @enderror"
+                            placeholder="A short summary shown on the blog listing card">{{ old('excerpt', $blog->excerpt) }}</textarea>
+                        @error('excerpt') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="content">Content</label>
+                        <textarea id="content" name="content" rows="10"
+                            class="form-control-styled @error('content') is-invalid @enderror">{{ old('content', $blog->content) }}</textarea>
+                        @error('content') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
                         <label for="image">Image</label>
                         @if($blog->image)
                             <img src="{{ asset('storage/' . $blog->image) }}" class="current-img-preview" alt="{{ $blog->blog }}">
@@ -121,3 +146,8 @@
 </div>
 
 @include('admin.footer')
+
+<script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('content');
+</script>

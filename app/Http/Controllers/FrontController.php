@@ -8,25 +8,28 @@ use App\Models\Product;
 use App\Models\ProductSubCategory;
 use App\Models\ProductSubSubCategory;
 use Illuminate\Http\Request;
-
+use App\Models\Blog;
+use App\Models\Faq;
+use App\Models\ContactUs;
 
 class FrontController extends Controller
 {
- public function home()
-{
-    $productCategories = ProductCategory::active()
-        ->with(['subCategories' => fn($q) => $q->active()
+    public function home()
+    {
+        $productCategories = ProductCategory::active()
+            ->with([
+                'subCategories' => fn($q) => $q->active()
+                    ->orderBy('id')
+                    ->with(['subSubCategories' => fn($q2) => $q2->active()->orderBy('id')])
+            ])
             ->orderBy('id')
-            ->with(['subSubCategories' => fn($q2) => $q2->active()->orderBy('id')])
-        ])
-        ->orderBy('id')
-        ->get();
+            ->get();
 
-    $portfolioCategories = PortfolioCategory::active()->orderBy('id')->get();
-    $homePortfolios = Portfolio::with('category')->latest()->take(4)->get();
+        $portfolioCategories = PortfolioCategory::active()->orderBy('id')->get();
+        $homePortfolios = Portfolio::with('category')->latest()->take(4)->get();
 
-    return view('front.index', compact('productCategories', 'portfolioCategories', 'homePortfolios'));
-}
+        return view('front.index', compact('productCategories', 'portfolioCategories', 'homePortfolios'));
+    }
 
     public function products(Request $request, $category = null, $subCategory = null, $subSubCategory = null)
     {
@@ -126,19 +129,29 @@ class FrontController extends Controller
         return view('front.product-detail', compact('product', 'productImages', 'relatedProducts'));
     }
 
-    public function aboutUs()
-    {
-        return view('front.about');
-    }
-
     public function blogs()
     {
-        return view('front.blogs');
+        $blogs = Blog::active()->latest('date_of_blog')->get();
+
+        return view('front.blogs', compact('blogs'));
+    }
+
+    public function blogDetail(Blog $blog)
+    {
+        $moreBlogs = Blog::active()
+            ->where('id', '!=', $blog->id)
+            ->latest('date_of_blog')
+            ->take(4)
+            ->get();
+
+        return view('front.blog-details', compact('blog', 'moreBlogs'));
     }
 
     public function faqs()
     {
-        return view('front.faqs');
+        $faqs = Faq::active()->ordered()->get();
+
+        return view('front.faqs', compact('faqs'));
     }
 
     public function contactUs()
@@ -146,12 +159,27 @@ class FrontController extends Controller
         return view('front.contact');
     }
 
-
-    public function cart()
+     public function contactStore(Request $request)
     {
-        return view('front.cart');
-    }
+        $validated = $request->validate([
+            'fullName'     => 'required|string|max:255',
+            'phoneNumber'  => 'required|string|max:20',
+            'emailAddress' => 'nullable|email|max:255',
+            'interest'     => 'nullable|array',
+            'message'      => 'nullable|string',
+        ]);
 
+        ContactUs::create([
+            'name'          => $validated['fullName'],
+            'email_id'      => $validated['emailAddress'] ?? null,
+            'mobile_number' => $validated['phoneNumber'],
+            'interest'      => $validated['interest'] ?? [],
+            'message'       => $validated['message'] ?? null,
+        ]);
+
+        return back()->with('success', 'Your enquiry has been submitted.');
+    }
+    
     public function thankYou()
     {
         return view('front.thanks');
@@ -162,10 +190,9 @@ class FrontController extends Controller
         return view('front.portfolio');
     }
 
-
-    public function blogDetail()
+    public function aboutUs()
     {
-        return view('front.blog-details');
+        return view('front.about');
     }
 
     public function commercialGymSetup()

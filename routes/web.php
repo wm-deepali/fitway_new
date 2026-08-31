@@ -28,37 +28,52 @@ use App\Http\Controllers\Admin\{
     DynamicPageController,
     FaqController,
     AdminSettingController,
-    AnnouncementController
+    AnnouncementController,
+    QuoteRequestController,
 
 };
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FrontController;
-
+use App\Http\Controllers\CartController;
 
 
 Route::controller(FrontController::class)->group(function () {
     Route::get('/', 'home')->name('home');
+
     Route::get('/products', 'products')->name('products');
     Route::get('/products/{category}', 'products')->name('products.category');
     Route::get('/products/{category}/{subCategory}', 'products')->name('products.subcategory');
     Route::get('/products/{category}/{subCategory}/{subSubCategory}', 'products')->name('products.subsubcategory');
     Route::get('/product/{slug}', 'productDetail')->name('product-detail');
-    Route::get('/about-us', 'aboutUs')->name('about-us');
-    Route::get('/contact-us', 'contactUs')->name('contact-us');
-    Route::get('/faqs', 'faqs')->name('faqs');
+
     Route::get('/blogs', 'blogs')->name('blogs');
+    Route::get('/blogs/{blog:slug}', 'blogDetail')->name('blog-details');
+    
+    Route::get('/contact-us', 'contactUs')->name('contact-us');
+    Route::post('/contact-us', 'contactStore')->name('contact-us.store');
+
+    Route::get('/about-us', 'aboutUs')->name('about-us');
+    Route::get('/faqs', 'faqs')->name('faqs');
     Route::get('/portfolio', 'portfolio')->name('portfolio');
-    Route::get('/cart', 'cart')->name('cart');
     Route::get('/thank-you', 'thankYou')->name('thank-you');
-    Route::get('/blog-details', 'blogDetail')->name('blog-details');
     Route::get('/commercial-gym-setup', 'commercialGymSetup')->name('commercial-gym-setup');
     Route::get('/home-gym-setup', 'homeGymSetup')->name('home-gym-setup');
     Route::get('/corporate-gym-setup', 'corporateGymSetup')->name('corporate-gym-setup');
     Route::get('/outdoor-gym-setup', 'outdoorGymSetup')->name('outdoor-gym-setup');
     Route::get('/resorts-gym-setup', 'resortsGymSetup')->name('resorts-gym-setup');
 
+});
+
+
+
+Route::prefix('cart')->name('cart.')->group(function () {
+    Route::get('/', [CartController::class, 'index'])->name('index');
+    Route::post('/add', [CartController::class, 'add'])->name('add');
+    Route::post('/update', [CartController::class, 'update'])->name('update');
+    Route::post('/remove', [CartController::class, 'remove'])->name('remove');
+    Route::post('/quote', [CartController::class, 'submitQuote'])->name('quote');
 });
 
 
@@ -217,5 +232,14 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('/admin-setting', [AdminSettingController::class, 'index'])->name('admin-setting.index');
         Route::post('/smtp-settings/store', [AdminSettingController::class, 'smtpSettingStore'])->name('smtp-settings.store');
         Route::post('admin-setting/google-setting', [AdminSettingController::class, 'googleSettingStore'])->name('admin-setting.google-setting');
+
+        Route::prefix('quote-requests')->name('quoteRequests.')->group(function () {
+            Route::get('/', [QuoteRequestController::class, 'index'])->name('index');
+            Route::get('/{quoteRequest}', [QuoteRequestController::class, 'show'])->name('show');
+            Route::patch('/{quoteRequest}/status', [QuoteRequestController::class, 'updateStatus'])->name('updateStatus');
+            Route::delete('/{quoteRequest}', [QuoteRequestController::class, 'destroy'])->name('destroy');
+        });
+
+
     });
 });

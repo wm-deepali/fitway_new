@@ -1,5 +1,4 @@
 <?php
-// app/Models/ContactUs.php
 
 namespace App\Models;
 
@@ -13,14 +12,14 @@ class ContactUs extends Model
     protected $fillable = [
         'name',
         'email_id',
-        'venue',
         'mobile_number',
+        'interest',
         'message',
-        'website',
         'is_read',
     ];
 
     protected $casts = [
-        'is_read' => 'boolean',
+        'interest' => 'array',
+        'is_read'  => 'boolean',
     ];
 }

@@ -103,7 +103,7 @@
                             <div class="filter-group">
                                 <label>Search</label>
                                 <input type="text" name="search" value="{{ request('search') }}"
-                                    class="filter-control" placeholder="Search name or email…">
+                                    class="filter-control" placeholder="Search name, email or mobile…">
                             </div>
                             <div class="filter-actions">
                                 <button type="submit" class="btn-primary-dash">
@@ -137,7 +137,7 @@
                             <tr>
                                 <th><a href="{{ contactSortUrl('id') }}" class="sort-link">ID {!! contactSortIcon('id') !!}</a></th>
                                 <th><a href="{{ contactSortUrl('name') }}" class="sort-link">Name {!! contactSortIcon('name') !!}</a></th>
-                                <th>Venue</th>
+                                <th>Interest</th>
                                 <th>Message</th>
                                 <th><a href="{{ contactSortUrl('created_at') }}" class="sort-link">Received {!! contactSortIcon('created_at') !!}</a></th>
                                 <th style="width:100px">Actions</th>
@@ -154,7 +154,13 @@
                                             <small>{{ $item->email_id }} @if($item->mobile_number) &middot; {{ $item->mobile_number }} @endif</small>
                                         </div>
                                     </td>
-                                    <td style="color:var(--text-secondary);font-size:13px">{{ $item->venue ?: '—' }}</td>
+                                    <td style="color:var(--text-secondary);font-size:13px">
+                                        @if($item->interest && count($item->interest))
+                                            {{ implode(', ', $item->interest) }}
+                                        @else
+                                            —
+                                        @endif
+                                    </td>
                                     <td class="msg-cell" title="{{ $item->message }}">{{ $item->message }}</td>
                                     <td style="color:var(--text-secondary);font-size:13px">{{ $item->created_at->format('d M Y, h:i A') }}</td>
                                     <td>
@@ -215,13 +221,16 @@ function viewContact(id) {
         .then(res => res.json())
         .then(res => {
             const c = res.data;
+            const interestList = Array.isArray(c.interest) && c.interest.length
+                ? c.interest.join(', ')
+                : '—';
+
             document.getElementById('detailModalBody').innerHTML = `
                 <div class="detail-row"><div class="detail-label">Name</div><div class="detail-value">${c.name}</div></div>
-                <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${c.email_id}</div></div>
+                <div class="detail-row"><div class="detail-label">Email</div><div class="detail-value">${c.email_id ?? '—'}</div></div>
                 <div class="detail-row"><div class="detail-label">Mobile</div><div class="detail-value">${c.mobile_number ?? '—'}</div></div>
-                <div class="detail-row"><div class="detail-label">Venue</div><div class="detail-value">${c.venue ?? '—'}</div></div>
-                <div class="detail-row"><div class="detail-label">Website</div><div class="detail-value">${c.website ?? '—'}</div></div>
-                <div class="detail-row"><div class="detail-label">Message</div><div class="detail-value">${c.message}</div></div>
+                <div class="detail-row"><div class="detail-label">Interested In</div><div class="detail-value">${interestList}</div></div>
+                <div class="detail-row"><div class="detail-label">Message</div><div class="detail-value">${c.message ?? '—'}</div></div>
             `;
             document.getElementById('detailModal').classList.add('open');
             const row = document.getElementById('row' + id);

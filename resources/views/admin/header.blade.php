@@ -106,9 +106,14 @@
             class="{{ request()->routeIs(['admin.contactUs.*', 'admin.inquiries.*', 'admin.setupMyGym.*', 'admin.productEnquiries.*', 'admin.newsletter.*', 'admin.feedbacks.*', 'admin.bmi-calculator.*']) ? 'active' : '' }}">
             <a href="#"><i class="fa-solid fa-inbox"></i> Contact & Inquiries</a>
             <ul>
+                <li class="{{ request()->routeIs('admin.quoteRequests.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.quoteRequests.index') }}">Cart Quote Requests</a>
+                </li>
+
                 <li class="{{ request()->routeIs('admin.contactUs.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.contactUs.index') }}">Contact Us</a>
                 </li>
+                
                 <li class="{{ request()->routeIs('admin.inquiries.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.inquiries.index') }}">Inquiries</a>
                 </li>
@@ -137,12 +142,6 @@
             </a>
         </li>
 
-        <li class="{{ request()->routeIs('admin.instagram.*') ? 'active' : '' }}">
-            <a href="{{ route('admin.instagram.index') }}">Instagram</a>
-        </li>
-        <li class="{{ request()->routeIs('admin.plan-prices.*') ? 'active' : '' }}">
-            <a href="{{ route('admin.plan-prices.index') }}">Plan Prices</a>
-        </li>
         <li class="{{ request()->routeIs('admin.about-us.*') ? 'active' : '' }}">
             <a href="{{ route('admin.about-us.edit') }}">About Us & Who Are We</a>
         </li>

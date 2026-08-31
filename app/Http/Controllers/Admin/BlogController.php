@@ -24,71 +24,70 @@ class BlogController extends Controller
 
         $blogs = $query->orderBy($sortBy, $sortOrder)->paginate(15)->withQueryString();
 
-        return view('admin.blogs.index', compact('blogs'));
+        return view('admin.blog.index', compact('blogs'));
     }
 
     public function create()
     {
-        return view('admin.blogs.create');
+        return view('admin.blog.create');
     }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
+        $validated = $request->validate([
             'blog' => 'required|string|max:255',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'tag' => 'nullable|string|max:100',
+            'excerpt' => 'nullable|string|max:500',
+            'content' => 'nullable|string',
+            'image' => 'required|image|mimes:jpg,jpeg,png,gif,webp,svg|max:2048',
             'date_of_blog' => 'required|date',
+            'status' => 'nullable|boolean',
         ]);
 
-        $imagePath = $request->file('image')->store('blog', 'public');
+        $validated['slug'] = Blog::generateUniqueSlug($validated['blog']);
+        $validated['status'] = $request->boolean('status');
+        $validated['image'] = $request->file('image')->store('blogs', 'public');
 
-        Blog::create([
-            'blog' => $request->blog,
-            'slug' => Blog::generateUniqueSlug($request->blog),
-            'image' => $imagePath,
-            'date_of_blog' => $request->date_of_blog,
-            'status' => $request->boolean('status', true),
-        ]);
+        Blog::create($validated);
 
-        return redirect()->route('admin.blogs.index')
-            ->with('successmessage', 'Blog Saved Successfully');
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully.');
     }
 
     public function edit(Request $request, Blog $blog)
     {
-        return view('admin.blogs.edit', compact('blog'));
+        return view('admin.blog.edit', compact('blog'));
     }
 
     public function update(Request $request, Blog $blog)
     {
-        $this->validate($request, [
+        $validated = $request->validate([
             'blog' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'tag' => 'nullable|string|max:100',
+            'excerpt' => 'nullable|string|max:500',
+            'content' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,gif,webp,svg|max:2048',
             'date_of_blog' => 'required|date',
-        ], [
-            'blog.required' => 'Blog field is required',
-            'date_of_blog.required' => 'Date of blog field is required',
+            'status' => 'nullable|boolean',
         ]);
 
-        $data = [
-            'blog' => $request->blog,
-            'slug' => Blog::generateUniqueSlug($request->blog, $blog->id),
-            'date_of_blog' => $request->date_of_blog,
-            'status' => $request->boolean('status', true),
-        ];
+        if ($validated['blog'] !== $blog->blog) {
+            $validated['slug'] = Blog::generateUniqueSlug($validated['blog'], $blog->id);
+        }
+
+        $validated['status'] = $request->boolean('status');
 
         if ($request->hasFile('image')) {
             if ($blog->image) {
                 Storage::disk('public')->delete($blog->image);
             }
-            $data['image'] = $request->file('image')->store('blog', 'public');
+            $validated['image'] = $request->file('image')->store('blogs', 'public');
         }
 
-        $blog->update($data);
+        $blog->update($validated);
 
-        $redirectTo = $request->input('redirect') ?: route('admin.blogs.index');
+        $redirect = $request->input('redirect', route('admin.blogs.index'));
 
-        return redirect($redirectTo)->with('successmessage', 'Blog Updated Successfully');
+        return redirect($redirect)->with('success', 'Blog updated successfully.');
     }
 
     public function destroy(Blog $blog)

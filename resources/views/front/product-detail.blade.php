@@ -131,10 +131,10 @@
           </div>
 
           <div class="detail-content__cta">
-            <a href="cart.html" type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" id="addToCartBtn" data-product-id="{{ $product->id }}">
               Add To Cart
-            </a>
-            <a href="product-detail.html" class="btn btn-gray">Whatsapp Now</a>
+            </button>
+            <a href="{{ $whatsappLink ?? '#' }}" target="_blank" class="btn btn-gray">Whatsapp Now</a>
           </div>
 
           <p class="detail-content__helper">
@@ -321,6 +321,54 @@
         }
       });
     });
+
+    document.getElementById('addToCartBtn')?.addEventListener('click', function () {
+      const btn = this;
+      const productId = btn.dataset.productId;
+
+      btn.disabled = true;
+      const originalText = btn.textContent;
+      btn.textContent = 'Adding...';
+
+      fetch('{{ route('cart.add') }}', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ product_id: productId, qty: 1 }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            btn.textContent = 'Added ✓';
+            updateCartBadge(data.cart_count);
+            setTimeout(() => {
+              btn.textContent = originalText;
+              btn.disabled = false;
+            }, 1500);
+          } else {
+            alert(data.message || 'Something went wrong');
+            btn.textContent = originalText;
+            btn.disabled = false;
+          }
+        })
+        .catch(() => {
+          alert('Network error, please try again');
+          btn.textContent = originalText;
+          btn.disabled = false;
+        });
+    });
+
+    function updateCartBadge(count) {
+      const badge = document.querySelector('.cart-count');
+      if (badge) {
+        badge.textContent = count;
+        badge.classList.toggle('is-visible', count > 0);
+      }
+    }
+
   </script>
 
 @endpush

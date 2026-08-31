@@ -13,6 +13,9 @@ class Blog extends Model
 
     protected $fillable = [
         'blog',
+        'content',
+        'excerpt',
+        'tag',
         'slug',
         'image',
         'date_of_blog',
@@ -20,7 +23,7 @@ class Blog extends Model
     ];
 
     protected $casts = [
-        'status'       => 'boolean',
+        'status' => 'boolean',
         'date_of_blog' => 'date',
     ];
 
@@ -37,7 +40,7 @@ class Blog extends Model
 
         while (
             static::where('slug', $slug)
-                ->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))
+                ->when($ignoreId, fn($q) => $q->where('id', '!=', $ignoreId))
                 ->exists()
         ) {
             $slug = $original . '-' . $i++;

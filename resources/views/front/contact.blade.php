@@ -159,140 +159,97 @@
 
                 <!-- Right: Contact Form -->
                 <div class="contact-form">
-                    <form class="contact-form__form" method="POST" action="#">
-                        @csrf
-                        <div class="contact-form__group">
-                            <label for="fullName">Full Name</label>
-                            <input
-                                type="text"
-                                id="fullName"
-                                name="fullName"
-                                placeholder="Enter your full name"
-                                required
-                            />
-                        </div>
+                    @if (session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
 
-                        <div class="contact-form__row">
-                            <div class="contact-form__group">
-                                <label for="phoneNumber">Phone Number</label>
-                                <input
-                                    type="tel"
-                                    id="phoneNumber"
-                                    name="phoneNumber"
-                                    placeholder="Enter your phone number"
-                                    required
-                                />
-                            </div>
+<form class="contact-form__form" method="POST" action="{{ route('contact-us.store') }}">
+    @csrf
+    <div class="contact-form__group">
+        <label for="fullName">Full Name</label>
+        <input
+            type="text"
+            id="fullName"
+            name="fullName"
+            placeholder="Enter your full name"
+            value="{{ old('fullName') }}"
+            required
+        />
+        @error('fullName') <span class="error">{{ $message }}</span> @enderror
+    </div>
 
-                            <div class="contact-form__group">
-                                <label for="emailAddress">Email Address</label>
-                                <input
-                                    type="email"
-                                    id="emailAddress"
-                                    name="emailAddress"
-                                    placeholder="Enter your email address"
-                                />
-                            </div>
-                        </div>
+    <div class="contact-form__row">
+        <div class="contact-form__group">
+            <label for="phoneNumber">Phone Number</label>
+            <input
+                type="tel"
+                id="phoneNumber"
+                name="phoneNumber"
+                placeholder="Enter your phone number"
+                value="{{ old('phoneNumber') }}"
+                required
+            />
+            @error('phoneNumber') <span class="error">{{ $message }}</span> @enderror
+        </div>
 
-                        <div class="contact-form__group">
-                            <span class="contact-form__label">I'm Interested In</span>
+        <div class="contact-form__group">
+            <label for="emailAddress">Email Address</label>
+            <input
+                type="email"
+                id="emailAddress"
+                name="emailAddress"
+                placeholder="Enter your email address"
+                value="{{ old('emailAddress') }}"
+            />
+            @error('emailAddress') <span class="error">{{ $message }}</span> @enderror
+        </div>
+    </div>
 
-                            <div class="contact-form__checkbox-list">
-                                <label class="contact-form__checkbox">
-                                    <input
-                                        type="checkbox"
-                                        name="interest[]"
-                                        value="Gym Equipment"
-                                    />
-                                    <span class="contact-form__checkbox-box"></span>
-                                    <span class="contact-form__checkbox-label"
-                                        >Gym Equipment</span
-                                    >
-                                </label>
+    <div class="contact-form__group">
+        <span class="contact-form__label">I'm Interested In</span>
 
-                                <label class="contact-form__checkbox">
-                                    <input
-                                        type="checkbox"
-                                        name="interest[]"
-                                        value="Home Gym Setup"
-                                    />
-                                    <span class="contact-form__checkbox-box"></span>
-                                    <span class="contact-form__checkbox-label"
-                                        >Home Gym Setup</span
-                                    >
-                                </label>
+        <div class="contact-form__checkbox-list">
+            @php
+                $interestOptions = [
+                    'Gym Equipment',
+                    'Home Gym Setup',
+                    'Commercial Gym Setup',
+                    'Corporate Gym Setup',
+                    'Outdoor / Open Gym Setup',
+                    'Hotels & Resorts Gym Setup',
+                    'Other',
+                ];
+            @endphp
 
-                                <label class="contact-form__checkbox">
-                                    <input
-                                        type="checkbox"
-                                        name="interest[]"
-                                        value="Commercial Gym Setup"
-                                    />
-                                    <span class="contact-form__checkbox-box"></span>
-                                    <span class="contact-form__checkbox-label"
-                                        >Commercial Gym Setup</span
-                                    >
-                                </label>
+            @foreach ($interestOptions as $option)
+                <label class="contact-form__checkbox">
+                    <input
+                        type="checkbox"
+                        name="interest[]"
+                        value="{{ $option }}"
+                        {{ in_array($option, old('interest', [])) ? 'checked' : '' }}
+                    />
+                    <span class="contact-form__checkbox-box"></span>
+                    <span class="contact-form__checkbox-label">{{ $option }}</span>
+                </label>
+            @endforeach
+        </div>
+    </div>
 
-                                <label class="contact-form__checkbox">
-                                    <input
-                                        type="checkbox"
-                                        name="interest[]"
-                                        value="Corporate Gym Setup"
-                                    />
-                                    <span class="contact-form__checkbox-box"></span>
-                                    <span class="contact-form__checkbox-label"
-                                        >Corporate Gym Setup</span
-                                    >
-                                </label>
+    <div class="contact-form__group">
+        <label for="message">Message</label>
+        <textarea
+            id="message"
+            name="message"
+            rows="4"
+            placeholder="Tell us more about your requirement..."
+        >{{ old('message') }}</textarea>
+    </div>
 
-                                <label class="contact-form__checkbox">
-                                    <input
-                                        type="checkbox"
-                                        name="interest[]"
-                                        value="Outdoor / Open Gym Setup"
-                                    />
-                                    <span class="contact-form__checkbox-box"></span>
-                                    <span class="contact-form__checkbox-label"
-                                        >Outdoor / Open Gym Setup</span
-                                    >
-                                </label>
-
-                                <label class="contact-form__checkbox">
-                                    <input
-                                        type="checkbox"
-                                        name="interest[]"
-                                        value="Hotels & Resorts Gym Setup"
-                                    />
-                                    <span class="contact-form__checkbox-box"></span>
-                                    <span class="contact-form__checkbox-label"
-                                        >Hotels &amp; Resorts Gym Setup</span
-                                    >
-                                </label>
-
-                                <label class="contact-form__checkbox">
-                                    <input type="checkbox" name="interest[]" value="Other" />
-                                    <span class="contact-form__checkbox-box"></span>
-                                    <span class="contact-form__checkbox-label">Other</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="contact-form__group">
-                            <label for="message">Message</label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                rows="4"
-                                placeholder="Tell us more about your requirement..."
-                            ></textarea>
-                        </div>
-
-                        <button type="submit" class="btn btn-primary contact-form__cta">
-                            Submit Enquiry
-                        </button>
-                    </form>
+    <button type="submit" class="btn btn-primary contact-form__cta">
+        Submit Enquiry
+    </button>
+</form>
                 </div>
             </div>
         </div>
