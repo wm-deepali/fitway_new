@@ -23,13 +23,48 @@
         .content
             width: 100%
             max-width: 540px
+
+            @include media(768)
+                max-width: 100%
+
             h1
                 font-family: $Kugile
+
+                @include media(1024)
+                    font-size: 34px
+
+                @include media(768)
+                    font-size: 30px
+
+                @include media(540)
+                    font-size: 24px
+
+                @include media(360)
+                    font-size: 20px
+
+            p
+                @include media(540)
+                    font-size: 13px
+
+                @include media(360)
+                    font-size: 12px
 
 
 .blog-secA
     padding: 90px 0
     background: var(--black)
+
+    @include media(1024)
+        padding: 76px 0
+
+    @include media(768)
+        padding: 60px 0
+
+    @include media(540)
+        padding: 44px 0
+
+    @include media(360)
+        padding: 32px 0
 
     .heading
         width: 100%
@@ -37,19 +72,46 @@
         margin: 0 auto 60px
         text-align: center
 
+        @include media(768)
+            margin: 0 auto 44px
+
+        @include media(540)
+            max-width: 100%
+            margin: 0 auto 32px
+
+        @include media(360)
+            margin: 0 auto 24px
+
         h3
             margin-bottom: 12px
+
+            @include media(540)
+                font-size: 24px
+
+            @include media(360)
+                font-size: 20px
+
+        p
+            @include media(540)
+                font-size: 13px
 
     .blog-grid
         display: grid
         grid-template-columns: repeat(3, 1fr)
         gap: 30px
 
+        @include media(1280)
+            gap: 24px
+
         @include media(991)
             grid-template-columns: 1fr 1fr
+            gap: 24px
 
         @include media(675)
             grid-template-columns: 1fr
+
+        @include media(420)
+            gap: 18px
 
     .blog-card
         background: #101010
@@ -59,6 +121,9 @@
         display: flex
         flex-direction: column
         transition: border-color .35s ease, transform .35s ease, box-shadow .35s ease
+
+        @include media(540)
+            border-radius: 16px
 
         &:hover
             border-color: rgba(255,255,255,0.2)
@@ -78,6 +143,21 @@
             width: 100%
             height: 230px
             overflow: hidden
+
+            @include media(1024)
+                height: 210px
+
+            @include media(768)
+                height: 200px
+
+            @include media(540)
+                height: 190px
+
+            @include media(420)
+                height: 170px
+
+            @include media(360)
+                height: 150px
 
             img
                 width: 100%
@@ -105,11 +185,33 @@
                 border-radius: 30px
                 z-index: 1
 
+                @include media(540)
+                    top: 14px
+                    left: 14px
+                    font-size: 10.5px
+                    padding: 6px 12px
+
+                @include media(360)
+                    font-size: 10px
+                    padding: 5px 10px
+
         .content
             padding: 30px
             display: flex
             flex-direction: column
             flex: 1
+
+            @include media(1024)
+                padding: 26px
+
+            @include media(768)
+                padding: 24px
+
+            @include media(540)
+                padding: 20px
+
+            @include media(360)
+                padding: 16px
 
             .date
                 display: inline-flex
@@ -121,6 +223,10 @@
                 text-transform: uppercase
                 color: rgba(255,255,255,0.4)
                 margin-bottom: 14px
+
+                @include media(540)
+                    font-size: 11px
+                    margin-bottom: 10px
 
                 &::before
                     content: ""
@@ -137,12 +243,31 @@
                 color: $white
                 margin-bottom: 12px
 
+                @include media(1024)
+                    font-size: 18px
+
+                @include media(540)
+                    font-size: 16px
+                    margin-bottom: 10px
+
+                @include media(360)
+                    font-size: 15px
+
             p
                 font-size: 14px
                 line-height: 1.7
                 color: rgba(255,255,255,0.55)
                 margin-bottom: 24px
                 flex: 1
+
+                @include media(540)
+                    font-size: 13px
+                    line-height: 1.6
+                    margin-bottom: 18px
+
+                @include media(360)
+                    font-size: 12.5px
+                    margin-bottom: 14px
 
             a
                 display: inline-flex
@@ -151,4 +276,5 @@
                 width: fit-content
                 transition: gap .25s ease
 
-
+                @include media(360)
+                    font-size: 13px

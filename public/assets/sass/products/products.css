@@ -451,7 +451,7 @@ html {
 }
 @media only screen and (max-width: 1280px) {
   :root {
-    --container: 1180px;
+    --container: 95%;
   }
 }
 @media only screen and (max-width: 1024px) {
@@ -801,7 +801,7 @@ p, span, ul li, a {
 }
 @media only screen and (max-width: 540px) {
   .heading h3 {
-    font-size: 28px;
+    font-size: 26px;
   }
 }
 .heading h3 span {
@@ -1486,6 +1486,7 @@ button {
 
 .banner {
   position: relative;
+  margin-top: var(--headerfixed);
 }
 .banner.center-banner .banner-wrapper {
   bottom: 50%;
@@ -1505,7 +1506,7 @@ button {
 }
 @media only screen and (max-width: 520px) {
   .banner .bg {
-    height: 320px;
+    height: 60vh;
   }
 }
 .banner .bg video, .banner .bg img {
@@ -1513,6 +1514,8 @@ button {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
 }
 .banner .banner-wrapper {
   position: absolute;
@@ -1520,14 +1523,17 @@ button {
   transform: translateX(-50%);
   bottom: 15%;
   z-index: 3;
+  width: var(--container);
+  margin: 0 auto;
 }
 @media only screen and (max-width: 520px) {
   .banner .banner-wrapper {
-    bottom: 18%;
+    bottom: 34px;
   }
 }
 .banner .content {
   text-align: center;
+  margin: 0 auto;
 }
 .banner .content.content-white > *:not(.btn) {
   color: var(--white);
@@ -2648,6 +2654,27 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   background: var(--black);
   margin-bottom: 60px;
 }
+@media only screen and (max-width: 1024px) {
+  .app-promo {
+    margin-bottom: 50px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .app-promo {
+    margin-bottom: 40px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .app-promo {
+    padding: 0 16px;
+    margin-bottom: 32px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .app-promo {
+    margin-bottom: 24px;
+  }
+}
 .app-promo .app-promo-inner {
   position: relative;
   display: flex;
@@ -2659,11 +2686,33 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   padding: 56px 60px;
   overflow: hidden;
 }
+@media only screen and (max-width: 1280px) {
+  .app-promo .app-promo-inner {
+    padding: 48px 50px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .app-promo .app-promo-inner {
+    padding: 44px 40px;
+    gap: 30px;
+  }
+}
 @media only screen and (max-width: 991px) {
   .app-promo .app-promo-inner {
     flex-direction: column;
     text-align: center;
-    padding: 44px 32px;
+    gap: 28px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .app-promo .app-promo-inner {
+    padding: 20px;
+    border-radius: 18px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .app-promo .app-promo-inner {
+    border-radius: 16px;
   }
 }
 .app-promo .app-promo-inner::before {
@@ -2676,10 +2725,21 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   opacity: 0.12;
   pointer-events: none;
 }
+@media only screen and (max-width: 991px) {
+  .app-promo .app-promo-inner::before {
+    background-position: center;
+    background-size: 90%;
+  }
+}
 .app-promo .app-promo-text {
   position: relative;
   z-index: 2;
   max-width: 560px;
+}
+@media only screen and (max-width: 991px) {
+  .app-promo .app-promo-text {
+    max-width: 100%;
+  }
 }
 .app-promo .app-promo-text .eyebrow {
   display: inline-block;
@@ -2690,6 +2750,12 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   color: var(--white);
   opacity: 1;
 }
+@media only screen and (max-width: 360px) {
+  .app-promo .app-promo-text .eyebrow {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+}
 .app-promo .app-promo-text h3 {
   font-size: 32px;
   font-weight: 800;
@@ -2698,13 +2764,40 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   color: #ffffff;
   margin: 0 0 15px;
 }
+@media only screen and (max-width: 1024px) {
+  .app-promo .app-promo-text h3 {
+    font-size: 28px;
+  }
+}
 @media only screen and (max-width: 575px) {
   .app-promo .app-promo-text h3 {
     font-size: 24px;
   }
 }
+@media only screen and (max-width: 360px) {
+  .app-promo .app-promo-text h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+}
 .app-promo .app-promo-text p {
   margin-bottom: 40px;
+}
+@media only screen and (max-width: 1024px) {
+  .app-promo .app-promo-text p {
+    margin-bottom: 32px;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .app-promo .app-promo-text p {
+    font-size: 14px;
+    margin-bottom: 26px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .app-promo .app-promo-text p {
+    margin-bottom: 20px;
+  }
 }
 .app-promo .form {
   --inputsize: 48px;
@@ -2722,13 +2815,20 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   padding: 6px 6px 6px 22px;
   max-width: 460px;
 }
-@media only screen and (max-width: 575px) {
+@media only screen and (max-width: 991px) {
+  .app-promo .form {
+    margin: 0 auto;
+  }
+}
+@media only screen and (max-width: 540px) {
   .app-promo .form {
     flex-direction: column;
     align-items: stretch;
     border-radius: 20px;
     padding: 16px;
     gap: 14px;
+    max-width: 100%;
+    width: 100%;
   }
 }
 .app-promo .form .form-group {
@@ -2750,12 +2850,29 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   justify-content: center;
   gap: 8px;
 }
+@media only screen and (max-width: 540px) {
+  .app-promo .form .sbmt {
+    width: 100%;
+  }
+}
 .app-promo .app-promo-visual {
   position: relative;
   z-index: 2;
   flex-shrink: 0;
   width: 450px;
   height: 250px;
+}
+@media only screen and (max-width: 1280px) {
+  .app-promo .app-promo-visual {
+    width: 380px;
+    height: 220px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .app-promo .app-promo-visual {
+    width: 320px;
+    height: 190px;
+  }
 }
 @media only screen and (max-width: 991px) {
   .app-promo .app-promo-visual {
@@ -2779,7 +2896,7 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 
 .breadcrumb {
   position: absolute;
-  top: var(--headerheight);
+  top: 10px;
   left: 0;
   right: 0;
   z-index: 3;
@@ -2790,8 +2907,28 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 .breadcrumb.left {
   left: 80px;
 }
+@media only screen and (max-width: 991px) {
+  .breadcrumb.left {
+    left: 34px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .breadcrumb.left {
+    left: 24px;
+  }
+}
 .breadcrumb.left2 {
   left: 124px;
+}
+@media only screen and (max-width: 991px) {
+  .breadcrumb.left2 {
+    left: 34px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .breadcrumb.left2 {
+    left: 20px;
+  }
 }
 .breadcrumb ul {
   display: flex;
@@ -2860,8 +2997,48 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   position: relative;
   border-radius: 4px;
   overflow: hidden;
-  aspect-ratio: 3/4;
+  height: 435px;
   border: 1px solid rgba(255, 255, 255, 0.12);
+}
+@media only screen and (max-width: 1366px) {
+  .prod-card {
+    height: 400px;
+  }
+}
+@media only screen and (max-width: 1280px) {
+  .prod-card {
+    height: 380px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .prod-card {
+    height: 360px;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .prod-card {
+    height: 400px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .prod-card {
+    height: 340px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .prod-card {
+    height: 300px;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .prod-card {
+    height: 260px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .prod-card {
+    height: 230px;
+  }
 }
 .prod-card .img {
   position: absolute;
@@ -2890,6 +3067,16 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   justify-content: flex-end;
   padding: 22px;
 }
+@media only screen and (max-width: 540px) {
+  .prod-card .content {
+    padding: 18px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .prod-card .content {
+    padding: 14px;
+  }
+}
 .prod-card .content h5 {
   margin: 0 0 8px;
   font-size: 18px;
@@ -2897,12 +3084,27 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   text-transform: capitalize;
   color: var(--white, #fff);
 }
+@media only screen and (max-width: 540px) {
+  .prod-card .content h5 {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .prod-card .content h5 {
+    font-size: 15px;
+  }
+}
 .prod-card .content p {
   margin: 0;
   font-size: 13px;
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.7);
   transition: margin 0.3s ease;
+}
+@media only screen and (max-width: 360px) {
+  .prod-card .content p {
+    font-size: 12px;
+  }
 }
 .prod-card .content .btns {
   display: flex;
@@ -2924,16 +3126,69 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   opacity: 1;
   margin-top: 16px;
 }
+.prod-card.no-prod {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  position: relative;
+}
+.prod-card.no-prod::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.9) 100%);
+  transition: background 0.4s ease;
+}
+.prod-card.no-prod .img {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+.prod-card.no-prod .img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.prod-card.no-prod .img::after {
+  display: none;
+}
+.prod-card.no-prod .content {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+.prod-card.no-prod .content h5 {
+  color: var(--white);
+  margin-bottom: 8px;
+  font-size: 36px;
+}
+.prod-card.no-prod .content p {
+  color: var(--white) !important;
+  margin-bottom: 22px !important;
+  max-width: 320px;
+  font-size: 14px !important;
+}
+.prod-card.no-prod .content .btn {
+  max-height: none;
+  opacity: 1;
+  overflow: visible;
+}
 
 .banner--listing .bg {
   position: relative;
   height: 375px;
   overflow: hidden;
 }
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 540px) {
   .banner--listing .bg {
-    height: 240px;
-    min-height: 240px;
+    height: 35vh;
   }
 }
 .banner--listing .bg video, .banner--listing .bg img {
@@ -2966,9 +3221,15 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   margin: 0 0 20px;
   font-family: "Kugile";
 }
+@media only screen and (max-width: 1024px) {
+  .banner--listing .bg .content h1 {
+    font-size: 34px;
+  }
+}
 @media only screen and (max-width: 768px) {
   .banner--listing .bg .content h1 {
     font-size: 30px;
+    margin-bottom: 14px;
   }
 }
 @media only screen and (max-width: 540px) {
@@ -2976,14 +3237,32 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     font-size: 24px;
   }
 }
+@media only screen and (max-width: 360px) {
+  .banner--listing .bg .content h1 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+}
 .banner--listing .bg .content p {
   color: var(--white);
   max-width: 460px;
   margin: 0 0 14px;
 }
+@media only screen and (max-width: 768px) {
+  .banner--listing .bg .content p {
+    font-size: 13.5px;
+    margin-bottom: 10px;
+  }
+}
 @media only screen and (max-width: 540px) {
   .banner--listing .bg .content p {
     font-size: 13px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .banner--listing .bg .content p {
+    font-size: 12px;
+    margin-bottom: 8px;
   }
 }
 .banner--listing .bg .content .count {
@@ -2996,10 +3275,36 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   border: 1px solid var(--gray-sec);
   border-radius: 30px;
 }
+@media only screen and (max-width: 360px) {
+  .banner--listing .bg .content .count {
+    font-size: 10.5px;
+    padding: 5px 11px;
+  }
+}
 
 .product-secA {
   padding: 70px 0;
   background: var(--black);
+}
+@media only screen and (max-width: 1024px) {
+  .product-secA {
+    padding: 56px 0;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .product-secA {
+    padding: 46px 0;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .product-secA {
+    padding: 36px 0;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secA {
+    padding: 28px 0;
+  }
 }
 .product-secA .heading {
   width: 100%;
@@ -3007,12 +3312,32 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   margin: 0 auto;
   text-align: center;
 }
+@media only screen and (max-width: 540px) {
+  .product-secA .heading {
+    max-width: 100%;
+  }
+}
 .product-secA .swiper-wrap {
   position: relative;
   margin-top: 50px;
 }
+@media only screen and (max-width: 768px) {
+  .product-secA .swiper-wrap {
+    margin-top: 34px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .product-secA .swiper-wrap {
+    margin-top: 26px;
+  }
+}
 .product-secA .swiper-wrap .swiper {
   margin: 0 20px;
+}
+@media only screen and (max-width: 540px) {
+  .product-secA .swiper-wrap .swiper {
+    margin: 0 4px;
+  }
 }
 .product-secA .swiper-wrap .swiper-group {
   position: absolute;
@@ -3048,9 +3373,21 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   transition: background 0.25s ease;
   color: var(--primary);
 }
+@media only screen and (max-width: 1024px) {
+  .product-secA .swiper-wrap .swiper-group button {
+    width: 40px;
+    height: 40px;
+  }
+}
 .product-secA .swiper-wrap .swiper-group button svg {
   width: 20px;
   height: 20px;
+}
+@media only screen and (max-width: 1024px) {
+  .product-secA .swiper-wrap .swiper-group button svg {
+    width: 17px;
+    height: 17px;
+  }
 }
 .product-secA .swiper-wrap .swiper-group button:hover {
   background: var(--primary);
@@ -3069,6 +3406,16 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 @media only screen and (max-width: 991px) {
   .product-secA .product_card {
     aspect-ratio: 3/3.2;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .product-secA .product_card {
+    border-radius: 12px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secA .product_card {
+    aspect-ratio: 3/3.6;
   }
 }
 .product-secA .product_card .img {
@@ -3098,6 +3445,11 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   z-index: 2;
   padding: 32px;
 }
+@media only screen and (max-width: 1024px) {
+  .product-secA .product_card .content {
+    padding: 28px;
+  }
+}
 @media only screen and (max-width: 768px) {
   .product-secA .product_card .content {
     padding: 24px;
@@ -3106,6 +3458,11 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 @media only screen and (max-width: 540px) {
   .product-secA .product_card .content {
     padding: 20px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secA .product_card .content {
+    padding: 16px;
   }
 }
 .product-secA .product_card .content__tag {
@@ -3121,12 +3478,24 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   border-radius: 30px;
   margin-bottom: 14px;
 }
+@media only screen and (max-width: 360px) {
+  .product-secA .product_card .content__tag {
+    font-size: 10px;
+    margin-bottom: 10px;
+  }
+}
 .product-secA .product_card .content h4 {
   color: var(--white);
   font-size: 26px;
   font-weight: 600;
   margin: 0 0 10px;
   line-height: 1.25;
+  font-family: "Poppins";
+}
+@media only screen and (max-width: 1024px) {
+  .product-secA .product_card .content h4 {
+    font-size: 23px;
+  }
 }
 @media only screen and (max-width: 768px) {
   .product-secA .product_card .content h4 {
@@ -3136,6 +3505,12 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 @media only screen and (max-width: 540px) {
   .product-secA .product_card .content h4 {
     font-size: 19px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secA .product_card .content h4 {
+    font-size: 17px;
+    margin-bottom: 8px;
   }
 }
 .product-secA .product_card .content p {
@@ -3148,6 +3523,12 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 @media only screen and (max-width: 540px) {
   .product-secA .product_card .content p {
     font-size: 13px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secA .product_card .content p {
+    font-size: 12px;
+    max-width: 100%;
   }
 }
 .product-secA .product_card .content .btn {
@@ -3176,6 +3557,26 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   padding: 70px 0;
   background: var(--black);
 }
+@media only screen and (max-width: 1024px) {
+  .product-secB {
+    padding: 56px 0;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .product-secB {
+    padding: 46px 0;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .product-secB {
+    padding: 36px 0;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secB {
+    padding: 28px 0;
+  }
+}
 .product-secB .secB-head {
   display: flex;
   align-items: flex-end;
@@ -3185,11 +3586,24 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   padding-bottom: 28px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
+@media only screen and (max-width: 1024px) {
+  .product-secB .secB-head {
+    margin-bottom: 38px;
+  }
+}
 @media only screen and (max-width: 768px) {
   .product-secB .secB-head {
     flex-direction: column;
     align-items: flex-start;
     gap: 14px;
+    margin-bottom: 30px;
+    padding-bottom: 22px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .secB-head {
+    margin-bottom: 24px;
+    padding-bottom: 18px;
   }
 }
 .product-secB .secB-head__text {
@@ -3204,15 +3618,36 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   color: var(--primary);
   margin-bottom: 12px;
 }
+@media only screen and (max-width: 360px) {
+  .product-secB .secB-head__text .eyebrow {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+}
 .product-secB .secB-head__text h3 {
   color: var(--white);
   font-size: 36px;
   font-weight: 600;
   margin: 0 0 12px;
 }
+@media only screen and (max-width: 1024px) {
+  .product-secB .secB-head__text h3 {
+    font-size: 30px;
+  }
+}
 @media only screen and (max-width: 768px) {
   .product-secB .secB-head__text h3 {
     font-size: 26px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .product-secB .secB-head__text h3 {
+    font-size: 22px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .secB-head__text h3 {
+    font-size: 19px;
   }
 }
 .product-secB .secB-head__text p {
@@ -3236,17 +3671,82 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   border-radius: 30px;
   white-space: nowrap;
 }
+@media only screen and (max-width: 360px) {
+  .product-secB .secB-head__count {
+    font-size: 12px;
+    padding: 6px 13px;
+  }
+}
 .product-secB .listing {
+  position: relative;
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 48px;
   align-items: flex-start;
+}
+@media only screen and (max-width: 1200px) {
+  .product-secB .listing {
+    grid-template-columns: 240px 1fr;
+    gap: 34px;
+  }
 }
 @media only screen and (max-width: 991px) {
   .product-secB .listing {
     grid-template-columns: 1fr;
     gap: 32px;
   }
+}
+@media only screen and (max-width: 540px) {
+  .product-secB .listing {
+    gap: 24px;
+  }
+}
+.product-secB .filter-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  z-index: 998;
+}
+.product-secB .filter-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+.product-secB .filter-toggle-btn {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  border-radius: 30px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+  order: -1;
+  margin-right: auto;
+}
+@media only screen and (max-width: 991px) {
+  .product-secB .filter-toggle-btn {
+    display: inline-flex;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .product-secB .filter-toggle-btn {
+    margin-right: 0;
+  }
+}
+.product-secB .filter-toggle-btn svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+.product-secB .filter-toggle-btn:hover {
+  opacity: 0.85;
 }
 .product-secB .listing-filters {
   position: sticky;
@@ -3257,8 +3757,64 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 }
 @media only screen and (max-width: 991px) {
   .product-secB .listing-filters {
-    position: static;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 320px;
+    max-width: 85vw;
+    height: 100vh;
+    background: var(--black);
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 999;
+    gap: 22px;
+    padding: 0 22px 28px;
+    overflow-y: auto;
+    transition: left 0.35s ease;
+    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.4);
   }
+  .product-secB .listing-filters.active {
+    left: 0;
+  }
+}
+.product-secB .listing-filters__close {
+  display: none;
+  background: var(--black);
+}
+@media only screen and (max-width: 991px) {
+  .product-secB .listing-filters__close {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 -22px 6px;
+    padding: 20px 22px;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
+}
+.product-secB .listing-filters__close h6 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0;
+}
+.product-secB .listing-filters__close .close-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--white);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.product-secB .listing-filters__close .close-icon:hover {
+  background: rgba(255, 255, 255, 0.16);
 }
 .product-secB .listing-filters .filter-search label {
   display: block;
@@ -3494,11 +4050,26 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   padding-bottom: 22px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
+@media only screen and (max-width: 991px) {
+  .product-secB .listing-main__top {
+    margin-bottom: 22px;
+    padding-bottom: 18px;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+}
 @media only screen and (max-width: 540px) {
   .product-secB .listing-main__top {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main__top {
+    margin-bottom: 18px;
+    padding-bottom: 14px;
   }
 }
 .product-secB .listing-main__top-text h4 {
@@ -3507,10 +4078,25 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   font-weight: 600;
   margin: 0 0 6px;
 }
+@media only screen and (max-width: 540px) {
+  .product-secB .listing-main__top-text h4 {
+    font-size: 19px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main__top-text h4 {
+    font-size: 17px;
+  }
+}
 .product-secB .listing-main__top-text p {
   color: rgba(255, 255, 255, 0.55);
   font-size: 13.5px;
   margin: 0;
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main__top-text p {
+    font-size: 12.5px;
+  }
 }
 .product-secB .listing-main__top-controls {
   display: flex;
@@ -3522,6 +4108,7 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   .product-secB .listing-main__top-controls {
     width: 100%;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 }
 .product-secB .listing-main__top-controls .result-count {
@@ -3531,6 +4118,11 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   color: rgba(255, 255, 255, 0.5);
   white-space: nowrap;
   border: 1px solid rgba(255, 255, 255, 0.15);
+}
+@media only screen and (max-width: 540px) {
+  .product-secB .listing-main__top-controls .result-count {
+    display: none;
+  }
 }
 .product-secB .listing-main__top-controls .sort-select {
   display: flex;
@@ -3566,6 +4158,13 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   cursor: pointer;
   transition: border-color 0.25s ease, background 0.25s ease;
   min-width: 150px;
+}
+@media only screen and (max-width: 420px) {
+  .product-secB .listing-main__top-controls .sort-select__field select {
+    min-width: 120px;
+    padding: 9px 30px 9px 12px;
+    font-size: 12.5px;
+  }
 }
 .product-secB .listing-main__top-controls .sort-select__field select option {
   background: var(--black);
@@ -3609,10 +4208,20 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+@media only screen and (max-width: 768px) {
+  .product-secB .listing-main .equip-grid {
+    gap: 20px;
+  }
+}
 @media only screen and (max-width: 540px) {
   .product-secB .listing-main .equip-grid {
     grid-template-columns: 1fr;
     gap: 18px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main .equip-grid {
+    gap: 14px;
   }
 }
 .product-secB .listing-main .equip-card {
@@ -3624,6 +4233,11 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid rgba(255, 255, 255, 0.07);
   transition: border-color 0.35s ease, transform 0.35s ease, background 0.35s ease;
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main .equip-card {
+    border-radius: 10px;
+  }
 }
 .product-secB .listing-main .equip-card__img {
   display: block;
@@ -3645,6 +4259,16 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   flex: 1;
   padding: 22px 22px 24px;
 }
+@media only screen and (max-width: 768px) {
+  .product-secB .listing-main .equip-card__body {
+    padding: 18px 18px 20px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main .equip-card__body {
+    padding: 14px 14px 16px;
+  }
+}
 .product-secB .listing-main .equip-card__cat {
   display: block;
   font-size: 11px;
@@ -3654,6 +4278,12 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   color: var(--primary);
   margin-bottom: 9px;
 }
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main .equip-card__cat {
+    font-size: 10px;
+    margin-bottom: 7px;
+  }
+}
 .product-secB .listing-main .equip-card h5 {
   color: var(--white);
   font-size: 16.5px;
@@ -3661,11 +4291,30 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   margin: 0 0 20px;
   line-height: 1.4;
 }
+@media only screen and (max-width: 768px) {
+  .product-secB .listing-main .equip-card h5 {
+    font-size: 15.5px;
+    margin-bottom: 16px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main .equip-card h5 {
+    font-size: 14.5px;
+    margin-bottom: 14px;
+  }
+}
 .product-secB .listing-main .equip-card .btns {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-top: auto;
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main .equip-card .btns {
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
 .product-secB .listing-main .equip-card .btns .btn {
   flex: 1;
@@ -3687,6 +4336,17 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   gap: 8px;
   margin-top: 44px;
 }
+@media only screen and (max-width: 768px) {
+  .product-secB .listing-main .listing-pagination {
+    margin-top: 32px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main .listing-pagination {
+    gap: 6px;
+    margin-top: 26px;
+  }
+}
 .product-secB .listing-main .listing-pagination__num {
   width: 36px;
   height: 36px;
@@ -3697,6 +4357,13 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   color: rgba(255, 255, 255, 0.5);
   cursor: pointer;
   transition: 0.2s ease;
+}
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main .listing-pagination__num {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
 }
 .product-secB .listing-main .listing-pagination__num:hover {
   background: rgba(255, 255, 255, 0.06);
@@ -3722,6 +4389,12 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   cursor: pointer;
   transition: 0.2s ease;
 }
+@media only screen and (max-width: 360px) {
+  .product-secB .listing-main .listing-pagination__arrow {
+    width: 32px;
+    height: 32px;
+  }
+}
 .product-secB .listing-main .listing-pagination__arrow svg {
   width: 15px;
   height: 15px;
@@ -3737,4 +4410,214 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 .product-secB .listing-main .listing-pagination__arrow:disabled {
   opacity: 0.3;
   cursor: not-allowed;
+}
+
+nav[aria-label="Pagination Navigation"] {
+  width: 100%;
+  margin-top: 40px;
+}
+nav[aria-label="Pagination Navigation"] > div.flex.gap-2 {
+  display: none !important;
+}
+nav[aria-label="Pagination Navigation"] > div.hidden {
+  display: flex !important;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: #101010;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 20px 26px;
+}
+nav[aria-label="Pagination Navigation"] p {
+  color: rgba(255, 255, 255, 0.55) !important;
+  font-size: 14.5px !important;
+  font-weight: 500 !important;
+  margin: 0;
+  white-space: nowrap;
+  letter-spacing: 0.2px;
+}
+nav[aria-label="Pagination Navigation"] p span.font-medium {
+  color: var(--white) !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+  padding: 0 1px;
+}
+nav[aria-label="Pagination Navigation"] span.inline-flex.rtl\:flex-row-reverse {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+nav[aria-label="Pagination Navigation"] span.inline-flex,
+nav[aria-label="Pagination Navigation"] a.inline-flex {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: rgba(255, 255, 255, 0.75) !important;
+  border-radius: 10px !important;
+  min-width: 42px;
+  height: 42px;
+  padding: 0 14px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  font-size: 14.5px !important;
+  font-weight: 700 !important;
+  margin: 0 !important;
+  transition: all 0.25s ease;
+  box-shadow: none !important;
+}
+nav[aria-label="Pagination Navigation"] span[aria-label*=Previous] span.inline-flex,
+nav[aria-label="Pagination Navigation"] a[rel=next] span,
+nav[aria-label="Pagination Navigation"] a[aria-label*=Next] {
+  min-width: 42px;
+  width: 42px;
+  padding: 0 !important;
+}
+nav[aria-label="Pagination Navigation"] svg {
+  width: 17px;
+  height: 17px;
+}
+nav[aria-label="Pagination Navigation"] span[aria-disabled=true][aria-label*=Previous] span.inline-flex {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border-color: rgba(255, 255, 255, 0.06) !important;
+  color: rgba(255, 255, 255, 0.2) !important;
+  cursor: not-allowed !important;
+}
+nav[aria-label="Pagination Navigation"] span[aria-disabled=true][aria-label*=Previous] span.inline-flex svg {
+  fill: rgba(255, 255, 255, 0.2) !important;
+}
+nav[aria-label="Pagination Navigation"] span[aria-disabled=true]:not([aria-label]) span.inline-flex {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: rgba(255, 255, 255, 0.4) !important;
+  cursor: default !important;
+  min-width: 28px;
+  font-weight: 700 !important;
+}
+nav[aria-label="Pagination Navigation"] span[aria-current=page] span.inline-flex {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: var(--white) !important;
+  font-weight: 800 !important;
+  box-shadow: 0 4px 16px rgba(0, 162, 211, 0.4) !important;
+  transform: scale(1.04);
+}
+nav[aria-label="Pagination Navigation"] a.inline-flex {
+  cursor: pointer;
+  text-decoration: none !important;
+}
+nav[aria-label="Pagination Navigation"] a.inline-flex svg {
+  fill: rgba(255, 255, 255, 0.7);
+  transition: fill 0.25s ease;
+}
+nav[aria-label="Pagination Navigation"] a.inline-flex:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+  color: var(--white) !important;
+  transform: translateY(-2px);
+}
+nav[aria-label="Pagination Navigation"] a.inline-flex:hover svg {
+  fill: var(--white) !important;
+}
+nav[aria-label="Pagination Navigation"] a.inline-flex:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0, 162, 211, 0.3) !important;
+  border-color: var(--primary) !important;
+}
+nav[aria-label="Pagination Navigation"] a.inline-flex:active {
+  background: var(--primary) !important;
+  border-color: var(--primary) !important;
+  transform: translateY(0) scale(0.97);
+}
+nav[aria-label="Pagination Navigation"] a.-ml-px,
+nav[aria-label="Pagination Navigation"] span.-ml-px {
+  margin-left: 0 !important;
+}
+nav[aria-label="Pagination Navigation"] span.rounded-l-md,
+nav[aria-label="Pagination Navigation"] a.rounded-l-md,
+nav[aria-label="Pagination Navigation"] a.rounded-r-md {
+  border-radius: 10px !important;
+}
+@media only screen and (max-width: 991px) {
+  nav[aria-label="Pagination Navigation"] > div.hidden {
+    padding: 18px 22px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  nav[aria-label="Pagination Navigation"] > div.hidden {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 16px;
+    padding: 18px 16px;
+    border-radius: 14px;
+  }
+  nav[aria-label="Pagination Navigation"] p {
+    text-align: center;
+    font-size: 13.5px !important;
+  }
+  nav[aria-label="Pagination Navigation"] p span.font-medium {
+    font-size: 14px !important;
+  }
+  nav[aria-label="Pagination Navigation"] span.inline-flex.rtl\:flex-row-reverse {
+    justify-content: center;
+    gap: 6px;
+  }
+}
+@media only screen and (max-width: 575px) {
+  nav[aria-label="Pagination Navigation"] span.inline-flex,
+  nav[aria-label="Pagination Navigation"] a.inline-flex {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 10px !important;
+    font-size: 13px !important;
+    border-radius: 9px !important;
+  }
+  nav[aria-label="Pagination Navigation"] span[aria-label*=Previous] span.inline-flex,
+  nav[aria-label="Pagination Navigation"] a[rel=next] span,
+  nav[aria-label="Pagination Navigation"] a[aria-label*=Next] {
+    min-width: 36px;
+    width: 36px;
+  }
+  nav[aria-label="Pagination Navigation"] span[aria-disabled=true]:not([aria-label]) span.inline-flex {
+    min-width: 22px;
+  }
+  nav[aria-label="Pagination Navigation"] svg {
+    width: 15px;
+    height: 15px;
+  }
+}
+@media only screen and (max-width: 420px) {
+  nav[aria-label="Pagination Navigation"] > div.hidden {
+    padding: 14px 12px;
+  }
+  nav[aria-label="Pagination Navigation"] span.inline-flex.rtl\:flex-row-reverse {
+    gap: 4px;
+  }
+  nav[aria-label="Pagination Navigation"] span.inline-flex,
+  nav[aria-label="Pagination Navigation"] a.inline-flex {
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px !important;
+    font-size: 12.5px !important;
+    border-radius: 8px !important;
+  }
+  nav[aria-label="Pagination Navigation"] span[aria-label*=Previous] span.inline-flex,
+  nav[aria-label="Pagination Navigation"] a[rel=next] span,
+  nav[aria-label="Pagination Navigation"] a[aria-label*=Next] {
+    min-width: 32px;
+    width: 32px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  nav[aria-label="Pagination Navigation"] p {
+    font-size: 12.5px !important;
+  }
+  nav[aria-label="Pagination Navigation"] p span.font-medium {
+    font-size: 13px !important;
+  }
 }/*# sourceMappingURL=products.css.map */

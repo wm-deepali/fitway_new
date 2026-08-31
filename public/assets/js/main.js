@@ -82,16 +82,24 @@ $(function () {
     }
   });
 
-  $(document).on("click", "[data-model]", function () {
-    var model = $(this).attr("data-model");
-    var type = $(this).attr("data-type");
-    openModel(model, type);
-  });
+$(document).on("click", "[data-model]", function () {
+  var model = $(this).attr("data-model");
+  var type = $(this).attr("data-type");
+  openModel(model, type);
+});
 
-  $(document).on("click", ".overlay, .close", function () {
-    closeModel();
-  });
+$(document).on("click", ".overlay, .close", function () {
+  closeModel();
+});
 
+function closeModel() {
+  $('.overlay, .model, .ham-pop').removeClass('is-open')
+  $('body, html').removeClass('overflow-hidden')
+
+  setTimeout(function () {
+    $('.model, .ham-pop').removeClass('is-booking is-enquire')
+  }, 500)
+}
   // ============ SCROLL TO SECTION START ================>>>>
 
   // ============ SCROLL TO SECTION ============
@@ -220,24 +228,49 @@ $(document).ready(function () {
     }
   });
 });
+  // ===== Open video modal =====
   $("[data-video]").on("click", function (e) {
     e.preventDefault();
-
     e.stopPropagation();
 
-    $(".video-pop").addClass("is-open");
-
     var src = $(this).attr("data-video");
+    if (!src) return; // agar data-video khaali hai to kuch mat karo
 
     if (src.includes("youtube.com/embed/")) {
       var videoId = src.split("embed/")[1].split("?")[0];
-
       src += "&autoplay=1&loop=1&playlist=" + videoId;
     }
 
     $("#iframe1").attr("src", src);
-
+    $(".video-pop").addClass("is-open");
     $("body,html").addClass("overflow-hidden");
+  });
+
+  // ===== Close video modal (common function) =====
+  function closeVideoModal() {
+    $(".video-pop").removeClass("is-open");
+    $("#iframe1").attr("src", ""); // ye line sound/video dono stop karti hai
+    $("body,html").removeClass("overflow-hidden");
+  }
+
+  // Close button click
+  $(".video-pop .close-video").on("click", function (e) {
+    e.preventDefault();
+    closeVideoModal();
+  });
+
+  // Overlay click (bahar click karne pe close)
+  $(".overlay").on("click", function () {
+    if ($(".video-pop").hasClass("is-open")) {
+      closeVideoModal();
+    }
+  });
+
+  // ESC key press pe bhi close ho jaye
+  $(document).on("keydown", function (e) {
+    if (e.key === "Escape" && $(".video-pop").hasClass("is-open")) {
+      closeVideoModal();
+    }
   });
 
   new Swiper(".logoSlider", {
@@ -369,26 +402,63 @@ updateBanner(0);
 
 
 
-  const programSlider = new Swiper(".home-secA .programSlider", {
+  const sliderEl = document.querySelector('.home-secA .programSlider');
+  if (!sliderEl) return;
+
+  const programSlider = new Swiper(sliderEl, {
     slidesPerView: 1,
     spaceBetween: 0,
     allowTouchMove: false,
-    effect: "fade",
+    effect: 'fade',
+    fadeEffect: {
+      crossFade: true, // explicit — without this fade can render incompletely on some builds
+    },
     speed: 800,
+    observer: true,        // re-measure if DOM/images change after init
+    observeParents: true,
+    preloadImages: true,   // force-load all slide images upfront instead of lazy defaults
+    lazy: false,
+    watchOverflow: true,
   });
 
-  const programItems = document.querySelectorAll(".home-secA .grid-wrapper .grid .item");
+  const programItems = document.querySelectorAll('.home-secA .grid-wrapper .grid .item');
 
-  if (programItems.length) {
-    programItems[0].classList.add("active");
+  if (!programItems.length) return;
 
-    programItems.forEach((item, index) => {
-      item.addEventListener("mouseenter", () => {
-        programItems.forEach((i) => i.classList.remove("active"));
-        item.classList.add("active");
-        programSlider.slideTo(index);
-      });
+  programItems[0].classList.add('active');
+
+  programItems.forEach((item, index) => {
+    item.addEventListener('mouseenter', () => {
+      programItems.forEach((i) => i.classList.remove('active'));
+      item.classList.add('active');
+      programSlider.slideTo(index);
     });
+  });
+
+  // ---------------------------------------------------
+  // Force Swiper to re-check slide sizes once every
+  // image has actually finished loading — production
+  // networks are slower than local, so Swiper's initial
+  // calculation can happen before images paint.
+  // ---------------------------------------------------
+  const allImgs = sliderEl.querySelectorAll('img');
+  let loadedCount = 0;
+
+  allImgs.forEach((img) => {
+    if (img.complete) {
+      loadedCount++;
+    } else {
+      img.addEventListener('load', () => {
+        loadedCount++;
+        if (loadedCount === allImgs.length) {
+          programSlider.update();
+        }
+      });
+    }
+  });
+
+  if (loadedCount === allImgs.length) {
+    programSlider.update();
   }
 
   new Swiper(".thirdSilder", {
@@ -421,6 +491,7 @@ updateBanner(0);
       },
     },
   });
+
 
   new Swiper(".TestimonialSlider", {
     navigation: {

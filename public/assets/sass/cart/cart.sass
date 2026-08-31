@@ -9,9 +9,11 @@
         height: 375px
         overflow: hidden
 
+        @include media(1366)
+            height: 340px
+
         @include media(768)
-            height: 240px
-            min-height: 240px
+            height: 34vh
 
         video,img
             position: absolute
@@ -42,19 +44,34 @@
                 margin: 0 0 20px
                 font-family: $Kugile
 
+                @include media(1024)
+                    font-size: 34px
+
                 @include media(768)
                     font-size: 30px
+                    margin: 0 0 14px
 
                 @include media(540)
                     font-size: 24px
+                    margin: 0 0 10px
+
+                @include media(360)
+                    font-size: 20px
 
             p
                 color: var(--white)
                 max-width: 460px
                 margin: 0 0 14px
 
+                @include media(768)
+                    max-width: 100%
+
                 @include media(540)
                     font-size: 13px
+                    margin: 0 0 10px
+
+                @include media(360)
+                    font-size: 12px
 
             .count
                 font-size: 12px
@@ -65,6 +82,11 @@
                 padding: 6px 14px
                 border: 1px solid var(--gray-sec)
                 border-radius: 30px
+
+                @include media(540)
+                    font-size: 11px
+                    padding: 5px 12px
+
 // =========================
 // Cart Page
 // =========================
@@ -72,8 +94,17 @@
     padding: 70px 0
     background: var(--black)
 
+    @include media(1024)
+        padding: 60px 0
+
     @include media(768)
         padding: 50px 0
+
+    @include media(540)
+        padding: 36px 0
+
+    @include media(360)
+        padding: 28px 0
 
     .cart-wrap
         display: grid
@@ -81,9 +112,16 @@
         gap: 40px
         align-items: flex-start
 
+        @include media(1280)
+            grid-template-columns: 1.5fr 1fr
+            gap: 30px
+
         @include media(991)
             grid-template-columns: 1fr
             gap: 32px
+
+        @include media(540)
+            gap: 24px
 
     // ---- LEFT: Cart list ----
     .cart-list
@@ -120,6 +158,10 @@
             color: rgba(255,255,255,0.65)
             transition: color .25s ease, gap .25s ease
 
+            @include media(540)
+                margin-top: 20px
+                font-size: 12.5px
+
             svg
                 width: 16px
                 height: 16px
@@ -143,15 +185,24 @@
         padding: 24px 0
         border-bottom: 1px solid rgba(255,255,255,0.08)
 
+        @include media(991)
+            grid-template-columns: 1fr 120px
+
         @include media(768)
             grid-template-columns: 1fr
             gap: 16px
             padding: 22px 0
 
+        @include media(420)
+            padding: 18px 0
+
         &__product
             display: flex
             gap: 16px
             align-items: flex-start
+
+            @include media(360)
+                gap: 12px
 
         &__img
             width: 92px
@@ -162,9 +213,18 @@
             background: #111
             border: 1px solid rgba(255,255,255,0.08)
 
+            @include media(768)
+                width: 84px
+                height: 84px
+
             @include media(540)
                 width: 76px
                 height: 76px
+
+            @include media(360)
+                width: 64px
+                height: 64px
+                border-radius: 8px
 
             img
                 width: 100%
@@ -184,6 +244,10 @@
             color: var(--primary)
             margin-bottom: 6px
 
+            @include media(360)
+                font-size: 9.5px
+                margin-bottom: 4px
+
         h5
             font-size: 15px
             font-weight: 600
@@ -191,10 +255,20 @@
             margin: 0 0 6px
             line-height: 1.4
 
+            @include media(540)
+                font-size: 14px
+
+            @include media(360)
+                font-size: 13px
+                margin: 0 0 4px
+
         &__code
             font-size: 12px
             color: rgba(255,255,255,0.4)
             margin-bottom: 10px
+
+            @include media(540)
+                margin-bottom: 8px
 
         &__remove
             display: inline-flex
@@ -205,6 +279,9 @@
             color: rgba(255,255,255,0.4)
             width: fit-content
             transition: color .25s ease
+
+            @include media(360)
+                font-size: 11px
 
             svg
                 width: 13px
@@ -245,6 +322,11 @@
                 font-size: 16px
                 transition: background .25s ease, color .25s ease
 
+                @include media(360)
+                    width: 30px
+                    height: 30px
+                    font-size: 14px
+
                 &:hover
                     background: rgba(var(--primary-rgb), 0.15)
                     color: var(--primary)
@@ -261,6 +343,11 @@
                 font-size: 13.5px
                 font-weight: 600
 
+                @include media(360)
+                    width: 30px
+                    height: 30px
+                    font-size: 12.5px
+
         &__total
             display: flex
             flex-direction: column
@@ -271,11 +358,16 @@
             @include media(768)
                 align-items: flex-start
                 text-align: left
+                flex-direction: row
+                gap: 8px
 
         &__price
             font-size: 15px
             font-weight: 700
             color: $white
+
+            @include media(360)
+                font-size: 14px
 
         &__price-old
             font-size: 12px
@@ -294,8 +386,12 @@
         position: sticky
         top: 120px
 
+        @include media(1024)
+            top: 100px
+
         @include media(991)
             position: static
+
         .quote-form
             &__card
                 background: $black
@@ -303,8 +399,15 @@
                 border-radius: 18px
                 padding: 30px
 
+                @include media(768)
+                    padding: 26px 22px
+
                 @include media(540)
                     padding: 24px 20px
+
+                @include media(360)
+                    padding: 20px 16px
+                    border-radius: 14px
 
                 h4
                     font-size: 17px
@@ -312,10 +415,17 @@
                     color: $white
                     margin: 0 0 22px
 
+                    @include media(540)
+                        font-size: 16px
+                        margin: 0 0 18px
+
             &__form
                 display: flex
                 flex-direction: column
                 gap: 18px
+
+                @include media(540)
+                    gap: 14px
 
             &__group
                 display: flex
@@ -339,6 +449,10 @@
                     font-family: inherit
                     transition: border-color 0.25s ease, background 0.25s ease
 
+                    @include media(360)
+                        padding: 10px 12px
+                        font-size: 13px
+
                     &::placeholder
                         color: rgba(255,255,255,0.3)
 
@@ -351,6 +465,9 @@
                     resize: vertical
                     min-height: 90px
 
+                    @include media(540)
+                        min-height: 76px
+
             &__cta
                 width: 100%
                 margin-top: 6px
@@ -362,8 +479,15 @@
             border-radius: 18px
             padding: 30px
 
+            @include media(768)
+                padding: 26px 22px
+
             @include media(540)
                 padding: 24px 20px
+
+            @include media(360)
+                padding: 20px 16px
+                border-radius: 14px
 
             h4
                 font-size: 17px
@@ -371,16 +495,25 @@
                 color: $white
                 margin: 0 0 22px
 
+                @include media(540)
+                    font-size: 16px
+                    margin: 0 0 18px
+
         &__row
             display: flex
             align-items: center
             justify-content: space-between
             gap: 12px
             margin-bottom: 14px
-            
+
+            @include media(360)
+                margin-bottom: 10px
 
             span
                 font-size: 13.5px
+
+                @include media(360)
+                    font-size: 12.5px
 
                 &:first-child
                     color: rgba(255,255,255,0.5)
@@ -404,6 +537,9 @@
                     font-size: 15px
                     font-weight: 700
 
+                    @include media(360)
+                        font-size: 14px
+
                     &:first-child
                         color: $white
 
@@ -415,10 +551,16 @@
             background: rgba(255,255,255,0.08)
             margin: 18px 0
 
+            @include media(540)
+                margin: 14px 0
+
         &__cta
             width: 100%
             margin-top: 24px
             text-align: center
+
+            @include media(540)
+                margin-top: 18px
 
         &__helper
             font-size: 12px
@@ -426,6 +568,9 @@
             color: rgba(255,255,255,0.4)
             text-align: center
             margin: 14px 0 0
+
+            @include media(360)
+                font-size: 11px
 
         &__trust
             display: flex
@@ -435,6 +580,12 @@
             padding-top: 22px
             border-top: 1px solid rgba(255,255,255,0.08)
 
+            @include media(540)
+                flex-direction: column
+                gap: 10px
+                margin-top: 18px
+                padding-top: 18px
+
             span
                 display: flex
                 align-items: center
@@ -442,6 +593,9 @@
                 font-size: 12.5px
                 font-weight: 500
                 color: rgba(255,255,255,0.55)
+
+                @include media(360)
+                    font-size: 11.5px
 
             svg
                 width: 16px

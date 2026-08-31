@@ -46,8 +46,7 @@ html
     @include media(1366)
         --containerfluid: 2.5rem
     @include media(1280)
-        --container: 1180px
-
+        --container: 95%
     @include media(1024)
         --container: 95%
         --containerfluid: 2rem
@@ -289,7 +288,7 @@ p, span, ul li, a
         @include media(991)
             font-size: 30px
         @include media(540)
-            font-size: 28px
+            font-size: 26px
         span
             font-size: inherit
             font-weight: inherit
@@ -806,6 +805,7 @@ button
 
 .banner
     position: relative
+    margin-top: var(--headerfixed)
     &.center-banner
         .banner-wrapper
             bottom: 50%
@@ -818,21 +818,25 @@ button
         @include media(1152)
             height: 520px
         @include media(520)
-            height: 320px
+            height: 60vh
         video, img
             width: 100%
             height: 100%
             object-fit: cover
+            object-position: top
     .banner-wrapper
         position: absolute
         left: 50%
         transform: translateX(-50%)
         bottom: 15%
         z-index: 3
+        width: var(--container)
+        margin: 0 auto
         @include media(520)
-            bottom: 18%
+            bottom: 34px
     .content
         text-align: center
+        margin: 0 auto
         &.content-white
             > *
                 &:not(.btn)
@@ -1703,8 +1707,6 @@ $btn-transition: .25s ease
         outline: none
     input::placeholder
         float: right
-
- 
 // ================================================
 // APP PROMO / NEWSLETTER BANNER
 // ================================================
@@ -1714,6 +1716,18 @@ $btn-transition: .25s ease
   background: var(--black)
   margin-bottom: 60px
 
+  @include media(1024)
+    margin-bottom: 50px
+
+  @include media(768)
+    margin-bottom: 40px
+
+  @include media(540)
+    padding: 0 16px
+    margin-bottom: 32px
+
+  @include media(360)
+    margin-bottom: 24px
 
   .app-promo-inner
     position: relative
@@ -1726,10 +1740,24 @@ $btn-transition: .25s ease
     padding: 56px 60px
     overflow: hidden
 
+    @include media(1280)
+      padding: 48px 50px
+
+    @include media(1024)
+      padding: 44px 40px
+      gap: 30px
+
     @include media(991)
       flex-direction: column
       text-align: center
-      padding: 44px 32px
+      gap: 28px
+
+    @include media(540)
+      padding: 20px
+      border-radius: 18px
+
+    @include media(360)
+      border-radius: 16px
 
     &::before
       content: ''
@@ -1741,10 +1769,17 @@ $btn-transition: .25s ease
       opacity: .12
       pointer-events: none
 
+      @include media(991)
+        background-position: center
+        background-size: 90%
+
   .app-promo-text
     position: relative
     z-index: 2
     max-width: 560px
+
+    @include media(991)
+      max-width: 100%
 
     .eyebrow
       display: inline-block
@@ -1755,6 +1790,10 @@ $btn-transition: .25s ease
       color: var(--white)
       opacity: 1
 
+      @include media(360)
+        font-size: 11px
+        margin-bottom: 8px
+
     h3
       font-size: 32px
       font-weight: 800
@@ -1763,10 +1802,29 @@ $btn-transition: .25s ease
       color: #ffffff
       margin: 0 0 15px
 
+      @include media(1024)
+        font-size: 28px
+
       @include media(575)
         font-size: 24px
+
+      @include media(360)
+        font-size: 20px
+        margin-bottom: 10px
+
     p
-        margin-bottom: 40px
+      margin-bottom: 40px
+
+      @include media(1024)
+        margin-bottom: 32px
+
+      @include media(575)
+        font-size: 14px
+        margin-bottom: 26px
+
+      @include media(360)
+        margin-bottom: 20px
+
   .form
     --inputsize: 48px
     --labelbefore: rgba(255, 255, 255, .65)
@@ -1784,32 +1842,40 @@ $btn-transition: .25s ease
     padding: 6px 6px 6px 22px
     max-width: 460px
 
-    @include media(575)
+    @include media(991)
+      margin: 0 auto
+
+    @include media(540)
       flex-direction: column
       align-items: stretch
       border-radius: 20px
       padding: 16px
       gap: 14px
+      max-width: 100%
+      width: 100%
 
     .form-group
       flex: 1
       max-width: none
+
       &::before,
       &::after
         display: none
 
     input
-        color: #ffffff !important
-        &:not(.no-focus):focus ~ label
-            color: var(--white)
+      color: #ffffff !important
 
+      &:not(.no-focus):focus ~ label
+        color: var(--white)
 
     .sbmt
       display: flex
       align-items: center
       justify-content: center
       gap: 8px
-    
+
+      @include media(540)
+        width: 100%
 
   .app-promo-visual
     position: relative
@@ -1817,6 +1883,14 @@ $btn-transition: .25s ease
     flex-shrink: 0
     width: 450px
     height: 250px
+
+    @include media(1280)
+      width: 380px
+      height: 220px
+
+    @include media(1024)
+      width: 320px
+      height: 190px
 
     @include media(991)
       display: none
@@ -1836,11 +1910,10 @@ $btn-transition: .25s ease
         right: -33px
 
 
-
 // Breadcrumb placement
 .breadcrumb
     position: absolute
-    top: var(--headerheight)
+    top: 10px
     left: 0
     right: 0
     z-index: 3
@@ -1849,8 +1922,19 @@ $btn-transition: .25s ease
     line-height: 1.4
     &.left
         left: 80px
+        @include media(991)
+            left: 34px
+        @include media(540)
+             left: 24px
+
     &.left2
         left: 124px
+        @include media(991)
+            left: 34px
+
+        @include media(540)
+            left: 20px
+
 
     ul
         display: flex
@@ -1920,13 +2004,36 @@ $btn-transition: .25s ease
         gap: 6px
 
 
-
 .prod-card
     position: relative
     border-radius: 4px
     overflow: hidden
-    aspect-ratio: 3 / 4
+    height: 435px
     border: 1px solid rgba(255,255,255,.12)
+
+    @include media(1366)
+      height: 400px
+
+    @include media(1280)
+      height: 380px
+
+    @include media(1024)
+      height: 360px
+
+    @include media(991)
+      height: 400px
+
+    @include media(768)
+      height: 340px
+
+    @include media(540)
+      height: 300px
+
+    @include media(420)
+      height: 260px
+
+    @include media(360)
+      height: 230px
 
     .img
       position: absolute
@@ -1955,6 +2062,12 @@ $btn-transition: .25s ease
       justify-content: flex-end
       padding: 22px
 
+      @include media(540)
+        padding: 18px
+
+      @include media(360)
+        padding: 14px
+
       h5
         margin: 0 0 8px
         font-size: 18px
@@ -1962,12 +2075,21 @@ $btn-transition: .25s ease
         text-transform: capitalize
         color: var(--white, #fff)
 
+        @include media(540)
+          font-size: 16px
+
+        @include media(360)
+          font-size: 15px
+
       p
         margin: 0
         font-size: 13px
         line-height: 1.55
         color: rgba(255,255,255,.7)
         transition: margin .3s ease
+
+        @include media(360)
+          font-size: 12px
 
       // buttons hidden by default — only these appear on hover
       .btns
@@ -1979,7 +2101,6 @@ $btn-transition: .25s ease
         overflow: hidden
         transition: max-height .35s ease, opacity .3s ease, margin-top .35s ease
 
-      
 
     &:hover
       .img img
@@ -1992,3 +2113,56 @@ $btn-transition: .25s ease
         max-height: 60px
         opacity: 1
         margin-top: 16px
+
+    &.no-prod
+      display: flex
+      flex-direction: column
+      align-items: center
+      justify-content: center
+      text-align: center
+      padding: 30px
+      position: relative
+
+      &::after
+        content: ''
+        position: absolute
+        inset: 0
+        background: linear-gradient(180deg, rgb(0 0 0 / 40%) 40%, rgba(0, 0, 0, 0.9) 100%)
+        transition: background .4s ease
+
+      .img
+        width: 100%
+        height:100%
+        margin-bottom: 20px
+        opacity: .6
+
+        img
+          width: 100%
+          height: 100%
+          object-fit: cover
+
+        &::after
+          display: none
+
+      .content
+        position: static
+        display: flex
+        flex-direction: column
+        align-items: center
+        padding: 0
+
+        h5
+          color: var(--white)
+          margin-bottom: 8px
+          font-size: 36px
+
+        p
+          color: var(--white) !important
+          margin-bottom: 22px !important
+          max-width: 320px
+          font-size: 14px !important
+
+        .btn
+          max-height: none
+          opacity: 1
+          overflow: visible

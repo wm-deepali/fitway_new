@@ -23,21 +23,54 @@
         .content
             width: 100%
             max-width: 540px
+
+            @include media(768)
+                max-width: 100%
+
             h1
                 font-family: $Kugile
+
+                @include media(1024)
+                    font-size: 42px
+
+                @include media(768)
+                    font-size: 32px
+
+                @include media(540)
+                    font-size: 26px
+
+                @include media(360)
+                    font-size: 22px
+
+            p
+                @include media(540)
+                    font-size: 13.5px
+
 
 .faq-secA
     padding: 90px 0 50px
     background: var(--black)
 
-    @include media(767)
+    @include media(1024)
+        padding: 70px 0 40px
+
+    @include media(768)
         padding: 60px 0 30px
+
+    @include media(540)
+        padding: 44px 0 24px
+
+    @include media(360)
+        padding: 34px 0 20px
 
     .heading
         width: 100%
-        max-width: 490px
+        max-width: 460px
         margin: 0 auto
         text-align: center
+
+        @include media(540)
+            max-width: 100%
 
         .label
             display: inline-block
@@ -48,26 +81,51 @@
             color: var(--primary)
             margin-bottom: 14px
 
+            @include media(360)
+                font-size: 11.5px
+                margin-bottom: 10px
+
         h3
             margin-bottom: 14px
+
+            @include media(540)
+                margin-bottom: 10px
 
         p
             font-size: 15px
             line-height: 1.8
             color: rgba(255,255,255,0.55)
 
+            @include media(540)
+                font-size: 13.5px
+
 
 .faq-secB
     padding: 0 0 90px
     background: var(--black)
 
-    @include media(767)
+    @include media(1024)
+        padding: 0 0 70px
+
+    @include media(768)
         padding: 0 0 60px
+
+    @include media(540)
+        padding: 0 0 44px
+
+    @include media(360)
+        padding: 0 0 34px
 
     // -------------------- Category Group --------------------
     .faq-group
         max-width: 800px
         margin: 0 auto 50px
+
+        @include media(768)
+            margin-bottom: 40px
+
+        @include media(540)
+            margin-bottom: 32px
 
         &:last-child
             margin-bottom: 0
@@ -92,8 +150,19 @@
                 background: var(--primary)
                 flex-shrink: 0
 
-            @include media(575)
+            @include media(768)
+                font-size: 18px
+                margin-bottom: 18px
+
+            @include media(540)
                 font-size: 17px
+
+            @include media(360)
+                font-size: 15.5px
+                gap: 10px
+
+                &::before
+                    height: 16px
 
     // -------------------- Accordion (unchanged) --------------------
     .accordion-wrapper
@@ -107,6 +176,9 @@
         margin-bottom: 15px
         overflow: hidden
         transition: all 0.3s ease
+
+        @include media(540)
+            margin-bottom: 12px
 
         &:hover
             border-color: rgba(255, 255, 255, .18)
@@ -131,6 +203,12 @@
         cursor: pointer
         transition: all 0.3s ease
 
+        @include media(540)
+            padding: 16px 18px
+
+        @include media(360)
+            padding: 14px 14px
+
         h4
             font-size: 16px
             font-weight: 600
@@ -141,7 +219,11 @@
             padding-right: 20px
             transition: color .3s ease
 
-            @include media(375)
+            @include media(540)
+                font-size: 14.5px
+                padding-right: 14px
+
+            @include media(360)
                 font-size: 14px
 
     .accordion-icon
@@ -156,11 +238,24 @@
         justify-content: center
         flex-shrink: 0
 
+        @include media(540)
+            width: 24px
+            height: 24px
+            font-size: 20px
+
     .accordion-content
         padding: 0 25px 20px
         padding-right: 3rem
         display: none
         background: transparent
+
+        @include media(540)
+            padding: 0 18px 16px
+            padding-right: 2rem
+
+        @include media(360)
+            padding: 0 14px 14px
+            padding-right: 1.5rem
 
         p
             padding: 20px 0
@@ -170,11 +265,18 @@
             font-weight: 400
             line-height: 1.8
 
-            @include media(375)
+            @include media(540)
+                padding: 16px 0
+                font-size: 13px
+
+            @include media(360)
                 font-size: 12px
 
         ul
             margin-left: 20px
+
+            @include media(540)
+                margin-left: 16px
 
             li
                 font-size: 14px
@@ -183,7 +285,10 @@
                 line-height: 1.8
                 list-style-type: disc
 
-                @include media(375)
+                @include media(540)
+                    font-size: 13px
+
+                @include media(360)
                     font-size: 12px
 
 
@@ -191,8 +296,17 @@
     padding: 0 0 90px
     background: var(--black)
 
-    @include media(767)
+    @include media(1024)
+        padding: 0 0 70px
+
+    @include media(768)
         padding: 0 0 60px
+
+    @include media(540)
+        padding: 0 0 44px
+
+    @include media(360)
+        padding: 0 0 34px
 
     &__box
         background: var(--gradient-a)
@@ -200,8 +314,16 @@
         padding: 70px 40px
         text-align: center
 
+        @include media(768)
+            padding: 56px 32px
+
         @include media(540)
             padding: 44px 24px
+            border-radius: 20px
+
+        @include media(360)
+            padding: 34px 18px
+            border-radius: 16px
 
         h3
             font-size: 30px
@@ -209,8 +331,15 @@
             color: $white
             margin-bottom: 14px
 
+            @include media(768)
+                font-size: 26px
+
             @include media(540)
                 font-size: 24px
+
+            @include media(360)
+                font-size: 20px
+                margin-bottom: 10px
 
         p
             font-size: 15px
@@ -219,6 +348,13 @@
             margin: 0 auto 34px
             line-height: 1.7
 
+            @include media(540)
+                font-size: 13.5px
+                margin-bottom: 26px
+
+            @include media(360)
+                margin-bottom: 20px
+
     &__btns
         display: flex
         align-items: center
@@ -226,8 +362,7 @@
         gap: 14px
         flex-wrap: wrap
 
-        @include media(480)
-            flex-direction: column
+        @include media(420)
             align-items: stretch
 
         .btn-outline-white

@@ -9,9 +9,8 @@
         height: 375px
         overflow: hidden
 
-        @include media(768)
-            height: 240px
-            min-height: 240px
+        @include media(540)
+            height: 35vh
 
         video,img
             position: absolute
@@ -41,18 +40,36 @@
                 font-weight: 600
                 margin: 0 0 20px
                 font-family: $Kugile
+
+                @include media(1024)
+                    font-size: 34px
+
                 @include media(768)
                     font-size: 30px
+                    margin-bottom: 14px
+
                 @include media(540)
                     font-size: 24px
+
+                @include media(360)
+                    font-size: 20px
+                    margin-bottom: 10px
 
             p
                 color: var(--white)
                 max-width: 460px
                 margin: 0 0 14px
 
+                @include media(768)
+                    font-size: 13.5px
+                    margin-bottom: 10px
+
                 @include media(540)
                     font-size: 13px
+
+                @include media(360)
+                    font-size: 12px
+                    margin-bottom: 8px
 
             .count
                 font-size: 12px
@@ -64,9 +81,25 @@
                 border: 1px solid var(--gray-sec)
                 border-radius: 30px
 
+                @include media(360)
+                    font-size: 10.5px
+                    padding: 5px 11px
+
 .product-secA
     padding: 70px 0
     background: var(--black)
+
+    @include media(1024)
+        padding: 56px 0
+
+    @include media(768)
+        padding: 46px 0
+
+    @include media(540)
+        padding: 36px 0
+
+    @include media(360)
+        padding: 28px 0
 
     .heading
         width: 100%
@@ -74,13 +107,25 @@
         margin: 0 auto
         text-align: center
 
+        @include media(540)
+            max-width: 100%
+
     // ---------- swiper wrap ----------
     .swiper-wrap
         position: relative
         margin-top: 50px
 
+        @include media(768)
+            margin-top: 34px
+
+        @include media(540)
+            margin-top: 26px
+
         .swiper
             margin: 0 20px
+
+            @include media(540)
+                margin: 0 4px
 
         .swiper-group
             position: absolute
@@ -114,9 +159,17 @@
                 transition: background .25s ease
                 color: var(--primary)
 
+                @include media(1024)
+                    width: 40px
+                    height: 40px
+
                 svg
                     width: 20px
                     height: 20px
+
+                    @include media(1024)
+                        width: 17px
+                        height: 17px
 
                 &:hover
                     background: var(--primary)
@@ -137,6 +190,12 @@
 
         @include media(991)
             aspect-ratio: 3 / 3.2
+
+        @include media(540)
+            border-radius: 12px
+
+        @include media(360)
+            aspect-ratio: 3 / 3.6
 
         .img
             position: absolute
@@ -164,11 +223,17 @@
             z-index: 2
             padding: 32px
 
+            @include media(1024)
+                padding: 28px
+
             @include media(768)
                 padding: 24px
 
             @include media(540)
                 padding: 20px
+
+            @include media(360)
+                padding: 16px
 
             &__tag
                 display: inline-block
@@ -183,18 +248,30 @@
                 border-radius: 30px
                 margin-bottom: 14px
 
+                @include media(360)
+                    font-size: 10px
+                    margin-bottom: 10px
+
             h4
                 color: $white
                 font-size: 26px
                 font-weight: 600
                 margin: 0 0 10px
                 line-height: 1.25
+                font-family: $Poppins
+
+                @include media(1024)
+                    font-size: 23px
 
                 @include media(768)
                     font-size: 21px
 
                 @include media(540)
                     font-size: 19px
+
+                @include media(360)
+                    font-size: 17px
+                    margin-bottom: 8px
 
             p
                 color: rgba(255,255,255,0.75)
@@ -205,6 +282,10 @@
 
                 @include media(540)
                     font-size: 13px
+
+                @include media(360)
+                    font-size: 12px
+                    max-width: 100%
 
             .btn
                 display: inline-flex
@@ -233,6 +314,18 @@
     padding: 70px 0
     background: var(--black)
 
+    @include media(1024)
+        padding: 56px 0
+
+    @include media(768)
+        padding: 46px 0
+
+    @include media(540)
+        padding: 36px 0
+
+    @include media(360)
+        padding: 28px 0
+
     // ---------- Section head ----------
     .secB-head
         display: flex
@@ -243,10 +336,19 @@
         padding-bottom: 28px
         border-bottom: 1px solid rgba(255,255,255,0.08)
 
+        @include media(1024)
+            margin-bottom: 38px
+
         @include media(768)
             flex-direction: column
             align-items: flex-start
             gap: 14px
+            margin-bottom: 30px
+            padding-bottom: 22px
+
+        @include media(360)
+            margin-bottom: 24px
+            padding-bottom: 18px
 
         &__text
             max-width: 620px
@@ -260,14 +362,27 @@
                 color: var(--primary)
                 margin-bottom: 12px
 
+                @include media(360)
+                    font-size: 11px
+                    margin-bottom: 8px
+
             h3
                 color: $white
                 font-size: 36px
                 font-weight: 600
                 margin: 0 0 12px
 
+                @include media(1024)
+                    font-size: 30px
+
                 @include media(768)
                     font-size: 26px
+
+                @include media(540)
+                    font-size: 22px
+
+                @include media(360)
+                    font-size: 19px
 
             p
                 color: rgba(255,255,255,0.6)
@@ -288,19 +403,80 @@
             border-radius: 30px
             white-space: nowrap
 
+            @include media(360)
+                font-size: 12px
+                padding: 6px 13px
+
     // ---------- Listing layout ----------
     .listing
+        position: relative
         display: grid
         grid-template-columns: 280px 1fr
         gap: 48px
         align-items: flex-start
 
+        @include media(1200)
+            grid-template-columns: 240px 1fr
+            gap: 34px
+
         @include media(991)
             grid-template-columns: 1fr
             gap: 32px
 
+        @include media(540)
+            gap: 24px
+
     // ================================================
-    // LEFT — Filters
+    // BACKDROP OVERLAY (drawer mode <991)
+    // ================================================
+    .filter-overlay
+        position: fixed
+        inset: 0
+        background: rgba(0, 0, 0, .6)
+        opacity: 0
+        visibility: hidden
+        transition: opacity .3s ease, visibility .3s ease
+        z-index: 998
+
+        &.active
+            opacity: 1
+            visibility: visible
+
+    // ================================================
+    // MOBILE FILTER TOGGLE BUTTON
+    // ================================================
+    .filter-toggle-btn
+        display: none
+        align-items: center
+        gap: 10px
+        background: var(--primary)
+        color: $white
+        border: none
+        border-radius: 30px
+        padding: 10px 18px
+        font-size: 13px
+        font-weight: 600
+        cursor: pointer
+        transition: opacity .25s ease
+        order: -1
+        margin-right: auto
+
+        @include media(991)
+            display: inline-flex
+
+        @include media(540)
+            margin-right: 0
+
+        svg
+            width: 15px
+            height: 15px
+            flex-shrink: 0
+
+        &:hover
+            opacity: .85
+
+    // ================================================
+    // LEFT — Filters (off-canvas drawer <991)
     // ================================================
     .listing-filters
         position: sticky
@@ -310,7 +486,61 @@
         gap: 30px
 
         @include media(991)
-            position: static
+            position: fixed
+            top: 0
+            left: -100%
+            width: 320px
+            max-width: 85vw
+            height: 100vh
+            background: var(--black)
+            border-right: 1px solid rgba(255,255,255,0.08)
+            z-index: 999
+            gap: 22px
+            padding: 0 22px 28px
+            overflow-y: auto
+            transition: left .35s ease
+            box-shadow: 4px 0 30px rgba(0,0,0,.4)
+
+            &.active
+                left: 0
+
+        &__close
+            display: none
+            background: var(--black)
+
+            @include media(991)
+                display: flex
+                align-items: center
+                justify-content: space-between
+                margin: 0 -22px 6px
+                padding: 20px 22px
+                background: rgba(255,255,255,0.03)
+                border-bottom: 1px solid rgba(255,255,255,0.08)
+                position: sticky
+                top: 0
+                z-index: 2
+
+            h6
+                font-size: 16px
+                font-weight: 700
+                color: $white
+                margin: 0
+
+            .close-icon
+                width: 30px
+                height: 30px
+                border-radius: 50%
+                background: rgba(255,255,255,0.08)
+                display: flex
+                align-items: center
+                justify-content: center
+                font-size: 13px
+                color: $white
+                cursor: pointer
+                transition: background .2s ease
+
+                &:hover
+                    background: rgba(255,255,255,0.16)
 
         .filter-search
             label
@@ -549,10 +779,21 @@
             padding-bottom: 22px
             border-bottom: 1px solid rgba(255,255,255,0.08)
 
+            @include media(991)
+                margin-bottom: 22px
+                padding-bottom: 18px
+                flex-direction: column
+                justify-content: flex-start
+                align-items: flex-start
+
             @include media(540)
                 flex-direction: column
                 align-items: flex-start
                 gap: 16px
+
+            @include media(360)
+                margin-bottom: 18px
+                padding-bottom: 14px
 
             &-text
                 h4
@@ -561,10 +802,19 @@
                     font-weight: 600
                     margin: 0 0 6px
 
+                    @include media(540)
+                        font-size: 19px
+
+                    @include media(360)
+                        font-size: 17px
+
                 p
                     color: rgba(255,255,255,0.55)
                     font-size: 13.5px
                     margin: 0
+
+                    @include media(360)
+                        font-size: 12.5px
 
             &-controls
                 display: flex
@@ -575,6 +825,7 @@
                 @include media(540)
                     width: 100%
                     justify-content: space-between
+                    flex-wrap: wrap
 
                 .result-count
                     font-size: 13px
@@ -583,6 +834,10 @@
                     color: rgba(255,255,255,0.5)
                     white-space: nowrap
                     border: 1px solid rgba(255,255,255,0.15)
+
+                    @include media(540)
+                      display: none
+                  
 
                 .sort-select
                     display: flex
@@ -616,6 +871,11 @@
                             cursor: pointer
                             transition: border-color .25s ease, background .25s ease
                             min-width: 150px
+
+                            @include media(420)
+                                min-width: 120px
+                                padding: 9px 30px 9px 12px
+                                font-size: 12.5px
 
                             option
                                 background: var(--black)
@@ -658,9 +918,15 @@
             @include media(1200)
                 grid-template-columns: repeat(2, 1fr)
 
+            @include media(768)
+                gap: 20px
+
             @include media(540)
                 grid-template-columns: 1fr
                 gap: 18px
+
+            @include media(360)
+                gap: 14px
 
         .equip-card
             display: flex
@@ -671,6 +937,9 @@
             background: rgba(255,255,255,0.025)
             border: 1px solid rgba(255,255,255,0.07)
             transition: border-color .35s ease, transform .35s ease, background .35s ease
+
+            @include media(360)
+                border-radius: 10px
 
             &__img
                 display: block
@@ -691,6 +960,12 @@
                 flex: 1
                 padding: 22px 22px 24px
 
+                @include media(768)
+                    padding: 18px 18px 20px
+
+                @include media(360)
+                    padding: 14px 14px 16px
+
             &__cat
                 display: block
                 font-size: 11px
@@ -700,6 +975,10 @@
                 color: var(--primary)
                 margin-bottom: 9px
 
+                @include media(360)
+                    font-size: 10px
+                    margin-bottom: 7px
+
             h5
                 color: $white
                 font-size: 16.5px
@@ -707,12 +986,24 @@
                 margin: 0 0 20px
                 line-height: 1.4
 
-            // your existing .btn / .btn-primary / .btn-gray styles apply as-is
+                @include media(768)
+                    font-size: 15.5px
+                    margin-bottom: 16px
+
+                @include media(360)
+                    font-size: 14.5px
+                    margin-bottom: 14px
+
             .btns
                 display: flex
                 align-items: center
                 gap: 10px
                 margin-top: auto
+
+                @include media(360)
+                    gap: 8px
+                    flex-direction: column
+                    align-items: stretch
 
                 .btn
                     flex: 1
@@ -735,6 +1026,13 @@
             gap: 8px
             margin-top: 44px
 
+            @include media(768)
+                margin-top: 32px
+
+            @include media(360)
+                gap: 6px
+                margin-top: 26px
+
             &__num
                 width: 36px
                 height: 36px
@@ -745,6 +1043,11 @@
                 color: rgba(255,255,255,0.5)
                 cursor: pointer
                 transition: .2s ease
+
+                @include media(360)
+                    width: 32px
+                    height: 32px
+                    font-size: 12px
 
                 &:hover
                     background: rgba(255,255,255,0.06)
@@ -770,6 +1073,10 @@
                 cursor: pointer
                 transition: .2s ease
 
+                @include media(360)
+                    width: 32px
+                    height: 32px
+
                 svg
                     width: 15px
                     height: 15px
@@ -786,3 +1093,231 @@
                     opacity: .3
                     cursor: not-allowed
 
+
+// ========================================
+// Pagination (Laravel/Tailwind override)
+// ========================================
+
+nav[aria-label="Pagination Navigation"]
+    width: 100%
+    margin-top: 40px
+
+    // ---------------------------------------------------
+    // Force-hide the duplicate mobile-only Prev/Next block
+    // ---------------------------------------------------
+    > div.flex.gap-2
+        display: none !important
+
+    // ---------------------------------------------------
+    // Main bar: results text left, controls right
+    // ---------------------------------------------------
+    > div.hidden
+        display: flex !important
+        flex-direction: row
+        flex-wrap: wrap
+        align-items: center
+        justify-content: space-between
+        gap: 20px
+        background: #101010
+        border: 1px solid rgba(255, 255, 255, .08)
+        border-radius: 16px
+        padding: 20px 26px
+
+    // ---------- Results text ("Showing 1 to 12 of 221 results") ----------
+    p
+        color: rgba(255, 255, 255, .55) !important
+        font-size: 14.5px !important
+        font-weight: 500 !important
+        margin: 0
+        white-space: nowrap
+        letter-spacing: .2px
+
+        span.font-medium
+            color: var(--white) !important
+            font-weight: 700 !important
+            font-size: 15px !important
+            padding: 0 1px
+
+    // ---------- Controls group wrapper ----------
+    span.inline-flex.rtl\:flex-row-reverse
+        display: flex !important
+        align-items: center
+        gap: 8px
+        flex-wrap: wrap
+        box-shadow: none !important
+        background: transparent !important
+
+    // ---------- Reset every pill (prev/next arrows, numbers, ellipsis) ----------
+    span.inline-flex,
+    a.inline-flex
+        background: rgba(255, 255, 255, .05) !important
+        border: 1px solid rgba(255, 255, 255, .12) !important
+        color: rgba(255, 255, 255, .75) !important
+        border-radius: 10px !important
+        min-width: 42px
+        height: 42px
+        padding: 0 14px !important
+        display: inline-flex !important
+        align-items: center
+        justify-content: center
+        font-size: 14.5px !important
+        font-weight: 700 !important
+        margin: 0 !important
+        transition: all .25s ease
+        box-shadow: none !important
+
+    // ---------- Prev/Next arrow icon buttons (icon only, square) ----------
+    span[aria-label*="Previous"] span.inline-flex,
+    a[rel="next"] span,
+    a[aria-label*="Next"]
+        min-width: 42px
+        width: 42px
+        padding: 0 !important
+
+    svg
+        width: 17px
+        height: 17px
+
+    // ---------- Disabled Previous arrow ----------
+    span[aria-disabled="true"][aria-label*="Previous"]
+        span.inline-flex
+            background: rgba(255, 255, 255, .02) !important
+            border-color: rgba(255, 255, 255, .06) !important
+            color: rgba(255, 255, 255, .2) !important
+            cursor: not-allowed !important
+
+            svg
+                fill: rgba(255, 255, 255, .2) !important
+
+    // ---------- "..." ellipsis (non-clickable) ----------
+    span[aria-disabled="true"]:not([aria-label]) span.inline-flex
+        background: transparent !important
+        border-color: transparent !important
+        color: rgba(255, 255, 255, .4) !important
+        cursor: default !important
+        min-width: 28px
+        font-weight: 700 !important
+
+    // ---------- Active / current page ----------
+    span[aria-current="page"] span.inline-flex
+        background: var(--primary) !important
+        border-color: var(--primary) !important
+        color: var(--white) !important
+        font-weight: 800 !important
+        box-shadow: 0 4px 16px rgba(0, 162, 211, .4) !important
+        transform: scale(1.04)
+
+    // ---------- Page number links + Next arrow link ----------
+    a.inline-flex
+        cursor: pointer
+        text-decoration: none !important
+
+        svg
+            fill: rgba(255, 255, 255, .7)
+            transition: fill .25s ease
+
+        &:hover
+            background: rgba(255, 255, 255, .1) !important
+            border-color: rgba(255, 255, 255, .28) !important
+            color: var(--white) !important
+            transform: translateY(-2px)
+
+            svg
+                fill: var(--white) !important
+
+        &:focus
+            outline: none !important
+            box-shadow: 0 0 0 3px rgba(0, 162, 211, .3) !important
+            border-color: var(--primary) !important
+
+        &:active
+            background: var(--primary) !important
+            border-color: var(--primary) !important
+            transform: translateY(0) scale(.97)
+
+    // ---------- Kill Tailwind's negative margin overlap trick ----------
+    a.-ml-px,
+    span.-ml-px
+        margin-left: 0 !important
+
+    // ---------- Kill leftover rounded-l/r since we use uniform radius now ----------
+    span.rounded-l-md,
+    a.rounded-l-md,
+    a.rounded-r-md
+        border-radius: 10px !important
+
+    // ---------------------------------------------------
+    // Responsive
+    // ---------------------------------------------------
+    @include media(991)
+        > div.hidden
+            padding: 18px 22px
+
+    @include media(767)
+        > div.hidden
+            flex-direction: column
+            align-items: stretch
+            gap: 16px
+            padding: 18px 16px
+            border-radius: 14px
+
+        p
+            text-align: center
+            font-size: 13.5px !important
+
+            span.font-medium
+                font-size: 14px !important
+
+        span.inline-flex.rtl\:flex-row-reverse
+            justify-content: center
+            gap: 6px
+
+    @include media(575)
+        span.inline-flex,
+        a.inline-flex
+            min-width: 36px
+            height: 36px
+            padding: 0 10px !important
+            font-size: 13px !important
+            border-radius: 9px !important
+
+        span[aria-label*="Previous"] span.inline-flex,
+        a[rel="next"] span,
+        a[aria-label*="Next"]
+            min-width: 36px
+            width: 36px
+
+        span[aria-disabled="true"]:not([aria-label]) span.inline-flex
+            min-width: 22px
+
+        svg
+            width: 15px
+            height: 15px
+
+    @include media(420)
+        > div.hidden
+            padding: 14px 12px
+
+        span.inline-flex.rtl\:flex-row-reverse
+            gap: 4px
+
+        span.inline-flex,
+        a.inline-flex
+            min-width: 32px
+            height: 32px
+            padding: 0 8px !important
+            font-size: 12.5px !important
+            border-radius: 8px !important
+
+        span[aria-label*="Previous"] span.inline-flex,
+        a[rel="next"] span,
+        a[aria-label*="Next"]
+            min-width: 32px
+            width: 32px
+
+    @include media(360)
+        p
+            font-size: 12.5px !important
+
+            span.font-medium
+                font-size: 13px !important

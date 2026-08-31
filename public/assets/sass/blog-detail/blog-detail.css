@@ -451,7 +451,7 @@ html {
 }
 @media only screen and (max-width: 1280px) {
   :root {
-    --container: 1180px;
+    --container: 95%;
   }
 }
 @media only screen and (max-width: 1024px) {
@@ -801,7 +801,7 @@ p, span, ul li, a {
 }
 @media only screen and (max-width: 540px) {
   .heading h3 {
-    font-size: 28px;
+    font-size: 26px;
   }
 }
 .heading h3 span {
@@ -1486,6 +1486,7 @@ button {
 
 .banner {
   position: relative;
+  margin-top: var(--headerfixed);
 }
 .banner.center-banner .banner-wrapper {
   bottom: 50%;
@@ -1505,7 +1506,7 @@ button {
 }
 @media only screen and (max-width: 520px) {
   .banner .bg {
-    height: 320px;
+    height: 60vh;
   }
 }
 .banner .bg video, .banner .bg img {
@@ -1513,6 +1514,8 @@ button {
   height: 100%;
   -o-object-fit: cover;
      object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
 }
 .banner .banner-wrapper {
   position: absolute;
@@ -1520,14 +1523,17 @@ button {
   transform: translateX(-50%);
   bottom: 15%;
   z-index: 3;
+  width: var(--container);
+  margin: 0 auto;
 }
 @media only screen and (max-width: 520px) {
   .banner .banner-wrapper {
-    bottom: 18%;
+    bottom: 34px;
   }
 }
 .banner .content {
   text-align: center;
+  margin: 0 auto;
 }
 .banner .content.content-white > *:not(.btn) {
   color: var(--white);
@@ -2648,6 +2654,27 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   background: var(--black);
   margin-bottom: 60px;
 }
+@media only screen and (max-width: 1024px) {
+  .app-promo {
+    margin-bottom: 50px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .app-promo {
+    margin-bottom: 40px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .app-promo {
+    padding: 0 16px;
+    margin-bottom: 32px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .app-promo {
+    margin-bottom: 24px;
+  }
+}
 .app-promo .app-promo-inner {
   position: relative;
   display: flex;
@@ -2659,11 +2686,33 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   padding: 56px 60px;
   overflow: hidden;
 }
+@media only screen and (max-width: 1280px) {
+  .app-promo .app-promo-inner {
+    padding: 48px 50px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .app-promo .app-promo-inner {
+    padding: 44px 40px;
+    gap: 30px;
+  }
+}
 @media only screen and (max-width: 991px) {
   .app-promo .app-promo-inner {
     flex-direction: column;
     text-align: center;
-    padding: 44px 32px;
+    gap: 28px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .app-promo .app-promo-inner {
+    padding: 20px;
+    border-radius: 18px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .app-promo .app-promo-inner {
+    border-radius: 16px;
   }
 }
 .app-promo .app-promo-inner::before {
@@ -2676,10 +2725,21 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   opacity: 0.12;
   pointer-events: none;
 }
+@media only screen and (max-width: 991px) {
+  .app-promo .app-promo-inner::before {
+    background-position: center;
+    background-size: 90%;
+  }
+}
 .app-promo .app-promo-text {
   position: relative;
   z-index: 2;
   max-width: 560px;
+}
+@media only screen and (max-width: 991px) {
+  .app-promo .app-promo-text {
+    max-width: 100%;
+  }
 }
 .app-promo .app-promo-text .eyebrow {
   display: inline-block;
@@ -2690,6 +2750,12 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   color: var(--white);
   opacity: 1;
 }
+@media only screen and (max-width: 360px) {
+  .app-promo .app-promo-text .eyebrow {
+    font-size: 11px;
+    margin-bottom: 8px;
+  }
+}
 .app-promo .app-promo-text h3 {
   font-size: 32px;
   font-weight: 800;
@@ -2698,13 +2764,40 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   color: #ffffff;
   margin: 0 0 15px;
 }
+@media only screen and (max-width: 1024px) {
+  .app-promo .app-promo-text h3 {
+    font-size: 28px;
+  }
+}
 @media only screen and (max-width: 575px) {
   .app-promo .app-promo-text h3 {
     font-size: 24px;
   }
 }
+@media only screen and (max-width: 360px) {
+  .app-promo .app-promo-text h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+}
 .app-promo .app-promo-text p {
   margin-bottom: 40px;
+}
+@media only screen and (max-width: 1024px) {
+  .app-promo .app-promo-text p {
+    margin-bottom: 32px;
+  }
+}
+@media only screen and (max-width: 575px) {
+  .app-promo .app-promo-text p {
+    font-size: 14px;
+    margin-bottom: 26px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .app-promo .app-promo-text p {
+    margin-bottom: 20px;
+  }
 }
 .app-promo .form {
   --inputsize: 48px;
@@ -2722,13 +2815,20 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   padding: 6px 6px 6px 22px;
   max-width: 460px;
 }
-@media only screen and (max-width: 575px) {
+@media only screen and (max-width: 991px) {
+  .app-promo .form {
+    margin: 0 auto;
+  }
+}
+@media only screen and (max-width: 540px) {
   .app-promo .form {
     flex-direction: column;
     align-items: stretch;
     border-radius: 20px;
     padding: 16px;
     gap: 14px;
+    max-width: 100%;
+    width: 100%;
   }
 }
 .app-promo .form .form-group {
@@ -2750,12 +2850,29 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   justify-content: center;
   gap: 8px;
 }
+@media only screen and (max-width: 540px) {
+  .app-promo .form .sbmt {
+    width: 100%;
+  }
+}
 .app-promo .app-promo-visual {
   position: relative;
   z-index: 2;
   flex-shrink: 0;
   width: 450px;
   height: 250px;
+}
+@media only screen and (max-width: 1280px) {
+  .app-promo .app-promo-visual {
+    width: 380px;
+    height: 220px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .app-promo .app-promo-visual {
+    width: 320px;
+    height: 190px;
+  }
 }
 @media only screen and (max-width: 991px) {
   .app-promo .app-promo-visual {
@@ -2779,7 +2896,7 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 
 .breadcrumb {
   position: absolute;
-  top: var(--headerheight);
+  top: 10px;
   left: 0;
   right: 0;
   z-index: 3;
@@ -2790,8 +2907,28 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 .breadcrumb.left {
   left: 80px;
 }
+@media only screen and (max-width: 991px) {
+  .breadcrumb.left {
+    left: 34px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .breadcrumb.left {
+    left: 24px;
+  }
+}
 .breadcrumb.left2 {
   left: 124px;
+}
+@media only screen and (max-width: 991px) {
+  .breadcrumb.left2 {
+    left: 34px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .breadcrumb.left2 {
+    left: 20px;
+  }
 }
 .breadcrumb ul {
   display: flex;
@@ -2860,8 +2997,48 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   position: relative;
   border-radius: 4px;
   overflow: hidden;
-  aspect-ratio: 3/4;
+  height: 435px;
   border: 1px solid rgba(255, 255, 255, 0.12);
+}
+@media only screen and (max-width: 1366px) {
+  .prod-card {
+    height: 400px;
+  }
+}
+@media only screen and (max-width: 1280px) {
+  .prod-card {
+    height: 380px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .prod-card {
+    height: 360px;
+  }
+}
+@media only screen and (max-width: 991px) {
+  .prod-card {
+    height: 400px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .prod-card {
+    height: 340px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .prod-card {
+    height: 300px;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .prod-card {
+    height: 260px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .prod-card {
+    height: 230px;
+  }
 }
 .prod-card .img {
   position: absolute;
@@ -2890,6 +3067,16 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   justify-content: flex-end;
   padding: 22px;
 }
+@media only screen and (max-width: 540px) {
+  .prod-card .content {
+    padding: 18px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .prod-card .content {
+    padding: 14px;
+  }
+}
 .prod-card .content h5 {
   margin: 0 0 8px;
   font-size: 18px;
@@ -2897,12 +3084,27 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   text-transform: capitalize;
   color: var(--white, #fff);
 }
+@media only screen and (max-width: 540px) {
+  .prod-card .content h5 {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .prod-card .content h5 {
+    font-size: 15px;
+  }
+}
 .prod-card .content p {
   margin: 0;
   font-size: 13px;
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.7);
   transition: margin 0.3s ease;
+}
+@media only screen and (max-width: 360px) {
+  .prod-card .content p {
+    font-size: 12px;
+  }
 }
 .prod-card .content .btns {
   display: flex;
@@ -2924,6 +3126,60 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   opacity: 1;
   margin-top: 16px;
 }
+.prod-card.no-prod {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px;
+  position: relative;
+}
+.prod-card.no-prod::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 40%, rgba(0, 0, 0, 0.9) 100%);
+  transition: background 0.4s ease;
+}
+.prod-card.no-prod .img {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+.prod-card.no-prod .img img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.prod-card.no-prod .img::after {
+  display: none;
+}
+.prod-card.no-prod .content {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+}
+.prod-card.no-prod .content h5 {
+  color: var(--white);
+  margin-bottom: 8px;
+  font-size: 36px;
+}
+.prod-card.no-prod .content p {
+  color: var(--white) !important;
+  margin-bottom: 22px !important;
+  max-width: 320px;
+  font-size: 14px !important;
+}
+.prod-card.no-prod .content .btn {
+  max-height: none;
+  opacity: 1;
+  overflow: visible;
+}
 
 .blog-banner {
   position: relative;
@@ -2942,6 +3198,21 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 @media only screen and (max-width: 991px) {
   .blog-banner {
     height: 60vh;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .blog-banner {
+    height: 50vh;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .blog-banner {
+    height: 42vh;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .blog-banner {
+    height: 38vh;
   }
 }
 .blog-banner::before {
@@ -2974,6 +3245,12 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 @media only screen and (max-width: 540px) {
   .blog-banner .bg-wrapper {
     top: inherit;
+    bottom: 6%;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .blog-banner .bg-wrapper {
+    bottom: 7%;
   }
 }
 .blog-banner .bg-wrapper .heading {
@@ -2983,15 +3260,45 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   width: 100%;
   max-width: 475px;
 }
+@media only screen and (max-width: 540px) {
+  .blog-banner .bg-wrapper .heading {
+    max-width: 100%;
+  }
+}
 .blog-banner .bg-wrapper .heading .left-content h1 {
   color: var(--white);
   font-size: 36px;
   width: 100%;
   max-width: 100%;
 }
+@media only screen and (max-width: 1024px) {
+  .blog-banner .bg-wrapper .heading .left-content h1 {
+    font-size: 30px;
+  }
+}
 @media only screen and (max-width: 991px) {
   .blog-banner .bg-wrapper .heading .left-content h1 {
     font-size: 24px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .blog-banner .bg-wrapper .heading .left-content h1 {
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .blog-banner .bg-wrapper .heading .left-content h1 {
+    font-size: 18px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .blog-banner .bg-wrapper .heading .left-content p {
+    font-size: 13px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .blog-banner .bg-wrapper .heading .left-content p {
+    font-size: 12px;
   }
 }
 
@@ -3005,6 +3312,11 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     width: 90%;
   }
 }
+@media only screen and (max-width: 1024px) {
+  .blog-dtl-secA {
+    padding: 60px 0;
+  }
+}
 @media only screen and (max-width: 767px) {
   .blog-dtl-secA {
     width: 90%;
@@ -3014,6 +3326,11 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   .blog-dtl-secA {
     padding: 50px 0;
     width: 100%;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .blog-dtl-secA {
+    padding: 36px 0;
   }
 }
 
@@ -3030,10 +3347,21 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
+@media only screen and (max-width: 768px) {
+  .para-parent p {
+    font-size: 15px;
+  }
+}
 @media only screen and (max-width: 540px) {
   .para-parent p {
     font-size: 14px;
     line-height: 1.7;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .para-parent p {
+    font-size: 13.5px;
+    line-height: 1.6;
   }
 }
 .para-parent h1,
@@ -3049,6 +3377,17 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   font-size: 24px;
   line-height: 1.4;
 }
+@media only screen and (max-width: 768px) {
+  .para-parent h1,
+  .para-parent h2,
+  .para-parent h3,
+  .para-parent h4,
+  .para-parent h5,
+  .para-parent h6 {
+    font-size: 22px;
+    margin: 28px 0 14px;
+  }
+}
 @media only screen and (max-width: 540px) {
   .para-parent h1,
   .para-parent h2,
@@ -3060,12 +3399,40 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     margin: 26px 0 12px;
   }
 }
+@media only screen and (max-width: 360px) {
+  .para-parent h1,
+  .para-parent h2,
+  .para-parent h3,
+  .para-parent h4,
+  .para-parent h5,
+  .para-parent h6 {
+    font-size: 18px;
+    margin: 22px 0 10px;
+  }
+}
 .para-parent img {
   margin: 50px 0 40px;
   max-width: 100%;
   height: auto;
   display: block;
   border-radius: 12px;
+}
+@media only screen and (max-width: 768px) {
+  .para-parent img {
+    margin: 40px 0 32px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .para-parent img {
+    margin: 30px 0 24px;
+    border-radius: 10px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .para-parent img {
+    margin: 24px 0 20px;
+    border-radius: 8px;
+  }
 }
 .para-parent ul,
 .para-parent ol {
@@ -3074,10 +3441,24 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   list-style: none;
   font-size: 16px;
 }
+@media only screen and (max-width: 768px) {
+  .para-parent ul,
+  .para-parent ol {
+    font-size: 15px;
+    margin: 14px 0 26px;
+  }
+}
 @media only screen and (max-width: 540px) {
   .para-parent ul,
   .para-parent ol {
     font-size: 14px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .para-parent ul,
+  .para-parent ol {
+    font-size: 13.5px;
+    margin: 12px 0 22px;
   }
 }
 .para-parent ul li,
@@ -3088,6 +3469,20 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   color: rgba(255, 255, 255, 0.65);
   line-height: 1.7;
 }
+@media only screen and (max-width: 540px) {
+  .para-parent ul li,
+  .para-parent ol li {
+    padding-left: 22px;
+    margin-bottom: 8px;
+    line-height: 1.6;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .para-parent ul li,
+  .para-parent ol li {
+    padding-left: 18px;
+  }
+}
 .para-parent ul li::before {
   content: "";
   position: absolute;
@@ -3097,6 +3492,13 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   height: 7px;
   background-color: var(--primary);
   border-radius: 50%;
+}
+@media only screen and (max-width: 540px) {
+  .para-parent ul li::before {
+    top: 8px;
+    width: 6px;
+    height: 6px;
+  }
 }
 .para-parent ol {
   counter-reset: item;
@@ -3120,9 +3522,24 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 .blog-dtl-secB {
   padding: 70px 0;
 }
+@media only screen and (max-width: 1024px) {
+  .blog-dtl-secB {
+    padding: 56px 0;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .blog-dtl-secB {
+    padding: 48px 0;
+  }
+}
 @media only screen and (max-width: 540px) {
   .blog-dtl-secB {
     padding: 40px 0;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .blog-dtl-secB {
+    padding: 30px 0;
   }
 }
 .blog-dtl-secB .heading {
@@ -3130,14 +3547,29 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   justify-content: space-between;
   margin-bottom: 45px;
 }
+@media only screen and (max-width: 768px) {
+  .blog-dtl-secB .heading {
+    margin-bottom: 36px;
+  }
+}
 @media only screen and (max-width: 540px) {
   .blog-dtl-secB .heading {
     margin-bottom: 30px;
   }
 }
+@media only screen and (max-width: 360px) {
+  .blog-dtl-secB .heading {
+    margin-bottom: 22px;
+  }
+}
 .blog-dtl-secB .heading h5 {
   color: var(--primary);
   margin: 0 auto;
+}
+@media only screen and (max-width: 540px) {
+  .blog-dtl-secB .heading h5 {
+    font-size: 14px;
+  }
 }
 .blog-dtl-secB .heading .swiper-group {
   display: flex;
@@ -3196,9 +3628,24 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     height: 265px;
   }
 }
+@media only screen and (max-width: 1024px) {
+  .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-img {
+    height: 230px;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-img {
+    height: 210px;
+  }
+}
 @media only screen and (max-width: 540px) {
   .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-img {
     height: 195px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-img {
+    height: 165px;
   }
 }
 .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-img img {
@@ -3218,6 +3665,18 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   background: var(--primary);
   border-radius: 0 4px 4px 0;
 }
+@media only screen and (max-width: 540px) {
+  .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-img .date {
+    bottom: 20px;
+    padding: 6px 16px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-img .date {
+    bottom: 14px;
+    padding: 5px 12px;
+  }
+}
 .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-img .date p {
   color: var(--white);
   font-size: 16px;
@@ -3228,12 +3687,27 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     font-size: 14px;
   }
 }
+@media only screen and (max-width: 360px) {
+  .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-img .date p {
+    font-size: 13px;
+  }
+}
 .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-content {
   padding: 25px;
+}
+@media only screen and (max-width: 768px) {
+  .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-content {
+    padding: 22px;
+  }
 }
 @media only screen and (max-width: 540px) {
   .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-content {
     padding: 20px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-content {
+    padding: 16px;
   }
 }
 .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-content h6 {
@@ -3247,6 +3721,12 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     font-size: 18px;
   }
 }
+@media only screen and (max-width: 360px) {
+  .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-content h6 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+}
 .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-content p {
   font-size: 16px;
   margin-bottom: 30px;
@@ -3257,10 +3737,21 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     margin-bottom: 20px;
   }
 }
+@media only screen and (max-width: 360px) {
+  .blog-dtl-secB .more-blogs-slider .swiper-wrapper .swiper-slide .card .card-content p {
+    font-size: 13px;
+    margin-bottom: 16px;
+  }
+}
 
 .more-blogs {
   background: var(--black);
   padding: 90px 0;
+}
+@media only screen and (max-width: 1024px) {
+  .more-blogs {
+    padding: 76px 0;
+  }
 }
 @media only screen and (max-width: 768px) {
   .more-blogs {
@@ -3272,14 +3763,50 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     padding: 50px 0;
   }
 }
+@media only screen and (max-width: 360px) {
+  .more-blogs {
+    padding: 36px 0;
+  }
+}
 .more-blogs .heading {
   width: 100%;
   max-width: 440px;
   margin: 0 auto 60px;
   text-align: center;
 }
+@media only screen and (max-width: 768px) {
+  .more-blogs .heading {
+    margin: 0 auto 44px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .more-blogs .heading {
+    max-width: 100%;
+    margin: 0 auto 32px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .more-blogs .heading {
+    margin: 0 auto 24px;
+  }
+}
 .more-blogs .heading h3 {
   margin-bottom: 12px;
+}
+@media only screen and (max-width: 540px) {
+  .more-blogs .heading h3 {
+    font-size: 24px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .more-blogs .heading h3 {
+    font-size: 20px;
+  }
+}
+@media only screen and (max-width: 540px) {
+  .more-blogs .heading p {
+    font-size: 13px;
+  }
 }
 .more-blogs .header-wrapper {
   display: flex;
@@ -3314,6 +3841,16 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
 .more-blogs .swiper-wrap .swiper {
   margin: 0 20px;
   overflow: hidden;
+}
+@media only screen and (max-width: 540px) {
+  .more-blogs .swiper-wrap .swiper {
+    margin: 0 10px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .more-blogs .swiper-wrap .swiper {
+    margin: 0 6px;
+  }
 }
 .more-blogs .swiper-wrap .swiper-wrapper {
   align-items: stretch;
@@ -3394,6 +3931,11 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   text-decoration: none;
   transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
 }
+@media only screen and (max-width: 540px) {
+  .more-blogs .blog-card {
+    border-radius: 16px;
+  }
+}
 .more-blogs .blog-card:hover {
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-8px);
@@ -3416,9 +3958,24 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     height: 210px;
   }
 }
+@media only screen and (max-width: 1024px) {
+  .more-blogs .blog-card .card-image {
+    height: 200px;
+  }
+}
 @media only screen and (max-width: 540px) {
   .more-blogs .blog-card .card-image {
     height: 190px;
+  }
+}
+@media only screen and (max-width: 420px) {
+  .more-blogs .blog-card .card-image {
+    height: 170px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .more-blogs .blog-card .card-image {
+    height: 150px;
   }
 }
 .more-blogs .blog-card .card-image img {
@@ -3439,14 +3996,26 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   top: 18px;
   left: 18px;
   background: var(--primary);
-  color: var(--black);
-  font-size: 11.5px;
+  color: var(--white);
+  font-size: 11px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.6px;
   padding: 7px 14px;
   border-radius: 30px;
   z-index: 1;
+}
+@media only screen and (max-width: 540px) {
+  .more-blogs .blog-card .card-image .tag {
+    top: 14px;
+    left: 14px;
+    font-size: 10px;
+    padding: 6px 12px;
+  }
+}
+@media only screen and (max-width: 360px) {
+  .more-blogs .blog-card .card-image .tag {
+    padding: 5px 10px;
+  }
 }
 .more-blogs .blog-card .card-content {
   padding: 28px;
@@ -3464,6 +4033,11 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     padding: 20px;
   }
 }
+@media only screen and (max-width: 360px) {
+  .more-blogs .blog-card .card-content {
+    padding: 16px;
+  }
+}
 .more-blogs .blog-card .card-content .date {
   display: inline-flex;
   align-items: center;
@@ -3474,6 +4048,12 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.4);
   margin-bottom: 14px;
+}
+@media only screen and (max-width: 540px) {
+  .more-blogs .blog-card .card-content .date {
+    font-size: 11px;
+    margin-bottom: 10px;
+  }
 }
 .more-blogs .blog-card .card-content .date::before {
   content: "";
@@ -3496,6 +4076,12 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     font-size: 17px;
   }
 }
+@media only screen and (max-width: 360px) {
+  .more-blogs .blog-card .card-content h4 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+}
 .more-blogs .blog-card .card-content p {
   font-size: 14px;
   line-height: 1.7;
@@ -3509,6 +4095,12 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
     margin-bottom: 18px;
   }
 }
+@media only screen and (max-width: 360px) {
+  .more-blogs .blog-card .card-content p {
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+}
 .more-blogs .blog-card .card-content .btn {
   display: inline-flex;
   align-items: center;
@@ -3516,4 +4108,9 @@ input:focus ~ .formField::after, input:valid ~ .formField::after {
   width: -moz-fit-content;
   width: fit-content;
   transition: gap 0.25s ease;
+}
+@media only screen and (max-width: 360px) {
+  .more-blogs .blog-card .card-content .btn {
+    font-size: 13px;
+  }
 }/*# sourceMappingURL=blog-detail.css.map */
