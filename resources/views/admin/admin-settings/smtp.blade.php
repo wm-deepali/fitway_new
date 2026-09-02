@@ -100,64 +100,22 @@
 
         <hr class="section-divider">
 
-        <!-- Email Events -->
-        <div class="settings-section" id="smtp-templates">
-            <div class="settings-section-title"><i class="fa-solid fa-envelope-open-text"></i> Email Notification Events
-            </div>
-            <p class="settings-section-desc">Choose which events trigger an email to the customer or admin.</p>
+      <!-- Email Events -->
+<div class="settings-section" id="smtp-templates">
+    <div class="settings-section-title"><i class="fa-solid fa-envelope-open-text"></i> Email Notification Events</div>
+    <p class="settings-section-desc">Choose which events trigger an email to the admin.</p>
 
-            <div class="toggle-row">
-                <div>
-                    <div class="toggle-info-label">Order Confirmation</div>
-                    <div class="toggle-info-sub">Email customer when order is placed successfully.</div>
-                </div>
-                <label class="toggle-switch"><input type="checkbox"
-       name="order_confirmation"
-       value="1"
-       {{ old('order_confirmation', $smtp->order_confirmation ?? 1) ? 'checked' : '' }}><span class="toggle-track"></span></label>
-            </div>
-            <div class="toggle-row">
-                <div>
-                    <div class="toggle-info-label">Order Shipped</div>
-                    <div class="toggle-info-sub">Send tracking details when order is dispatched.</div>
-                </div>
-                <label class="toggle-switch"><input type="checkbox"
-       name="order_shipped"
-       value="1"
-       {{ old('order_shipped', $smtp->order_shipped ?? 1) ? 'checked' : '' }}><span class="toggle-track"></span></label>
-            </div>
-            <div class="toggle-row">
-                <div>
-                    <div class="toggle-info-label">Order Delivered</div>
-                    <div class="toggle-info-sub">Notify customer on delivery confirmation.</div>
-                </div>
-                <label class="toggle-switch"><input type="checkbox"
-       name="order_delivered"
-       value="1"
-       {{ old('order_delivered', $smtp->order_delivered ?? 1) ? 'checked' : '' }}><span class="toggle-track"></span></label>
-            </div>
-           
-            <div class="toggle-row">
-                <div>
-                    <div class="toggle-info-label">New Order Alert (Admin)</div>
-                    <div class="toggle-info-sub">Notify admin email on every new order.</div>
-                </div>
-                <label class="toggle-switch"><input type="checkbox"
-       name="new_order_alert"
-       value="1"
-       {{ old('new_order_alert', $smtp->new_order_alert ?? 1) ? 'checked' : '' }}><span class="toggle-track"></span></label>
-            </div>
-            <div class="toggle-row">
-                <div>
-                    <div class="toggle-info-label">Low Stock Alert (Admin)</div>
-                    <div class="toggle-info-sub">Notify admin when stock falls below threshold.</div>
-                </div>
-                <label class="toggle-switch"><input type="checkbox"
-       name="low_stock_alert"
-       value="1"
-       {{ old('low_stock_alert', $smtp->low_stock_alert ?? 0) ? 'checked' : '' }}><span class="toggle-track"></span></label>
-            </div>
+    <div class="toggle-row">
+        <div>
+            <div class="toggle-info-label">Admin Enquiry Alert</div>
+            <div class="toggle-info-sub">Notify admin email whenever a Contact Us, Setup My Gym, Quote Request, or Product Enquiry form is submitted.</div>
         </div>
+        <label class="toggle-switch"><input type="checkbox"
+   name="admin_enquiry_alert"
+   value="1"
+   {{ old('admin_enquiry_alert', $smtp->admin_enquiry_alert ?? 1) ? 'checked' : '' }}><span class="toggle-track"></span></label>
+    </div>
+</div>
 
     </div>
 </div>

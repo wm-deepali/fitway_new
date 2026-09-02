@@ -11,9 +11,9 @@
 
     <section class="banner">
         <div class="bg">
-           
 
-            <img src="{{ asset('assets/images/home/contact-banner.jpg') }}"/>
+
+            <img src="{{ asset('assets/images/home/contact-banner.jpg') }}" />
 
             <nav class="breadcrumb left breadcrumb-light" aria-label="Breadcrumb">
                 <ul>
@@ -64,12 +64,8 @@
                                 <svg viewBox="0 0 24 24">
                                     <path
                                         d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
+                                        fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                        stroke-linejoin="round" />
                                 </svg>
                             </span>
                             <div>
@@ -81,20 +77,9 @@
                         <div class="contact-info__item">
                             <span class="contact-info__icon">
                                 <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M4 4h16v16H4z"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                    />
-                                    <path
-                                        d="M4 6l8 7 8-7"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
+                                    <path d="M4 4h16v16H4z" fill="none" stroke="currentColor" stroke-width="1.8" />
+                                    <path d="M4 6l8 7 8-7" fill="none" stroke="currentColor" stroke-width="1.8"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </span>
                             <div>
@@ -106,47 +91,24 @@
                         <div class="contact-info__item">
                             <span class="contact-info__icon">
                                 <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0z"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                    />
-                                    <circle
-                                        cx="12"
-                                        cy="10"
-                                        r="3"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                    />
+                                    <path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0z" fill="none"
+                                        stroke="currentColor" stroke-width="1.8" />
+                                    <circle cx="12" cy="10" r="3" fill="none" stroke="currentColor" stroke-width="1.8" />
                                 </svg>
                             </span>
                             <div>
                                 <span class="contact-info__title">Visit Us</span>
-                                <p>D-1373/1, beside Kalevum Sweets, Sector 1, Block D, Indira Nagar, Lucknow, Uttar Pradesh 226016</p>
+                                <p>D-1373/1, beside Kalevum Sweets, Sector 1, Block D, Indira Nagar, Lucknow, Uttar Pradesh
+                                    226016</p>
                             </div>
                         </div>
 
                         <div class="contact-info__item">
                             <span class="contact-info__icon">
                                 <svg viewBox="0 0 24 24">
-                                    <circle
-                                        cx="12"
-                                        cy="12"
-                                        r="9"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                    />
-                                    <path
-                                        d="M12 7v5l3 3"
-                                        fill="none"
-                                        stroke="currentColor"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    />
+                                    <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8" />
+                                    <path d="M12 7v5l3 3" fill="none" stroke="currentColor" stroke-width="1.8"
+                                        stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
                             </span>
                             <div>
@@ -160,96 +122,70 @@
                 <!-- Right: Contact Form -->
                 <div class="contact-form">
                     @if (session('success'))
-    <div class="alert alert-success">{{ session('success') }}</div>
-@endif
+                        <div class="alert alert-success">{{ session('success') }}</div>
+                    @endif
 
-<form class="contact-form__form" method="POST" action="{{ route('contact-us.store') }}">
-    @csrf
-    <div class="contact-form__group">
-        <label for="fullName">Full Name</label>
-        <input
-            type="text"
-            id="fullName"
-            name="fullName"
-            placeholder="Enter your full name"
-            value="{{ old('fullName') }}"
-            required
-        />
-        @error('fullName') <span class="error">{{ $message }}</span> @enderror
-    </div>
+                    <form class="contact-form__form" method="POST" action="{{ route('contact-us.store') }}">
+                        @csrf
+                        <div class="contact-form__group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" placeholder="Enter your full name"
+                                value="{{ old('fullName') }}" required />
+                            @error('fullName') <span class="error">{{ $message }}</span> @enderror
+                        </div>
 
-    <div class="contact-form__row">
-        <div class="contact-form__group">
-            <label for="phoneNumber">Phone Number</label>
-            <input
-                type="tel"
-                id="phoneNumber"
-                name="phoneNumber"
-                placeholder="Enter your phone number"
-                value="{{ old('phoneNumber') }}"
-                required
-            />
-            @error('phoneNumber') <span class="error">{{ $message }}</span> @enderror
-        </div>
+                        <div class="contact-form__row">
+                            <div class="contact-form__group">
+                                <label for="phoneNumber">Phone Number</label>
+                                <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number"
+                                    value="{{ old('phoneNumber') }}" required />
+                                @error('phoneNumber') <span class="error">{{ $message }}</span> @enderror
+                            </div>
 
-        <div class="contact-form__group">
-            <label for="emailAddress">Email Address</label>
-            <input
-                type="email"
-                id="emailAddress"
-                name="emailAddress"
-                placeholder="Enter your email address"
-                value="{{ old('emailAddress') }}"
-            />
-            @error('emailAddress') <span class="error">{{ $message }}</span> @enderror
-        </div>
-    </div>
+                            <div class="contact-form__group">
+                                <label for="emailAddress">Email Address</label>
+                                <input type="email" id="emailAddress" name="emailAddress"
+                                    placeholder="Enter your email address" value="{{ old('emailAddress') }}" />
+                                @error('emailAddress') <span class="error">{{ $message }}</span> @enderror
+                            </div>
+                        </div>
 
-    <div class="contact-form__group">
-        <span class="contact-form__label">I'm Interested In</span>
+                        <div class="contact-form__group">
+                            <span class="contact-form__label">I'm Interested In</span>
 
-        <div class="contact-form__checkbox-list">
-            @php
-                $interestOptions = [
-                    'Gym Equipment',
-                    'Home Gym Setup',
-                    'Commercial Gym Setup',
-                    'Corporate Gym Setup',
-                    'Outdoor / Open Gym Setup',
-                    'Hotels & Resorts Gym Setup',
-                    'Other',
-                ];
-            @endphp
+                            <div class="contact-form__checkbox-list">
+                                @php
+                                    $interestOptions = [
+                                        'Gym Equipment',
+                                        'Home Gym Setup',
+                                        'Commercial Gym Setup',
+                                        'Corporate Gym Setup',
+                                        'Outdoor / Open Gym Setup',
+                                        'Hotels & Resorts Gym Setup',
+                                        'Other',
+                                    ];
+                                @endphp
 
-            @foreach ($interestOptions as $option)
-                <label class="contact-form__checkbox">
-                    <input
-                        type="checkbox"
-                        name="interest[]"
-                        value="{{ $option }}"
-                        {{ in_array($option, old('interest', [])) ? 'checked' : '' }}
-                    />
-                    <span class="contact-form__checkbox-box"></span>
-                    <span class="contact-form__checkbox-label">{{ $option }}</span>
-                </label>
-            @endforeach
-        </div>
-    </div>
+                                @foreach ($interestOptions as $option)
+                                    <label class="contact-form__checkbox">
+                                        <input type="checkbox" name="interest[]" value="{{ $option }}" {{ in_array($option, old('interest', [])) ? 'checked' : '' }} />
+                                        <span class="contact-form__checkbox-box"></span>
+                                        <span class="contact-form__checkbox-label">{{ $option }}</span>
+                                    </label>
+                                @endforeach
+                            </div>
+                        </div>
 
-    <div class="contact-form__group">
-        <label for="message">Message</label>
-        <textarea
-            id="message"
-            name="message"
-            rows="4"
-            placeholder="Tell us more about your requirement..."
-        >{{ old('message') }}</textarea>
-    </div>
+                        <div class="contact-form__group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4"
+                                placeholder="Tell us more about your requirement...">{{ old('message') }}</textarea>
+                        </div>
 
-    <button type="submit" class="btn btn-primary contact-form__cta">
-        Submit Enquiry
-    </button>
-</form>
+                        <button type="submit" class="btn btn-primary contact-form__cta">
+                            Submit Enquiry
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -268,13 +204,8 @@
                 <div class="contact-secC__card">
                     <span class="contact-secC__icon">
                         <svg viewBox="0 0 24 24">
-                            <path
-                                d="M6.5 6.5l11 11M6.5 17.5l11-11M4 8l4-4M20 16l-4 4"
-                                stroke="currentColor"
-                                fill="none"
-                                stroke-width="1.8"
-                                stroke-linecap="round"
-                            />
+                            <path d="M6.5 6.5l11 11M6.5 17.5l11-11M4 8l4-4M20 16l-4 4" stroke="currentColor" fill="none"
+                                stroke-width="1.8" stroke-linecap="round" />
                         </svg>
                     </span>
                     <h4>Gym Equipment</h4>
@@ -285,14 +216,8 @@
                     <a href="{{ route('products') }}" class="contact-secC__link">
                         Explore Equipment
                         <svg viewBox="0 0 24 24">
-                            <path
-                                d="M5 12h14M13 6l6 6-6 6"
-                                stroke="currentColor"
-                                fill="none"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
+                            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" fill="none" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
                 </div>
@@ -300,14 +225,8 @@
                 <div class="contact-secC__card">
                     <span class="contact-secC__icon">
                         <svg viewBox="0 0 24 24">
-                            <path
-                                d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-6h6v6"
-                                stroke="currentColor"
-                                fill="none"
-                                stroke-width="1.8"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
+                            <path d="M3 21h18M5 21V9l7-6 7 6v12M9 21v-6h6v6" stroke="currentColor" fill="none"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </span>
                     <h4>Complete Gym Setup</h4>
@@ -318,14 +237,8 @@
                     <a href="{{ route('commercial-gym-setup') }}" class="contact-secC__link">
                         Explore Solutions
                         <svg viewBox="0 0 24 24">
-                            <path
-                                d="M5 12h14M13 6l6 6-6 6"
-                                stroke="currentColor"
-                                fill="none"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
+                            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" fill="none" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
                 </div>
@@ -333,13 +246,8 @@
                 <div class="contact-secC__card">
                     <span class="contact-secC__icon">
                         <svg viewBox="0 0 24 24">
-                            <path
-                                d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1 3-6z"
-                                stroke="currentColor"
-                                fill="none"
-                                stroke-width="1.8"
-                                stroke-linejoin="round"
-                            />
+                            <path d="M12 2l3 6 6 1-4.5 4.5L18 20l-6-3-6 3 1.5-6.5L3 9l6-1 3-6z" stroke="currentColor"
+                                fill="none" stroke-width="1.8" stroke-linejoin="round" />
                         </svg>
                     </span>
                     <h4>Custom Requirements</h4>
@@ -347,21 +255,11 @@
                         Have a unique space or requirement? Let's create a solution that
                         works for you.
                     </p>
-                    <a
-                        href="javascript:void(0)"
-                        data-model=".enquire-pop"
-                        class="contact-secC__link"
-                    >
+                    <a href="javascript:void(0)" data-model=".quote-request-pop" class="contact-secC__link">
                         Request a Quote
                         <svg viewBox="0 0 24 24">
-                            <path
-                                d="M5 12h14M13 6l6 6-6 6"
-                                stroke="currentColor"
-                                fill="none"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            />
+                            <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" fill="none" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </a>
                 </div>
@@ -384,14 +282,8 @@
 
                 <div class="contact-secD__arrow">
                     <svg viewBox="0 0 24 24">
-                        <path
-                            d="M5 12h14M13 6l6 6-6 6"
-                            stroke="currentColor"
-                            fill="none"
-                            stroke-width="1.8"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" fill="none" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
 
@@ -402,14 +294,8 @@
 
                 <div class="contact-secD__arrow">
                     <svg viewBox="0 0 24 24">
-                        <path
-                            d="M5 12h14M13 6l6 6-6 6"
-                            stroke="currentColor"
-                            fill="none"
-                            stroke-width="1.8"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" fill="none" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
 
@@ -420,14 +306,8 @@
 
                 <div class="contact-secD__arrow">
                     <svg viewBox="0 0 24 24">
-                        <path
-                            d="M5 12h14M13 6l6 6-6 6"
-                            stroke="currentColor"
-                            fill="none"
-                            stroke-width="1.8"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        />
+                        <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" fill="none" stroke-width="1.8"
+                            stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
 
@@ -451,13 +331,8 @@
             <div class="contact-secE__map">
                 <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3558.7289332708324!2d80.99275967504883!3d26.88035197666642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399be2aec8416977%3A0xa4dd30bab8cd30c7!2sFITWAY%20Gym%20Equipments%20-%20Fitness%20Equipments%20%7C%7C%20Commercial%20Gym%20Setup%20%7C%7C%20FITKING%20%26%20EVOST%20Fitness%20%7C%7C%20Outdoor%20Gym%20Manufacturer!5e0!3m2!1sen!2sin!4v1787637725832!5m2!1sen!2sin"
-                    width="600"
-                    height="450"
-                    style="border: 0"
-                    allowfullscreen=""
-                    loading="lazy"
-                    referrerpolicy="strict-origin-when-cross-origin"
-                ></iframe>
+                    width="600" height="450" style="border: 0" allowfullscreen="" loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
         </div>
     </section>
@@ -476,11 +351,7 @@
                     </p>
 
                     <div class="contact-secF__btns">
-                        <a
-                            href="javascript:void(0)"
-                            data-model=".enquire-pop"
-                            class="btn btn-white"
-                        >
+                        <a href="javascript:void(0)" data-model=".quote-request-pop" class="btn btn-white">
                             Request A Custom Quote
                         </a>
 
@@ -489,12 +360,8 @@
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                                 <path
                                     d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="1.8"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                />
+                                    fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"
+                                    stroke-linejoin="round" />
                             </svg>
                         </a>
                     </div>
@@ -502,10 +369,7 @@
 
                 <div class="contact-secF__visual">
                     <div class="phone phone--back">
-                        <img
-                            src="{{ asset('assets/images/home/cta.png') }}"
-                            alt="Fitway gym equipment"
-                        />
+                        <img src="{{ asset('assets/images/home/cta.png') }}" alt="Fitway gym equipment" />
                     </div>
                 </div>
             </div>

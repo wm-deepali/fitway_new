@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ asset('assets/sass/products/products.css') }}" />
 @endpush
 
+
 @section('content')
 
     <section class="banner banner--listing">
@@ -62,7 +63,7 @@
 
             <div class="listing">
                 <!-- ============ LEFT: Filters ============ -->
-            <div class="filter-overlay" id="filterOverlay"></div>
+                <div class="filter-overlay" id="filterOverlay"></div>
 
                 <aside class="listing-filters" id="filterSidebar">
                     <!-- NEW: drawer header, visible only <991 -->
@@ -99,88 +100,37 @@
                                         </svg>
                                     </summary>
 
-                                   <div class="cat-accordion__body">
-    @foreach ($category->subCategories as $subCategory)
-        <div class="sub-group">
-            <span class="sub-group__label">{{ $subCategory->name }}</span>
-            <ul>
-                @forelse ($subCategory->subSubCategories as $subSubCategory)
-                    <li>
-                        <label>
-                            <input type="checkbox"
-                                onchange="window.location = this.checked
-                                    ? '{{ route('products.subsubcategory', [$category->slug, $subCategory->slug, $subSubCategory->slug]) }}'
-                                    : '{{ route('products.subcategory', [$category->slug, $subCategory->slug]) }}'"
-                                {{ $selectedSubSubCategory?->id === $subSubCategory->id ? 'checked' : '' }} />
-                            <span>{{ $subSubCategory->name }}</span>
-                        </label>
-                    </li>
-                @empty
-                    <li>
-                        <label>
-                            <input type="checkbox"
-                                onchange="window.location = this.checked
-                                    ? '{{ route('products.subcategory', [$category->slug, $subCategory->slug]) }}'
-                                    : '{{ route('products.category', $category->slug) }}'"
-                                {{ $selectedSubCategory?->id === $subCategory->id ? 'checked' : '' }} />
-                            <span>{{ $subCategory->name }}</span>
-                        </label>
-                    </li>
-                @endforelse
-            </ul>
-        </div>
-    @endforeach
-</div>
+                                    <div class="cat-accordion__body">
+                                        @foreach ($category->subCategories as $subCategory)
+                                            <div class="sub-group">
+                                                <span class="sub-group__label">{{ $subCategory->name }}</span>
+                                                <ul>
+                                                    @forelse ($subCategory->subSubCategories as $subSubCategory)
+                                                            <li>
+                                                                <label>
+                                                                    <input type="checkbox" onchange="window.location = this.checked
+                                                        ? '{{ route('products.subsubcategory', [$category->slug, $subCategory->slug, $subSubCategory->slug]) }}'
+                                                        : '{{ route('products.subcategory', [$category->slug, $subCategory->slug]) }}'" {{ $selectedSubSubCategory?->id === $subSubCategory->id ? 'checked' : '' }} />
+                                                                    <span>{{ $subSubCategory->name }}</span>
+                                                                </label>
+                                                            </li>
+                                                    @empty
+                                                            <li>
+                                                                <label>
+                                                                    <input type="checkbox" onchange="window.location = this.checked
+                                                        ? '{{ route('products.subcategory', [$category->slug, $subCategory->slug]) }}'
+                                                        : '{{ route('products.category', $category->slug) }}'" {{ $selectedSubCategory?->id === $subCategory->id ? 'checked' : '' }} />
+                                                                    <span>{{ $subCategory->name }}</span>
+                                                                </label>
+                                                            </li>
+                                                    @endforelse
+                                                </ul>
+                                            </div>
+                                        @endforeach
+                                    </div>
                                 </details>
                             @endforeach
                         </div>
-                    </div>
-
-                    {{-- Equipment Type — static for now, no matching field on the models yet --}}
-                    <div class="filter-group">
-                        <h5 class="filter-group__title">Equipment Type</h5>
-                        <ul class="filter-list">
-                            <li>
-                                <label><input type="checkbox" /><span>Cardio</span></label>
-                            </li>
-                            <li>
-                                <label><input type="checkbox" /><span>Strength</span></label>
-                            </li>
-                            <li>
-                                <label><input type="checkbox" /><span>Functional Training</span></label>
-                            </li>
-                            <li>
-                                <label><input type="checkbox" /><span>Free Weights</span></label>
-                            </li>
-                            <li>
-                                <label><input type="checkbox" /><span>Outdoor Fitness</span></label>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {{-- Application — static for now, no matching field on the models yet --}}
-                    <div class="filter-group">
-                        <h5 class="filter-group__title">Application</h5>
-                        <ul class="filter-list">
-                            <li>
-                                <label><input type="checkbox" /><span>Commercial Gyms</span></label>
-                            </li>
-                            <li>
-                                <label><input type="checkbox" /><span>Hotels &amp; Resorts</span></label>
-                            </li>
-                            <li>
-                                <label><input type="checkbox" /><span>Corporate Gyms</span></label>
-                            </li>
-                            <li>
-                                <label><input type="checkbox" /><span>Residential Gyms</span></label>
-                            </li>
-                            <li>
-                                <label><input type="checkbox" /><span>Schools &amp; Institutions</span></label>
-                            </li>
-                            <li>
-                                <label><input type="checkbox" /><span>Outdoor Spaces</span></label>
-                            </li>
-                        </ul>
                     </div>
 
                     <a href="{{ route('products') }}" class="filter-clear">
@@ -199,21 +149,13 @@
                         </div>
 
                         <div class="listing-main__top-controls">
-                             <button
-                                    type="button"
-                                    class="filter-toggle-btn"
-                                    id="openFilterBtn"
-                                >
-                                    <svg viewBox="0 0 24 24">
-                                    <path
-                                        d="M3 6h18M6 12h12M10 18h4"
-                                        stroke="currentColor"
-                                        stroke-width="2"
-                                        stroke-linecap="round"
-                                    />
-                                    </svg>
-                                    Filters
-                                </button>
+                            <button type="button" class="filter-toggle-btn" id="openFilterBtn">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M3 6h18M6 12h12M10 18h4" stroke="currentColor" stroke-width="2"
+                                        stroke-linecap="round" />
+                                </svg>
+                                Filters
+                            </button>
                             <span class="result-count">{{ $products->total() }} Equipment</span>
 
                             <div class="sort-select">
@@ -221,7 +163,8 @@
                                 <div class="sort-select__field">
                                     <select id="sortSelect">
                                         <option value="recommended" {{ request('sort', 'recommended') == 'recommended' ? 'selected' : '' }}>Recommended</option>
-                                        <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Newest</option>
+                                        <option value="newest" {{ request('sort') == 'newest' ? 'selected' : '' }}>Newest
+                                        </option>
                                         <option value="az" {{ request('sort') == 'az' ? 'selected' : '' }}>A–Z</option>
                                         <option value="za" {{ request('sort') == 'za' ? 'selected' : '' }}>Z–A</option>
                                     </select>
@@ -233,31 +176,21 @@
                         </div>
                     </div>
 
-                    <div class="equip-grid">
-                        @forelse ($products as $product)
-                            <div class="equip-card">
-                                <a href="{{ route('product-detail', $product->slug) }}" class="equip-card__img">
-                                    <img src="{{ $product->image_url }}" alt="{{ $product->image_alt }}" />
-                                </a>
-                                <div class="equip-card__body">
-                                    <span class="equip-card__cat">{{ $product->category_path }}</span>
-                                    <h5>{{ $product->name }}</h5>
-                                    <div class="btns">
-                                        <button class="btn btn-primary" data-model=".enquire-pop"
-                                            data-product-id="{{ $product->id }}">
-                                            Enquire Now
-                                        </button>
-                                        <a href="{{ route('product-detail', $product->slug) }}" class="btn btn-gray">View
-                                            Detail</a>
-                                    </div>
-                                </div>
-                            </div>
-                        @empty
-                            <p>No products found.</p>
-                        @endforelse
-                    </div>
+                   <div class="equip-grid" id="equipGrid">
+    @forelse ($products as $product)
+        @include('front.partials.product-card', ['product' => $product])
+    @empty
+        <p>No products found.</p>
+    @endforelse
+</div>
 
-                    {{ $products->links() }}
+<div id="infiniteScrollSentinel" style="height:1px;"></div>
+<div id="infiniteScrollLoader" style="display:none;text-align:center;padding:20px;">
+    <span>Loading more equipment...</span>
+</div>
+
+<input type="hidden" id="nextPageUrl" value="{{ $products->nextPageUrl() ?? '' }}" />
+
                 </div>
             </div>
         </div>
@@ -289,10 +222,8 @@
                                     </p>
 
 
-                                    <a href="{{ route('home-gym-setup') }}"
-                                    class="btn btn-primary"
-                                    >
-                                    Explore Home Gym
+                                    <a href="{{ route('home-gym-setup') }}" class="btn btn-primary">
+                                        Explore Home Gym
                                     </a>
                                 </div>
                             </div>
@@ -302,7 +233,8 @@
                         <div class="swiper-slide">
                             <div class="product_card">
                                 <div class="img">
-                                    <img src="{{ asset('assets/images/home/Commercial-Equipment.jpg') }}" alt="Commercial Gym Setup" />
+                                    <img src="{{ asset('assets/images/home/Commercial-Equipment.jpg') }}"
+                                        alt="Commercial Gym Setup" />
                                 </div>
 
                                 <div class="content">
@@ -315,10 +247,8 @@
                                     </p>
 
 
-                                   <a href="{{ route('commercial-gym-setup') }}"
-                                    class="btn btn-primary"
-                                    >
-                                    Explore Commercial
+                                    <a href="{{ route('commercial-gym-setup') }}" class="btn btn-primary">
+                                        Explore Commercial
                                     </a>
                                 </div>
                             </div>
@@ -328,7 +258,8 @@
                         <div class="swiper-slide">
                             <div class="product_card">
                                 <div class="img">
-                                    <img src="{{ asset('assets/images/home/complete-corprate-gym.jpg') }}" alt="Corporate Gym Setup" />
+                                    <img src="{{ asset('assets/images/home/complete-corprate-gym.jpg') }}"
+                                        alt="Corporate Gym Setup" />
                                 </div>
 
                                 <div class="content">
@@ -341,10 +272,8 @@
                                     </p>
 
 
-                                   <a href="{{ route('corporate-gym-setup') }}"
-                                    class="btn btn-primary"
-                                    >
-                                    Explore Corporate
+                                    <a href="{{ route('corporate-gym-setup') }}" class="btn btn-primary">
+                                        Explore Corporate
                                     </a>
                                 </div>
                             </div>
@@ -354,7 +283,8 @@
                         <div class="swiper-slide">
                             <div class="product_card">
                                 <div class="img">
-                                    <img src="{{ asset('assets/images/home/Outdoor-Equipment.jpg') }}" alt="Outdoor Open Gym Setup" />
+                                    <img src="{{ asset('assets/images/home/Outdoor-Equipment.jpg') }}"
+                                        alt="Outdoor Open Gym Setup" />
                                 </div>
 
                                 <div class="content">
@@ -366,10 +296,8 @@
                                     </p>
 
 
-                                   <a href="{{ route('outdoor-gym-setup') }}"
-                                    class="btn btn-primary"
-                                    >
-                                    Explore Outdoor
+                                    <a href="{{ route('outdoor-gym-setup') }}" class="btn btn-primary">
+                                        Explore Outdoor
                                     </a>
                                 </div>
                             </div>
@@ -393,10 +321,8 @@
                                     </p>
 
 
-                                   <a href="{{ route('resorts-gym-setup') }}"
-                                    class="btn btn-primary"
-                                    >
-                                    Explore Hospitality
+                                    <a href="{{ route('resorts-gym-setup') }}" class="btn btn-primary">
+                                        Explore Hospitality
                                     </a>
                                 </div>
                             </div>
@@ -424,30 +350,32 @@
         </div>
     </section>
 
+
+
 @endsection
 
 @push('scripts')
     <script>
-     
-     document.addEventListener('DOMContentLoaded', function () {
+
+        document.addEventListener('DOMContentLoaded', function () {
             const form = document.getElementById('equipFilterForm');
             const sortSelect = document.getElementById('sortSelect');
-             const sortInput = document.getElementById('sortInput');
+            const sortInput = document.getElementById('sortInput');
             const searchInput = document.getElementById('equipSearch');
 
             // Sort change → submit immediately
-           if (sortSelect && sortInput && form) {
-        let lastValue = sortSelect.value;
+            if (sortSelect && sortInput && form) {
+                let lastValue = sortSelect.value;
 
-        setInterval(function () {
-            if (sortSelect.value !== lastValue) {
-                lastValue = sortSelect.value;
-                console.log('sort value changed to', lastValue);
-                sortInput.value = lastValue;
-                form.submit();
+                setInterval(function () {
+                    if (sortSelect.value !== lastValue) {
+                        lastValue = sortSelect.value;
+                        console.log('sort value changed to', lastValue);
+                        sortInput.value = lastValue;
+                        form.submit();
+                    }
+                }, 300);
             }
-        }, 300);
-    }
             // Search → submit on Enter key
             if (searchInput) {
                 searchInput.addEventListener('keydown', function (e) {
@@ -460,7 +388,7 @@
         });
 
 
-           new Swiper(".thirdSilder2", {
+        new Swiper(".thirdSilder2", {
             navigation: {
                 nextEl: ".thirdSilder2-next",
                 prevEl: ".thirdSilder2-prev",
@@ -491,27 +419,79 @@
             },
         });
 
-    </script>
+        const openBtn = document.getElementById("openFilterBtn");
+        const closeBtn = document.getElementById("closeFilterBtn");
+        const overlay = document.getElementById("filterOverlay");
+        const sidebar = document.getElementById("filterSidebar");
 
-     <script>
-      const openBtn = document.getElementById("openFilterBtn");
-      const closeBtn = document.getElementById("closeFilterBtn");
-      const overlay = document.getElementById("filterOverlay");
-      const sidebar = document.getElementById("filterSidebar");
+        function openFilters() {
+            sidebar.classList.add("active");
+            overlay.classList.add("active");
+            document.body.style.overflow = "hidden";
+        }
+        function closeFilters() {
+            sidebar.classList.remove("active");
+            overlay.classList.remove("active");
+            document.body.style.overflow = "";
+        }
 
-      function openFilters() {
-        sidebar.classList.add("active");
-        overlay.classList.add("active");
-        document.body.style.overflow = "hidden";
-      }
-      function closeFilters() {
-        sidebar.classList.remove("active");
-        overlay.classList.remove("active");
-        document.body.style.overflow = "";
-      }
+        openBtn?.addEventListener("click", openFilters);
+        closeBtn?.addEventListener("click", closeFilters);
+        overlay?.addEventListener("click", closeFilters);
 
-      openBtn?.addEventListener("click", openFilters);
-      closeBtn?.addEventListener("click", closeFilters);
-      overlay?.addEventListener("click", closeFilters);
+document.addEventListener('DOMContentLoaded', function () {
+    const grid = document.getElementById('equipGrid');
+    const sentinel = document.getElementById('infiniteScrollSentinel');
+    const loader = document.getElementById('infiniteScrollLoader');
+    const nextPageInput = document.getElementById('nextPageUrl');
+
+    if (!grid || !sentinel || !nextPageInput) return;
+
+    let isLoading = false;
+
+    const observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+                loadMoreProducts();
+            }
+        });
+    }, {
+        rootMargin: '200px',
+    });
+
+    observer.observe(sentinel);
+
+    function loadMoreProducts() {
+        const nextUrl = nextPageInput.value;
+
+        if (!nextUrl || nextUrl === '' || isLoading) return;
+
+        isLoading = true;
+        loader.style.display = 'block';
+
+        fetch(nextUrl, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept': 'application/json',
+            },
+        })
+            .then(res => res.json())
+            .then(data => {
+                grid.insertAdjacentHTML('beforeend', data.html);
+                nextPageInput.value = data.nextPageUrl || '';
+
+                if (!data.nextPageUrl) {
+                    observer.unobserve(sentinel);
+                }
+            })
+            .catch(() => {
+                console.error('Failed to load more products');
+            })
+            .finally(() => {
+                isLoading = false;
+                loader.style.display = 'none';
+            });
+    }
+});
     </script>
 @endpush

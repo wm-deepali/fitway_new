@@ -5,11 +5,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  <title>@yield('title', 'Fitway - Gym Equipment & Commercial Gym Setup')</title>
+  <title>
+    @yield('title', ($generalSettings->site_name ?? 'Fitway') . ' - ' . ($generalSettings->tagline ?? 'Gym Equipment & Commercial Gym Setup'))
+  </title>
   <meta name="description"
-    content="@yield('meta_description', 'Fitway offers professional gym equipment and complete commercial gym setup solutions.')" />
+    content="@yield('meta_description', $generalSettings->footer_description ?? 'Fitway offers professional gym equipment and complete commercial gym setup solutions.')" />
   <link rel="canonical" href="@yield('canonical', url()->current())" />
 
+  @if($generalSettings->favicon ?? false)
+    <link rel="icon" type="image/png" href="{{ asset($generalSettings->favicon) }}">
+  @endif
+
+
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="JlnjLYWoZvF+Bk6EMmn0hg" async></script>
   <!-- ================= Google Fonts ================= -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
@@ -92,8 +100,10 @@
         <!-- Logo -->
         <div class="colA">
           <a href="{{ route('home') }}" class="logo">
-            <img src="{{ asset('assets/images/logo.png') }}" alt="Fitway Gym Equipment & Commercial Gym Setup"
-              title="Fitway Gym Equipment & Commercial Gym Setup" />
+            <img
+              src="{{ $generalSettings->header_logo ? asset($generalSettings->header_logo) : asset('assets/images/logo.png') }}"
+              alt="{{ $generalSettings->site_name ?? 'Fitway' }} Gym Equipment & Commercial Gym Setup"
+              title="{{ $generalSettings->site_name ?? 'Fitway' }} Gym Equipment & Commercial Gym Setup" />
           </a>
         </div>
 
@@ -136,21 +146,18 @@
             <li class="hasDropDown">
               <a href="javascript:void(0)">
                 Equipment
-                <!--<img src="{{ asset('images/icon/arrow.svg') }}" alt="" />-->
               </a>
 
               <ul class="dropdown-menu">
-                <li>
-                  <a href="{{ route('products') }}">Commercial Equipments</a>
-                </li>
-
-                <li>
-                  <a href="{{ route('products') }}">Home Gym Equipments</a>
-                </li>
-
-                <li>
-                  <a href="{{ route('products') }}">Outdoor Equipments</a>
-                </li>
+                @forelse ($headerCategories ?? [] as $category)
+                  <li>
+                    <a href="{{ route('products.category', $category->slug) }}">{{ $category->category_name }}</a>
+                  </li>
+                @empty
+                  <li>
+                    <a href="{{ route('products') }}">All Equipment</a>
+                  </li>
+                @endforelse
               </ul>
             </li>
 
@@ -247,22 +254,27 @@
           <!-- Logo + contact -->
           <div class="colA">
             <a href="{{ route('home') }}" class="logo">
-              <img src="{{ asset('assets/images/logo.png') }}" alt="Fitway Gym Equipment & Commercial Gym Setup" />
+              <img
+                src="{{ $generalSettings->footer_logo ? asset($generalSettings->footer_logo) : asset('assets/images/logo.png') }}"
+                alt="{{ $generalSettings->site_name ?? 'Fitway' }} Gym Equipment & Commercial Gym Setup" />
             </a>
 
             <ul class="contact-info">
               <li>
                 <span class="label">Address</span>
                 <p>
-                  D-1373/1, beside Kalevum Sweets, Sector 1, Block D, Indira
-                  Nagar, Lucknow, Uttar Pradesh 226016
+                  {{ $generalSettings->business_address ?? 'D-1373/1, beside Kalevum Sweets, Sector 1, Block D, Indira Nagar, Lucknow, Uttar Pradesh 226016' }}
                 </p>
               </li>
               <li>
                 <span class="label">Phones</span>
                 <p>
-                  <a href="tel:+919015335461">9015335461</a> ||
-                  <a href="tel:+919839570700">9839570700</a>
+                  @if($generalSettings->phone ?? false)
+                    <a href="tel:{{ $generalSettings->phone }}">{{ $generalSettings->phone }}</a>
+                  @else
+                    <a href="tel:+919015335461">9015335461</a> ||
+                    <a href="tel:+919839570700">9839570700</a>
+                  @endif
                 </p>
               </li>
               <li>
@@ -272,45 +284,54 @@
               <li>
                 <span class="label">Email</span>
                 <p>
-                  <a href="mailto:fitwayimpex@gmail.com">fitwayimpex@gmail.com</a>
+                  <a href="mailto:{{ $generalSettings->support_email ?? 'fitwayimpex@gmail.com' }}">{{
+                    $generalSettings->support_email ?? 'fitwayimpex@gmail.com' }}</a>
                 </p>
               </li>
             </ul>
 
             <ul class="social">
-              <li>
-                <a href="https://www.facebook.com/fitwaygymequipmentslko/" target="_blank" rel="noopener"
-                  aria-label="Facebook">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14C17.174 2.097 15.943 2 14.643 2 11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z" />
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a href="https://www.instagram.com/fitwayindiaa/" target="_blank" rel="noopener" aria-label="Instagram">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47a4.9 4.9 0 0 0-1.77 1.15A4.9 4.9 0 0 0 2.53 5.45c-.25.64-.42 1.37-.47 2.43C2.01 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43a4.9 4.9 0 0 0 1.15 1.77 4.9 4.9 0 0 0 1.77 1.15c.64.25 1.37.42 2.43.47C8.94 21.99 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.15 4.9 4.9 0 0 0 1.15-1.77c.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.15-1.77A4.9 4.9 0 0 0 18.55 2.53c-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2m0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.51.21 1.86.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.13.35.3.88.34 1.86.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.51-.34 1.86-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.35.13-.88.3-1.86.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.51-.21-1.86-.34a3.1 3.1 0 0 1-1.15-.75 3.1 3.1 0 0 1-.75-1.15c-.13-.35-.3-.88-.34-1.86C3.81 14.99 3.8 14.67 3.8 12s.01-2.99.06-4.04c.04-.98.21-1.51.34-1.86.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.35-.13.88-.3 1.86-.34C9.01 3.81 9.33 3.8 12 3.8M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10m0 1.8a3.2 3.2 0 1 1 0 6.4 3.2 3.2 0 0 1 0-6.4m5.2-2.9a1.17 1.17 0 1 0 0 2.34 1.17 1.17 0 0 0 0-2.34" />
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a href="https://wa.me/919839570700" target="_blank" rel="noopener" aria-label="WhatsApp">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.44-1.43a9.9 9.9 0 0 0 4.6 1.14h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2m0 18.13a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.11.82.83-3.03-.2-.31a8.17 8.17 0 0 1-1.26-4.37c0-4.54 3.69-8.24 8.24-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.55-3.7 8.22-8.25 8.22" />
-                  </svg>
-                </a>
-              </li>
-              <li>
-                <a href="https://www.youtube.com/@fitway5722" target="_blank" rel="noopener" aria-label="YouTube">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="M21.582 6.186a2.75 2.75 0 0 0-1.936-1.945C17.9 3.75 12 3.75 12 3.75s-5.9 0-7.646.491a2.75 2.75 0 0 0-1.936 1.945C2 7.93 2 12 2 12s0 4.07.418 5.814a2.75 2.75 0 0 0 1.936 1.945C6.1 20.25 12 20.25 12 20.25s5.9 0 7.646-.491a2.75 2.75 0 0 0 1.936-1.945C22 16.07 22 12 22 12s0-4.07-.418-5.814M9.75 15.5v-7L15.75 12z" />
-                  </svg>
-                </a>
-              </li>
+              @if($generalSettings->facebook ?? false)
+                <li>
+                  <a href="{{ $generalSettings->facebook }}" target="_blank" rel="noopener" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14C17.174 2.097 15.943 2 14.643 2 11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z" />
+                    </svg>
+                  </a>
+                </li>
+              @endif
+              @if($generalSettings->instagram ?? false)
+                <li>
+                  <a href="{{ $generalSettings->instagram }}" target="_blank" rel="noopener" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M12 2c-2.72 0-3.06.01-4.12.06-1.06.05-1.79.22-2.43.47a4.9 4.9 0 0 0-1.77 1.15A4.9 4.9 0 0 0 2.53 5.45c-.25.64-.42 1.37-.47 2.43C2.01 8.94 2 9.28 2 12s.01 3.06.06 4.12c.05 1.06.22 1.79.47 2.43a4.9 4.9 0 0 0 1.15 1.77 4.9 4.9 0 0 0 1.77 1.15c.64.25 1.37.42 2.43.47C8.94 21.99 9.28 22 12 22s3.06-.01 4.12-.06c1.06-.05 1.79-.22 2.43-.47a4.9 4.9 0 0 0 1.77-1.15 4.9 4.9 0 0 0 1.15-1.77c.25-.64.42-1.37.47-2.43.05-1.06.06-1.4.06-4.12s-.01-3.06-.06-4.12c-.05-1.06-.22-1.79-.47-2.43a4.9 4.9 0 0 0-1.15-1.77A4.9 4.9 0 0 0 18.55 2.53c-.64-.25-1.37-.42-2.43-.47C15.06 2.01 14.72 2 12 2m0 1.8c2.67 0 2.99.01 4.04.06.98.04 1.51.21 1.86.34.47.18.8.4 1.15.75.35.35.57.68.75 1.15.13.35.3.88.34 1.86.05 1.05.06 1.37.06 4.04s-.01 2.99-.06 4.04c-.04.98-.21 1.51-.34 1.86-.18.47-.4.8-.75 1.15-.35.35-.68.57-1.15.75-.35.13-.88.3-1.86.34-1.05.05-1.37.06-4.04.06s-2.99-.01-4.04-.06c-.98-.04-1.51-.21-1.86-.34a3.1 3.1 0 0 1-1.15-.75 3.1 3.1 0 0 1-.75-1.15c-.13-.35-.3-.88-.34-1.86C3.81 14.99 3.8 14.67 3.8 12s.01-2.99.06-4.04c.04-.98.21-1.51.34-1.86.18-.47.4-.8.75-1.15.35-.35.68-.57 1.15-.75.35-.13.88-.3 1.86-.34C9.01 3.81 9.33 3.8 12 3.8M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10m0 1.8a3.2 3.2 0 1 1 0 6.4 3.2 3.2 0 0 1 0-6.4m5.2-2.9a1.17 1.17 0 1 0 0 2.34 1.17 1.17 0 0 0 0-2.34" />
+                    </svg>
+                  </a>
+                </li>
+              @endif
+              @if($generalSettings->whatsapp ?? false)
+                <li>
+                  <a href="https://wa.me/{{ $generalSettings->whatsapp }}" target="_blank" rel="noopener"
+                    aria-label="WhatsApp">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.44-1.43a9.9 9.9 0 0 0 4.6 1.14h.01c5.46 0 9.9-4.45 9.9-9.91C21.95 6.45 17.5 2 12.04 2m0 18.13a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.11.82.83-3.03-.2-.31a8.17 8.17 0 0 1-1.26-4.37c0-4.54 3.69-8.24 8.24-8.24 4.54 0 8.24 3.7 8.24 8.24 0 4.55-3.7 8.22-8.25 8.22" />
+                    </svg>
+                  </a>
+                </li>
+              @endif
+              @if($generalSettings->youtube ?? false)
+                <li>
+                  <a href="{{ $generalSettings->youtube }}" target="_blank" rel="noopener" aria-label="YouTube">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M21.582 6.186a2.75 2.75 0 0 0-1.936-1.945C17.9 3.75 12 3.75 12 3.75s-5.9 0-7.646.491a2.75 2.75 0 0 0-1.936 1.945C2 7.93 2 12 2 12s0 4.07.418 5.814a2.75 2.75 0 0 0 1.936 1.945C6.1 20.25 12 20.25 12 20.25s5.9 0 7.646-.491a2.75 2.75 0 0 0 1.936-1.945C22 16.07 22 12 22 12s0-4.07-.418-5.814M9.75 15.5v-7L15.75 12z" />
+                    </svg>
+                  </a>
+                </li>
+              @endif
             </ul>
           </div>
 
@@ -376,8 +397,7 @@
           <div class="colD">
             <h5>Newsletter</h5>
             <p class="desc">
-              Fitway — gym equipment & commercial gym setup experts. Get
-              free consultation & tips, product drops and project stories in your inbox.
+              {{ $generalSettings->footer_description ?? 'Fitway — gym equipment & commercial gym setup experts. Get free consultation & tips, product drops and project stories in your inbox.' }}
             </p>
             <form class="form" method="POST" action="#">
               @csrf
@@ -401,7 +421,7 @@
       <div class="footer-bottom">
         <div class="container">
           <p class="copyright">
-            © {{ date('Y') }} Fitway India. All rights reserved.
+            {{ $generalSettings->footer_copyright ?? '© ' . date('Y') . ' Fitway India. All rights reserved.' }}
           </p>
           <p class="copyright">Design & Maintained by <a href="https://webmingo.com" target="_blank" rel="noopener">Web
               Mingo</a>.</p>
@@ -536,11 +556,10 @@
 
     <div class="model-body">
       <div class="title">
-        <h4>REQUEST A CUSTOM QUOTE</h4>
-        <p>Share your requirements and get a tailored quote.</p>
+        <h4>START YOUR GYM PROJECT</h4>
+        <p>Tell us what you need and our team will get back to you shortly.</p>
       </div>
-
-      <form class="form form-grid" method="POST" action="#">
+      <form class="form form-grid" method="POST" action="{{ route('setup-gym.store') }}" id="setupGymForm">
         @csrf
         <div class="form-group">
           <input type="text" class="form-control" name="FullName" placeholder="" autocomplete="name" required />
@@ -621,6 +640,102 @@
     </div>
   </div>
 
+  <!-- Product Enquiry popup -->
+  <div class="model product-enquire-pop">
+    <button type="button" class="close" aria-label="Close enquiry form">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.5 0.5L25.5 25.5M0.5 25.5L25.5 0.5" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <div class="model-body">
+      <div class="title">
+        <h4>ENQUIRE NOW</h4>
+        <p class="product-name" id="enquiryProductName"></p>
+      </div>
+
+      <form class="form form-grid" id="enquiryForm">
+        @csrf
+        <input type="hidden" id="enquiryProductId" name="product_id" value="" />
+
+        <div class="form-group">
+          <input type="text" class="form-control" name="fullName" placeholder="" autocomplete="name" required />
+          <label>Full Name*</label>
+        </div>
+
+        <div class="form-group">
+          <input type="tel" class="form-control" name="mobileNumber" placeholder="" maxlength="14" autocomplete="tel"
+            inputmode="numeric" required />
+          <label>Mobile Number*</label>
+        </div>
+
+        <div class="form-group">
+          <input type="email" class="form-control" name="emailId" placeholder="" autocomplete="email" required />
+          <label>Email Id</label>
+        </div>
+
+        <div class="form-group">
+          <textarea class="form-control" name="details" placeholder="" rows="3"></textarea>
+          <label>Enter Details (If any)</label>
+        </div>
+
+        <div class="submit-group">
+          <button type="submit" class="btn btn-primary">
+            Submit Enquiry
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="model quote-request-pop">
+    <button type="button" class="close" aria-label="Close enquiry form">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0.5 0.5L25.5 25.5M0.5 25.5L25.5 0.5" stroke="currentColor" stroke-linecap="round"
+          stroke-linejoin="round" />
+      </svg>
+    </button>
+
+    <div class="model-body">
+      <div class="title">
+        <h4>REQUEST A QUOTE</h4>
+        <p>Tell us what you need and our team will get back to you shortly.</p>
+      </div>
+      <form class="form form-grid" method="POST" action="{{ route('page-quote-request.store') }}" id="quoteRequestForm">
+        @csrf
+        <input type="hidden" name="PageID" id="quotePageId" value="" />
+
+        <div class="form-group">
+          <input type="text" class="form-control" name="FullName" placeholder="" autocomplete="name" required />
+          <label>Full Name*</label>
+        </div>
+
+        <div class="form-group">
+          <input type="tel" class="form-control" name="MobileNumber" placeholder="" maxlength="14" autocomplete="tel"
+            inputmode="numeric" required />
+          <label>Mobile Number*</label>
+        </div>
+
+        <div class="form-group">
+          <input type="email" class="form-control" name="EmailID" placeholder="" autocomplete="email" />
+          <label>Email Id</label>
+        </div>
+
+        <div class="form-group">
+          <textarea class="form-control" name="Message" placeholder="" rows="3"></textarea>
+          <label>Enter Details (If any)</label>
+        </div>
+
+        <div class="submit-group">
+          <button type="submit" class="btn btn-primary">
+            Submit Enquiry
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- ================= jQuery ================= -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
     integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
@@ -673,6 +788,211 @@
         }
       }, 3000);
     });
+  </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById('setupGymForm');
+      if (!form) return;
+
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+          method: 'POST',
+          headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json',
+          },
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Request Submitted',
+                text: data.message,
+              }).then(() => {
+                window.location.href = data.redirect;
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops',
+                text: data.message,
+              });
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalText;
+            }
+          })
+          .catch(() => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Network Error',
+              text: 'Please try again.',
+            });
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          });
+      });
+    });
+
+    // ===== Product Enquiry popup =====
+    document.addEventListener('DOMContentLoaded', function () {
+      const pageOverlay = document.querySelector('.overlay');
+      const enquireModal = document.querySelector('.product-enquire-pop');
+      const closeBtn2 = enquireModal.querySelector('.close');
+      const form = document.getElementById('enquiryForm');
+      const productIdInput = document.getElementById('enquiryProductId');
+      const productNameEl = document.getElementById('enquiryProductName');
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+
+      function openEnquireModal(productId, productName) {
+        productIdInput.value = productId;
+        productNameEl.textContent = productName || '';
+        pageOverlay.classList.add('is-open');
+        enquireModal.classList.add('is-open');
+        document.body.classList.add('overflow-hidden');
+      }
+
+      function closeEnquireModal() {
+        pageOverlay.classList.remove('is-open');
+        enquireModal.classList.remove('is-open');
+        document.body.classList.remove('overflow-hidden');
+        form.reset();
+        form.querySelectorAll('.form-group').forEach((g) => g.classList.remove('active', 'valid'));
+      }
+
+      document.querySelectorAll('.js-enquire-now').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          openEnquireModal(btn.dataset.productId, btn.dataset.productName);
+        });
+      });
+
+      closeBtn2.addEventListener('click', closeEnquireModal);
+      pageOverlay.addEventListener('click', function () {
+        if (enquireModal.classList.contains('is-open')) {
+          closeEnquireModal();
+        }
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        fetch('{{ route('product.enquiry.store') }}', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({
+            product_id: productIdInput.value,
+            fullName: form.fullName.value,
+            mobileNumber: form.mobileNumber.value,
+            emailId: form.emailId.value,
+            details: form.details.value,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              window.location.href = data.redirect;
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops',
+                text: data.message,
+              });
+            }
+          })
+          .catch(() => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Network Error',
+              text: 'Please try again.',
+            });
+          })
+          .finally(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          });
+      });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const form = document.getElementById('quoteRequestForm');
+      if (!form) return;
+
+      // record which page the quote request was made from
+      document.getElementById('quotePageId').value = window.location.pathname;
+
+      const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+          method: 'POST',
+          headers: {
+            'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json',
+          },
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              Swal.fire({
+                icon: 'success',
+                title: 'Request Submitted',
+                text: data.message,
+              }).then(() => {
+                window.location.href = data.redirect;
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Oops',
+                text: data.message,
+              });
+              submitBtn.disabled = false;
+              submitBtn.textContent = originalText;
+            }
+          })
+          .catch(() => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Network Error',
+              text: 'Please try again.',
+            });
+            submitBtn.disabled = false;
+            submitBtn.textContent = originalText;
+          });
+      });
+    });
+
   </script>
 
   {{-- Page-specific scripts (e.g. the home-page process-rail observer) --}}

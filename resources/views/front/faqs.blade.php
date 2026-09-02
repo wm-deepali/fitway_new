@@ -92,7 +92,7 @@
 
                 <div class="faq-secC__btns">
                     <a href="{{ route('contact-us') }}" class="btn btn-primary">Contact Us</a>
-                    <a href="javascript:void(0)" data-model=".enquire-pop" class="btn btn-outline-white">Enquire Now</a>
+                    <a href="javascript:void(0)" data-model=".quote-request-pop" class="btn btn-outline-white">Enquire Now</a>
                 </div>
             </div>
         </div>

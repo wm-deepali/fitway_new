@@ -7,7 +7,10 @@
   <link rel="stylesheet" href="{{ asset('assets/sass/product-detail/detail.css') }}" />
 @endpush
 
-@section('content')<!doctype html>
+
+
+
+@section('content')
 
 
   <section class="detail-secA">
@@ -134,7 +137,9 @@
             <button type="button" class="btn btn-primary" id="addToCartBtn" data-product-id="{{ $product->id }}">
               Add To Cart
             </button>
-            <a href="{{ $whatsappLink ?? '#' }}" target="_blank" class="btn btn-gray">Whatsapp Now</a>
+            @if($generalSettings->whatsapp ?? false)
+            <a href="https://wa.me/{{ $generalSettings->whatsapp }}" target="_blank" class="btn btn-gray">Whatsapp Now</a>
+            @endif
           </div>
 
           <p class="detail-content__helper">
@@ -180,7 +185,7 @@
           select the right equipment for your space.
         </p>
         <div class="detail-secG__cta">
-          <button type="button" class="btn btn-primary" data-model=".enquire-pop">
+          <button type="button" class="btn btn-primary" data-model=".quote-request-pop">
             Get A Quote
           </button>
           <a href="product-detail.html" class="btn btn-gray">Talk To A Fitway Expert</a>
@@ -221,8 +226,8 @@
                     <h5>{{ $related->name }}</h5>
 
                     <div class="btns">
-                      <button type="button" class="btn btn-primary" data-model=".enquire-pop"
-                        data-product-id="{{ $related->id }}">
+                      <button type="button" class="btn btn-primary js-enquire-now" data-product-id="{{ $related->id }}"
+                        data-product-name="{{ $related->name }}">
                         Enquire Now
                       </button>
 
@@ -368,7 +373,7 @@
         badge.classList.toggle('is-visible', count > 0);
       }
     }
-
+    
   </script>
 
 @endpush

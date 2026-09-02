@@ -16,7 +16,7 @@ class AdminSettingController extends Controller
     {
         $smtp = SmtpSetting::first();
         $general = GeneralSetting::first();
-        $google_setting = GoogleSetting::current(); // 👈 new
+        // $google_setting = GoogleSetting::current(); // 👈 new
         $activeTab = $request->tab ?? 'general';
 
         return view(
@@ -24,12 +24,11 @@ class AdminSettingController extends Controller
             compact(
                 'smtp',
                 'general',
-                'google_setting',
+                // 'google_setting',
                 'activeTab'
             )
         );
     }
-
 
     public function smtpSettingStore(Request $request)
     {
@@ -45,18 +44,7 @@ class AdminSettingController extends Controller
             'reply_to_email' => 'nullable|email|max:255',
         ]);
 
-        $validated['order_confirmation']
-            = $request->has('order_confirmation');
-        $validated['order_shipped']
-            = $request->has('order_shipped');
-        $validated['order_delivered']
-            = $request->has('order_delivered');
-        $validated['password_reset']
-            = $request->has('password_reset');
-        $validated['new_order_alert']
-            = $request->has('new_order_alert');
-        $validated['low_stock_alert']
-            = $request->has('low_stock_alert');
+        $validated['admin_enquiry_alert'] = $request->has('admin_enquiry_alert');
 
         SmtpSetting::updateOrCreate(
             ['id' => 1],
@@ -100,14 +88,7 @@ class AdminSettingController extends Controller
 
         $validated['maintenance_mode']
             = $request->has('maintenance_mode');
-        $validated['product_reviews']
-            = $request->has('product_reviews');
-        $validated['wishlist']
-            = $request->has('wishlist');
-        $validated['stock_alerts']
-            = $request->has('stock_alerts');
-        $validated['cod_enabled']
-            = $request->has('cod_enabled');
+      
 
         // Header Logo
         if ($request->hasFile('header_logo')) {

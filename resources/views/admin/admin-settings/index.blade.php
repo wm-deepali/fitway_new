@@ -820,10 +820,10 @@
                         onclick="switchTab('smtp', this)">
                         <i class="fa-solid fa-envelope"></i> SMTP / Email
                     </button>
-                    <button class="tab-btn {{ $activeTab == 'tracking' ? 'active' : '' }}"
+                    <!-- <button class="tab-btn {{ $activeTab == 'tracking' ? 'active' : '' }}"
                         onclick="switchTab('tracking', this)">
                         <i class="fa-brands fa-google"></i> Tracking &amp; Pixels
-                    </button>
+                    </button> -->
                 </div>
 
                 <!-- ══════════════════════════════════
@@ -831,8 +831,8 @@
                 ══════════════════════════════════ -->
                 <div class="tab-panel {{ $activeTab == 'general' ? 'active' : '' }}" id="tab-general">
                     @include('admin.admin-settings.general')
-
-                </div><!-- /tab-general -->
+                </div>
+                <!-- /tab-general -->
 
                 <!-- ══════════════════════════════════
                      TAB 2 — SMTP / EMAIL
@@ -847,7 +847,6 @@
                 ══════════════════════════════════ -->
 
                 <div class="tab-panel {{ $activeTab == 'tracking' ? 'active' : '' }}" id="tab-tracking">
-                    @include('admin.admin-settings.google-setting')
                 </div>
 
 
@@ -916,7 +915,7 @@
         });
     });
 
-   
+
     // Image preview (generic — reusable for header_logo, footer_logo, favicon, admin_login_logo, admin_dashboard_logo)
     const uploadFields = [
         'header_logo',

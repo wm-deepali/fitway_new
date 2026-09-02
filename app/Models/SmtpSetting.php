@@ -16,29 +16,11 @@ class SmtpSetting extends Model
         'from_email',
         'reply_to_name',
         'reply_to_email',
-        'order_confirmation',
-        'order_shipped',
-        'order_delivered',
-        'order_cancelled',      // add
-        'payment_received',     // add
-        'coupon',               // add
-        'welcome',              // add
-        'password_reset',
-        'new_order_alert',
-        'low_stock_alert',
+        'admin_enquiry_alert',
     ];
 
     protected $casts = [
-        'order_confirmation' => 'boolean',
-        'order_shipped' => 'boolean',
-        'order_delivered' => 'boolean',
-        'order_cancelled' => 'boolean',  // add
-        'payment_received' => 'boolean',  // add
-        'coupon' => 'boolean',  // add
-        'welcome' => 'boolean',  // add
-        'password_reset' => 'boolean',
-        'new_order_alert' => 'boolean',
-        'low_stock_alert' => 'boolean',
+        'admin_enquiry_alert' => 'boolean',
     ];
 
     /**

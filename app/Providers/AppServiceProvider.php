@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Providers;
-use App\Models\AboutUs;
-use App\Models\Logo;
+
+use App\Models\GeneralSetting;
+use App\Models\ProductCategory;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -19,17 +20,12 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-
     public function boot(): void
     {
-        View::composer('layouts.front', function ($view) {
-            $pageKey = \Illuminate\Support\Facades\Route::currentRouteName() ?? 'home';
-            $pageKey = $pageKey === 'locate-us' ? 'locate-us' : $pageKey; // route names already match page_key values
-
+        View::composer('layouts.app', function ($view) {
             $view->with([
-                'siteLogo' => Logo::where('status', 'active')->first(),
-                'footerAbout' => AboutUs::where('status', 'active')->first(),
-                'seo' => \App\Models\SeoSetting::where('page_key', $pageKey)->first(),
+                'headerCategories' => ProductCategory::active()->orderBy('id')->get(),
+                'generalSettings' => GeneralSetting::first(),
             ]);
         });
     }

@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Faq;
 use App\Models\ContactUs;
+use App\Models\ProductEnquiry;
+use Illuminate\Support\Facades\Validator;
+use App\Models\SetupMyGym;
+use App\Models\PageQuoteRequest;
+use App\Services\AdminMailer;
+use App\Models\GeneralSetting;
 
 class FrontController extends Controller
 {
@@ -89,8 +95,16 @@ class FrontController extends Controller
                 $productsQuery->orderBy('id');
                 break;
         }
-
         $products = $productsQuery->paginate(12)->withQueryString();
+
+        if ($request->ajax() || $request->wantsJson()) {
+            $html = view('front.partials.product-cards-list', compact('products'))->render();
+
+            return response()->json([
+                'html' => $html,
+                'nextPageUrl' => $products->nextPageUrl(),
+            ]);
+        }
 
         return view('front.products', compact(
             'categories',
@@ -99,6 +113,7 @@ class FrontController extends Controller
             'selectedSubCategory',
             'selectedSubSubCategory'
         ));
+
     }
 
     public function productDetail($slug)
@@ -121,12 +136,14 @@ class FrontController extends Controller
         $relatedProducts = Product::active()
             ->with(['category', 'subCategory'])
             ->where('category_id', $product->category_id)
-            ->where('id', '!=', $product->id)
+            // ->where('id', '!=', $product->id)
             ->orderBy('id')
             ->take(6)
             ->get();
 
-        return view('front.product-detail', compact('product', 'productImages', 'relatedProducts'));
+        $generalSettings = GeneralSetting::first();
+
+        return view('front.product-detail', compact('product', 'productImages', 'relatedProducts', 'generalSettings'));
     }
 
     public function blogs()
@@ -159,27 +176,178 @@ class FrontController extends Controller
         return view('front.contact');
     }
 
-     public function contactStore(Request $request)
+    public function contactStore(Request $request)
     {
         $validated = $request->validate([
-            'fullName'     => 'required|string|max:255',
-            'phoneNumber'  => 'required|string|max:20',
+            'fullName' => 'required|string|max:255',
+            'phoneNumber' => 'required|string|max:20',
             'emailAddress' => 'nullable|email|max:255',
-            'interest'     => 'nullable|array',
-            'message'      => 'nullable|string',
+            'interest' => 'nullable|array',
+            'message' => 'nullable|string',
         ]);
 
         ContactUs::create([
-            'name'          => $validated['fullName'],
-            'email_id'      => $validated['emailAddress'] ?? null,
+            'name' => $validated['fullName'],
+            'email_id' => $validated['emailAddress'] ?? null,
             'mobile_number' => $validated['phoneNumber'],
-            'interest'      => $validated['interest'] ?? [],
-            'message'       => $validated['message'] ?? null,
+            'interest' => $validated['interest'] ?? [],
+            'message' => $validated['message'] ?? null,
         ]);
 
-        return back()->with('success', 'Your enquiry has been submitted.');
+        AdminMailer::sendEnquiryAlert('Contact Us Form', [
+            'Full Name' => $validated['fullName'],
+            'Phone Number' => $validated['phoneNumber'],
+            'Email' => $validated['emailAddress'] ?? null,
+            'Interested In' => $validated['interest'] ?? [],
+            'Message' => $validated['message'] ?? null,
+        ]);
+
+        return redirect()->route('thank-you', [
+            'message' => 'Thanks for reaching out! Our team will get back to you shortly.',
+        ]);
     }
-    
+
+    public function productEnquiryStore(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'product_id' => ['required', 'exists:products,id'],
+            'fullName' => ['required', 'string', 'max:255'],
+            'mobileNumber' => ['required', 'string', 'max:20'],
+            'emailId' => ['required', 'email', 'max:255'],
+            'details' => ['nullable', 'string'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $data = $validator->validated();
+
+        ProductEnquiry::create([
+            'product_id' => $data['product_id'],
+            'name' => $data['fullName'],
+            'email' => $data['emailId'],
+            'phone' => $data['mobileNumber'],
+            'details' => $data['details'] ?? null,
+            'is_read' => false,
+        ]);
+
+        $product = Product::find($data['product_id']);
+
+        AdminMailer::sendEnquiryAlert('Product Enquiry Form', [
+            'Product' => $product->name ?? "#{$data['product_id']}",
+            'Full Name' => $data['fullName'],
+            'Mobile Number' => $data['mobileNumber'],
+            'Email' => $data['emailId'],
+            'Details' => $data['details'] ?? null,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Your enquiry has been submitted.',
+            'redirect' => route('thank-you', [
+                'message' => 'Thanks for your enquiry! Our team will reach out to you shortly.',
+            ]),
+        ]);
+    }
+
+    public function setUpGymStore(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'FullName' => ['required', 'string', 'max:255'],
+            'MobileNumber' => ['required', 'string', 'max:20'],
+            'EmailID' => ['nullable', 'email', 'max:255'],
+            'requirements' => ['nullable', 'array'],
+            'requirements.*' => ['string', 'max:100'],
+            'Message' => ['nullable', 'string', 'max:2000'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $data = $validator->validated();
+
+        SetupMyGym::create([
+            'full_name' => $data['FullName'],
+            'email' => $data['EmailID'] ?? null,
+            'mobile_number' => $data['MobileNumber'],
+            'requirements' => $data['requirements'] ?? [],
+            'details' => $data['Message'] ?? null,
+            'is_read' => false,
+        ]);
+
+        AdminMailer::sendEnquiryAlert('Setup My Gym Form', [
+            'Full Name' => $data['FullName'],
+            'Mobile Number' => $data['MobileNumber'],
+            'Email' => $data['EmailID'] ?? null,
+            'Requirements' => $data['requirements'] ?? [],
+            'Message' => $data['Message'] ?? null,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Your enquiry has been submitted.',
+            'redirect' => route('thank-you', [
+                'message' => 'Thanks for your enquiry! Our team will reach out to you shortly.',
+            ]),
+        ]);
+    }
+
+    public function pageQuoteRequestStore(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'FullName' => ['required', 'string', 'max:255'],
+            'MobileNumber' => ['required', 'string', 'max:20'],
+            'EmailID' => ['nullable', 'email', 'max:255'],
+            'PageID' => ['nullable', 'string', 'max:255'],
+            'Message' => ['nullable', 'string', 'max:2000'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $data = $validator->validated();
+
+        PageQuoteRequest::create([
+            'full_name' => $data['FullName'],
+            'email' => $data['EmailID'] ?? null,
+            'mobile_number' => $data['MobileNumber'],
+            'page_id' => $data['PageID'] ?? null,
+            'details' => $data['Message'] ?? null,
+            'is_read' => false,
+        ]);
+
+        AdminMailer::sendEnquiryAlert('Page Quote Request Form', [
+            'Full Name' => $data['FullName'],
+            'Mobile Number' => $data['MobileNumber'],
+            'Email' => $data['EmailID'] ?? null,
+            'Page' => $data['PageID'] ?? null,
+            'Message' => $data['Message'] ?? null,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Your enquiry has been submitted.',
+            'redirect' => route('thank-you', [
+                'message' => 'Thanks for your enquiry! Our team will reach out to you shortly.',
+            ]),
+        ]);
+    }
+
     public function thankYou()
     {
         return view('front.thanks');

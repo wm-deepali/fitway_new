@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\{
     AdminSettingController,
     AnnouncementController,
     QuoteRequestController,
+    PageQuoteRequestController,
 
 };
 
@@ -47,12 +48,16 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('/products/{category}/{subCategory}', 'products')->name('products.subcategory');
     Route::get('/products/{category}/{subCategory}/{subSubCategory}', 'products')->name('products.subsubcategory');
     Route::get('/product/{slug}', 'productDetail')->name('product-detail');
+    Route::post('/product-enquiry', 'productEnquiryStore')->name('product.enquiry.store');
 
     Route::get('/blogs', 'blogs')->name('blogs');
     Route::get('/blogs/{blog:slug}', 'blogDetail')->name('blog-details');
-    
+
     Route::get('/contact-us', 'contactUs')->name('contact-us');
     Route::post('/contact-us', 'contactStore')->name('contact-us.store');
+
+    Route::post('/setup-my-gym', 'setUpGymStore')->name('setup-gym.store');
+    Route::post('/page-quote-request', 'pageQuoteRequestStore')->name('page-quote-request.store');
 
     Route::get('/about-us', 'aboutUs')->name('about-us');
     Route::get('/faqs', 'faqs')->name('faqs');
@@ -64,8 +69,12 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('/outdoor-gym-setup', 'outdoorGymSetup')->name('outdoor-gym-setup');
     Route::get('/resorts-gym-setup', 'resortsGymSetup')->name('resorts-gym-setup');
 
+
 });
 
+Route::get('/thank-you', function () {
+    return view('front.thank-you', ['message' => request('message')]);
+})->name('thank-you');
 
 
 Route::prefix('cart')->name('cart.')->group(function () {
@@ -230,6 +239,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('announcements', AnnouncementController::class)->names('announcements');
 
         Route::get('/admin-setting', [AdminSettingController::class, 'index'])->name('admin-setting.index');
+        Route::post('/settings/general', [AdminSettingController::class, 'generalSettingStore'])->name('settings.general.store');
         Route::post('/smtp-settings/store', [AdminSettingController::class, 'smtpSettingStore'])->name('smtp-settings.store');
         Route::post('admin-setting/google-setting', [AdminSettingController::class, 'googleSettingStore'])->name('admin-setting.google-setting');
 
@@ -238,6 +248,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{quoteRequest}', [QuoteRequestController::class, 'show'])->name('show');
             Route::patch('/{quoteRequest}/status', [QuoteRequestController::class, 'updateStatus'])->name('updateStatus');
             Route::delete('/{quoteRequest}', [QuoteRequestController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('page-quote-requests')->name('pageQuoteRequests.')->group(function () {
+            Route::get('/', [PageQuoteRequestController::class, 'index'])->name('index');
+            Route::get('/{pageQuoteRequest}', [PageQuoteRequestController::class, 'show'])->name('show');
+            Route::patch('/{pageQuoteRequest}/read', [PageQuoteRequestController::class, 'markRead'])->name('markRead');
+            Route::delete('/{pageQuoteRequest}', [PageQuoteRequestController::class, 'destroy'])->name('destroy');
         });
 
 

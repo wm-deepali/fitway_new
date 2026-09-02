@@ -9,8 +9,6 @@ use Illuminate\Http\Request;
 
 class SetupMyGymController extends Controller
 {
-    
-
     public function index(Request $request)
     {
         $query = SetupMyGym::query();
@@ -39,7 +37,15 @@ class SetupMyGymController extends Controller
 
         return response()->json([
             'success' => true,
-            'data'    => $setupMyGym,
+            'data'    => [
+                'id'            => $setupMyGym->id,
+                'full_name'     => $setupMyGym->full_name,
+                'email'         => $setupMyGym->email,
+                'mobile_number' => $setupMyGym->mobile_number,
+                'requirements'  => $setupMyGym->requirements ?? [],
+                'details'       => $setupMyGym->details,
+                'created_at'    => $setupMyGym->created_at->format('d M Y, h:i A'),
+            ],
         ]);
     }
 

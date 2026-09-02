@@ -6,6 +6,7 @@ use App\Models\QuoteRequest;
 use App\Services\CartService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Services\AdminMailer;
 
 class CartController extends Controller
 {
@@ -23,7 +24,7 @@ class CartController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'product_id' => 'required|integer|exists:products,id',
-            'qty'        => 'nullable|integer|min:1|max:99',
+            'qty' => 'nullable|integer|min:1|max:99',
         ]);
 
         if ($validator->fails()) {
@@ -39,8 +40,8 @@ class CartController extends Controller
         );
 
         return response()->json([
-            'success'    => true,
-            'message'    => 'Added to cart',
+            'success' => true,
+            'message' => 'Added to cart',
             'cart_count' => $this->cart->count(),
         ]);
     }
@@ -62,14 +63,14 @@ class CartController extends Controller
     {
         $request->validate([
             'product_id' => 'required|integer',
-            'qty'        => 'required|integer|min:0|max:99',
+            'qty' => 'required|integer|min:0|max:99',
         ]);
 
         $this->cart->updateQty((int) $request->product_id, (int) $request->qty);
 
         return response()->json([
-            'success'    => true,
-            'items'      => $this->cart->items(),
+            'success' => true,
+            'items' => $this->cart->items(),
             'cart_count' => $this->cart->count(),
         ]);
     }
@@ -86,8 +87,8 @@ class CartController extends Controller
         $this->cart->remove((int) $request->product_id);
 
         return response()->json([
-            'success'    => true,
-            'items'      => $this->cart->items(),
+            'success' => true,
+            'items' => $this->cart->items(),
             'cart_count' => $this->cart->count(),
         ]);
     }
@@ -98,10 +99,10 @@ class CartController extends Controller
     public function submitQuote(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'fullName'     => 'required|string|max:255',
+            'fullName' => 'required|string|max:255',
             'mobileNumber' => 'required|string|max:20',
-            'emailId'      => 'required|email|max:255',
-            'details'      => 'nullable|string|max:2000',
+            'emailId' => 'required|email|max:255',
+            'details' => 'nullable|string|max:2000',
         ]);
 
         if ($validator->fails()) {
@@ -121,26 +122,41 @@ class CartController extends Controller
         }
 
         $quoteRequest = QuoteRequest::create([
-            'full_name'     => $request->fullName,
+            'full_name' => $request->fullName,
             'mobile_number' => $request->mobileNumber,
-            'email'         => $request->emailId,
-            'details'       => $request->details,
+            'email' => $request->emailId,
+            'details' => $request->details,
         ]);
 
         foreach ($items as $item) {
             $quoteRequest->items()->create([
-                'product_id'   => $item['id'],
+                'product_id' => $item['id'],
                 'product_name' => $item['name'],
-                'qty'          => $item['qty'],
-                'price'        => $item['price'],
+                'qty' => $item['qty'],
+                'price' => $item['price'],
             ]);
         }
+
+        $itemsSummary = collect($items)
+            ->map(fn($item) => "{$item['name']} (x{$item['qty']})")
+            ->implode(', ');
+
+        AdminMailer::sendEnquiryAlert('Cart Quote Request Form', [
+            'Full Name' => $request->fullName,
+            'Mobile Number' => $request->mobileNumber,
+            'Email' => $request->emailId,
+            'Items' => $itemsSummary,
+            'Details' => $request->details,
+        ]);
 
         $this->cart->clear();
 
         return response()->json([
             'success' => true,
             'message' => 'Your quote request has been submitted. We will get back to you within 24 hours.',
+            'redirect' => route('thank-you', [
+                'message' => 'Thanks for your quote request! Our team will reach out to you shortly.',
+            ]),
         ]);
     }
 }

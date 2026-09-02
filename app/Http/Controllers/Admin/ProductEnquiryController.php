@@ -9,21 +9,21 @@ use Illuminate\Http\Request;
 
 class ProductEnquiryController extends Controller
 {
-    
+
 
     public function index(Request $request)
     {
-        $query = ProductEnquiry::query();
+        $query = ProductEnquiry::with('product');
 
         if ($request->filled('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%')
-                  ->orWhere('email', 'like', '%' . $request->search . '%')
-                  ->orWhere('city', 'like', '%' . $request->search . '%');
+                    ->orWhere('email', 'like', '%' . $request->search . '%')
+                    ->orWhere('phone', 'like', '%' . $request->search . '%');
             });
         }
 
-        $sortable = ['id', 'name', 'city', 'state', 'created_at'];
+        $sortable = ['id', 'name', 'email', 'created_at'];
         $sortBy = in_array($request->sort_by, $sortable) ? $request->sort_by : 'created_at';
         $sortOrder = $request->sort_order === 'asc' ? 'asc' : 'desc';
 
@@ -31,7 +31,7 @@ class ProductEnquiryController extends Controller
 
         return view('admin.product-enquiry.index', compact('enquiries'));
     }
-
+    
     public function destroy(ProductEnquiry $productEnquiry)
     {
         $productEnquiry->delete();

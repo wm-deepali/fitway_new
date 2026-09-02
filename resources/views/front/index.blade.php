@@ -247,7 +247,7 @@
                           <h5>{{ $subCategory->name }}</h5>
                           <p>{{ $subCategory->short_description }}</p>
                           <div class="btns">
-                            <a href="javascript:void(0)" data-model=".enquire-pop" class="btn btn-primary">Enquire Now</a>
+                            <a href="javascript:void(0)" data-model=".quote-request-pop" class="btn btn-primary">Enquire Now</a>
                             <a href="{{ route('products.subcategory', [$category->slug, $subCategory->slug]) }}"
                               class="btn btn-gray">View Details</a>
                           </div>
@@ -723,7 +723,7 @@
         </a>
 
         <a href="javascript:void(0)"
-          data-model=".enquire-pop"
+          data-model=".quote-request-pop"
           class="btn btn-primary">
           Enquire Now
         </a>

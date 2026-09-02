@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductEnquiry extends Model
+class PageQuoteRequest extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'product_id',
-        'name',
+        'full_name',
         'email',
-        'phone',
+        'mobile_number',
+        'page_id',
         'details',
         'is_read',
     ];
@@ -21,9 +21,4 @@ class ProductEnquiry extends Model
     protected $casts = [
         'is_read' => 'boolean',
     ];
-
-    public function product()
-    {
-        return $this->belongsTo(Product::class);
-    }
 }

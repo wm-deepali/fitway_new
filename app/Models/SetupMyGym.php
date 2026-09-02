@@ -14,10 +14,13 @@ class SetupMyGym extends Model
         'full_name',
         'email',
         'mobile_number',
+        'requirements',
+        'details',
         'is_read',
     ];
 
     protected $casts = [
-        'is_read' => 'boolean',
+        'requirements' => 'array',
+        'is_read'       => 'boolean',
     ];
 }

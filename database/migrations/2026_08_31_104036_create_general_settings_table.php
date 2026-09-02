@@ -49,9 +49,6 @@ return new class extends Migration
             // Features
             $table->boolean('maintenance_mode')->default(false);
             $table->integer('admin_session_timeout')->default(60);
-            $table->boolean('product_reviews')->default(true);
-            $table->boolean('wishlist')->default(true);
-            $table->boolean('stock_alerts')->default(false);
 
             $table->timestamps();
         });

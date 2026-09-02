@@ -32,18 +32,10 @@ class GeneralSetting extends Model
         'currency_symbol',
         'timezone',
         'maintenance_mode',
-        'admin_session_timeout',
-        'product_reviews',
-        'wishlist',
-        'stock_alerts',
-        'cod_enabled'
+        'admin_session_timeout'
     ];
 
     protected $casts = [
         'maintenance_mode' => 'boolean',
-        'product_reviews' => 'boolean',
-        'wishlist' => 'boolean',
-        'stock_alerts' => 'boolean',
-        'cod_enabled' => 'boolean',
     ];
 }

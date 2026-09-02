@@ -293,7 +293,7 @@
                                 title: 'Request Submitted',
                                 text: data.message,
                             }).then(() => {
-                                window.location.href = '{{ route('products') }}';
+                                window.location.href = data.redirect;
                             });
                         } else {
                             Swal.fire({
