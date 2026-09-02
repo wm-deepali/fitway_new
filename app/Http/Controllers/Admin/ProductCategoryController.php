@@ -52,6 +52,11 @@ class ProductCategoryController extends Controller
             'meta_title'         => 'nullable|string|max:255',
             'meta_keywords'      => 'nullable|string|max:255',
             'meta_description'  => 'nullable|string',
+            'h1'                 => 'nullable|string|max:255',
+            'og_title'           => 'nullable|string|max:255',
+            'og_description'     => 'nullable|string',
+            'og_image'           => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'canonical_url'      => 'nullable|string|max:255',
         ]);
 
         $imagePath = $request->file('image')->store('categories', 'public');
@@ -66,6 +71,13 @@ class ProductCategoryController extends Controller
             $bannerPath = $request->file('banner_image')->store('categories/banners', 'public');
         }
 
+        // OG image: use the dedicated upload if provided, otherwise fall back to the category image
+        if ($request->hasFile('og_image')) {
+            $ogImagePath = $request->file('og_image')->store('categories/og', 'public');
+        } else {
+            $ogImagePath = $imagePath;
+        }
+
         ProductCategory::create([
             'category_name'     => $request->category_name,
             'slug'               => ProductCategory::generateUniqueSlug($request->category_name),
@@ -78,6 +90,11 @@ class ProductCategoryController extends Controller
             'meta_title'         => $request->meta_title,
             'meta_keywords'      => $request->meta_keywords,
             'meta_description'   => $request->meta_description,
+            'h1'                 => $request->h1,
+            'og_title'           => $request->og_title,
+            'og_description'     => $request->og_description,
+            'og_image'           => $ogImagePath,
+            'canonical_url'      => $request->canonical_url,
         ]);
 
         return redirect()->route('admin.categories.index')
@@ -101,6 +118,11 @@ class ProductCategoryController extends Controller
             'meta_title'         => 'nullable|string|max:255',
             'meta_keywords'      => 'nullable|string|max:255',
             'meta_description'  => 'nullable|string',
+            'h1'                 => 'nullable|string|max:255',
+            'og_title'           => 'nullable|string|max:255',
+            'og_description'     => 'nullable|string',
+            'og_image'           => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'canonical_url'      => 'nullable|string|max:255',
         ]);
 
         $data = [
@@ -113,6 +135,10 @@ class ProductCategoryController extends Controller
             'meta_title'         => $request->meta_title,
             'meta_keywords'      => $request->meta_keywords,
             'meta_description'   => $request->meta_description,
+            'h1'                 => $request->h1,
+            'og_title'           => $request->og_title,
+            'og_description'     => $request->og_description,
+            'canonical_url'      => $request->canonical_url,
         ];
 
         if ($request->hasFile('image')) {
@@ -134,6 +160,17 @@ class ProductCategoryController extends Controller
             $data['banner'] = $request->file('banner_image')->store('categories/banners', 'public');
         }
 
+        // OG image: replace if a new one was uploaded; otherwise keep existing,
+        // and if there's still none at all, fall back to the (possibly just-updated) category image.
+        if ($request->hasFile('og_image')) {
+            if ($category->og_image) {
+                Storage::disk('public')->delete($category->og_image);
+            }
+            $data['og_image'] = $request->file('og_image')->store('categories/og', 'public');
+        } elseif (!$category->og_image) {
+            $data['og_image'] = $data['image'] ?? $category->image;
+        }
+
         $category->update($data);
 
         $redirectTo = $request->input('redirect') ?: route('admin.categories.index');
@@ -149,6 +186,10 @@ class ProductCategoryController extends Controller
 
         if ($category->banner) {
             Storage::disk('public')->delete($category->banner);
+        }
+
+        if ($category->og_image && $category->og_image !== $category->image) {
+            Storage::disk('public')->delete($category->og_image);
         }
 
         $category->delete();

@@ -31,6 +31,7 @@ use App\Http\Controllers\Admin\{
     AnnouncementController,
     QuoteRequestController,
     PageQuoteRequestController,
+    SeoController
 
 };
 
@@ -73,7 +74,7 @@ Route::controller(FrontController::class)->group(function () {
 });
 
 Route::get('/thank-you', function () {
-    return view('front.thank-you', ['message' => request('message')]);
+    return view('front.thanks', ['message' => request('message')]);
 })->name('thank-you');
 
 
@@ -255,6 +256,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{pageQuoteRequest}', [PageQuoteRequestController::class, 'show'])->name('show');
             Route::patch('/{pageQuoteRequest}/read', [PageQuoteRequestController::class, 'markRead'])->name('markRead');
             Route::delete('/{pageQuoteRequest}', [PageQuoteRequestController::class, 'destroy'])->name('destroy');
+        });
+
+        Route::prefix('seo')->name('seo.')->group(function () {
+            Route::get('/', [SeoController::class, 'index'])->name('index');
+            Route::get('/{id}/edit', [SeoController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [SeoController::class, 'update'])->name('update');
         });
 
 

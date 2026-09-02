@@ -1,6 +1,7 @@
 @extends('layouts.gym-app')
 
-@section('title', 'Hotels & Resorts Gym Setup')
+@section('title',  $pageSeo->seo->meta_title ?? 'Hotels & Resorts Gym Setup')
+@section('meta_description', $pageSeo->seo->meta_description ?? 'Create a premium fitness space designed around your property and your guests.')
 
 @section('content')
 

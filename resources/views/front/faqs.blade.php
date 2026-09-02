@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Faqs | Fitway')
-@section('meta_description', 'Find answers to common questions about Fitway gym equipment, fitness solutions and complete gym setup services.')
+@section('title', $pageSeo->seo->meta_title ??'Faqs | Fitway')
+@section('meta_description', $pageSeo->seo->meta_description ?? 'Find answers to common questions about Fitway gym equipment, fitness solutions and complete gym setup services.')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/sass/faqs/faqs.css') }}" />
@@ -32,7 +32,7 @@
             <div class="container">
                 <div class="banner-wrapper">
                     <div class="content">
-                        <h1>Frequently Asked Questions.</h1>
+                        <h1>{{ $pageSeo->seo->h1 ?? 'Frequently Asked Questions.' }}</h1>
 
                         <p>
                             Find answers to common questions about our gym equipment,

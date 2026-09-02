@@ -1,6 +1,7 @@
 @extends('layouts.gym-app')
 
-@section('title', 'Outdoor / Open Gym Setup | Fitway')
+@section('title',  $pageSeo->seo->meta_title ?? 'Outdoor / Open Gym Setup | Fitway')
+@section('meta_description', $pageSeo->seo->meta_description ?? 'Build durable and engaging outdoor fitness spaces for communities, parks, and public areas.')
 
 @section('content')
 

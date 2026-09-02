@@ -1,7 +1,15 @@
 @extends('layouts.app')
 
-@section('title', $blog->blog . ' | Fitway')
-@section('meta_description', Str::limit(strip_tags($blog->excerpt), 155))
+@section('title', $blog->meta_title ?? ($blog->blog . ' | Fitway'))
+@section('meta_description', $blog->meta_description ?? Str::limit(strip_tags($blog->excerpt), 155))
+
+@if($blog->canonical_url)
+    @section('canonical', $blog->canonical_url)
+@endif
+
+@section('og_title', $blog->og_title ?? $blog->meta_title ?? $blog->blog)
+@section('og_description', $blog->og_description ?? $blog->meta_description ?? Str::limit(strip_tags($blog->excerpt), 155))
+@section('og_image', $blog->og_image_url)
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/sass/blog-detail/blog-detail.css') }}" />
@@ -51,7 +59,7 @@
                     <div class="heading">
                         <div class="left-content">
 
-                            <h1>{{ $blog->blog }}</h1>
+                            <h1>{{ $blog->h1 ?? $blog->blog }}</h1>
 
                             <p>
                                 {{ Str::limit(strip_tags($blog->excerpt), 180) }}

@@ -44,6 +44,8 @@
     .switch input:checked + .switch-slider { background: var(--accent); }
     .switch input:checked + .switch-slider::before { transform: translateX(18px); }
     .form-actions { display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .seo-divider { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
+    .seo-section-title { font-size: 13px; font-weight: 650; margin-bottom: 14px; }
     </style>
 
     <div class="app-content content container-fluid">
@@ -75,6 +77,7 @@
                             class="form-control-styled @error('blog') is-invalid @enderror"
                             value="{{ old('blog') }}" placeholder="Enter blog title" required>
                         @error('blog') <div class="form-error">{{ $message }}</div> @enderror
+                        <div class="hint">Slug is generated automatically from the blog title.</div>
                     </div>
 
                     <div class="form-field">
@@ -125,6 +128,69 @@
                         <label style="margin:0">Active</label>
                     </div>
 
+                    <div class="form-field">
+                        <label for="meta_title">Meta Title</label>
+                        <input type="text" id="meta_title" name="meta_title"
+                            class="form-control-styled @error('meta_title') is-invalid @enderror"
+                            value="{{ old('meta_title') }}" placeholder="Defaults to blog title if left blank">
+                        @error('meta_title') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="meta_description">Meta Description</label>
+                        <textarea id="meta_description" name="meta_description" rows="3"
+                            class="form-control-styled @error('meta_description') is-invalid @enderror"
+                            placeholder="Defaults to the short description if left blank">{{ old('meta_description') }}</textarea>
+                        @error('meta_description') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <hr class="seo-divider">
+                    <div class="seo-section-title">SEO / Open Graph Details</div>
+
+                    <div class="form-field">
+                        <label for="h1">H1 Tag</label>
+                        <input type="text" id="h1" name="h1"
+                            class="form-control-styled @error('h1') is-invalid @enderror"
+                            value="{{ old('h1') }}" placeholder="Auto-filled from Blog Title">
+                        <div class="hint">Auto-fills from Blog Title — edit anytime to override</div>
+                        @error('h1') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="og_title">OG Title</label>
+                        <input type="text" id="og_title" name="og_title"
+                            class="form-control-styled @error('og_title') is-invalid @enderror"
+                            value="{{ old('og_title') }}" placeholder="Auto-filled from Meta Title">
+                        <div class="hint">Auto-fills from Meta Title — edit anytime to override</div>
+                        @error('og_title') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="og_description">OG Description</label>
+                        <textarea id="og_description" name="og_description" rows="3"
+                            class="form-control-styled @error('og_description') is-invalid @enderror"
+                            placeholder="Auto-filled from Meta Description">{{ old('og_description') }}</textarea>
+                        <div class="hint">Auto-fills from Meta Description — edit anytime to override</div>
+                        @error('og_description') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="og_image">OG Image</label>
+                        <input type="file" id="og_image" name="og_image"
+                            class="form-control-styled @error('og_image') is-invalid @enderror" accept="image/*">
+                        <div class="hint">Leave blank to automatically use the Blog Image as OG Image</div>
+                        @error('og_image') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="canonical_url">Canonical URL</label>
+                        <input type="text" id="canonical_url" name="canonical_url"
+                            class="form-control-styled @error('canonical_url') is-invalid @enderror"
+                            value="{{ old('canonical_url') }}" placeholder="Auto-generated from slug">
+                        <div class="hint">Auto-fills from the slug — edit anytime to override</div>
+                        @error('canonical_url') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
                     <div class="form-actions">
                         <button type="submit" class="btn-primary-dash">
                             <i class="fa fa-check"></i> Save Blog
@@ -144,4 +210,42 @@
 <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 <script>
     CKEDITOR.replace('content');
+
+    // SEO auto-fill: h1 from blog title, og_title from meta_title, og_description from meta_description,
+    // canonical_url computed from a slugified version of the blog title.
+    let h1Edited = false, ogTitleEdited = false, ogDescEdited = false, canonicalEdited = false;
+
+    document.getElementById('h1').addEventListener('input', () => h1Edited = true);
+    document.getElementById('og_title').addEventListener('input', () => ogTitleEdited = true);
+    document.getElementById('og_description').addEventListener('input', () => ogDescEdited = true);
+    document.getElementById('canonical_url').addEventListener('input', () => canonicalEdited = true);
+
+    document.getElementById('blog').addEventListener('keyup', function () {
+        const slug = this.value
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+
+        if (!canonicalEdited) {
+            document.getElementById('canonical_url').value = '{{ url('/blog') }}/' + slug;
+        }
+
+        if (!h1Edited) {
+            document.getElementById('h1').value = this.value;
+        }
+    });
+
+    document.getElementById('meta_title').addEventListener('keyup', function () {
+        if (!ogTitleEdited) {
+            document.getElementById('og_title').value = this.value;
+        }
+    });
+
+    document.getElementById('meta_description').addEventListener('keyup', function () {
+        if (!ogDescEdited) {
+            document.getElementById('og_description').value = this.value;
+        }
+    });
 </script>

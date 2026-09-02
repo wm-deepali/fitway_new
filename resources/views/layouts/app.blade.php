@@ -12,12 +12,33 @@
     content="@yield('meta_description', $generalSettings->footer_description ?? 'Fitway offers professional gym equipment and complete commercial gym setup solutions.')" />
   <link rel="canonical" href="@yield('canonical', url()->current())" />
 
+
+  @php
+    $__seo = $pageSeo->seo ?? null;
+    $__defaultOgTitle = $__seo->og_title ?? ($__seo->meta_title ?? ($generalSettings->site_name ?? 'Fitway'));
+    $__defaultOgDescription = $__seo->og_description ?? ($__seo->meta_description ?? ($generalSettings->footer_description ?? ''));
+    $__defaultOgImage = $__seo?->resolved_og_image ?? asset('images/default-og-image.jpg');
+  @endphp
+  <meta property="og:title" content="@yield('og_title', $__defaultOgTitle)" />
+  <meta property="og:description" content="@yield('og_description', $__defaultOgDescription)" />
+  <meta property="og:image" content="@yield('og_image', $__defaultOgImage)" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="{{ url()->current() }}" />
+  <meta property="og:site_name" content="{{ $generalSettings->site_name ?? 'Fitway' }}" />
+
+  <meta name="twitter:card" content="{{ $__seo->twitter_card_type ?? 'summary_large_image' }}" />
+  <meta name="twitter:title" content="@yield('og_title', $__seo->twitter_title ?? $__defaultOgTitle)" />
+  <meta name="twitter:description" content="@yield('og_description', $__seo->twitter_description ?? $__defaultOgDescription)" />
+  <meta name="twitter:image" content="@yield('og_image', $__seo?->resolved_twitter_image ?? $__defaultOgImage)" />
+
   @if($generalSettings->favicon ?? false)
     <link rel="icon" type="image/png" href="{{ asset($generalSettings->favicon) }}">
   @endif
 
+  {{-- JSON-LD structured data — pushed per-page via @push('schema') --}}
+  @stack('schema')
 
-    <script src="https://analytics.ahrefs.com/analytics.js" data-key="JlnjLYWoZvF+Bk6EMmn0hg" async></script>
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="JlnjLYWoZvF+Bk6EMmn0hg" async></script>
   <!-- ================= Google Fonts ================= -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="" />
@@ -40,6 +61,7 @@
   {{-- Page-specific stylesheets (e.g. home/home.css) --}}
   @stack('styles')
 </head>
+
 
 <body>
   <header>

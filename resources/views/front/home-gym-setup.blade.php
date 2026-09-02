@@ -1,6 +1,7 @@
 @extends('layouts.gym-app')
 
-@section('title', 'Home Gym Setup | Fitway')
+@section('title',  $pageSeo->seo->meta_title ?? 'Home Gym Setup | Fitway')
+@section('meta_description', $pageSeo->seo->meta_description ?? 'Build a home gym that fits your life with our comprehensive setup solutions.')
 
 @section('content')
 

@@ -1,13 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'Home | Fitway')
-@section('meta_description', 'Quality gym equipment and complete commercial gym setup solutions from Fitway — cardio, strength, free weights, functional training and more.')
+@section('title', $pageSeo->seo->meta_title ?? 'Home | Fitway')
+@section('meta_description', $pageSeo->seo->meta_description ?? 'Quality gym equipment and complete commercial gym setup solutions from Fitway — cardio, strength, free weights, functional training and more.')
 
 @push('styles')
   <link rel="stylesheet" href="{{ asset('assets/sass/home/home.css') }}" />
 @endpush
 
 @section('content')
+
+  <h1 class="visually-hidden">{{ $pageSeo->seo->h1 ?? 'Fitway - Gym Equipment & Commercial Gym Setup' }}</h1>
+
   <section class="home-banner">
     <div class="videoSlider swiper">
       <div class="swiper-wrapper">
@@ -212,7 +215,7 @@
     </div>
   </section>
 
-<section class="home-secC">
+  <section class="home-secC">
     <div class="container">
       <div class="heading">
         <h3>Our <span>PRODUCTS</span></h3>
@@ -247,7 +250,8 @@
                           <h5>{{ $subCategory->name }}</h5>
                           <p>{{ $subCategory->short_description }}</p>
                           <div class="btns">
-                            <a href="javascript:void(0)" data-model=".quote-request-pop" class="btn btn-primary">Enquire Now</a>
+                            <a href="javascript:void(0)" data-model=".quote-request-pop" class="btn btn-primary">Enquire
+                              Now</a>
                             <a href="{{ route('products.subcategory', [$category->slug, $subCategory->slug]) }}"
                               class="btn btn-gray">View Details</a>
                           </div>
@@ -255,7 +259,7 @@
                       </div>
                     </div>
                   @empty
-                   <div class="swiper-slide">
+                    <div class="swiper-slide">
                       <div class="prod-card no-prod">
                         <div class="img">
                           <img src="{{ asset('assets/images/home/form-banner.jpg') }}" alt="No products available" />
@@ -271,35 +275,21 @@
                 </div>
               </div>
               <div class="swiper-group">
-                  <button
-                    type="button"
-                    class="catSlider-prev btn-prev swiper-button-lock"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 1024 1024"
-                    >
-                      <path
-                        fill="#ffff"
-                        d="M609.408 149.376L277.76 489.6a32 32 0 0 0 0 44.672l331.648 340.352a29.12 29.12 0 0 0 41.728 0a30.59 30.59 0 0 0 0-42.752L339.264 511.936l311.872-319.872a30.59 30.59 0 0 0 0-42.688a29.12 29.12 0 0 0-41.728 0"
-                      ></path>
-                    </svg>
-                  </button>
-                  <button
-                    type="button"
-                    class="catSlider-next btn-next swiper-button-lock"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 1024 1024"
-                    >
-                      <path
-                        fill="#ffff"
-                        d="M609.408 149.376L277.76 489.6a32 32 0 0 0 0 44.672l331.648 340.352a29.12 29.12 0 0 0 41.728 0a30.59 30.59 0 0 0 0-42.752L339.264 511.936l311.872-319.872a30.59 30.59 0 0 0 0-42.688a29.12 29.12 0 0 0-41.728 0"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
+                <button type="button" class="catSlider-prev btn-prev swiper-button-lock">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+                    <path fill="#ffff"
+                      d="M609.408 149.376L277.76 489.6a32 32 0 0 0 0 44.672l331.648 340.352a29.12 29.12 0 0 0 41.728 0a30.59 30.59 0 0 0 0-42.752L339.264 511.936l311.872-319.872a30.59 30.59 0 0 0 0-42.688a29.12 29.12 0 0 0-41.728 0">
+                    </path>
+                  </svg>
+                </button>
+                <button type="button" class="catSlider-next btn-next swiper-button-lock">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+                    <path fill="#ffff"
+                      d="M609.408 149.376L277.76 489.6a32 32 0 0 0 0 44.672l331.648 340.352a29.12 29.12 0 0 0 41.728 0a30.59 30.59 0 0 0 0-42.752L339.264 511.936l311.872-319.872a30.59 30.59 0 0 0 0-42.688a29.12 29.12 0 0 0-41.728 0">
+                    </path>
+                  </svg>
+                </button>
+              </div>
             </div>
             <div class="center-btn">
               <a href="{{ route('products.category', $category->slug) }}" class="btn btn-gray">
@@ -618,120 +608,110 @@
         </p>
       </div>
 
-  <div class="secE-grid">
+      <div class="secE-grid">
 
-  <a href="https://fitway.in/dynamic/commercial-gym-setup" target="_blank" class="secE-card featured">
-    <div class="card-media">
-      <img src="{{ asset('assets/images/home/home1.jpg') }}" alt="Commercial Gyms" />
-    </div>
+        <a href="https://fitway.in/dynamic/commercial-gym-setup" target="_blank" class="secE-card featured">
+          <div class="card-media">
+            <img src="{{ asset('assets/images/home/home1.jpg') }}" alt="Commercial Gyms" />
+          </div>
 
-    <div class="card-content">
-      <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M4 21V7l8-4 8 4v14M9 21v-6h6v6M9 11h.01M15 11h.01M9 15h.01M15 15h.01"
-            stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        Commercial
-      </span>
+          <div class="card-content">
+            <span class="tag">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 21V7l8-4 8 4v14M9 21v-6h6v6M9 11h.01M15 11h.01M9 15h.01M15 15h.01" stroke="currentColor"
+                  stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Commercial
+            </span>
 
-      <h5>Commercial Gyms</h5>
-      <p>Complete solutions for independent gyms and fitness centers.</p>
-    </div>
-  </a>
-
-
-  <a href="https://fitway.in/dynamic/resorts-gym-setup" target="_blank" class="secE-card">
-    <div class="card-media">
-      <img src="{{ asset('assets/images/home/home2.jpg') }}" alt="Hotel & Resort Gyms" />
-    </div>
-
-    <div class="card-content">
-      <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 21V9l9-6 9 6v12M3 21h18M7 21v-6h4v6"
-            stroke="currentColor" stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round" />
-        </svg>
-        Hospitality
-      </span>
-
-      <h5>Hotel & Resort Gyms</h5>
-      <p>Professional fitness spaces designed for hospitality environments.</p>
-    </div>
-  </a>
-
-
-  <a href="https://fitway.in/dynamic/corporate-gym-setup" target="_blank" class="secE-card">
-    <div class="card-media">
-      <img src="{{ asset('assets/images/home/home3.jpg') }}" alt="Corporate Gyms" />
-    </div>
-
-    <div class="card-content">
-      <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 21h18M6 21V10l6-4 6 4v11M10 21v-5h4v5"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round" />
-        </svg>
-        Corporate
-      </span>
-
-      <h5>Corporate Gyms</h5>
-      <p>Functional wellness spaces for offices and organizations.</p>
-    </div>
-  </a>
-
-
-  <a href="https://fitway.in/dynamic/home-gym-setup" target="_blank" class="secE-card">
-    <div class="card-media">
-      <img src="{{ asset('assets/images/home/home4.jpg') }}" alt="Home & Private Gyms" />
-    </div>
-
-    <div class="card-content">
-      <span class="tag">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 11l9-8 9 8M5 10v10h14V10"
-            stroke="currentColor"
-            stroke-width="1.6"
-            stroke-linecap="round"
-            stroke-linejoin="round" />
-        </svg>
-        Private
-      </span>
-
-      <h5>Home & Private Gyms</h5>
-      <p>Personalized equipment and setup solutions for private spaces.</p>
-    </div>
-  </a>
-
-
-  <div class="secE-card cta">
-    <div class="card-content">
-      <h5>Not Sure What You Need?</h5>
-
-      <p>
-        Tell us about your space and goals — we'll help you find the
-        right gym solution.
-      </p>
-
-      <div class="btns">
-        <a href="{{ route('products') }}" class="btn btn-white">
-          Explore
+            <h5>Commercial Gyms</h5>
+            <p>Complete solutions for independent gyms and fitness centers.</p>
+          </div>
         </a>
 
-        <a href="javascript:void(0)"
-          data-model=".quote-request-pop"
-          class="btn btn-primary">
-          Enquire Now
+
+        <a href="https://fitway.in/dynamic/resorts-gym-setup" target="_blank" class="secE-card">
+          <div class="card-media">
+            <img src="{{ asset('assets/images/home/home2.jpg') }}" alt="Hotel & Resort Gyms" />
+          </div>
+
+          <div class="card-content">
+            <span class="tag">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 21V9l9-6 9 6v12M3 21h18M7 21v-6h4v6" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Hospitality
+            </span>
+
+            <h5>Hotel & Resort Gyms</h5>
+            <p>Professional fitness spaces designed for hospitality environments.</p>
+          </div>
         </a>
+
+
+        <a href="https://fitway.in/dynamic/corporate-gym-setup" target="_blank" class="secE-card">
+          <div class="card-media">
+            <img src="{{ asset('assets/images/home/home3.jpg') }}" alt="Corporate Gyms" />
+          </div>
+
+          <div class="card-content">
+            <span class="tag">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 21h18M6 21V10l6-4 6 4v11M10 21v-5h4v5" stroke="currentColor" stroke-width="1.6"
+                  stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+              Corporate
+            </span>
+
+            <h5>Corporate Gyms</h5>
+            <p>Functional wellness spaces for offices and organizations.</p>
+          </div>
+        </a>
+
+
+        <a href="https://fitway.in/dynamic/home-gym-setup" target="_blank" class="secE-card">
+          <div class="card-media">
+            <img src="{{ asset('assets/images/home/home4.jpg') }}" alt="Home & Private Gyms" />
+          </div>
+
+          <div class="card-content">
+            <span class="tag">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 11l9-8 9 8M5 10v10h14V10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+              Private
+            </span>
+
+            <h5>Home & Private Gyms</h5>
+            <p>Personalized equipment and setup solutions for private spaces.</p>
+          </div>
+        </a>
+
+
+        <div class="secE-card cta">
+          <div class="card-content">
+            <h5>Not Sure What You Need?</h5>
+
+            <p>
+              Tell us about your space and goals — we'll help you find the
+              right gym solution.
+            </p>
+
+            <div class="btns">
+              <a href="{{ route('products') }}" class="btn btn-white">
+                Explore
+              </a>
+
+              <a href="javascript:void(0)" data-model=".quote-request-pop" class="btn btn-primary">
+                Enquire Now
+              </a>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </div>
-  </div>
-
-</div>
 
       <div class="center-btn">
         <a href="{{ route('products') }}" class="btn btn-primary">
@@ -857,112 +837,103 @@
       </div>
     </div>
   </section>
-<section class="home-secH">
+  <section class="home-secH">
     <div class="container">
 
-        <div class="heading">
-            <h3>Gyms <span>We've Built.</span></h3>
-            <p>
-                Explore our completed gym projects, showcasing quality equipment,
-                thoughtful design, professional installation, and complete fitness
-                solutions.
-            </p>
+      <div class="heading">
+        <h3>Gyms <span>We've Built.</span></h3>
+        <p>
+          Explore our completed gym projects, showcasing quality equipment,
+          thoughtful design, professional installation, and complete fitness
+          solutions.
+        </p>
+      </div>
+
+      @php
+        $groupedPortfolios = $homePortfolios->groupBy('cat_id');
+      @endphp
+
+      <!-- Portfolio Tabs -->
+      <ul class="tab-nav">
+        <li class="active" data-tab="all">All</li>
+
+        @foreach ($portfolioCategories as $category)
+          <li data-tab="{{ $category->slug }}">
+            {{ $category->name }}
+          </li>
+        @endforeach
+      </ul>
+
+      <!-- Portfolio Content -->
+      <div class="tab-nav-content">
+
+        <!-- All Projects -->
+        <div class="tabs active" data-tab="all">
+          <div class="portfolio-grid">
+
+            @forelse ($homePortfolios as $index => $item)
+              @include('partials.portfolio-item', [
+                'item' => $item,
+                'index' => $index
+              ])
+            @empty
+              <p>No projects added yet.</p>
+            @endforelse
+
+          </div>
         </div>
 
-        @php
-            $groupedPortfolios = $homePortfolios->groupBy('cat_id');
-        @endphp
+        <!-- Category Projects -->
+        @foreach ($portfolioCategories as $category)
 
-        <!-- Portfolio Tabs -->
-        <ul class="tab-nav">
-            <li class="active" data-tab="all">All</li>
+          @php
+            $categoryPortfolios = $groupedPortfolios->get(
+              $category->id,
+              collect()
+            );
+          @endphp
 
-            @foreach ($portfolioCategories as $category)
-                <li data-tab="{{ $category->slug }}">
-                    {{ $category->name }}
-                </li>
-            @endforeach
-        </ul>
+          <div class="tabs" data-tab="{{ $category->slug }}">
+            <div class="portfolio-grid">
 
-        <!-- Portfolio Content -->
-        <div class="tab-nav-content">
+              @forelse ($categoryPortfolios as $index => $item)
+                @include('partials.portfolio-item', [
+                  'item' => $item,
+                  'index' => $index
+                ])
+              @empty
+                <p>No projects in this category yet.</p>
+              @endforelse
 
-            <!-- All Projects -->
-            <div class="tabs active" data-tab="all">
-                <div class="portfolio-grid">
-
-                    @forelse ($homePortfolios as $index => $item)
-                        @include('partials.portfolio-item', [
-                            'item' => $item,
-                            'index' => $index
-                        ])
-                    @empty
-                        <p>No projects added yet.</p>
-                    @endforelse
-
-                </div>
             </div>
+          </div>
 
-            <!-- Category Projects -->
-            @foreach ($portfolioCategories as $category)
+        @endforeach
 
-                @php
-                    $categoryPortfolios = $groupedPortfolios->get(
-                        $category->id,
-                        collect()
-                    );
-                @endphp
+      </div>
 
-                <div class="tabs" data-tab="{{ $category->slug }}">
-                    <div class="portfolio-grid">
+      <!-- CTA -->
+      <div class="portfolio-cta">
+        <a href="{{ route('portfolio') }}" class="btn btn-gray">
+          Explore Our Projects
 
-                        @forelse ($categoryPortfolios as $index => $item)
-                            @include('partials.portfolio-item', [
-                                'item' => $item,
-                                'index' => $index
-                            ])
-                        @empty
-                            <p>No projects in this category yet.</p>
-                        @endforelse
+          <svg xmlns="http://www.w3.org/2000/svg" width="0.5em" height="1em" viewBox="0 0 12 24">
+            <path d="M0 0h12v24H0z" fill="none" />
 
-                    </div>
-                </div>
+            <path fill="currentColor" fill-rule="evenodd" d="M10.157 12.711L4.5 18.368l-1.414-1.414
+                            l4.95-4.95l-4.95-4.95L4.5 5.64l5.657
+                            5.657a1 1 0 0 1 0 1.414" />
+          </svg>
+        </a>
 
-            @endforeach
-
-        </div>
-
-        <!-- CTA -->
-        <div class="portfolio-cta">
-            <a href="{{ route('portfolio') }}" class="btn btn-gray">
-                Explore Our Projects
-
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="0.5em"
-                    height="1em"
-                    viewBox="0 0 12 24"
-                >
-                    <path d="M0 0h12v24H0z" fill="none" />
-
-                    <path
-                        fill="currentColor"
-                        fill-rule="evenodd"
-                        d="M10.157 12.711L4.5 18.368l-1.414-1.414
-                        l4.95-4.95l-4.95-4.95L4.5 5.64l5.657
-                        5.657a1 1 0 0 1 0 1.414"
-                    />
-                </svg>
-            </a>
-
-            <p>
-                From concept to completion, we create fitness spaces built around
-                performance, functionality and your requirements.
-            </p>
-        </div>
+        <p>
+          From concept to completion, we create fitness spaces built around
+          performance, functionality and your requirements.
+        </p>
+      </div>
 
     </div>
-</section>
+  </section>
 
   <section class="home-secG">
     <div class="container">
@@ -1179,93 +1150,93 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-  const swiperInstances = [];
+      const swiperInstances = [];
 
-  document.querySelectorAll('.catSlider').forEach(function (sliderEl) {
-    const wrap = sliderEl.closest('.swiper-wrap');
-    const nextEl = wrap.querySelector('.catSlider-next');
-    const prevEl = wrap.querySelector('.catSlider-prev');
-    const navGroup = wrap.querySelector('.swiper-group');
-    const slideCount = sliderEl.querySelectorAll('.swiper-slide').length;
+      document.querySelectorAll('.catSlider').forEach(function (sliderEl) {
+        const wrap = sliderEl.closest('.swiper-wrap');
+        const nextEl = wrap.querySelector('.catSlider-next');
+        const prevEl = wrap.querySelector('.catSlider-prev');
+        const navGroup = wrap.querySelector('.swiper-group');
+        const slideCount = sliderEl.querySelectorAll('.swiper-slide').length;
 
-    // Breakpoint config: slidesPerView is capped at slideCount
-    // so it never tries to show more slides than actually exist
-    const breakpoints = {
-      0: { slidesPerView: Math.min(1.2, slideCount), spaceBetween: 20 },
-      640: { slidesPerView: Math.min(1.2, slideCount), spaceBetween: 10 },
-      768: { slidesPerView: Math.min(2.2, slideCount), spaceBetween: 20 },
-      991: { slidesPerView: Math.min(3, slideCount), spaceBetween: 20 },
-      1280: { slidesPerView: Math.min(4, slideCount), spaceBetween: 20 },
-    };
+        // Breakpoint config: slidesPerView is capped at slideCount
+        // so it never tries to show more slides than actually exist
+        const breakpoints = {
+          0: { slidesPerView: Math.min(1.2, slideCount), spaceBetween: 20 },
+          640: { slidesPerView: Math.min(1.2, slideCount), spaceBetween: 10 },
+          768: { slidesPerView: Math.min(2.2, slideCount), spaceBetween: 20 },
+          991: { slidesPerView: Math.min(3, slideCount), spaceBetween: 20 },
+          1280: { slidesPerView: Math.min(4, slideCount), spaceBetween: 20 },
+        };
 
-    const swiper = new Swiper(sliderEl, {
-      navigation: {
-        nextEl: nextEl,
-        prevEl: prevEl,
-      },
-      loop: slideCount > 4, // only loop if there's enough slides to loop meaningfully
-      speed: 1000,
-      slidesPerView: Math.min(1.2, slideCount),
-      spaceBetween: 20,
-      breakpoints: breakpoints,
-      on: {
-        init: function () {
-          toggleNav(this, navGroup, slideCount);
-        },
-        resize: function () {
-          toggleNav(this, navGroup, slideCount);
-        },
-      },
-    });
+        const swiper = new Swiper(sliderEl, {
+          navigation: {
+            nextEl: nextEl,
+            prevEl: prevEl,
+          },
+          loop: slideCount > 4, // only loop if there's enough slides to loop meaningfully
+          speed: 1000,
+          slidesPerView: Math.min(1.2, slideCount),
+          spaceBetween: 20,
+          breakpoints: breakpoints,
+          on: {
+            init: function () {
+              toggleNav(this, navGroup, slideCount);
+            },
+            resize: function () {
+              toggleNav(this, navGroup, slideCount);
+            },
+          },
+        });
 
-    swiperInstances.push(swiper);
-  });
-
-  // Hide the prev/next buttons whenever all slides already fit on screen
-  function toggleNav(swiperInstance, navGroup, slideCount) {
-    if (!navGroup) return;
-
-    const currentSlidesPerView = swiperInstance.params.slidesPerView;
-
-    // If slidesPerView (rounded down) is >= total slides, nothing to scroll — hide nav
-    if (typeof currentSlidesPerView === 'number' && currentSlidesPerView >= slideCount) {
-      navGroup.classList.add('is-hidden');
-    } else {
-      navGroup.classList.remove('is-hidden');
-    }
-  }
-
-  // ---------------------------------------------------
-  // Tab switching: re-check nav visibility + update swiper
-  // whenever a tab becomes active (since hidden swipers
-  // need a manual update once they become visible)
-  // ---------------------------------------------------
-  document.querySelectorAll('.tab-nav li').forEach(function (tabBtn, index) {
-    tabBtn.addEventListener('click', function () {
-      const targetTab = this.dataset.tab;
-
-      document.querySelectorAll('.tab-nav li').forEach(li => li.classList.remove('active'));
-      this.classList.add('active');
-
-      document.querySelectorAll('.tabs').forEach(function (tabPanel) {
-        tabPanel.classList.toggle('active', tabPanel.dataset.tab === targetTab);
+        swiperInstances.push(swiper);
       });
 
-      // Update the swiper that belongs to the now-visible tab
-      // (Swiper needs .update() after being hidden/shown via display:none)
-      const activePanel = document.querySelector('.tabs[data-tab="' + targetTab + '"]');
-      if (activePanel) {
-        const activeSliderEl = activePanel.querySelector('.catSlider');
-        const matchedSwiper = swiperInstances.find(sw => sw.el === activeSliderEl);
-        if (matchedSwiper) {
-          matchedSwiper.update();
-          const navGroup = activePanel.querySelector('.swiper-group');
-          const slideCount = activeSliderEl.querySelectorAll('.swiper-slide').length;
-          toggleNav(matchedSwiper, navGroup, slideCount);
+      // Hide the prev/next buttons whenever all slides already fit on screen
+      function toggleNav(swiperInstance, navGroup, slideCount) {
+        if (!navGroup) return;
+
+        const currentSlidesPerView = swiperInstance.params.slidesPerView;
+
+        // If slidesPerView (rounded down) is >= total slides, nothing to scroll — hide nav
+        if (typeof currentSlidesPerView === 'number' && currentSlidesPerView >= slideCount) {
+          navGroup.classList.add('is-hidden');
+        } else {
+          navGroup.classList.remove('is-hidden');
         }
       }
+
+      // ---------------------------------------------------
+      // Tab switching: re-check nav visibility + update swiper
+      // whenever a tab becomes active (since hidden swipers
+      // need a manual update once they become visible)
+      // ---------------------------------------------------
+      document.querySelectorAll('.tab-nav li').forEach(function (tabBtn, index) {
+        tabBtn.addEventListener('click', function () {
+          const targetTab = this.dataset.tab;
+
+          document.querySelectorAll('.tab-nav li').forEach(li => li.classList.remove('active'));
+          this.classList.add('active');
+
+          document.querySelectorAll('.tabs').forEach(function (tabPanel) {
+            tabPanel.classList.toggle('active', tabPanel.dataset.tab === targetTab);
+          });
+
+          // Update the swiper that belongs to the now-visible tab
+          // (Swiper needs .update() after being hidden/shown via display:none)
+          const activePanel = document.querySelector('.tabs[data-tab="' + targetTab + '"]');
+          if (activePanel) {
+            const activeSliderEl = activePanel.querySelector('.catSlider');
+            const matchedSwiper = swiperInstances.find(sw => sw.el === activeSliderEl);
+            if (matchedSwiper) {
+              matchedSwiper.update();
+              const navGroup = activePanel.querySelector('.swiper-group');
+              const slideCount = activeSliderEl.querySelectorAll('.swiper-slide').length;
+              toggleNav(matchedSwiper, navGroup, slideCount);
+            }
+          }
+        });
+      });
     });
-  });
-});
   </script>
 @endpush

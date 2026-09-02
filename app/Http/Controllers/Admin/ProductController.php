@@ -58,7 +58,7 @@ class ProductController extends Controller
 
         $imagePath = $request->file('image')->store('products', 'public');
 
-        Product::create([
+        $data = [
             'category_id'      => $validated['category_id'],
             'sub_cat_id'        => $validated['sub_cat_id'] ?? null,
             'sub_sub_cat_id'    => $validated['sub_sub_cat_id'] ?? null,
@@ -74,7 +74,17 @@ class ProductController extends Controller
             'status'            => $request->boolean('status', true),
             'meta_title'        => $validated['meta_title'] ?? null,
             'meta_description'  => $validated['meta_description'] ?? null,
-        ]);
+            'h1'                => $validated['h1'] ?? null,
+            'og_title'          => $validated['og_title'] ?? null,
+            'og_description'    => $validated['og_description'] ?? null,
+            'canonical_url'     => $validated['canonical_url'] ?? null,
+        ];
+
+        if ($request->hasFile('og_image')) {
+            $data['og_image'] = $request->file('og_image')->store('products', 'public');
+        }
+
+        Product::create($data);
 
         return redirect()->route('admin.products.index')
             ->with('successmessage', 'Product Saved Successfully');
@@ -114,6 +124,10 @@ class ProductController extends Controller
             'status'            => $request->boolean('status', true),
             'meta_title'        => $validated['meta_title'] ?? null,
             'meta_description'  => $validated['meta_description'] ?? null,
+            'h1'                => $validated['h1'] ?? null,
+            'og_title'          => $validated['og_title'] ?? null,
+            'og_description'    => $validated['og_description'] ?? null,
+            'canonical_url'     => $validated['canonical_url'] ?? null,
         ];
 
         if ($request->hasFile('image')) {
@@ -121,6 +135,13 @@ class ProductController extends Controller
                 Storage::disk('public')->delete($product->image);
             }
             $data['image'] = $request->file('image')->store('products', 'public');
+        }
+
+        if ($request->hasFile('og_image')) {
+            if ($product->og_image) {
+                Storage::disk('public')->delete($product->og_image);
+            }
+            $data['og_image'] = $request->file('og_image')->store('products', 'public');
         }
 
         $product->update($data);
@@ -134,6 +155,10 @@ class ProductController extends Controller
     {
         if ($product->image) {
             Storage::disk('public')->delete($product->image);
+        }
+
+        if ($product->og_image) {
+            Storage::disk('public')->delete($product->og_image);
         }
 
         $product->delete();
@@ -192,6 +217,11 @@ class ProductController extends Controller
             'image'             => ($productId ? 'nullable' : 'required') . '|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
             'meta_title'        => 'nullable|string|max:255',
             'meta_description'  => 'nullable|string',
+            'h1'                => 'nullable|string|max:255',
+            'og_title'          => 'nullable|string|max:255',
+            'og_description'    => 'nullable|string',
+            'og_image'          => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'canonical_url'     => 'nullable|string|max:255',
         ];
     }
 }

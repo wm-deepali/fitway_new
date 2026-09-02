@@ -27,6 +27,11 @@ class Product extends Model
         'status',
         'meta_title',
         'meta_description',
+        'h1',
+        'og_title',
+        'og_description',
+        'og_image',
+        'canonical_url',
     ];
 
     protected $casts = [
@@ -94,6 +99,16 @@ class Product extends Model
         return $this->offered_price !== null
             ? '₹' . number_format((float) $this->offered_price, 2)
             : 'Price on Request';
+    }
+
+    /**
+     * OG image URL, falls back to the product image when none is set.
+     */
+    public function getOgImageUrlAttribute(): string
+    {
+        return $this->og_image
+            ? asset('storage/' . $this->og_image)
+            : $this->image_url;
     }
 
     /**

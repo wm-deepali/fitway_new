@@ -1,6 +1,7 @@
 @extends('layouts.gym-app')
 
-@section('title', 'Corporate Gym Setup | Fitway')
+@section('title',  $pageSeo->seo->meta_title ?? 'Corporate Gym Setup | Fitway')
+@section('meta_description', $pageSeo->seo->meta_description ?? 'Create a workplace fitness space that supports employee wellness, health and productivity.')
 
 @section('content')
 

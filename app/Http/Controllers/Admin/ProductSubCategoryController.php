@@ -57,6 +57,11 @@ class ProductSubCategoryController extends Controller
             'meta_title'          => 'nullable|string|max:255',
             'meta_keywords'       => 'nullable|string|max:255',
             'meta_description'   => 'nullable|string',
+            'h1'                  => 'nullable|string|max:255',
+            'og_title'            => 'nullable|string|max:255',
+            'og_description'      => 'nullable|string',
+            'og_image'            => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'canonical_url'       => 'nullable|string|max:255',
         ]);
 
         $imagePath = $request->file('image')->store('subcategories', 'public');
@@ -64,6 +69,13 @@ class ProductSubCategoryController extends Controller
         $bannerPath = $request->banner_type === 'video'
             ? $request->file('banner_video')->store('subcategories/banners', 'public')
             : $request->file('banner_image')->store('subcategories/banners', 'public');
+
+        // OG image: use the dedicated upload if provided, otherwise fall back to the sub category image
+        if ($request->hasFile('og_image')) {
+            $ogImagePath = $request->file('og_image')->store('subcategories/og', 'public');
+        } else {
+            $ogImagePath = $imagePath;
+        }
 
         ProductSubCategory::create([
             'category_id'        => $request->category_id,
@@ -77,6 +89,11 @@ class ProductSubCategoryController extends Controller
             'meta_title'          => $request->meta_title,
             'meta_keywords'       => $request->meta_keywords,
             'meta_description'    => $request->meta_description,
+            'h1'                  => $request->h1,
+            'og_title'            => $request->og_title,
+            'og_description'      => $request->og_description,
+            'og_image'            => $ogImagePath,
+            'canonical_url'       => $request->canonical_url,
         ]);
 
         return redirect()->route('admin.subcategories.index')
@@ -103,6 +120,11 @@ class ProductSubCategoryController extends Controller
             'meta_title'          => 'nullable|string|max:255',
             'meta_keywords'       => 'nullable|string|max:255',
             'meta_description'   => 'nullable|string',
+            'h1'                  => 'nullable|string|max:255',
+            'og_title'            => 'nullable|string|max:255',
+            'og_description'      => 'nullable|string',
+            'og_image'            => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'canonical_url'       => 'nullable|string|max:255',
         ]);
 
         $data = [
@@ -115,6 +137,10 @@ class ProductSubCategoryController extends Controller
             'meta_title'          => $request->meta_title,
             'meta_keywords'       => $request->meta_keywords,
             'meta_description'    => $request->meta_description,
+            'h1'                  => $request->h1,
+            'og_title'            => $request->og_title,
+            'og_description'      => $request->og_description,
+            'canonical_url'       => $request->canonical_url,
         ];
 
         if ($request->hasFile('image')) {
@@ -136,6 +162,17 @@ class ProductSubCategoryController extends Controller
             $data['banner'] = $request->file('banner_image')->store('subcategories/banners', 'public');
         }
 
+        // OG image: replace if a new one was uploaded; otherwise keep existing,
+        // and if there's still none at all, fall back to the (possibly just-updated) sub category image.
+        if ($request->hasFile('og_image')) {
+            if ($subcategory->og_image) {
+                Storage::disk('public')->delete($subcategory->og_image);
+            }
+            $data['og_image'] = $request->file('og_image')->store('subcategories/og', 'public');
+        } elseif (!$subcategory->og_image) {
+            $data['og_image'] = $data['image'] ?? $subcategory->image;
+        }
+
         $subcategory->update($data);
 
         $redirectTo = $request->input('redirect') ?: route('admin.subcategories.index');
@@ -151,6 +188,10 @@ class ProductSubCategoryController extends Controller
 
         if ($subcategory->banner) {
             Storage::disk('public')->delete($subcategory->banner);
+        }
+
+        if ($subcategory->og_image && $subcategory->og_image !== $subcategory->image) {
+            Storage::disk('public')->delete($subcategory->og_image);
         }
 
         $subcategory->delete();

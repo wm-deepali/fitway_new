@@ -23,6 +23,11 @@ class ProductSubCategory extends Model
         'meta_title',
         'meta_keywords',
         'meta_description',
+        'h1',
+        'og_title',
+        'og_description',
+        'og_image',
+        'canonical_url',
     ];
 
     protected $casts = [
@@ -54,6 +59,17 @@ class ProductSubCategory extends Model
         return $this->image
             ? asset('storage/' . $this->image)
             : asset('assets/images/no-image.svg');
+    }
+
+    /**
+     * Resolved OG image: uses the dedicated og_image if set,
+     * otherwise falls back to the sub category image.
+     */
+    public function getOgImageUrlAttribute(): ?string
+    {
+        $path = $this->og_image ?: $this->image;
+
+        return $path ? asset('storage/' . $path) : null;
     }
 
     public static function generateUniqueSlug(string $name, ?int $ignoreId = null): string

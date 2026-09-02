@@ -55,20 +55,25 @@ class ProductSubSubCategoryController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $this->validate($request, [
-            'category_id'     => 'required|exists:product_categories,id',
-            'sub_cat_id' => 'required|exists:product_sub_categories,id',
-            'name'             => 'required|string|max:255',
-            'image'            => 'required|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
-            'meta_title'       => 'nullable|string|max:255',
-            'meta_keywords'    => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
+            'category_id'       => 'required|exists:product_categories,id',
+            'sub_cat_id'        => 'required|exists:product_sub_categories,id',
+            'name'              => 'required|string|max:255',
+            'image'             => 'required|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'meta_title'        => 'nullable|string|max:255',
+            'meta_keywords'     => 'nullable|string|max:255',
+            'meta_description'  => 'nullable|string',
+            'h1'                => 'nullable|string|max:255',
+            'og_title'          => 'nullable|string|max:255',
+            'og_description'    => 'nullable|string',
+            'og_image'          => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'canonical_url'     => 'nullable|string|max:255',
         ]);
 
         $imagePath = $request->file('image')->store('sub-sub-categories', 'public');
 
-        ProductSubSubCategory::create([
+        $data = [
             'category_id'       => $request->category_id,
             'sub_category_id'   => $request->sub_cat_id,
             'name'               => $request->name,
@@ -78,7 +83,17 @@ class ProductSubSubCategoryController extends Controller
             'meta_title'         => $request->meta_title,
             'meta_keywords'      => $request->meta_keywords,
             'meta_description'   => $request->meta_description,
-        ]);
+            'h1'                 => $request->h1,
+            'og_title'           => $request->og_title,
+            'og_description'     => $request->og_description,
+            'canonical_url'      => $request->canonical_url,
+        ];
+
+        if ($request->hasFile('og_image')) {
+            $data['og_image'] = $request->file('og_image')->store('sub-sub-categories', 'public');
+        }
+
+        ProductSubSubCategory::create($data);
 
         return redirect()->route('admin.subsubcategories.index')
             ->with('successmessage', 'Sub Sub Category Saved Successfully');
@@ -98,13 +113,18 @@ class ProductSubSubCategoryController extends Controller
     public function update(Request $request, ProductSubSubCategory $subsubcategory)
     {
         $this->validate($request, [
-            'category_id'     => 'required|exists:product_categories,id',
-            'sub_cat_id' => 'required|exists:product_sub_categories,id',
-            'name'             => 'required|string|max:255',
-            'image'            => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
-            'meta_title'       => 'nullable|string|max:255',
-            'meta_keywords'    => 'nullable|string|max:255',
-            'meta_description' => 'nullable|string',
+            'category_id'       => 'required|exists:product_categories,id',
+            'sub_cat_id'        => 'required|exists:product_sub_categories,id',
+            'name'              => 'required|string|max:255',
+            'image'             => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'meta_title'        => 'nullable|string|max:255',
+            'meta_keywords'     => 'nullable|string|max:255',
+            'meta_description'  => 'nullable|string',
+            'h1'                => 'nullable|string|max:255',
+            'og_title'          => 'nullable|string|max:255',
+            'og_description'    => 'nullable|string',
+            'og_image'          => 'nullable|image|mimes:jpg,png,jpeg,gif,webp,svg|max:2048',
+            'canonical_url'     => 'nullable|string|max:255',
         ]);
         $data = [
             'category_id'      => $request->category_id,
@@ -115,6 +135,10 @@ class ProductSubSubCategoryController extends Controller
             'meta_title'        => $request->meta_title,
             'meta_keywords'     => $request->meta_keywords,
             'meta_description'  => $request->meta_description,
+            'h1'                => $request->h1,
+            'og_title'          => $request->og_title,
+            'og_description'    => $request->og_description,
+            'canonical_url'     => $request->canonical_url,
         ];
 
         if ($request->hasFile('image')) {
@@ -124,6 +148,12 @@ class ProductSubSubCategoryController extends Controller
             $data['image'] = $request->file('image')->store('sub-sub-categories', 'public');
         }
 
+        if ($request->hasFile('og_image')) {
+            if ($subsubcategory->og_image) {
+                Storage::disk('public')->delete($subsubcategory->og_image);
+            }
+            $data['og_image'] = $request->file('og_image')->store('sub-sub-categories', 'public');
+        }
 
         $subsubcategory->update($data);
 
@@ -136,6 +166,10 @@ class ProductSubSubCategoryController extends Controller
     {
         if ($subsubcategory->image) {
             Storage::disk('public')->delete($subsubcategory->image);
+        }
+
+        if ($subsubcategory->og_image) {
+            Storage::disk('public')->delete($subsubcategory->og_image);
         }
 
         $subsubcategory->delete();

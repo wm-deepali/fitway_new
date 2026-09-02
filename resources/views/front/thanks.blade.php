@@ -10,14 +10,8 @@
 @section('content')
 
     <section class="comman-banner">
-        <video
-            autoplay=""
-            muted=""
-            loop=""
-            playsinline=""
-            src="{{ asset('assets/video/banner3.mp4') }}"
-            poster="{{ asset('assets/video/poster/banner.png') }}"
-        >
+        <video autoplay="" muted="" loop="" playsinline="" src="{{ asset('assets/video/banner3.mp4') }}"
+            poster="{{ asset('assets/video/poster/banner.png') }}">
             <source src="{{ asset('assets/video/banner3.mp4') }}" type="video/mp4" />
         </video>
 
@@ -27,8 +21,8 @@
                     <h1>Thank You!</h1>
 
                     <p>
-                        Thank you for reaching out to Fitway. We've received your
-                        enquiry and our team will get in touch with you shortly.
+                        {{ $message ?? "Thank you for reaching out to Fitway. We've received your
+                            enquiry and our team will get in touch with you shortly." }}
                     </p>
                     <a href="{{ route('home') }}" class="btn btn-primary bt"> Back To Home </a>
                 </div>

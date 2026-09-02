@@ -20,6 +20,13 @@ class Blog extends Model
         'image',
         'date_of_blog',
         'status',
+        'meta_title',
+        'h1',
+        'meta_description',
+        'canonical_url',
+        'og_title',
+        'og_description',
+        'og_image',
     ];
 
     protected $casts = [
@@ -47,5 +54,13 @@ class Blog extends Model
         }
 
         return $slug;
+    }
+
+    /** Raw column may be blank — this is what the front-end should render. */
+    public function getOgImageUrlAttribute(): ?string
+    {
+        $path = $this->og_image ?: $this->image;
+
+        return $path ? asset('storage/' . $path) : null;
     }
 }

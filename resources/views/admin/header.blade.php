@@ -96,6 +96,13 @@
                     <a href="{{ route('admin.faqs.index') }}"> Manage Faq
                     </a>
                 </li>
+
+                <li class="{{ request()->routeIs('admin.seo.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.seo.index') }}">
+                        SEO Management
+                    </a>
+                </li>
+
             </ul>
         </li>
 

@@ -3,11 +3,17 @@
 @section('title', ($product->meta_title ?? $product->name) . ' | Fitway')
 @section('meta_description', $product->meta_description ?? Str::limit(strip_tags($product->description), 155))
 
+@if($product->canonical_url)
+    @section('canonical', $product->canonical_url)
+@endif
+
+@section('og_title', $product->og_title ?? $product->meta_title ?? $product->name)
+@section('og_description', $product->og_description ?? $product->meta_description ?? Str::limit(strip_tags($product->description), 155))
+@section('og_image', $product->og_image_url)
+
 @push('styles')
   <link rel="stylesheet" href="{{ asset('assets/sass/product-detail/detail.css') }}" />
 @endpush
-
-
 
 
 @section('content')
@@ -86,7 +92,7 @@
             <!-- <span class="detail-content__grade">Professional Grade</span> -->
           </div>
 
-          <h1>{{ $product->name }}</h1>
+          <h1>{{ $product->h1 ?: $product->name }}</h1>
           <p class="cat">{{ $product->subCategory->name ?? '' }}</p>
 
           <!-- Rating -->
@@ -376,4 +382,69 @@
     
   </script>
 
+@endpush
+@push('schema')
+    @php
+        $productCode = 'FW-' . strtoupper(substr(md5($product->id . $product->slug), 0, 6));
+
+        $breadcrumbItems = collect([
+            ['name' => 'Home', 'url' => route('home')],
+        ]);
+
+        if ($product->category) {
+            $breadcrumbItems->push(['name' => $product->category->category_name, 'url' => route('products.category', $product->category->slug)]);
+        } else {
+            $breadcrumbItems->push(['name' => 'Equipment', 'url' => route('products')]);
+        }
+
+        if ($product->subCategory) {
+            $breadcrumbItems->push(['name' => $product->subCategory->name, 'url' => route('products.subcategory', [$product->category->slug, $product->subCategory->slug])]);
+        }
+
+        if ($product->subSubCategory) {
+            $breadcrumbItems->push(['name' => $product->subSubCategory->name, 'url' => route('products.subsubcategory', [$product->category->slug, $product->subCategory->slug, $product->subSubCategory->slug])]);
+        }
+
+        $breadcrumbItems->push(['name' => $product->name, 'url' => url()->current()]);
+
+        $breadcrumbSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => $breadcrumbItems->values()->map(function ($crumb, $index) {
+                return [
+                    '@type' => 'ListItem',
+                    'position' => $index + 1,
+                    'name' => $crumb['name'],
+                    'item' => $crumb['url'],
+                ];
+            })->all(),
+        ];
+
+        $productSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'Product',
+            'name' => $product->name,
+            'image' => collect($productImages ?? [])->pluck('url')->all() ?: [$product->image_url],
+            'description' => strip_tags($product->meta_description ?? Str::limit(strip_tags($product->description), 300)),
+            'sku' => $productCode,
+            'brand' => [
+                '@type' => 'Brand',
+                'name' => $generalSettings->site_name ?? 'Fitway',
+            ],
+            'category' => $product->category_path ?: null,
+            'offers' => [
+                '@type' => 'Offer',
+                'url' => url()->current(),
+                'priceCurrency' => 'INR',
+                'price' => $product->offered_price > 0 ? number_format((float) $product->offered_price, 2, '.', '') : '0.00',
+                'availability' => 'https://schema.org/InStock',
+                'itemCondition' => 'https://schema.org/NewCondition',
+            ],
+        ];
+
+        // Drop null keys (e.g. category when the product has none)
+        $productSchema = array_filter($productSchema, fn ($v) => $v !== null);
+    @endphp
+    <script type="application/ld+json">{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    <script type="application/ld+json">{!! json_encode($productSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 @endpush

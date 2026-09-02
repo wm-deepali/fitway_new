@@ -21,6 +21,11 @@ class ProductSubSubCategory extends Model
         'meta_title',
         'meta_keywords',
         'meta_description',
+        'h1',
+        'og_title',
+        'og_description',
+        'og_image',
+        'canonical_url',
     ];
 
     protected $casts = [
@@ -47,11 +52,29 @@ class ProductSubSubCategory extends Model
         return $query->where('status', true);
     }
 
-public function getImageUrlAttribute(): string
+    public function getImageUrlAttribute(): string
     {
         return $this->image
             ? asset('storage/' . $this->image)
             : asset('assets/images/no-image.svg');
+    }
+
+    public function getBannerImageUrlAttribute(): ?string
+    {
+        return $this->banner_image ? asset('storage/' . $this->banner_image) : null;
+    }
+
+    public function getBannerVideoUrlAttribute(): ?string
+    {
+        return $this->banner_video ? asset('storage/' . $this->banner_video) : null;
+    }
+
+    // Falls back to the main image when no dedicated OG image is uploaded
+    public function getOgImageUrlAttribute(): string
+    {
+        return $this->og_image
+            ? asset('storage/' . $this->og_image)
+            : $this->image_url;
     }
 
     public static function generateUniqueSlug(string $name, ?int $ignoreId = null): string
@@ -70,4 +93,4 @@ public function getImageUrlAttribute(): string
 
         return $slug;
     }
-}
+};

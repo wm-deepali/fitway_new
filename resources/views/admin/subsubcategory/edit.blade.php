@@ -36,6 +36,7 @@
     select.form-control-styled { appearance: auto; }
     textarea.form-control-styled { height: auto; padding: 10px 12px; resize: vertical; }
     .form-control-styled:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(48,61,137,.12); }
+    .form-control-styled[readonly] { background: var(--bg); color: var(--text-hint); }
     .form-error { color: #b22222; font-size: 12px; margin-top: 5px; }
     .toggle-row { display: flex; align-items: center; gap: 10px; }
     .switch { position: relative; width: 42px; height: 24px; flex-shrink: 0; }
@@ -45,6 +46,11 @@
     .switch input:checked + .switch-slider { background: var(--accent); }
     .switch input:checked + .switch-slider::before { transform: translateX(18px); }
     .form-actions { display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
+    .radio-pill-row { display: flex; gap: 10px; }
+    .radio-pill { display: flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; font-size: 13px; cursor: pointer; }
+    .radio-pill input { margin: 0; }
+    .seo-divider { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
+    .seo-section-title { font-size: 13px; font-weight: 650; margin-bottom: 14px; }
     .current-img-preview { width: 72px; height: 72px; border-radius: var(--radius-sm); object-fit: cover; border: 1px solid var(--border); margin-bottom: 10px; display: block; }
     </style>
 
@@ -112,6 +118,13 @@
                     </div>
 
                     <div class="form-field">
+                        <label for="slug">Slug</label>
+                        <input type="text" id="slug" name="slug" class="form-control-styled" readonly
+                            value="{{ old('slug', $subsubcategory->slug) }}">
+                        <div class="hint">Generated automatically — used for the URL and canonical tag</div>
+                    </div>
+
+                    <div class="form-field">
                         <label for="image">Image</label>
                         @if($subsubcategory->image)
                             <img src="{{ asset('storage/' . $subsubcategory->image) }}" class="current-img-preview" alt="{{ $subsubcategory->name }}">
@@ -148,6 +161,55 @@
                             class="form-control-styled">{{ old('meta_description', $subsubcategory->meta_description) }}</textarea>
                     </div>
 
+                    <hr class="seo-divider">
+                    <div class="seo-section-title">SEO / Open Graph Details</div>
+
+                    <div class="form-field">
+                        <label for="h1">H1 Tag</label>
+                        <input type="text" id="h1" name="h1"
+                            class="form-control-styled @error('h1') is-invalid @enderror"
+                            value="{{ old('h1', $subsubcategory->h1) }}">
+                        <div class="hint">Auto-fills from Sub Sub Category Name — edit anytime to override</div>
+                        @error('h1') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="og_title">OG Title</label>
+                        <input type="text" id="og_title" name="og_title"
+                            class="form-control-styled @error('og_title') is-invalid @enderror"
+                            value="{{ old('og_title', $subsubcategory->og_title) }}">
+                        <div class="hint">Auto-fills from Meta Title — edit anytime to override</div>
+                        @error('og_title') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="og_description">OG Description</label>
+                        <textarea id="og_description" name="og_description" rows="3"
+                            class="form-control-styled @error('og_description') is-invalid @enderror">{{ old('og_description', $subsubcategory->og_description) }}</textarea>
+                        <div class="hint">Auto-fills from Meta Description — edit anytime to override</div>
+                        @error('og_description') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="og_image">OG Image</label>
+                        @if($subsubcategory->og_image)
+                            <img src="{{ asset('storage/' . $subsubcategory->og_image) }}" class="current-img-preview" alt="OG Image">
+                        @endif
+                        <input type="file" id="og_image" name="og_image"
+                            class="form-control-styled @error('og_image') is-invalid @enderror" accept="image/*">
+                        <div class="hint">Leave blank to keep current — falls back to the Sub Sub Category Image if none is set</div>
+                        @error('og_image') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="canonical_url">Canonical URL</label>
+                        <input type="text" id="canonical_url" name="canonical_url"
+                            class="form-control-styled @error('canonical_url') is-invalid @enderror"
+                            value="{{ old('canonical_url', $subsubcategory->canonical_url) }}">
+                        <div class="hint">Auto-fills from the slug — edit anytime to override</div>
+                        @error('canonical_url') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
                     <div class="form-actions">
                         <button type="submit" class="btn-primary-dash">
                             <i class="fa fa-check"></i> Update Sub Sub Category
@@ -165,28 +227,66 @@
 @include('admin.footer')
 
 <script>
-document.getElementById('category_id').addEventListener('change', function () {
-    const categoryId = this.value;
-    const subSelect = document.getElementById('sub_cat_id');
-    subSelect.innerHTML = '<option value="">Loading…</option>';
-    subSelect.disabled = true;
+    let h1Edited = false, ogTitleEdited = false, ogDescEdited = false, canonicalEdited = false;
 
-    if (!categoryId) {
-        subSelect.innerHTML = '<option value="">Select Category</option>';
-        return;
-    }
+    document.getElementById('h1').addEventListener('input', () => h1Edited = true);
+    document.getElementById('og_title').addEventListener('input', () => ogTitleEdited = true);
+    document.getElementById('og_description').addEventListener('input', () => ogDescEdited = true);
+    document.getElementById('canonical_url').addEventListener('input', () => canonicalEdited = true);
 
-    fetch("{{ route('admin.subsubcategories.getSubCategories') }}?category_id=" + categoryId)
-        .then(res => res.json())
-        .then(res => {
-            subSelect.innerHTML = '<option value="">Select Sub Category</option>';
-            res.data.forEach(sub => {
-                const opt = document.createElement('option');
-                opt.value = sub.id;
-                opt.textContent = sub.name;
-                subSelect.appendChild(opt);
+    document.getElementById('name').addEventListener('keyup', function () {
+        const slug = this.value
+            .toLowerCase()
+            .trim()
+            .replace(/[^a-z0-9\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+
+        document.getElementById('slug').value = slug;
+
+        if (!canonicalEdited) {
+            document.getElementById('canonical_url').value = '{{ url('/subsubcategory') }}/' + slug;
+        }
+
+        if (!h1Edited) {
+            document.getElementById('h1').value = this.value;
+        }
+    });
+
+    document.getElementById('meta_title').addEventListener('keyup', function () {
+        if (!ogTitleEdited) {
+            document.getElementById('og_title').value = this.value;
+        }
+    });
+
+    document.getElementById('meta_description').addEventListener('keyup', function () {
+        if (!ogDescEdited) {
+            document.getElementById('og_description').value = this.value;
+        }
+    });
+
+    document.getElementById('category_id').addEventListener('change', function () {
+        const categoryId = this.value;
+        const subSelect = document.getElementById('sub_cat_id');
+        subSelect.innerHTML = '<option value="">Loading…</option>';
+        subSelect.disabled = true;
+
+        if (!categoryId) {
+            subSelect.innerHTML = '<option value="">Select Category</option>';
+            return;
+        }
+
+        fetch("{{ route('admin.subsubcategories.getSubCategories') }}?category_id=" + categoryId)
+            .then(res => res.json())
+            .then(res => {
+                subSelect.innerHTML = '<option value="">Select Sub Category</option>';
+                res.data.forEach(sub => {
+                    const opt = document.createElement('option');
+                    opt.value = sub.id;
+                    opt.textContent = sub.name;
+                    subSelect.appendChild(opt);
+                });
+                subSelect.disabled = false;
             });
-            subSelect.disabled = false;
-        });
-});
+    });
 </script>

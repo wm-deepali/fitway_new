@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Contact Us | Fitway')
-@section('meta_description', 'Get in touch with Fitway for gym equipment, complete gym setup and custom fitness solutions. Call, email or visit our showroom.')
+@section('title', $pageSeo->seo->meta_title ?? 'Contact Us | Fitway')
+@section('meta_description', $pageSeo->seo->meta_description ?? 'Get in touch with Fitway for gym equipment, complete gym setup and custom fitness solutions. Call, email or visit our showroom.')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/sass/contact/contact.css') }}" />
@@ -34,7 +34,7 @@
             <div class="container">
                 <div class="banner-wrapper">
                     <div class="content">
-                        <h1>Let's Build Your Fitness Space.</h1>
+                        <h1>{{ $pageSeo->seo->h1 ?? "Let's Build Your Fitness Space." }}</h1>
 
                         <p>
                             Get in touch with our team for equipment, gym setup and custom

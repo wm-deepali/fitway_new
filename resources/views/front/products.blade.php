@@ -1,11 +1,41 @@
 @extends('layouts.app')
 
-@section('title', ($selectedCategory->meta_title ?? 'Products') . ' | Fitway')
-@section('meta_description', $selectedCategory->meta_description ?? 'Browse Fitway commercial, home and outdoor gym equipment — treadmills, strength machines, free weights and more, built for daily heavy use.')
+@section('title', $seo['title'])
+@section('meta_description', $seo['description'])
+
+@if($seo['canonical'])
+    @section('canonical', $seo['canonical'])
+@endif
+
+@if($seo['ogTitle'])
+    @section('og_title', $seo['ogTitle'])
+    @section('og_description', $seo['ogDescription'])
+@endif
+
+@if($seo['ogImage'])
+    @section('og_image', $seo['ogImage'])
+@endif
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/sass/products/products.css') }}" />
 @endpush
+
+@php
+    // Ordered breadcrumb trail for schema + used for OG fallback title parts
+    $breadcrumbTrail = collect([
+        ['name' => 'Home', 'url' => route('home')],
+        ['name' => 'Equipment', 'url' => route('products')],
+    ]);
+    if ($selectedCategory) {
+        $breadcrumbTrail->push(['name' => $selectedCategory->category_name, 'url' => route('products.category', $selectedCategory->slug)]);
+    }
+    if ($selectedSubCategory) {
+        $breadcrumbTrail->push(['name' => $selectedSubCategory->name, 'url' => route('products.subcategory', [$selectedCategory->slug, $selectedSubCategory->slug])]);
+    }
+    if ($selectedSubSubCategory) {
+        $breadcrumbTrail->push(['name' => $selectedSubSubCategory->name, 'url' => route('products.subsubcategory', [$selectedCategory->slug, $selectedSubCategory->slug, $selectedSubSubCategory->slug])]);
+    }
+@endphp
 
 
 @section('content')
@@ -46,7 +76,7 @@
             <div class="container">
                 <div class="banner-wrapper">
                     <div class="content">
-                        <h1>OUR PRODUCTS</h1>
+                        <h1>{{ $seo['h1'] }}</h1>
                         <p>
                             {{ $selectedCategory->short_description ?? 'Browse our complete range of commercial, home and outdoor fitness equipment.' }}
                         </p>
@@ -56,6 +86,7 @@
             </div>
         </div>
     </section>
+
 
     <section class="product-secB">
         <div class="container">
@@ -494,4 +525,36 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
     </script>
+@endpush
+@push('schema')
+    @php
+        $breadcrumbSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'BreadcrumbList',
+            'itemListElement' => $breadcrumbTrail->values()->map(function ($crumb, $index) {
+                return [
+                    '@type' => 'ListItem',
+                    'position' => $index + 1,
+                    'name' => $crumb['name'],
+                    'item' => $crumb['url'],
+                ];
+            })->all(),
+        ];
+
+        $itemListSchema = [
+            '@context' => 'https://schema.org',
+            '@type' => 'ItemList',
+            'itemListElement' => collect($products->items())->values()->map(function ($product, $index) {
+                return [
+                    '@type' => 'ListItem',
+                    'position' => $index + 1,
+                    'url' => $product->canonical_url ?? url('/product/' . $product->slug),
+                    'name' => $product->name,
+                    'image' => $product->image_url ?? null,
+                ];
+            })->all(),
+        ];
+    @endphp
+    <script type="application/ld+json">{!! json_encode($breadcrumbSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
+    <script type="application/ld+json">{!! json_encode($itemListSchema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}</script>
 @endpush

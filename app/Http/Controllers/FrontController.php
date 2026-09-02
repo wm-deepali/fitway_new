@@ -105,15 +105,36 @@ class FrontController extends Controller
                 'nextPageUrl' => $products->nextPageUrl(),
             ]);
         }
+        $activeSeoable = $selectedSubSubCategory ?? $selectedSubCategory ?? $selectedCategory;
+        $seo = $this->resolvePageSeo($activeSeoable, $pageSeo ?? null);
 
         return view('front.products', compact(
             'categories',
             'products',
             'selectedCategory',
             'selectedSubCategory',
-            'selectedSubSubCategory'
+            'selectedSubSubCategory',
+            'seo'
         ));
 
+    }
+
+    private function resolvePageSeo($activeSeoable, $pageSeo = null): array
+    {
+        $fallbackName = $activeSeoable?->category_name ?? $activeSeoable?->name;
+        $globalSeo = $pageSeo->seo ?? null;
+
+        return [
+            'title' => $activeSeoable?->meta_title ?? $fallbackName ?? $globalSeo?->meta_title ?? 'Products | Fitway',
+            'description' => $activeSeoable?->meta_description ?? $globalSeo?->meta_description ?? 'Browse Fitway commercial, home and outdoor gym equipment...',
+            'h1' => $activeSeoable?->h1 ?? $fallbackName ?? $globalSeo?->h1 ?? 'OUR PRODUCTS',
+            'canonical' => $activeSeoable?->canonical_url,
+            'ogTitle' => $activeSeoable?->og_title ?? $activeSeoable?->meta_title ?? $fallbackName,
+            'ogDescription' => $activeSeoable?->og_description ?? $activeSeoable?->meta_description,
+            'ogImage' => $activeSeoable && method_exists($activeSeoable, 'getOgImageUrlAttribute')
+                ? $activeSeoable->og_image_url
+                : $activeSeoable?->image_url,
+        ];
     }
 
     public function productDetail($slug)

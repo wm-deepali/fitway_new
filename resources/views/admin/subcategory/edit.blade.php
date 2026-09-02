@@ -51,6 +51,8 @@
     .radio-pill-row { display: flex; gap: 10px; }
     .radio-pill { display: flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 14px; font-size: 13px; cursor: pointer; }
     .radio-pill input { margin: 0; }
+    .seo-divider { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
+    .seo-section-title { font-size: 13px; font-weight: 650; margin-bottom: 14px; }
     </style>
 
     <div class="app-content content container-fluid">
@@ -191,6 +193,58 @@
                             class="form-control-styled">{{ old('meta_description', $subcategory->meta_description) }}</textarea>
                     </div>
 
+                    <hr class="seo-divider">
+                    <div class="seo-section-title">SEO / Open Graph Details</div>
+
+                    <div class="form-field">
+                        <label for="h1">H1 Tag</label>
+                        <input type="text" id="h1" name="h1"
+                            class="form-control-styled @error('h1') is-invalid @enderror"
+                            value="{{ old('h1', $subcategory->h1) }}" placeholder="Auto-filled from Sub Category Name">
+                        <div class="hint">Auto-fills from Sub Category Name — edit anytime to override</div>
+                        @error('h1') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="og_title">OG Title</label>
+                        <input type="text" id="og_title" name="og_title"
+                            class="form-control-styled @error('og_title') is-invalid @enderror"
+                            value="{{ old('og_title', $subcategory->og_title) }}" placeholder="Auto-filled from Meta Title">
+                        <div class="hint">Auto-fills from Meta Title — edit anytime to override</div>
+                        @error('og_title') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="og_description">OG Description</label>
+                        <textarea id="og_description" name="og_description" rows="3"
+                            class="form-control-styled @error('og_description') is-invalid @enderror"
+                            placeholder="Auto-filled from Meta Description">{{ old('og_description', $subcategory->og_description) }}</textarea>
+                        <div class="hint">Auto-fills from Meta Description — edit anytime to override</div>
+                        @error('og_description') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="og_image">OG Image</label>
+                        @if($subcategory->og_image)
+                            <img src="{{ asset('storage/' . $subcategory->og_image) }}" class="current-img-preview" alt="OG image">
+                        @elseif($subcategory->image)
+                            <img src="{{ asset('storage/' . $subcategory->image) }}" class="current-img-preview" alt="OG image (using sub category image)">
+                        @endif
+                        <input type="file" id="og_image" name="og_image"
+                            class="form-control-styled @error('og_image') is-invalid @enderror" accept="image/*">
+                        <div class="hint">Leave blank to keep current / automatically use the Sub Category Image as OG Image</div>
+                        @error('og_image') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
+                    <div class="form-field">
+                        <label for="canonical_url">Canonical URL</label>
+                        <input type="text" id="canonical_url" name="canonical_url"
+                            class="form-control-styled @error('canonical_url') is-invalid @enderror"
+                            value="{{ old('canonical_url', $subcategory->canonical_url) }}" placeholder="Auto-generated from slug">
+                        <div class="hint">Auto-fills from the slug — edit anytime to override</div>
+                        @error('canonical_url') <div class="form-error">{{ $message }}</div> @enderror
+                    </div>
+
                     <div class="form-actions">
                         <button type="submit" class="btn-primary-dash">
                             <i class="fa fa-check"></i> Update Sub Category
@@ -206,18 +260,47 @@
 </div>
 
 <script>
+    let h1Edited = false, ogTitleEdited = false, ogDescEdited = false, canonicalEdited = false;
+
+    document.getElementById('h1').addEventListener('input', () => h1Edited = true);
+    document.getElementById('og_title').addEventListener('input', () => ogTitleEdited = true);
+    document.getElementById('og_description').addEventListener('input', () => ogDescEdited = true);
+    document.getElementById('canonical_url').addEventListener('input', () => canonicalEdited = true);
+
     function toggleBannerUpload(type) {
         document.getElementById('banner_image_field').style.display = type === 'image' ? 'block' : 'none';
         document.getElementById('banner_video_field').style.display = type === 'video' ? 'block' : 'none';
     }
 
     document.getElementById('name').addEventListener('keyup', function () {
-        document.getElementById('slug').value = this.value
+        const slug = this.value
             .toLowerCase()
             .trim()
             .replace(/[^a-z0-9\s-]/g, '')
             .replace(/\s+/g, '-')
             .replace(/-+/g, '-');
+
+        document.getElementById('slug').value = slug;
+
+        if (!canonicalEdited) {
+            document.getElementById('canonical_url').value = '{{ url('/subcategory') }}/' + slug;
+        }
+
+        if (!h1Edited) {
+            document.getElementById('h1').value = this.value;
+        }
+    });
+
+    document.getElementById('meta_title').addEventListener('keyup', function () {
+        if (!ogTitleEdited) {
+            document.getElementById('og_title').value = this.value;
+        }
+    });
+
+    document.getElementById('meta_description').addEventListener('keyup', function () {
+        if (!ogDescEdited) {
+            document.getElementById('og_description').value = this.value;
+        }
     });
 </script>
 

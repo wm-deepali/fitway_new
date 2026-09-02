@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Blogs | Fitway')
-@section('meta_description', 'Explore expert tips, gym setup ideas, equipment guides and insights from Fitway to help you build better fitness spaces.')
+@section('title',  $pageSeo->seo->meta_title ?? 'Blogs | Fitway')
+@section('meta_description', $pageSeo->seo->meta_description ?? 'Explore expert tips, gym setup ideas, equipment guides and insights from Fitway to help you build better fitness spaces.')
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/sass/blogs/blog.css') }}" />
@@ -31,7 +31,7 @@
             <div class="container">
                 <div class="banner-wrapper">
                     <div class="content">
-                        <h1>Fitness Journal.</h1>
+                        <h1>{{ $pageSeo->seo->h1 ?? 'Fitness Journal.' }}</h1>
 
                         <p>
                             Explore expert tips, gym setup ideas, equipment guides and
