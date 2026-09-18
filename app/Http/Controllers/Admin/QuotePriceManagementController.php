@@ -1,76 +1,71 @@
 <?php
-// app/Http/Controllers/Admin/PriceManagementController.php
+// app/Http/Controllers/Admin/QuotePriceManagementController.php
 
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
-use App\Models\ProductCategory;
-use App\Models\ProductSubCategory;
+use App\Models\Vendor;
+use App\Models\Brand;
 use App\Models\ProductPriceHistory;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
-class PriceManagementController extends Controller
+class QuotePriceManagementController extends Controller
 {
     /**
      * Columns this feature is allowed to read/write — kept in one place
      * so export, import, and the update() diff logic never drift apart.
+     * Same columns as the catalog Price Management page (point 6's field
+     * set: Purchase Price, MRP, Discount Type/Value, Sales/Offered Price).
      */
     protected array $priceColumns = [
         'mrp', 'discount_type', 'discount_value', 'offered_price', 'purchase_price',
     ];
 
     /**
-     * Catalog-only scope. Internal Inventory products (source_type =
-     * 'internal_inventory') have their own Price Management page under
-     * Quotation System — keeping the two apart avoids the same product
-     * grid mixing storefront items with quote-only stock.
+     * Internal Inventory-only scope. Catalog/storefront products stay on
+     * the original Price Management page under Gym Equipments.
      */
-    protected function catalogScope()
+    protected function inventoryScope()
     {
-        return Product::where(function ($q) {
-            $q->where('source_type', 'catalog')->orWhereNull('source_type');
-        });
+        return Product::where('source_type', 'internal_inventory');
     }
 
     public function index(Request $request)
     {
-        $products = $this->catalogScope()
-            ->with(['category', 'subCategory', 'subSubCategory'])
+        $products = $this->inventoryScope()
+            ->with(['vendor', 'brand'])
             ->when($request->search, function ($query) use ($request) {
                 $query->where('name', 'like', '%' . $request->search . '%');
             })
-            ->when($request->category_id, function ($query) use ($request) {
-                $query->where('category_id', $request->category_id);
+            ->when($request->vendor_id, function ($query) use ($request) {
+                $query->where('vendor_id', $request->vendor_id);
             })
-            ->when($request->sub_cat_id, function ($query) use ($request) {
-                $query->where('sub_cat_id', $request->sub_cat_id);
+            ->when($request->brand_id, function ($query) use ($request) {
+                $query->where('brand_id', $request->brand_id);
             })
             ->orderBy('name')
             ->paginate(20)
             ->withQueryString();
 
-        $categories = ProductCategory::active()->orderBy('category_name')->get(['id', 'category_name as name']);
-        $subcategories = ProductSubCategory::active()
-            ->when($request->category_id, fn ($q) => $q->where('category_id', $request->category_id))
-            ->orderBy('name')
-            ->get(['id', 'name']);
+        $vendors = Vendor::orderBy('vendor_name')->get(['id', 'vendor_name']);
+        $brands = Brand::orderBy('name')->get(['id', 'name']);
 
         $stats = [
-            'total' => $this->catalogScope()->count(),
-            'no_discount' => $this->catalogScope()->where(function ($q) {
+            'total' => $this->inventoryScope()->count(),
+            'no_discount' => $this->inventoryScope()->where(function ($q) {
                 $q->whereNull('discount_value')->orWhere('discount_value', 0);
             })->count(),
-            'no_purchase_price' => $this->catalogScope()->whereNull('purchase_price')->count(),
+            'no_purchase_price' => $this->inventoryScope()->whereNull('purchase_price')->count(),
         ];
 
-        return view('admin.price-management.index', compact('products', 'categories', 'subcategories', 'stats'));
+        return view('admin.quote-price-management.index', compact('products', 'vendors', 'brands', 'stats'));
     }
 
     public function update(Request $request, Product $product)
     {
-        abort_unless(in_array($product->source_type, ['catalog', null]), 404);
+        abort_unless($product->source_type === 'internal_inventory', 404);
 
         $validated = $request->validate([
             'mrp'             => 'nullable|numeric|min:0',
@@ -97,21 +92,20 @@ class PriceManagementController extends Controller
     }
 
     /**
-     * Exports exactly the columns shown on the Price Management grid,
-     * respecting whatever search/category filters are currently applied —
-     * so "export what I'm looking at" works for filtered views too.
+     * Exports exactly the columns shown on this grid, respecting whatever
+     * search/vendor/brand filters are currently applied.
      */
     public function export(Request $request)
     {
-        $products = $this->catalogScope()
+        $products = $this->inventoryScope()
             ->when($request->search, function ($query) use ($request) {
                 $query->where('name', 'like', '%' . $request->search . '%');
             })
-            ->when($request->category_id, function ($query) use ($request) {
-                $query->where('category_id', $request->category_id);
+            ->when($request->vendor_id, function ($query) use ($request) {
+                $query->where('vendor_id', $request->vendor_id);
             })
-            ->when($request->sub_cat_id, function ($query) use ($request) {
-                $query->where('sub_cat_id', $request->sub_cat_id);
+            ->when($request->brand_id, function ($query) use ($request) {
+                $query->where('brand_id', $request->brand_id);
             })
             ->orderBy('name')
             ->get(array_merge(['id', 'name'], $this->priceColumns));
@@ -136,17 +130,17 @@ class PriceManagementController extends Controller
         $response->headers->set('Content-Type', 'text/csv');
         $response->headers->set(
             'Content-Disposition',
-            'attachment; filename=price_management_' . now()->format('Y-m-d_His') . '.csv'
+            'attachment; filename=quote_price_management_' . now()->format('Y-m-d_His') . '.csv'
         );
 
         return $response;
     }
 
     /**
-     * Bulk-updates ONLY existing catalog products (matched by id) and ONLY
-     * the price-management columns. Never creates a product, and skips any
-     * id that belongs to an Internal Inventory item so the two price grids
-     * can never cross-write each other's rows.
+     * Bulk-updates ONLY existing Internal Inventory products (matched by
+     * id) and ONLY the price-management columns. Skips any id that belongs
+     * to a catalog product so the two price grids can never cross-write
+     * each other's rows.
      */
     public function importStore(Request $request)
     {
@@ -174,7 +168,6 @@ class PriceManagementController extends Controller
         $skippedRows = [];
 
         while (($row = fgetcsv($handle)) !== false) {
-            // Guard against short/blank trailing rows.
             if (count($row) < count($header)) {
                 $row = array_pad($row, count($header), null);
             }
@@ -186,7 +179,7 @@ class PriceManagementController extends Controller
                 continue;
             }
 
-            $product = $this->catalogScope()->find($data['id']);
+            $product = $this->inventoryScope()->find($data['id']);
 
             if (!$product) {
                 $skipped++;
@@ -202,7 +195,7 @@ class PriceManagementController extends Controller
                 }
 
                 if (in_array($col, ['mrp', 'discount_value', 'offered_price', 'purchase_price']) && !is_numeric($data[$col])) {
-                    continue; // silently skip bad numeric cells rather than fail the whole row
+                    continue;
                 }
 
                 if ($col === 'discount_type' && !in_array($data[$col], ['flat', 'percentage'])) {
@@ -236,7 +229,7 @@ class PriceManagementController extends Controller
 
     /**
      * Returns the price-change history for a single product, newest first.
-     * Internal-use only — powers the "Logs" modal on the Price Management page.
+     * Shares the same ProductPriceHistory table as the catalog page.
      */
     public function logs(Product $product)
     {

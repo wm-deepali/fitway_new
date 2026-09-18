@@ -1,20 +1,19 @@
 <?php
-// app/Models/Product.php
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 class Product extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
+        'source_type',
         'category_id',
         'sub_cat_id',
         'sub_sub_cat_id',
+        'vendor_id',
+        'brand_id',
         'name',
         'slug',
         'mrp',
@@ -35,11 +34,7 @@ class Product extends Model
     ];
 
     protected $casts = [
-        'mrp'            => 'decimal:2',
-        'discount_value' => 'decimal:2',
-        'offered_price'  => 'decimal:2',
-        'purchase_price' => 'decimal:2',
-        'status'         => 'boolean',
+        'status' => 'boolean',
     ];
 
     public function category()
@@ -57,64 +52,49 @@ class Product extends Model
         return $this->belongsTo(ProductSubSubCategory::class, 'sub_sub_cat_id');
     }
 
+    public function vendor()
+    {
+        return $this->belongsTo(Vendor::class);
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class);
+    }
+
     public function scopeActive($query)
     {
-        return $query->where('status', true);
+        return $query->where('status', 1);
     }
 
-    /**
-     * Public URL for the stored image, falls back to the no-image placeholder.
-     */
-    public function getImageUrlAttribute(): string
+    public function scopeCatalog($query)
     {
-        return $this->image
-            ? asset('storage/' . $this->image)
-            : asset('assets/images/no-image.svg');
+        return $query->where('source_type', 'catalog');
     }
 
-    /**
-     * Alt text for the product image: Sub Sub Category + product name.
-     */
-    public function getImageAltAttribute(): string
+    public function scopeInternalInventory($query)
     {
-        return trim(($this->subSubCategory?->name ?? '') . ' ' . $this->name);
+        return $query->where('source_type', 'internal_inventory');
     }
 
-    /**
-     * "Commercial Equipment · Cardio" style breadcrumb for the card badge.
-     */
-    public function getCategoryPathAttribute(): string
+    public function getImageUrlAttribute()
     {
-        return collect([$this->category?->category_name, $this->subCategory?->name])
-            ->filter()
-            ->implode(' · ');
+        return $this->image ? asset('storage/' . $this->image) : null;
     }
 
-    /**
-     * Storefront-ready price string. Falls back to "Price on Request"
-     * when no offered price has been set.
-     */
-    public function getDisplayPriceAttribute(): string
+    public function getImageAltAttribute()
     {
-        return $this->offered_price !== null
-            ? '₹' . number_format((float) $this->offered_price, 2)
-            : 'Price on Request';
+        $parts = array_filter([$this->subSubCategory?->name, $this->name]);
+        return implode(' - ', $parts) ?: $this->name;
     }
 
-    /**
-     * OG image URL, falls back to the product image when none is set.
-     */
-    public function getOgImageUrlAttribute(): string
+    public function getOgImageUrlAttribute()
     {
-        return $this->og_image
-            ? asset('storage/' . $this->og_image)
-            : $this->image_url;
+        return $this->og_image ? asset('storage/' . $this->og_image) : null;
     }
 
-    /**
-     * Unique slug from the product name, ignoring the current product on update.
-     */
-    public static function generateUniqueSlug(string $name, ?int $ignoreId = null): string
+    /** Generates a unique slug from the name, appending -1, -2, … on collision. */
+    public static function generateUniqueSlug(string $name, $ignoreId = null): string
     {
         $slug = Str::slug($name);
         $original = $slug;

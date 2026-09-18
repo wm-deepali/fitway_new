@@ -64,6 +64,32 @@
             </ul>
         </li>
 
+        {{-- QUOTATION SYSTEM (new) --}}
+        <li
+            class="{{ request()->routeIs(['admin.manage-vendors.*', 'admin.brands.*', 'admin.customers.*', 'admin.quotes.*', 'admin.quote-price-management.*', 'admin.quote-settings.*']) ? 'active' : '' }}">
+            <a href="#"><i class="fa-solid fa-file-invoice-dollar"></i> Quotation System</a>
+            <ul>
+                <li class="{{ request()->routeIs('admin.manage-vendors.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.manage-vendors.index') }}">Manage Vendors</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.brands.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.brands.index') }}">Manage Brands</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.customers.index') }}">Manage Customers</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.quote-price-management.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.quote-price-management.index') }}">Price Management</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.quotes.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.quotes.index') }}">Manage Quotes</a>
+                </li>
+                <li class="{{ request()->routeIs('admin.quote-settings.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.quote-settings.index') }}">Quote Settings</a>
+                </li>
+            </ul>
+        </li>
+
         {{-- HOME PAGE --}}
         <li
             class="{{ request()->routeIs(['admin.sliders.*', 'admin.about-us.*', 'admin.client-gallery.*', 'admin.portfolio.*', 'admin.instagram.*', 'admin.plan-prices.*']) ? 'active' : '' }}">
@@ -71,6 +97,10 @@
             <ul>
                 <li class="{{ request()->routeIs('admin.sliders.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.sliders.index') }}">Slider</a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.about-us.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.about-us.edit') }}">About Us & Who Are We</a>
                 </li>
 
                 <li class="{{ request()->routeIs('admin.client-gallery.*') ? 'active' : '' }}">
@@ -150,10 +180,6 @@
                     <a href="{{ route('admin.admin-setting.index', ['tab' => 'smtp']) }}">SMTP Settings</a>
                 </li>
             </ul>
-        </li>
-
-        <li class="{{ request()->routeIs('admin.about-us.*') ? 'active' : '' }}">
-            <a href="{{ route('admin.about-us.edit') }}">About Us & Who Are We</a>
         </li>
 
     </ul>

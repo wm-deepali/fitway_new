@@ -31,7 +31,13 @@ use App\Http\Controllers\Admin\{
     AnnouncementController,
     QuoteRequestController,
     PageQuoteRequestController,
-    SeoController
+    SeoController,
+    VendorController,
+    BrandController,
+    CustomerController,
+    QuoteSettingController,
+    QuoteController,
+    QuotePriceManagementController
 
 };
 
@@ -135,12 +141,22 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
         Route::get('products/get-subcategories', [ProductController::class, 'getSubCategories'])->name('products.getSubCategories');
         Route::get('products/sub-sub-categories', [ProductController::class, 'getSubSubCategories'])->name('products.getSubSubCategories');
+        Route::post('products/quick-store-vendor', [ProductController::class, 'quickStoreVendor'])->name('products.quickStoreVendor');
+        Route::post('products/quick-store-brand', [ProductController::class, 'quickStoreBrand'])->name('products.quickStoreBrand');
 
-        Route::get('price-management', [PriceManagementController::class, 'index'])->name('price-management.index');
-        Route::post('price-management/{product}', [PriceManagementController::class, 'update'])->name('price-management.update');
-        Route::get('price-management-export', [PriceManagementController::class, 'export'])->name('price-management.export');
-        Route::post('price-management-import', [PriceManagementController::class, 'importStore'])->name('price-management.import');
-        Route::get('price-management/{product}/logs', [PriceManagementController::class, 'logs'])->name('price-management.logs');
+
+Route::get('quote-price-management', [QuotePriceManagementController::class, 'index'])->name('quote-price-management.index');
+Route::post('quote-price-management/{product}', [QuotePriceManagementController::class, 'update'])->name('quote-price-management.update');
+Route::get('quote-price-management-export', [QuotePriceManagementController::class, 'export'])->name('quote-price-management.export');
+Route::post('quote-price-management-import', [QuotePriceManagementController::class, 'importStore'])->name('quote-price-management.import');
+Route::get('quote-price-management/{product}/logs', [QuotePriceManagementController::class, 'logs'])->name('quote-price-management.logs');
+
+
+Route::get('price-management', [PriceManagementController::class, 'index'])->name('price-management.index');
+Route::post('price-management/{product}', [PriceManagementController::class, 'update'])->name('price-management.update');
+Route::get('price-management-export', [PriceManagementController::class, 'export'])->name('price-management.export');
+Route::post('price-management-import', [PriceManagementController::class, 'importStore'])->name('price-management.import');
+Route::get('price-management/{product}/logs', [PriceManagementController::class, 'logs'])->name('price-management.logs');
 
         Route::get('sliders', [SliderController::class, 'index'])->name('sliders.index');
         Route::get('sliders/create', [SliderController::class, 'create'])->name('sliders.create');
@@ -263,6 +279,37 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('/{id}/edit', [SeoController::class, 'edit'])->name('edit');
             Route::put('/{id}', [SeoController::class, 'update'])->name('update');
         });
+
+        Route::get('manage-vendors/get-cities', [VendorController::class, 'getCities'])->name('vendors.getCities');
+        Route::resource('manage-vendors', VendorController::class);
+        Route::resource('brands', BrandController::class);
+        
+        // Quote Settings
+        Route::get('quote-settings', [QuoteSettingController::class, 'index'])->name('quote-settings.index');
+        Route::post('quote-settings', [QuoteSettingController::class, 'store'])->name('quote-settings.store');
+        Route::get('quote-settings/get-cities/{state_id}', [QuoteSettingController::class, 'getCitiesByState'])->name('quote-settings.get-cities');
+
+        // Manage Customers
+        Route::get('customers', [CustomerController::class, 'index'])->name('customers.index');
+        Route::get('customers/{customer}', [CustomerController::class, 'show'])->name('customers.show');
+        Route::post('customers/{customer}/status', [CustomerController::class, 'updateStatus'])->name('customers.update-status');
+
+
+        Route::get('quotes/create', [QuoteController::class, 'create'])->name('quotes.create');
+        Route::get('quotes/{quote}/edit', [QuoteController::class, 'edit'])->name('quotes.edit');
+        Route::post('quotes', [QuoteController::class, 'store'])->name('quotes.store');
+        Route::get('quotes/{quote}/preview', [QuoteController::class, 'preview'])->name('quotes.preview');
+        Route::post('quotes/{quote}/generate', [QuoteController::class, 'generate'])->name('quotes.generate');
+        Route::delete('quotes/{quote}/discard', [QuoteController::class, 'discardDraft'])->name('quotes.discard');
+
+        // ye jaise-hai-waise rehne do
+        Route::get('quotes', [QuoteController::class, 'index'])->name('quotes.index');
+        Route::get('quotes/search-customer', [QuoteController::class, 'searchCustomer'])->name('quotes.search-customer');
+        Route::get('quotes/search-products', [QuoteController::class, 'searchProducts'])->name('quotes.search-products');
+        Route::get('quotes/{quote}/download', [QuoteController::class, 'download'])->name('quotes.download');
+        Route::post('quotes/{quote}/send-email', [QuoteController::class, 'sendEmail'])->name('quotes.sendEmail');
+        Route::post('quotes/brands', [QuoteController::class, 'storeBrand'])->name('quotes.store-brand');
+        Route::delete('quotes/{quote}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
 
 
     });

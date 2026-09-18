@@ -48,7 +48,9 @@ class FrontController extends Controller
             ->orderBy('id')
             ->get();
 
-        $productsQuery = Product::active()->with(['category', 'subCategory', 'subSubCategory']);
+        $productsQuery = Product::active()
+            ->where('source_type', 'catalog')
+            ->with(['category', 'subCategory', 'subSubCategory']);
 
         $selectedCategory = null;
         if ($category) {
@@ -140,6 +142,7 @@ class FrontController extends Controller
     public function productDetail($slug)
     {
         $product = Product::active()
+            ->where('source_type', 'catalog')
             ->with(['category', 'subCategory', 'subSubCategory'])
             ->where('slug', $slug)
             ->firstOrFail();
@@ -155,9 +158,9 @@ class FrontController extends Controller
         ]);
 
         $relatedProducts = Product::active()
+            ->where('source_type', 'catalog')
             ->with(['category', 'subCategory'])
             ->where('category_id', $product->category_id)
-            // ->where('id', '!=', $product->id)
             ->orderBy('id')
             ->take(6)
             ->get();

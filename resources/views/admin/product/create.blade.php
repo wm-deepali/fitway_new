@@ -49,7 +49,29 @@
     .form-actions { display: flex; gap: 10px; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--border); }
     .seo-divider { border: none; border-top: 1px solid var(--border); margin: 22px 0; }
     .seo-section-title { font-size: 13px; font-weight: 650; margin-bottom: 14px; }
-    @media (max-width: 640px) { .form-row-2 { grid-template-columns: 1fr; } }
+
+    /* Source-type pill selector */
+    .source-pills { display: flex; gap: 10px; margin-bottom: 22px; }
+    .source-pill { flex: 1; border: 1.5px solid var(--border); border-radius: var(--radius-md); padding: 14px 16px; cursor: pointer; transition: .15s; }
+    .source-pill input { display: none; }
+    .source-pill .pill-title { font-size: 13.5px; font-weight: 650; }
+    .source-pill .pill-sub { font-size: 11.5px; color: var(--text-hint); margin-top: 2px; }
+    .source-pill.active { border-color: var(--accent); background: rgba(48,61,137,.05); }
+
+    .dropdown-add-row { display: flex; gap: 8px; align-items: flex-start; }
+    .dropdown-add-row .form-control-styled { flex: 1; }
+    .btn-add-inline { height: 40px; width: 40px; flex-shrink: 0; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); color: var(--accent); font-size: 16px; cursor: pointer; }
+    .btn-add-inline:hover { background: var(--bg); }
+
+    .qa-modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45); z-index: 2000; align-items: center; justify-content: center; }
+    .qa-modal-backdrop.show { display: flex; }
+    .qa-modal { background: #fff; border-radius: var(--radius-md); width: 520px; max-width: 92vw; max-height: 85vh; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,.2); }
+    .qa-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .qa-modal-header h5 { margin: 0; font-size: 15px; font-weight: 700; }
+    .qa-modal-header button { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-hint); }
+    .qa-modal-body { padding: 18px 20px; }
+
+    @media (max-width: 640px) { .form-row-2 { grid-template-columns: 1fr; } .source-pills { flex-direction: column; } }
     </style>
 
     <div class="app-content content container-fluid">
@@ -72,39 +94,91 @@
             </div>
 
             <div class="cat-card">
-                <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" id="productForm">
                     @csrf
 
-                    <div class="form-row-2">
-                        <div class="form-field">
-                            <label for="category_id">Category</label>
-                            <select id="category_id" name="category_id"
-                                class="form-control-styled @error('category_id') is-invalid @enderror" required>
-                                <option value="">Select Category</option>
-                                @foreach($parentCategories as $parent)
-                                    <option value="{{ $parent->id }}" {{ old('category_id') == $parent->id ? 'selected' : '' }}>
-                                        {{ $parent->category_name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            @error('category_id') <div class="form-error">{{ $message }}</div> @enderror
+                    <div class="source-pills">
+                        <label class="source-pill" id="pillCatalog">
+                            <input type="radio" name="source_type" value="catalog" {{ old('source_type', 'catalog') === 'catalog' ? 'checked' : '' }}>
+                            <div class="pill-title">Catalog Product</div>
+                            <div class="pill-sub">Shown on storefront, has Category</div>
+                        </label>
+                        <label class="source-pill" id="pillInternal">
+                            <input type="radio" name="source_type" value="internal_inventory" {{ old('source_type') === 'internal_inventory' ? 'checked' : '' }}>
+                            <div class="pill-title">Internal Inventory</div>
+                            <div class="pill-sub">Used in Quotations, has Vendor + Brand</div>
+                        </label>
+                    </div>
+                    @error('source_type') <div class="form-error" style="margin-top:-14px;margin-bottom:14px">{{ $message }}</div> @enderror
+
+                    {{-- ===== Catalog-only fields ===== --}}
+                    <div id="catalogFields">
+                        <div class="form-row-2">
+                            <div class="form-field">
+                                <label for="category_id">Category</label>
+                                <select id="category_id" name="category_id"
+                                    class="form-control-styled @error('category_id') is-invalid @enderror">
+                                    <option value="">Select Category</option>
+                                    @foreach($parentCategories as $parent)
+                                        <option value="{{ $parent->id }}" {{ old('category_id') == $parent->id ? 'selected' : '' }}>
+                                            {{ $parent->category_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('category_id') <div class="form-error">{{ $message }}</div> @enderror
+                            </div>
+
+                            <div class="form-field">
+                                <label for="sub_cat_id">Sub Category</label>
+                                <select id="sub_cat_id" name="sub_cat_id" class="form-control-styled" disabled>
+                                    <option value="">Select Category First</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="form-field">
-                            <label for="sub_cat_id">Sub Category</label>
-                            <select id="sub_cat_id" name="sub_cat_id"
-                                class="form-control-styled" disabled>
-                                <option value="">Select Category First</option>
+                            <label for="sub_sub_cat_id">Sub Sub Category</label>
+                            <select id="sub_sub_cat_id" name="sub_sub_cat_id" class="form-control-styled" disabled>
+                                <option value="">Select Sub Category First</option>
                             </select>
                         </div>
                     </div>
 
-                    <div class="form-field">
-                        <label for="sub_sub_cat_id">Sub Sub Category</label>
-                        <select id="sub_sub_cat_id" name="sub_sub_cat_id"
-                            class="form-control-styled" disabled>
-                            <option value="">Select Sub Category First</option>
-                        </select>
+                    {{-- ===== Internal Inventory-only fields ===== --}}
+                    <div id="inventoryFields" style="display:none">
+                        <div class="form-row-2">
+                            <div class="form-field">
+                                <label for="vendor_id">Purchased From (Vendor)</label>
+                                <div class="dropdown-add-row">
+                                    <select id="vendor_id" name="vendor_id" class="form-control-styled @error('vendor_id') is-invalid @enderror">
+                                        <option value="">Select Vendor</option>
+                                        @foreach($vendors as $vendor)
+                                            <option value="{{ $vendor->id }}" {{ old('vendor_id') == $vendor->id ? 'selected' : '' }}>
+                                                {{ $vendor->vendor_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <button type="button" class="btn-add-inline" id="openVendorModal" title="Add new vendor">+</button>
+                                </div>
+                                @error('vendor_id') <div class="form-error">{{ $message }}</div> @enderror
+                            </div>
+
+                            <div class="form-field">
+                                <label for="brand_id">Brand</label>
+                                <div class="dropdown-add-row">
+                                    <select id="brand_id" name="brand_id" class="form-control-styled @error('brand_id') is-invalid @enderror">
+                                        <option value="">Select Brand</option>
+                                        @foreach($brands as $brand)
+                                            <option value="{{ $brand->id }}" {{ old('brand_id') == $brand->id ? 'selected' : '' }}>
+                                                {{ $brand->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <button type="button" class="btn-add-inline" id="openBrandModal" title="Add new brand">+</button>
+                                </div>
+                                @error('brand_id') <div class="form-error">{{ $message }}</div> @enderror
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-field">
@@ -185,6 +259,8 @@
                         <label style="margin:0">Active</label>
                     </div>
 
+                    <div id="seoFields">
+
                     <div class="form-field">
                         <label for="meta_title">Meta Title</label>
                         <input type="text" id="meta_title" name="meta_title" class="form-control-styled"
@@ -243,6 +319,7 @@
                         <div class="hint">Auto-fills from the slug — edit anytime to override</div>
                         @error('canonical_url') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
+</div> {{-- /seoFields --}}
 
                     <div class="form-actions">
                         <button type="submit" class="btn-primary-dash">
@@ -258,6 +335,76 @@
     </div>
 </div>
 
+{{-- Quick-add Vendor modal --}}
+<div class="qa-modal-backdrop" id="vendorModalBackdrop">
+    <div class="qa-modal">
+        <div class="qa-modal-header">
+            <h5>Add New Vendor</h5>
+            <button type="button" id="closeVendorModal">&times;</button>
+        </div>
+        <div class="qa-modal-body">
+            <div class="form-field">
+                <label>Vendor Name *</label>
+                <input type="text" id="qa_vendor_name" class="form-control-styled">
+            </div>
+            <div class="form-field">
+                <label>GST Number</label>
+                <input type="text" id="qa_gst_number" class="form-control-styled">
+            </div>
+            <div class="form-field">
+                <label>Full Address *</label>
+                <textarea id="qa_full_address" class="form-control-styled"></textarea>
+            </div>
+            <div class="form-row-2">
+                <div class="form-field">
+                    <label>Email ID *</label>
+                    <input type="email" id="qa_email" class="form-control-styled">
+                </div>
+                <div class="form-field">
+                    <label>Contact Person *</label>
+                    <input type="text" id="qa_contact_person_name" class="form-control-styled">
+                </div>
+            </div>
+            <div class="form-row-2">
+                <div class="form-field">
+                    <label>Mobile Number *</label>
+                    <input type="text" id="qa_mobile_number" class="form-control-styled">
+                </div>
+                <div class="form-field">
+                    <label>WhatsApp Number</label>
+                    <input type="text" id="qa_whatsapp_number" class="form-control-styled">
+                </div>
+            </div>
+            <div id="qa_vendor_error" class="form-error" style="display:none"></div>
+            <div class="form-actions" style="border-top:none;padding-top:0">
+                <button type="button" class="btn-primary-dash" id="saveVendorBtn">Save Vendor</button>
+                <button type="button" class="btn-secondary-dash" id="cancelVendorBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{-- Quick-add Brand modal --}}
+<div class="qa-modal-backdrop" id="brandModalBackdrop">
+    <div class="qa-modal" style="width:420px">
+        <div class="qa-modal-header">
+            <h5>Add New Brand</h5>
+            <button type="button" id="closeBrandModal">&times;</button>
+        </div>
+        <div class="qa-modal-body">
+            <div class="form-field">
+                <label>Brand Name *</label>
+                <input type="text" id="qa_brand_name" class="form-control-styled">
+            </div>
+            <div id="qa_brand_error" class="form-error" style="display:none"></div>
+            <div class="form-actions" style="border-top:none;padding-top:0">
+                <button type="button" class="btn-primary-dash" id="saveBrandBtn">Save Brand</button>
+                <button type="button" class="btn-secondary-dash" id="cancelBrandBtn">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @include('admin.footer')
 
 <!-- Ckeditor -->
@@ -265,6 +412,8 @@
 <script src="{{ asset('Admin/js/pages/forms/editors.js') }}"></script>
 
 <script>
+const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;
+
 function restrictNumber(e) {
     this.value = this.value.replace(/[^\d.]/g, '');
 }
@@ -390,5 +539,129 @@ document.getElementById('meta_description').addEventListener('keyup', function (
     if (!ogDescEdited) {
         document.getElementById('og_description').value = this.value;
     }
+});
+
+// ---------- Source type toggle ----------
+const catalogFields = document.getElementById('catalogFields');
+const inventoryFields = document.getElementById('inventoryFields');
+const pillCatalog = document.getElementById('pillCatalog');
+const pillInternal = document.getElementById('pillInternal');
+const categorySelect = document.getElementById('category_id');
+const vendorSelect = document.getElementById('vendor_id');
+const brandSelect = document.getElementById('brand_id');
+const seoFields = document.getElementById('seoFields'); // add this
+
+
+function syncSourceType() {
+    const isInternal = document.querySelector('input[name="source_type"]:checked').value === 'internal_inventory';
+
+    catalogFields.style.display = isInternal ? 'none' : 'block';
+    inventoryFields.style.display = isInternal ? 'block' : 'none';
+    seoFields.style.display = isInternal ? 'none' : 'block'; 
+
+    pillCatalog.classList.toggle('active', !isInternal);
+    pillInternal.classList.toggle('active', isInternal);
+
+    // Don't force validation on fields the admin can't see.
+    categorySelect.required = !isInternal;
+    vendorSelect.required = isInternal;
+    brandSelect.required = isInternal;
+}
+
+document.querySelectorAll('input[name="source_type"]').forEach(radio => {
+    radio.addEventListener('change', syncSourceType);
+});
+syncSourceType();
+
+// ---------- Quick-add Vendor ----------
+const vendorModalBackdrop = document.getElementById('vendorModalBackdrop');
+document.getElementById('openVendorModal').addEventListener('click', () => vendorModalBackdrop.classList.add('show'));
+document.getElementById('closeVendorModal').addEventListener('click', () => vendorModalBackdrop.classList.remove('show'));
+document.getElementById('cancelVendorBtn').addEventListener('click', () => vendorModalBackdrop.classList.remove('show'));
+
+document.getElementById('saveVendorBtn').addEventListener('click', function () {
+    const errorBox = document.getElementById('qa_vendor_error');
+    errorBox.style.display = 'none';
+
+    const payload = {
+        vendor_name: document.getElementById('qa_vendor_name').value,
+        gst_number: document.getElementById('qa_gst_number').value,
+        full_address: document.getElementById('qa_full_address').value,
+        email: document.getElementById('qa_email').value,
+        contact_person_name: document.getElementById('qa_contact_person_name').value,
+        mobile_number: document.getElementById('qa_mobile_number').value,
+        whatsapp_number: document.getElementById('qa_whatsapp_number').value,
+    };
+
+    fetch("{{ route('admin.products.quickStoreVendor') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+        },
+        body: JSON.stringify(payload),
+    })
+        .then(async res => {
+            const data = await res.json();
+            if (!res.ok) throw data;
+            return data;
+        })
+        .then(data => {
+            const opt = document.createElement('option');
+            opt.value = data.vendor.id;
+            opt.textContent = data.vendor.vendor_name;
+            opt.selected = true;
+            vendorSelect.appendChild(opt);
+
+            vendorModalBackdrop.classList.remove('show');
+            document.querySelectorAll('#vendorModalBackdrop input, #vendorModalBackdrop textarea').forEach(el => el.value = '');
+        })
+        .catch(err => {
+            const firstError = err?.errors ? Object.values(err.errors)[0][0] : 'Could not save vendor.';
+            errorBox.textContent = firstError;
+            errorBox.style.display = 'block';
+        });
+});
+
+// ---------- Quick-add Brand ----------
+const brandModalBackdrop = document.getElementById('brandModalBackdrop');
+document.getElementById('openBrandModal').addEventListener('click', () => brandModalBackdrop.classList.add('show'));
+document.getElementById('closeBrandModal').addEventListener('click', () => brandModalBackdrop.classList.remove('show'));
+document.getElementById('cancelBrandBtn').addEventListener('click', () => brandModalBackdrop.classList.remove('show'));
+
+document.getElementById('saveBrandBtn').addEventListener('click', function () {
+    const errorBox = document.getElementById('qa_brand_error');
+    errorBox.style.display = 'none';
+
+    fetch("{{ route('admin.products.quickStoreBrand') }}", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+        },
+        body: JSON.stringify({ name: document.getElementById('qa_brand_name').value }),
+    })
+        .then(async res => {
+            const data = await res.json();
+            if (!res.ok) throw data;
+            return data;
+        })
+        .then(data => {
+            const opt = document.createElement('option');
+            opt.value = data.brand.id;
+            opt.textContent = data.brand.name;
+            opt.selected = true;
+            brandSelect.appendChild(opt);
+
+            brandModalBackdrop.classList.remove('show');
+            document.getElementById('qa_brand_name').value = '';
+        })
+        .catch(err => {
+            const firstError = err?.errors ? Object.values(err.errors)[0][0] : 'Could not save brand.';
+            errorBox.textContent = firstError;
+            errorBox.style.display = 'block';
+        });
 });
 </script>

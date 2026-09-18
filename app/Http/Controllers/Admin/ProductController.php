@@ -8,14 +8,21 @@ use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\ProductSubSubCategory;
 use App\Models\ProductSubCategory;
+use App\Models\Vendor;
+use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with(['category', 'subCategory', 'subSubCategory']);
+        $query = Product::with(['category', 'subCategory', 'subSubCategory', 'vendor', 'brand']);
+
+        if ($request->filled('source_type')) {
+            $query->where('source_type', $request->source_type);
+        }
 
         if ($request->filled('category_id')) {
             $query->where('category_id', $request->category_id);
@@ -48,20 +55,25 @@ class ProductController extends Controller
     public function create()
     {
         $parentCategories = ProductCategory::active()->orderBy('category_name')->get();
+        $vendors = Vendor::active()->orderBy('vendor_name')->get(['id', 'vendor_name']);
+        $brands = Brand::active()->orderBy('name')->get(['id', 'name']);
 
-        return view('admin.product.create', compact('parentCategories'));
+        return view('admin.product.create', compact('parentCategories', 'vendors', 'brands'));
     }
 
     public function store(Request $request)
     {
-        $validated = $this->validate($request, $this->rules());
+        $validated = $this->validate($request, $this->rules($request));
 
         $imagePath = $request->file('image')->store('products', 'public');
 
         $data = [
-            'category_id'      => $validated['category_id'],
+            'source_type'       => $validated['source_type'],
+            'category_id'       => $validated['category_id'] ?? null,
             'sub_cat_id'        => $validated['sub_cat_id'] ?? null,
             'sub_sub_cat_id'    => $validated['sub_sub_cat_id'] ?? null,
+            'vendor_id'         => $validated['vendor_id'] ?? null,
+            'brand_id'          => $validated['brand_id'] ?? null,
             'name'              => $validated['name'],
             'slug'              => Product::generateUniqueSlug($validated['name']),
             'mrp'               => $validated['mrp'] ?? null,
@@ -101,18 +113,25 @@ class ProductController extends Controller
             ->where('sub_category_id', $product->sub_cat_id)
             ->orderBy('name')
             ->get();
+        $vendors = Vendor::active()->orderBy('vendor_name')->get(['id', 'vendor_name']);
+        $brands = Brand::active()->orderBy('name')->get(['id', 'name']);
 
-        return view('admin.product.edit', compact('product', 'parentCategories', 'subCategories', 'subSubCategories'));
+        return view('admin.product.edit', compact(
+            'product', 'parentCategories', 'subCategories', 'subSubCategories', 'vendors', 'brands'
+        ));
     }
 
     public function update(Request $request, Product $product)
     {
-        $validated = $this->validate($request, $this->rules($product->id));
+        $validated = $this->validate($request, $this->rules($request, $product->id));
 
         $data = [
-            'category_id'      => $validated['category_id'],
+            'source_type'       => $validated['source_type'],
+            'category_id'       => $validated['category_id'] ?? null,
             'sub_cat_id'        => $validated['sub_cat_id'] ?? null,
             'sub_sub_cat_id'    => $validated['sub_sub_cat_id'] ?? null,
+            'vendor_id'         => $validated['vendor_id'] ?? null,
+            'brand_id'          => $validated['brand_id'] ?? null,
             'name'              => $validated['name'],
             'slug'              => Product::generateUniqueSlug($validated['name'], $product->id),
             'mrp'               => $validated['mrp'] ?? null,
@@ -201,12 +220,81 @@ class ProductController extends Controller
         ]);
     }
 
-    private function rules(?int $productId = null): array
+    /**
+     * AJAX: quick-create a Vendor from the Product form's "+ Add New" modal,
+     * without leaving the page. Returns the new vendor so the dropdown can
+     * append + auto-select it immediately.
+     */
+    public function quickStoreVendor(Request $request)
     {
+        $validated = $request->validate([
+            'vendor_name'          => 'required|string|max:255',
+            'gst_number'           => 'nullable|string|max:20',
+            'full_address'         => 'required|string',
+            'email'                => 'required|email|max:255',
+            'contact_person_name'  => 'required|string|max:255',
+            'mobile_number'        => 'required|string|max:15',
+            'whatsapp_number'      => 'nullable|string|max:15',
+            'state_id'             => 'nullable|exists:states,id',
+            'city_id'              => 'nullable|exists:cities,id',
+            'pincode'              => 'nullable|string|max:10',
+        ]);
+
+        $validated['status'] = 1;
+
+        $vendor = Vendor::create($validated);
+
+        return response()->json([
+            'success' => true,
+            'vendor'  => $vendor->only(['id', 'vendor_name']),
+        ]);
+    }
+
+    /**
+     * AJAX: quick-create a Brand from the Product form's "+ Add New" modal.
+     */
+    public function quickStoreBrand(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $brand = Brand::create([
+            'name'   => $validated['name'],
+            'slug'   => $this->uniqueBrandSlug($validated['name']),
+            'status' => 1,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'brand'   => $brand->only(['id', 'name']),
+        ]);
+    }
+
+    protected function uniqueBrandSlug(string $name): string
+    {
+        $slug = Str::slug($name);
+        $original = $slug;
+        $i = 1;
+
+        while (Brand::where('slug', $slug)->exists()) {
+            $slug = $original . '-' . $i++;
+        }
+
+        return $slug;
+    }
+
+    private function rules(Request $request, ?int $productId = null): array
+    {
+        $isInternal = $request->input('source_type') === 'internal_inventory';
+
         return [
-            'category_id'      => 'required|exists:product_categories,id',
+            'source_type'       => 'required|in:catalog,internal_inventory',
+            'category_id'       => $isInternal ? 'nullable|exists:product_categories,id' : 'required|exists:product_categories,id',
             'sub_cat_id'        => 'nullable|exists:product_sub_categories,id',
             'sub_sub_cat_id'    => 'nullable|exists:product_sub_sub_categories,id',
+            'vendor_id'         => $isInternal ? 'required|exists:vendors,id' : 'nullable|exists:vendors,id',
+            'brand_id'          => $isInternal ? 'required|exists:brands,id' : 'nullable|exists:brands,id',
             'name'              => 'required|string|max:255',
             'mrp'               => 'nullable|numeric|min:0',
             'discount_type'     => 'nullable|in:flat,percentage',
