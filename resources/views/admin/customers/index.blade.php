@@ -97,10 +97,17 @@
                                         </td>
                                         <td>
 
-                                            <a href="{{ route('admin.customers.show', $customer->id) }}"
-                                                class="btn btn-sm wm-btn-info">
-                                                <i class="fa fa-eye"></i> View
-                                            </a>
+                                            <div class="wm-row-actions">
+                                                <a href="{{ route('admin.customers.show', $customer->id) }}"
+                                                    class="btn btn-sm wm-btn-info">
+                                                    <i class="fa fa-eye"></i> View
+                                                </a>
+
+                                                <a href="{{ route('admin.customers.edit', $customer->id) }}"
+                                                    class="btn btn-sm wm-btn-outline">
+                                                    <i class="fa fa-pencil"></i> Edit
+                                                </a>
+                                            </div>
 
                                         </td>
                                     </tr>
@@ -268,6 +275,12 @@
         color: #fff !important;
     }
 
+    .wm-row-actions {
+        display: flex;
+        gap: 6px;
+        flex-wrap: nowrap;
+    }
+
     /* Table */
     .wm-quotes-table {
         margin-bottom: 0;
@@ -373,6 +386,10 @@
         .wm-search-input {
             min-width: 0;
             width: 100%;
+        }
+
+        .wm-row-actions {
+            flex-wrap: wrap;
         }
     }
 </style>

@@ -247,7 +247,7 @@
                     <div class="form-field">
                         <label for="description">Description</label>
                         <textarea id="ckeditor" name="description" rows="4"
-                            class="form-control-styled @error('description') is-invalid @enderror" required>{{ old('description') }}</textarea>
+                            class="form-control-styled ckeditor @error('description') is-invalid @enderror" required>{{ old('description') }}</textarea>
                         @error('description') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
 
@@ -410,6 +410,12 @@
 <!-- Ckeditor -->
 <script src="{{ asset('Admin/plugins/ckeditor/ckeditor.js') }}"></script>
 <script src="{{ asset('Admin/js/pages/forms/editors.js') }}"></script>
+
+<script>
+    if (typeof CKEDITOR !== 'undefined') {
+        CKEDITOR.config.versionCheck = false;
+    }
+</script>
 
 <script>
 const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content;

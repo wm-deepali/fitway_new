@@ -362,10 +362,11 @@
                                                 Proposal ID Prefix
                                             </label>
 
-                                            <input type="text"
-                                                name="id_prefix"
-                                                class="form-control wm-input"
-                                                value="{{ old('id_prefix', $quoteSetting?->id_prefix ?? 'B2B') }}">
+                                           <input type="text"
+    name="id_prefix"
+    id="id_prefix"                     {{-- ADD --}}
+    class="form-control wm-input"
+    value="{{ old('id_prefix', $quoteSetting?->id_prefix ?? 'FIT') }}">
 
                                         </div>
 
@@ -380,11 +381,12 @@
                                             </label>
 
                                             <input type="number"
-                                                name="id_padding_length"
-                                                min="1"
-                                                max="10"
-                                                class="form-control wm-input"
-                                                value="{{ old('id_padding_length', $quoteSetting?->id_padding_length ?? 5) }}">
+    name="id_padding_length"
+    id="id_padding_length"             {{-- ADD --}}
+    min="1"
+    max="10"
+    class="form-control wm-input"
+    value="{{ old('id_padding_length', $quoteSetting?->id_padding_length ?? 5) }}">
 
                                             <small class="text-muted wm-hint">
                                                 e.g. 5 digits → 00001
@@ -402,11 +404,13 @@
                                                 Current Serial (Next ID Preview)
                                             </label>
 
-                                            <input type="text"
-                                                class="form-control wm-input wm-input-readonly"
-                                                value="{{ ($quoteSetting?->id_prefix ?? 'B2B') . str_pad((($quoteSetting?->current_serial ?? 0) + 1), $quoteSetting?->id_padding_length ?? 5, '0', STR_PAD_LEFT) }}"
-                                                readonly
-                                                disabled>
+                                           <input type="text"
+    id="quote_preview"                                          {{-- ADD --}}
+    data-current-serial="{{ $quoteSetting?->current_serial ?? 0 }}"   {{-- ADD --}}
+    class="form-control wm-input wm-input-readonly"
+    value="{{ ($quoteSetting?->id_prefix ?? 'FIT') . str_pad((($quoteSetting?->current_serial ?? 0) + 1), $quoteSetting?->id_padding_length ?? 5, '0', STR_PAD_LEFT) }}"
+    readonly
+    disabled>
 
                                             <small class="text-muted wm-hint">
                                                 Read-only, auto-generated on next proposal.
@@ -636,6 +640,21 @@
 
             });
         });
+
+         function updateQuotePreview() {
+
+        var prefix = $('#id_prefix').val() || 'B2B';
+        var padLen = parseInt($('#id_padding_length').val()) || 5;
+        var nextSerial = (parseInt($('#quote_preview').data('current-serial')) || 0) + 1;
+
+        var padded = String(nextSerial).padStart(padLen, '0');
+
+        $('#quote_preview').val(prefix + padded);
+
+    }
+
+    $('#id_prefix, #id_padding_length').on('input', updateQuotePreview);
+
     </script>
 
 {{-- ==========================================================

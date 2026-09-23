@@ -602,7 +602,7 @@
                     <div class="form-field">
                         <label for="description">Description</label>
                         <textarea id="ckeditor" name="description" rows="4"
-                            class="form-control-styled @error('description') is-invalid @enderror"
+                            class="form-control-styled ckeditor @error('description') is-invalid @enderror"
                             required>{{ old('description', $product->description) }}</textarea>
                         @error('description')
                         <div class="form-error">{{ $message }}</div> @enderror

@@ -61,16 +61,13 @@ class QuoteController extends Controller
      */
     public function edit(Quote $quote)
     {
-        if ($quote->status !== 'draft') {
-            return redirect()->route('admin.quotes.preview', $quote->id);
-        }
-
         $quote->load('customer', 'items');
 
         $states = State::orderBy('name')->get();
         $brands = Brand::orderBy('name')->get(['id', 'name']);
 
         $draft = [
+            'status' => $quote->status, // used by the blade banner below
             'customer_name' => $quote->customer->customer_name,
             'business_name' => $quote->customer->business_name,
             'mobile_number' => $quote->customer->mobile_number,
@@ -287,14 +284,17 @@ class QuoteController extends Controller
                 'shipping_quantity' => $shippingQuantity,
                 'shipping_tax_percentage' => $shippingTaxPercentage,
                 'total_amount' => $itemsTotal + $packingTotals['total'] + $shippingTotals['total'],
-                'status' => 'draft',
             ];
 
             if (!empty($validated['quote_id'])) {
-                $quote = Quote::where('status', 'draft')->findOrFail($validated['quote_id']);
+                // Edit flow — works for any status now. Status/proposal_id are left
+                // untouched, so editing a print_ready quote doesn't demote it back
+                // to draft or wipe its proposal_id.
+                $quote = Quote::findOrFail($validated['quote_id']);
                 $quote->update($quoteData);
                 $quote->items()->delete(); // rebuilt fresh below
             } else {
+                $quoteData['status'] = 'draft';
                 $quote = Quote::create($quoteData);
             }
 

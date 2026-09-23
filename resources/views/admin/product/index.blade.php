@@ -117,6 +117,7 @@
                             <tr>
                                 <th>Product</th>
                                 <th>Category Path</th>
+                                <th>Product Type</th>
                                 <th><a href="{{ request()->fullUrlWithQuery(['sort_by' => 'offered_price', 'sort_order' => request('sort_by') === 'offered_price' && request('sort_order') === 'asc' ? 'desc' : 'asc']) }}">Price</a></th>
                                 <th><a href="{{ request()->fullUrlWithQuery(['sort_by' => 'status', 'sort_order' => request('sort_by') === 'status' && request('sort_order') === 'asc' ? 'desc' : 'asc']) }}">Status</a></th>
                                 <th>Actions</th>
@@ -145,6 +146,7 @@
                                             @if($product->subSubCategory) › {{ $product->subSubCategory->name }} @endif
                                         </div>
                                     </td>
+                                    <td>{{ $product->source_type  === 'internal_inventory' ? 'Internal Inventory' : 'Catalog'}}</td>
                                     <td>
                                         @if($product->offered_price !== null)
                                             <span class="price-offered">₹{{ number_format($product->offered_price, 2) }}</span>
