@@ -351,10 +351,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('cities-by-state/{state}', [ComplaintController::class, 'citiesByState'])
                 ->name('complaints.citiesByState');
         });
-
-
+        
         Route::prefix('complaint-reports')->name('complaint-reports.')->group(function () {
             Route::get('/', [ComplaintReportController::class, 'index'])->name('index');
+            Route::get('/export', [ComplaintReportController::class, 'export'])->name('export');
         });
 
     });

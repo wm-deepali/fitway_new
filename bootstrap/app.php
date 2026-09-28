@@ -16,6 +16,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'super.admin' => \App\Http\Middleware\SuperAdminOnly::class,
             'admin.access' => \App\Http\Middleware\AdminAccess::class,
         ]);
+        // Logged-in users who open /login are sent to the admin dashboard
+        $middleware->redirectUsersTo(fn() => route('admin.dashboard'));
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

@@ -19,6 +19,11 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // Sub admins get a plain dashboard: no counts, leads or charts
+        if (auth()->user()->is_sub_admin) {
+            return view('admin.dashboard.subadmin');
+        }
+
         $counts = [
             'products'      => Product::count(),
             'categories'    => ProductCategory::count(),

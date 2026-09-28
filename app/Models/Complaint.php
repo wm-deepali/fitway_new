@@ -9,32 +9,59 @@ class Complaint extends Model
 {
     use HasFactory;
 
-    const STATUS_NEW           = 1;
+    const STATUS_NEW = 1;
     const STATUS_UNDER_PROCESS = 2;
-    const STATUS_COMPLETED     = 3;
+    const STATUS_COMPLETED = 3;
+
+    const SOURCE_MANUAL = 'manual';
+    const SOURCE_WEBSITE = 'website';
+
+    public function getSourceLabelAttribute(): string
+    {
+        return $this->source === self::SOURCE_WEBSITE ? 'Website' : 'Manual';
+    }
+
+    public function getSourceBadgeClassAttribute(): string
+    {
+        return $this->source === self::SOURCE_WEBSITE ? 'wm-source-website' : 'wm-source-manual';
+    }
 
     public static array $statusLabels = [
-        self::STATUS_NEW           => 'New Complaint',
+        self::STATUS_NEW => 'New Complaint',
         self::STATUS_UNDER_PROCESS => 'Under Process',
-        self::STATUS_COMPLETED     => 'Completed',
+        self::STATUS_COMPLETED => 'Completed',
     ];
 
     public static array $statusBadgeClasses = [
-        self::STATUS_NEW           => 'badge-warning',
+        self::STATUS_NEW => 'badge-warning',
         self::STATUS_UNDER_PROCESS => 'badge-info',
-        self::STATUS_COMPLETED     => 'badge-success',
+        self::STATUS_COMPLETED => 'badge-success',
     ];
 
     protected $fillable = [
-        'complaint_code', 'customer_id', 'customer_name', 'email', 'mobile_number',
-        'full_address', 'landmark', 'state_id', 'city_id', 'pin_code', 'complaint_detail',
-        'complaint_type', 'service_detail', 'paid_price', 'technician_id', 'schedule_date',
-        'status', 'source',
+        'complaint_code',
+        'customer_id',
+        'customer_name',
+        'email',
+        'mobile_number',
+        'full_address',
+        'landmark',
+        'state_id',
+        'city_id',
+        'pin_code',
+        'complaint_detail',
+        'complaint_type',
+        'service_detail',
+        'paid_price',
+        'technician_id',
+        'schedule_date',
+        'status',
+        'source',
     ];
 
     protected $casts = [
-        'status'        => 'integer',
-        'paid_price'    => 'decimal:2',
+        'status' => 'integer',
+        'paid_price' => 'decimal:2',
         'schedule_date' => 'date',
     ];
 

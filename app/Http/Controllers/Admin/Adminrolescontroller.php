@@ -17,11 +17,11 @@ class Adminrolescontroller extends Controller
                 $s = $request->search;
                 $q->where(function ($q) use ($s) {
                     $q->where('name', 'like', "%{$s}%")
-                      ->orWhere('email', 'like', "%{$s}%")
-                      ->orWhere('contact', 'like', "%{$s}%");
+                        ->orWhere('email', 'like', "%{$s}%")
+                        ->orWhere('contact', 'like', "%{$s}%");
                 });
             })
-            ->when($request->filled('status'), fn ($q) => $q->where('status', $request->status === 'active'))
+            ->when($request->filled('status'), fn($q) => $q->where('status', $request->status === 'active'))
             ->latest()
             ->paginate(10)
             ->withQueryString();
@@ -37,26 +37,26 @@ class Adminrolescontroller extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'employee_name'   => 'required|string|max:255',
-            'email'           => 'required|email|max:255|unique:users,email',
-            'mobile_number'   => 'required|string|max:15',
+            'employee_name' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'mobile_number' => 'required|string|max:15',
             'whatsapp_number' => 'nullable|string|max:15',
-            'address'         => 'nullable|string',
-            'photograph'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'password'        => 'required|string|min:8|confirmed',
-            'status'          => 'required|in:0,1',
+            'address' => 'nullable|string',
+            'photograph' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'password' => 'required|string|min:8|confirmed',
+            'status' => 'required|in:0,1',
         ]);
 
         $user = new User();
-        $user->name            = $data['employee_name'];
-        $user->email           = $data['email'];
-        $user->contact         = $data['mobile_number'];
+        $user->name = $data['employee_name'];
+        $user->email = $data['email'];
+        $user->contact = $data['mobile_number'];
         $user->whatsapp_number = $data['whatsapp_number'] ?? null;
-        $user->address         = $data['address'] ?? null;
-        $user->password        = $data['password'];      // hashed by the model cast
-        $user->status          = (bool) $data['status'];
-        $user->is_sub_admin    = true;
-        $user->permissions     = $this->cleanPermissions($request);
+        $user->address = $data['address'] ?? null;
+        $user->password = $data['password'];      // hashed by the model cast
+        $user->status = (bool) $data['status'];
+        $user->is_sub_admin = true;
+        $user->permissions = $this->cleanPermissions($request);
 
         if ($request->hasFile('photograph')) {
             $user->image = $request->file('photograph')->store('sub-admins', 'public');
@@ -80,25 +80,25 @@ class Adminrolescontroller extends Controller
         $user = User::subAdmins()->findOrFail($id);
 
         $data = $request->validate([
-            'employee_name'   => 'required|string|max:255',
-            'email'           => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
-            'mobile_number'   => 'required|string|max:15',
+            'employee_name' => 'required|string|max:255',
+            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')->ignore($user->id)],
+            'mobile_number' => 'required|string|max:15',
             'whatsapp_number' => 'nullable|string|max:15',
-            'address'         => 'nullable|string',
-            'photograph'      => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'password'        => 'nullable|string|min:8|confirmed',
-            'status'          => 'required|in:0,1',
+            'address' => 'nullable|string',
+            'photograph' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'password' => 'nullable|string|min:8|confirmed',
+            'status' => 'required|in:0,1',
         ]);
 
-        $user->name            = $data['employee_name'];
-        $user->email           = $data['email'];
-        $user->contact         = $data['mobile_number'];
+        $user->name = $data['employee_name'];
+        $user->email = $data['email'];
+        $user->contact = $data['mobile_number'];
         $user->whatsapp_number = $data['whatsapp_number'] ?? null;
-        $user->address         = $data['address'] ?? null;
-        $user->status          = (bool) $data['status'];
-        $user->permissions     = $this->cleanPermissions($request);
+        $user->address = $data['address'] ?? null;
+        $user->status = (bool) $data['status'];
+        $user->permissions = $this->cleanPermissions($request);
 
-        if (! empty($data['password'])) {
+        if (!empty($data['password'])) {
             $user->password = $data['password'];
         }
 
@@ -138,16 +138,14 @@ class Adminrolescontroller extends Controller
         $input = $request->input('permissions', []);
         $clean = [];
 
-        if (! empty($input['dashboard']['view'])) {
-            $clean['dashboard']['view'] = 1;
-        }
+        $clean['dashboard']['view'] = 1;
 
         foreach (config('admin_permissions.groups') as $group) {
             foreach ($group['items'] as $item) {
                 $picked = [];
 
                 foreach (['view', 'add', 'edit', 'delete'] as $action) {
-                    if (! empty($input[$group['key']][$item['key']][$action])) {
+                    if (!empty($input[$group['key']][$item['key']][$action])) {
                         $picked[$action] = 1;
                     }
                 }

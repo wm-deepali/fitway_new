@@ -9,6 +9,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->string('whatsapp_number', 15)->nullable()->after('contact');
             $table->text('address')->nullable()->after('whatsapp_number');
             $table->boolean('status')->default(true)->after('address');
             $table->boolean('is_sub_admin')->default(false)->after('status'); // existing admin stays false = super admin

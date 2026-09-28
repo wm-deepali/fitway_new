@@ -150,16 +150,19 @@
                                     <label class="wm-label">Password</label>
                                     <div class="wm-password-group">
                                         <input type="password" name="password" id="password"
-                                            class="form-control wm-input" autocomplete="new-password"
-                                            {{ $isEdit ? '' : 'required' }}>
+                                            class="form-control wm-input" autocomplete="new-password" {{ $isEdit ? '' : 'required' }}>
                                         <button type="button" class="wm-password-toggle" data-target="#password"
                                             tabindex="-1">
                                             <i class="fa-solid fa-eye"></i>
                                         </button>
                                     </div>
-                                    @if($isEdit)
-                                        <small class="text-muted wm-hint">Leave blank to keep the current password.</small>
-                                    @endif
+                                    <small class="text-muted wm-hint" id="passwordHint">
+                                        Minimum 8 characters.
+                                        @if($isEdit) Leave blank to keep the current password. @endif
+                                    </small>
+                                    <small class="wm-error d-none" id="passwordError">
+                                        Password must be at least 8 characters long.
+                                    </small>
                                 </div>
                             </div>
 
@@ -168,13 +171,13 @@
                                     <label class="wm-label">Confirm Password</label>
                                     <div class="wm-password-group">
                                         <input type="password" name="password_confirmation" id="password_confirmation"
-                                            class="form-control wm-input" autocomplete="new-password"
-                                            {{ $isEdit ? '' : 'required' }}>
+                                            class="form-control wm-input" autocomplete="new-password" {{ $isEdit ? '' : 'required' }}>
                                         <button type="button" class="wm-password-toggle"
                                             data-target="#password_confirmation" tabindex="-1">
                                             <i class="fa-solid fa-eye"></i>
                                         </button>
                                     </div>
+                                    <small class="wm-error d-none" id="confirmError">Passwords do not match.</small>
                                 </div>
                             </div>
 
@@ -224,9 +227,9 @@
                                         <tr>
                                             <td>Dashboard</td>
                                             <td width="90" class="text-center">
-                                                <input type="checkbox" name="permissions[dashboard][view]" value="1"
-                                                    {{ data_get($oldPerms, 'dashboard.view') ? 'checked' : '' }}>
-                                                <label class="mb-0 small">View</label>
+                                                <input type="hidden" name="permissions[dashboard][view]" value="1">
+                                                <input type="checkbox" checked disabled>
+                                                <label class="mb-0 small">View (Default)</label>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -275,8 +278,7 @@
                                                             <input type="checkbox"
                                                                 class="wm-perm-checkbox wm-perm-{{ $group['key'] }}"
                                                                 name="permissions[{{ $group['key'] }}][{{ $item['key'] }}][{{ $action }}]"
-                                                                value="1"
-                                                                {{ data_get($oldPerms, $group['key'] . '.' . $item['key'] . '.' . $action) ? 'checked' : '' }}>
+                                                                value="1" {{ data_get($oldPerms, $group['key'] . '.' . $item['key'] . '.' . $action) ? 'checked' : '' }}>
                                                         </td>
                                                     @endforeach
 
@@ -320,7 +322,6 @@
 @include('admin.footer')
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 <script>
     $(function () {
 
@@ -385,7 +386,6 @@
             var checked = $(this).is(':checked');
 
             $('.wm-perm-checkbox, .wm-module-select-all').prop('checked', checked);
-            $('input[name="permissions[dashboard][view]"]').prop('checked', checked);
 
         });
 
@@ -437,6 +437,35 @@
         });
 
         syncMasterCheckbox();
+
+        // ---------- Password live validation ----------
+        function validatePassword() {
+            var val = $('#password').val();
+            var invalid = val.length > 0 && val.length < 8;
+            $('#password').toggleClass('is-invalid', invalid);
+            $('#passwordError').toggleClass('d-none', !invalid);
+            return !invalid;
+        }
+
+        function validateConfirm() {
+            var p = $('#password').val();
+            var c = $('#password_confirmation').val();
+            var invalid = c.length > 0 && p !== c;
+            $('#password_confirmation').toggleClass('is-invalid', invalid);
+            $('#confirmError').toggleClass('d-none', !invalid);
+            return !invalid;
+        }
+
+        $('#password').on('input', function () { validatePassword(); validateConfirm(); });
+        $('#password_confirmation').on('input', validateConfirm);
+
+        $('#employeeForm').on('submit', function (e) {
+            if (!validatePassword() || !validateConfirm()) {
+                e.preventDefault();
+                $('html, body').animate({ scrollTop: $('#password').offset().top - 120 }, 200);
+                $('#password').focus();
+            }
+        });
 
     });
 </script>
@@ -678,5 +707,16 @@
         .wm-form-body {
             padding: 1.1rem 1rem;
         }
+    }
+
+    .wm-error {
+        color: var(--wm-danger);
+        font-size: 0.78rem;
+        display: block;
+        margin-top: 4px;
+    }
+
+    .wm-input.is-invalid {
+        border-color: var(--wm-danger) !important;
     }
 </style>

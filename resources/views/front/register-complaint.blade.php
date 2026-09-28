@@ -5,6 +5,116 @@
 
 @push('styles')
     <link rel="stylesheet" href="{{ asset('assets/sass/contact/contact.css') }}" />
+
+    <style>
+        /* Custom dropdown styled to match the dark contact inputs */
+        .contact-form__group .custom-select {
+            --inputsize: 46px;
+            --paddingleftright: 14px;
+            --arrow: 15px;
+            --arrowspace: 8px;
+
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            transition: border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .contact-form__group .custom-select:hover {
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-form__group .custom-select.open {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        /* Placeholder / selected text */
+        .contact-form__group .custom-select .current {
+            font-size: 13.5px;
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .contact-form__group .custom-select .current.selected {
+            color: var(--white);
+        }
+
+        /* Arrow icon: make it visible on a dark background */
+        .contact-form__group .custom-select::before {
+            filter: brightness(0) invert(1);
+            opacity: 0.55;
+        }
+
+        /* Options list */
+        .contact-form__group .custom-select .list {
+            top: calc(100% + 6px);
+            background-color: #161616;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            max-height: 220px;
+        }
+
+        .contact-form__group .custom-select .list li {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 13.5px;
+            padding: 10px 14px;
+            white-space: initial;
+        }
+
+        .contact-form__group .custom-select .list li:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--white);
+        }
+
+        .contact-form__group .custom-select .list li.selected,
+        .contact-form__group .custom-select .list li.selected:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .contact-form__group .custom-select .list::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* Search box inside the dropdown list */
+        .contact-form__group .custom-select .list-search {
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            padding: 8px;
+            background: #161616;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .contact-form__group .custom-select .list-search input {
+            width: 100%;
+            height: 36px;
+            padding: 0 12px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--white);
+            font-size: 13px;
+            outline: none;
+        }
+
+        .contact-form__group .custom-select .list-search input:focus {
+            border-color: var(--primary);
+        }
+
+        .contact-form__group .custom-select .list-search input::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        .contact-form__group .custom-select .list-empty {
+            display: none;
+            padding: 10px 14px;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.45);
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -99,7 +209,8 @@
                         <div class="alert alert-success">{{ session('success') }}</div>
                     @endif
 
-                    <form class="contact-form__form" method="POST" action="{{ route('register-complaint.store') }}" id="registerComplaintForm">
+                    <form class="contact-form__form" method="POST" action="{{ route('register-complaint.store') }}"
+                        id="registerComplaintForm">
                         @csrf
 
                         <div class="contact-form__group">
@@ -154,7 +265,8 @@
                                 <select id="state_id" name="state_id">
                                     <option value="">Select State</option>
                                     @foreach($states as $state)
-                                        <option value="{{ $state->id }}" {{ old('state_id') == $state->id ? 'selected' : '' }}>{{ $state->name }}</option>
+                                        <option value="{{ $state->id }}" {{ old('state_id') == $state->id ? 'selected' : '' }}>
+                                            {{ $state->name }}</option>
                                     @endforeach
                                 </select>
                                 @error('state_id') <span class="error">{{ $message }}</span> @enderror
@@ -189,30 +301,170 @@
 @endsection
 
 @push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    const stateSelect = document.getElementById('state_id');
-    const citySelect = document.getElementById('city_id');
+    <script>
 
-    if (!stateSelect) return;
+        $(function () {
+            var oldCityId = "{{ old('city_id') }}";
+            var urlTemplate = "{{ route('complaint.public-cities-by-state', ['state' => '__ID__']) }}";
 
-    stateSelect.addEventListener('change', function () {
-        const stateId = this.value;
-        citySelect.innerHTML = '<option value="">Select City</option>';
+            function refreshCity() {
+                // Refresh the custom dropdown UI, if the theme uses nice-select
+                if ($.fn.niceSelect) {
+                    $('#city_id').niceSelect('update');
+                }
+            }
 
-        if (!stateId) return;
+            function loadCities(stateId, selectedCityId) {
+                var $city = $('#city_id');
 
-        fetch("{{ url('complaint/cities-by-state') }}/" + stateId)
-            .then(res => res.json())
-            .then(cities => {
-                cities.forEach(city => {
-                    const opt = document.createElement('option');
-                    opt.value = city.id;
-                    opt.textContent = city.name;
-                    citySelect.appendChild(opt);
-                });
+                $city.html('<option value="">Select City</option>');
+                refreshCity();
+
+                if (!stateId) return;
+
+                $city.html('<option value="">Loading...</option>');
+                refreshCity();
+
+                $.getJSON(urlTemplate.replace('__ID__', stateId))
+                    .done(function (cities) {
+                        $city.html('<option value="">Select City</option>');
+
+                        $.each(cities, function (i, city) {
+                            var $opt = $('<option>', { value: city.id, text: city.name });
+                            if (selectedCityId && String(city.id) === String(selectedCityId)) {
+                                $opt.prop('selected', true);
+                            }
+                            $city.append($opt);
+                        });
+
+                        refreshCity();
+                    })
+                    .fail(function (xhr) {
+                        console.error('Could not load cities:', xhr.status);
+                        $city.html('<option value="">Could not load cities</option>');
+                        refreshCity();
+                    });
+            }
+
+            // Delegated jQuery handler: catches jQuery-triggered and native change events
+            $(document).on('change', '#state_id', function () {
+                console.log('state changed:', $(this).val());
+                loadCities($(this).val(), null);
             });
-    });
-});
-</script>
+
+            // After a validation error, rebuild the cities and keep the old selection
+            var initialState = $('#state_id').val();
+            if (initialState) {
+                loadCities(initialState, oldCityId);
+            }
+        });
+
+        (function () {
+            var form = document.querySelector('.contact-form');
+            if (!form) return;
+
+            function getList(box) {
+                return box.querySelector('.list');
+            }
+
+            // Show/hide options based on the typed text
+            function filterList(box, term) {
+                term = (term || '').trim().toLowerCase();
+                var list = getList(box);
+                var visible = 0;
+
+                list.querySelectorAll('li').forEach(function (li) {
+                    var show = !term || li.textContent.toLowerCase().indexOf(term) !== -1;
+                    li.style.display = show ? '' : 'none';
+                    if (show) visible++;
+                });
+
+                var empty = list.querySelector('.list-empty');
+                if (empty) empty.style.display = visible ? 'none' : 'block';
+            }
+
+            // Create the search box once per list (re-created if the theme rebuilds the list)
+            function ensureSearch(box) {
+                var list = getList(box);
+                if (!list) return null;
+
+                var wrap = list.querySelector('.list-search');
+
+                if (!wrap) {
+                    wrap = document.createElement('div');
+                    wrap.className = 'list-search';
+                    wrap.innerHTML = '<input type="text" placeholder="Type to search..." autocomplete="off">';
+
+                    var empty = document.createElement('div');
+                    empty.className = 'list-empty';
+                    empty.textContent = 'No results found';
+
+                    list.insertBefore(empty, list.firstChild);
+                    list.insertBefore(wrap, list.firstChild);
+
+                    var input = wrap.querySelector('input');
+
+                    // Keep clicks inside the search box from toggling/closing the dropdown
+                    ['click', 'mousedown', 'mouseup', 'touchstart'].forEach(function (evt) {
+                        wrap.addEventListener(evt, function (e) { e.stopPropagation(); });
+                    });
+
+                    input.addEventListener('input', function () {
+                        filterList(box, this.value);
+                    });
+
+                    input.addEventListener('keydown', function (e) {
+                        e.stopPropagation();
+
+                        if (e.key === 'Enter') {
+                            e.preventDefault();
+                            // Select the first visible option
+                            var first = Array.prototype.find.call(list.querySelectorAll('li'), function (li) {
+                                return li.style.display !== 'none' && li.textContent.trim() !== '' && !li.classList.contains('list-empty');
+                            });
+                            if (first) first.click();
+                        } else if (e.key === 'Escape') {
+                            box.classList.remove('open');
+                        }
+                    });
+                }
+
+                return wrap.querySelector('input');
+            }
+
+            function resetSearch(box) {
+                var list = getList(box);
+                if (!list) return;
+                var input = list.querySelector('.list-search input');
+                if (input) input.value = '';
+                filterList(box, '');
+            }
+
+            // React whenever any .custom-select gets/loses the "open" class
+            new MutationObserver(function (mutations) {
+                mutations.forEach(function (m) {
+                    var box = m.target;
+                    if (!box.classList || !box.classList.contains('custom-select')) return;
+
+                    if (box.classList.contains('open')) {
+                        var input = ensureSearch(box);
+                        if (input) setTimeout(function () { input.focus(); }, 0);
+                    } else {
+                        resetSearch(box);
+                    }
+                });
+            }).observe(form, { attributes: true, attributeFilter: ['class'], subtree: true });
+
+            // Typing a letter while a dropdown is open (focus elsewhere) goes into its search box
+            document.addEventListener('keydown', function (e) {
+                var box = form.querySelector('.custom-select.open');
+                if (!box) return;
+                if (e.ctrlKey || e.metaKey || e.altKey || e.key.length !== 1) return;
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+                var input = ensureSearch(box);
+                if (input) input.focus();
+            });
+        })();
+    </script>
 @endpush

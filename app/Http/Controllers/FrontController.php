@@ -453,29 +453,25 @@ class FrontController extends Controller
             'source' => 'website',
         ]);
 
-        $generalSettings = \App\Models\Setting::first();
-        $smtpSettings = \App\Models\SmtpSetting::getInstance();
+        $generalSettings = GeneralSetting::first();
 
+        // Thank-you mail to the customer (only if they gave an email)
         if ($complaint->email) {
-            try {
-                \Mail::to($complaint->email)->send(new \App\Mail\ComplaintCustomerThankYouMail($complaint, $generalSettings));
-            } catch (\Exception $e) {
-                \Log::error('Complaint customer email failed: ' . $e->getMessage());
-            }
+            AdminMailer::sendToCustomer(
+                $complaint->email,
+                new \App\Mail\ComplaintCustomerThankYouMail($complaint, $generalSettings)
+            );
         }
 
-        if ($smtpSettings->admin_enquiry_alert) {
-            $adminEmail = $generalSettings->admin_email ?? config('mail.from.address');
-            try {
-                \Mail::to($adminEmail)->send(new \App\Mail\ComplaintAdminNotificationMail($complaint));
-            } catch (\Exception $e) {
-                \Log::error('Complaint admin email failed: ' . $e->getMessage());
-            }
-        }
+        // Notification to admin (respects the admin alert switch)
+        AdminMailer::sendToAdmin(
+            new \App\Mail\ComplaintAdminNotificationMail($complaint)
+        );
 
         return redirect()->route('thank-you', [
             'message' => 'Your complaint has been registered successfully. Our team will get in touch with you shortly.'
         ]);
+
     }
 
 }
