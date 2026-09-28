@@ -235,7 +235,7 @@ class ComplaintController extends Controller
             'landmark'         => ['nullable', 'string', 'max:150'],
             'state_id'         => ['required', 'exists:states,id'],
             'city_id'          => ['required', 'exists:cities,id'],
-            'pincode'          => ['required', 'string', 'max:10'],
+            'pincode'          => ['nullable', 'string', 'max:10'],
             'complaint_detail' => ['required', 'string'],
             'complaint_type'   => ['required', 'in:paid,unpaid'],
             'service_detail'   => ['nullable', 'string'],

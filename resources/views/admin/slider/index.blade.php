@@ -81,9 +81,11 @@
                         Manage Slider
                     </div>
                 </div>
-                <a href="{{ route('admin.sliders.create') }}" class="btn-primary-dash">
-                    <i class="fa fa-plus"></i> Add Slider
-                </a>
+                @permission('content_management', 'sliders', 'add')
+                    <a href="{{ route('admin.sliders.create') }}" class="btn-primary-dash">
+                        <i class="fa fa-plus"></i> Add Slider
+                    </a>
+                @endpermission
             </div>
 
             <div class="cat-card">
@@ -176,14 +178,18 @@
 
                                     <td>
                                         <div style="display:flex;gap:6px">
-                                            <a href="{{ route('admin.sliders.edit', ['slider' => $item->id, 'redirect' => request()->fullUrl()]) }}"
-                                                class="action-btn" title="Edit">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <button class="action-btn action-btn-danger"
-                                                onclick="deleteSlider({{ $item->id }})" title="Delete">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                            @permission('content_management', 'sliders', 'edit')
+                                                <a href="{{ route('admin.sliders.edit', ['slider' => $item->id, 'redirect' => request()->fullUrl()]) }}"
+                                                    class="action-btn" title="Edit">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            @endpermission
+                                            @permission('content_management', 'sliders', 'delete')
+                                                <button class="action-btn action-btn-danger"
+                                                    onclick="deleteSlider({{ $item->id }})" title="Delete">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            @endpermission
                                         </div>
                                     </td>
 
@@ -197,9 +203,11 @@
                                             </div>
                                             <strong style="font-size:14px;color:var(--text-primary)">No sliders found</strong>
                                             <p>Try adjusting your search or add a new slider to get started.</p>
-                                            <a href="{{ route('admin.sliders.create') }}" class="btn-primary-dash">
-                                                <i class="fa fa-plus"></i> Add Slider
-                                            </a>
+                                            @permission('content_management', 'sliders', 'add')
+                                                <a href="{{ route('admin.sliders.create') }}" class="btn-primary-dash">
+                                                    <i class="fa fa-plus"></i> Add Slider
+                                                </a>
+                                            @endpermission
                                         </div>
                                     </td>
                                 </tr>

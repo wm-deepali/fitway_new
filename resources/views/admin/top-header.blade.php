@@ -12,7 +12,7 @@
 
   <title>Admin Dashboard | Fitway Shunty Cycle Store</title>
   <link rel="icon" type="image/png" href="{{ asset('assets/images/android-chrome-512x512.png') }}">
-  
+
 
 
   <!-- BEGIN VENDOR CSS-->
@@ -65,10 +65,11 @@
       box-shadow: 0 2px 6px rgba(48, 61, 137, 0.18);
     }
 
-.wm-top-nav .container-fluid {
-    padding-left: 285px;
-    margin-bottom:10px;
-}
+    .wm-top-nav .container-fluid {
+      padding-left: 285px;
+      margin-bottom: 10px;
+    }
+
     .wm-top-nav .wm-top-nav-list {
       list-style: none;
       display: flex;
@@ -130,10 +131,10 @@
     <div class="container-fluid">
       <div class="top-main-header d-flex align-items-center">
         <div class="admin-logo">
-    <a href="{{ url('admin/dashboard') }}">
-        <img src="{{ asset('admin/images/logo.png') }}" style="height:28px;">
-    </a>
-</div>
+          <a href="{{ url('admin/dashboard') }}">
+            <img src="{{ asset('admin/images/logo.png') }}" style="height:28px;">
+          </a>
+        </div>
         <div class="ml-auto">
 
           <div class="btn-group">
@@ -169,67 +170,80 @@
   </div>
   </div>
 
-  {{-- ==========================================================
-  New top menu bar — all 6 items point to Manage Quotes for now.
-  Update each href/route below once the real routes are ready;
-  the active-state check on each <li> already follows the same
-  pattern you gave, keyed to that item's own route name.
-  ========================================================== --}}
-  <nav class="wm-top-nav">
-    <div class="container-fluid">
-       <ul class="wm-top-nav-list">
- 
-        <li class="{{ request()->routeIs('admin.quotes.create') ? 'active' : '' }}">
-          <a href="{{ route('admin.quotes.create') }}">
-            <i class="fa-solid fa-file-circle-plus"></i> Create New Quote
-          </a>
-        </li>
- 
-        <li class="{{ request()->routeIs('admin.quotes.index') ? 'active' : '' }}">
-          <a href="{{ route('admin.quotes.index') }}">
-            <i class="fa-solid fa-file-lines"></i> All Quotes
-          </a>
-        </li>
- 
-        <li class="{{ request()->routeIs('admin.complaint.complaints.create') ? 'active' : '' }}">
-          <a href="{{ route('admin.complaint.complaints.create') }}">
-            <i class="fa-solid fa-triangle-exclamation"></i> Raise New Complaint
-          </a>
-        </li>
- 
-        <li class="{{ request()->routeIs('admin.complaint.complaints.index') ? 'active' : '' }}">
-          <a href="{{ route('admin.complaint.complaints.index') }}">
-            <i class="fa-solid fa-list-check"></i> All Complaints
-          </a>
-        </li>
- 
-        <li class="{{ request()->routeIs('admin.products.create') ? 'active' : '' }}">
-          <a href="{{ route('admin.products.create') }}">
-            <i class="fa-solid fa-box-open"></i> Add New Product
-          </a>
-        </li>
- 
-        <li class="{{ request()->routeIs('admin.products.index') ? 'active' : '' }}">
-          <a href="{{ route('admin.products.index') }}">
-            <i class="fa-solid fa-boxes-stacked"></i> Show All Products
-          </a>
-        </li>
- 
-      </ul>
-    </div>
-  </nav>
+    {{-- ==========================================================
+    New top menu bar — all 6 items point to Manage Quotes for now.
+    Update each href/route below once the real routes are ready;
+    the active-state check on each
+  <li> already follows the same
+    pattern you gave, keyed to that item's own route name.
+    ========================================================== --}}
+    <nav class="wm-top-nav">
+      <div class="container-fluid">
+        <ul class="wm-top-nav-list">
+
+          @permission('quotation_system', 'quotes', 'add')
+          <li class="{{ request()->routeIs('admin.quotes.create') ? 'active' : '' }}">
+            <a href="{{ route('admin.quotes.create') }}">
+              <i class="fa-solid fa-file-circle-plus"></i> Create New Quote
+            </a>
+          </li>
+          @endpermission
+
+          @permission('quotation_system', 'quotes', 'view')
+          <li class="{{ request()->routeIs('admin.quotes.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.quotes.index') }}">
+              <i class="fa-solid fa-file-lines"></i> All Quotes
+            </a>
+          </li>
+          @endpermission
+
+          @permission('complaint_management', 'complaints', 'add')
+          <li class="{{ request()->routeIs('admin.complaint.complaints.create') ? 'active' : '' }}">
+            <a href="{{ route('admin.complaint.complaints.create') }}">
+              <i class="fa-solid fa-triangle-exclamation"></i> Raise New Complaint
+            </a>
+          </li>
+          @endpermission
+
+          @permission('complaint_management', 'complaints', 'view')
+          <li class="{{ request()->routeIs('admin.complaint.complaints.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.complaint.complaints.index') }}">
+              <i class="fa-solid fa-list-check"></i> All Complaints
+            </a>
+          </li>
+          @endpermission
+
+          @permission('gym_equipments', 'products', 'add')
+          <li class="{{ request()->routeIs('admin.products.create') ? 'active' : '' }}">
+            <a href="{{ route('admin.products.create') }}">
+              <i class="fa-solid fa-box-open"></i> Add New Product
+            </a>
+          </li>
+          @endpermission
+
+          @permission('gym_equipments', 'products', 'view')
+          <li class="{{ request()->routeIs('admin.products.index') ? 'active' : '' }}">
+            <a href="{{ route('admin.products.index') }}">
+              <i class="fa-solid fa-boxes-stacked"></i> Show All Products
+            </a>
+          </li>
+          @endpermission
+
+        </ul>
+      </div>
+    </nav>
 
 
-  <script type="text/javascript">
-    jQuery('.dropdown-menu.keep-open').on('click', function (e) {
-      e.stopPropagation();
-    });
+    <script type="text/javascript">
+      jQuery('.dropdown-menu.keep-open').on('click', function (e) {
+        e.stopPropagation();
+      });
 
-    if (1) {
-      $('body').attr('tabindex', '0');
-    }
-    else {
-      alertify.confirm().set({ 'reverseButtons': true });
-      alertify.prompt().set({ 'reverseButtons': true });
-    }
-  </script>
+      if (1) {
+        $('body').attr('tabindex', '0');
+      }
+      else {
+        alertify.confirm().set({ 'reverseButtons': true });
+        alertify.prompt().set({ 'reverseButtons': true });
+      }
+    </script>

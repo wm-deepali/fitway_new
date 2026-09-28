@@ -588,16 +588,18 @@
 
                     <div class="card-footer wm-quotes-footer">
 
-                        <button type="submit"
-                            class="btn btn-primary wm-btn-primary">
+                        @permission('quotation_system', 'quote_settings', 'edit')
+                            <button type="submit"
+                                class="btn btn-primary wm-btn-primary">
 
-                            <i class="fa fa-save"></i>
-                            Save Quote Settings
+                                <i class="fa fa-save"></i>
+                                Save Quote Settings
 
-                        </button>
+                            </button>
+                        @endpermission
 
                     </div>
-
+                    
                 </form>
 
             </div>

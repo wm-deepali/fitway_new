@@ -411,4 +411,71 @@ class FrontController extends Controller
     {
         return view('front.resorts-gym-setup');
     }
+
+    public function registerComplaint()
+    {
+        $pageSeo = \App\Models\Page::with('seo')->where('slug', 'register-complaint')->first();
+        $states = \App\Models\State::orderBy('name')->get();
+
+        return view('front.register-complaint', compact('pageSeo', 'states'));
+    }
+
+    public function registerComplaintStore(Request $request)
+    {
+        $validated = $request->validate([
+            'full_name' => 'required|string|max:255',
+            'mobile_number' => 'required|string|max:15',
+            'email' => 'nullable|email|max:255',
+            'full_address' => 'nullable|string|max:1000',
+            'landmark' => 'nullable|string|max:255',
+            'pin_code' => 'nullable|string|max:10',
+            'state_id' => 'nullable|exists:states,id',
+            'city_id' => 'nullable|exists:cities,id',
+            'complaint_detail' => 'required|string|max:2000',
+        ], [
+            'full_name.required' => 'Please enter your full name.',
+            'mobile_number.required' => 'Please enter your mobile number.',
+            'complaint_detail.required' => 'Please describe your complaint.',
+        ]);
+
+        $complaint = \App\Models\Complaint::create([
+            'customer_name' => $validated['full_name'],
+            'mobile_number' => $validated['mobile_number'],
+            'email' => $validated['email'] ?? null,
+            'full_address' => $validated['full_address'] ?? null,
+            'landmark' => $validated['landmark'] ?? null,
+            'pin_code' => $validated['pin_code'] ?? null,
+            'state_id' => $validated['state_id'] ?? null,
+            'city_id' => $validated['city_id'] ?? null,
+            'complaint_detail' => $validated['complaint_detail'],
+            'complaint_type' => 'unpaid',
+            'status' => \App\Models\Complaint::STATUS_NEW,
+            'source' => 'website',
+        ]);
+
+        $generalSettings = \App\Models\Setting::first();
+        $smtpSettings = \App\Models\SmtpSetting::getInstance();
+
+        if ($complaint->email) {
+            try {
+                \Mail::to($complaint->email)->send(new \App\Mail\ComplaintCustomerThankYouMail($complaint, $generalSettings));
+            } catch (\Exception $e) {
+                \Log::error('Complaint customer email failed: ' . $e->getMessage());
+            }
+        }
+
+        if ($smtpSettings->admin_enquiry_alert) {
+            $adminEmail = $generalSettings->admin_email ?? config('mail.from.address');
+            try {
+                \Mail::to($adminEmail)->send(new \App\Mail\ComplaintAdminNotificationMail($complaint));
+            } catch (\Exception $e) {
+                \Log::error('Complaint admin email failed: ' . $e->getMessage());
+            }
+        }
+
+        return redirect()->route('thank-you', [
+            'message' => 'Your complaint has been registered successfully. Our team will get in touch with you shortly.'
+        ]);
+    }
+
 }

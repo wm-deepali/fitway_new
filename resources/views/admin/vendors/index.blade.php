@@ -64,9 +64,11 @@
                         Vendors
                     </div>
                 </div>
-                <a href="{{ route('admin.manage-vendors.create') }}" class="btn-primary-dash">
-                    <i class="fa fa-plus"></i> Add Vendor
-                </a>
+                @permission('quotation_system', 'manage_vendors', 'add')
+                    <a href="{{ route('admin.manage-vendors.create') }}" class="btn-primary-dash">
+                        <i class="fa fa-plus"></i> Add Vendor
+                    </a>
+                @endpermission
             </div>
 
             @if(session('success'))
@@ -144,13 +146,18 @@
                                     </td>
                                     <td>
                                         <div class="row-actions">
-                                            <a href="{{ route('admin.manage-vendors.edit', $vendor) }}" class="icon-btn" title="Edit">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                            <button type="button" class="icon-btn danger" title="Delete"
-                                                onclick="deleteVendor({{ $vendor->id }})">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                            @permission('quotation_system', 'manage_vendors', 'edit')
+                                                <a href="{{ route('admin.manage-vendors.edit', $vendor) }}" class="icon-btn" title="Edit">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                            @endpermission
+
+                                            @permission('quotation_system', 'manage_vendors', 'delete')
+                                                <button type="button" class="icon-btn danger" title="Delete"
+                                                    onclick="deleteVendor({{ $vendor->id }})">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            @endpermission
                                         </div>
                                     </td>
                                 </tr>

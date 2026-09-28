@@ -7,6 +7,7 @@ use App\Models\ProductCategory;
 use App\View\Composers\SeoComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Blade;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,12 +24,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Blade::if('permission', function (string $module, ?string $item = null, string $action = 'view') {
+            return auth()->check() && auth()->user()->hasPermission($module, $item, $action);
+        });
+
         View::composer('layouts.app', function ($view) {
             $view->with([
                 'headerCategories' => ProductCategory::active()->orderBy('id')->get(),
-                'generalSettings'  => GeneralSetting::first(),
+                'generalSettings' => GeneralSetting::first(),
             ]);
         });
+
 
         View::composer([
             'front.home',

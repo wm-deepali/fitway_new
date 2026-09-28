@@ -28,7 +28,8 @@
 
   <meta name="twitter:card" content="{{ $__seo->twitter_card_type ?? 'summary_large_image' }}" />
   <meta name="twitter:title" content="@yield('og_title', $__seo->twitter_title ?? $__defaultOgTitle)" />
-  <meta name="twitter:description" content="@yield('og_description', $__seo->twitter_description ?? $__defaultOgDescription)" />
+  <meta name="twitter:description"
+    content="@yield('og_description', $__seo->twitter_description ?? $__defaultOgDescription)" />
   <meta name="twitter:image" content="@yield('og_image', $__seo?->resolved_twitter_image ?? $__defaultOgImage)" />
 
   @if($generalSettings->favicon ?? false)
@@ -372,6 +373,7 @@
               <li><a href="{{ route('blogs') }}">Blogs</a></li>
               <li><a href="{{ route('faqs') }}">Faqs</a></li>
               <li><a href="{{ route('contact-us') }}">Contact</a></li>
+              <li><a href="{{ route('register-complaint') }}">Register Complaint</a></li>
             </ul>
           </div>
 

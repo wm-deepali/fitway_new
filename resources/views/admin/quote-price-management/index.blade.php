@@ -640,12 +640,15 @@
                     </div>
                 </div>
                 <div style="display:flex;gap:10px">
-                    <a href="{{ route('admin.quote-price-management.export', request()->query()) }}" class="btn-filter-reset">
+                    <a href="{{ route('admin.quote-price-management.export', request()->query()) }}"
+                        class="btn-filter-reset">
                         <i class="fa fa-download"></i> Export CSV
                     </a>
+                    @permission('quotation_system', 'quote_price_management', 'edit')
                     <button type="button" class="btn-filter" id="openImportModal">
                         <i class="fa fa-upload"></i> Import CSV
                     </button>
+                    @endpermission
                 </div>
             </div>
 
@@ -690,7 +693,8 @@
 
             <div class="stock-card">
 
-                <form method="GET" action="{{ route('admin.quote-price-management.index') }}" class="filter-bar" id="filters-form">
+                <form method="GET" action="{{ route('admin.quote-price-management.index') }}" class="filter-bar"
+                    id="filters-form">
                     <div class="filter-row">
                         <div class="filter-group" style="flex:1">
                             <label>Search</label>
@@ -741,68 +745,72 @@
                         </thead>
                         <tbody>
                             @forelse($products as $product)
-                                <tr data-product-id="{{ $product->id }}">
-                                    <td>
-                                        <div style="display:flex;align-items:center;gap:10px">
-                                            <img src="{{ $product->image_url ?? 'https://placehold.co/48x48/eef0fa/303d89?text=P' }}"
-                                                class="prod-thumb" alt="{{ $product->name }}">
-                                            <div style="flex:1;min-width:150px">
-                                                <div class="prod-name">{{ $product->name }}</div>
-                                                <div class="prod-sub">
-                                                    @if($product->brand)
-                                                        {{ $product->brand->name }}
-                                                    @endif
-                                                    @if($product->brand && $product->vendor)
-                                                        &middot;
-                                                    @endif
-                                                    @if($product->vendor)
-                                                        {{ $product->vendor->vendor_name }}
-                                                    @endif
-                                                    @if(!$product->brand && !$product->vendor)
-                                                        No vendor / brand set
-                                                    @endif
-                                                </div>
+                            <tr data-product-id="{{ $product->id }}">
+                                <td>
+                                    <div style="display:flex;align-items:center;gap:10px">
+                                        <img src="{{ $product->image_url ?? 'https://placehold.co/48x48/eef0fa/303d89?text=P' }}"
+                                            class="prod-thumb" alt="{{ $product->name }}">
+                                        <div style="flex:1;min-width:150px">
+                                            <div class="prod-name">{{ $product->name }}</div>
+                                            <div class="prod-sub">
+                                                @if($product->brand)
+                                                    {{ $product->brand->name }}
+                                                @endif
+                                                @if($product->brand && $product->vendor)
+                                                    &middot;
+                                                @endif
+                                                @if($product->vendor)
+                                                    {{ $product->vendor->vendor_name }}
+                                                @endif
+                                                @if(!$product->brand && !$product->vendor)
+                                                    No vendor / brand set
+                                                @endif
                                             </div>
                                         </div>
-                                    </td>
-                                    <td>
-                                        <input type="number" step="0.01" min="0" class="price-input price-field"
-                                            data-field="mrp" value="{{ $product->mrp }}">
-                                    </td>
-                                    <td>
-                                        <input type="number" step="0.01" min="0" class="price-input price-field"
-                                            data-field="discount_value" value="{{ $product->discount_value }}">
-                                        <select class="discount-type-select price-field" data-field="discount_type">
-                                            <option value="" {{ !$product->discount_type ? 'selected' : '' }}>No Discount</option>
-                                            <option value="flat" {{ $product->discount_type == 'flat' ? 'selected' : '' }}>₹ Flat</option>
-                                            <option value="percentage" {{ $product->discount_type == 'percentage' ? 'selected' : '' }}>% Percent</option>
-                                        </select>
-                                    </td>
-                                    <td>
-                                        <input type="number" step="0.01" min="0" class="price-input price-field"
-                                            data-field="offered_price" value="{{ $product->offered_price }}"
-                                            placeholder="Sales Price">
-                                    </td>
-                                    <td>
-                                        <input type="number" step="0.01" min="0" class="price-input price-field"
-                                            data-field="purchase_price" value="{{ $product->purchase_price }}">
-                                    </td>
-                                    <td style="white-space:nowrap">
-                                        <button type="button" class="btn-save-row" disabled>
-                                            <i class="fa fa-save"></i> Save
-                                        </button>
-                                        <button type="button" class="btn-view-logs" data-product-id="{{ $product->id }}">
-                                            <i class="fa fa-history"></i> Logs
-                                        </button>
-                                        <div class="save-indicator"></div>
-                                    </td>
-                                </tr>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="number" step="0.01" min="0" class="price-input price-field"
+                                        data-field="mrp" value="{{ $product->mrp }}">
+                                </td>
+                                <td>
+                                    <input type="number" step="0.01" min="0" class="price-input price-field"
+                                        data-field="discount_value" value="{{ $product->discount_value }}">
+                                    <select class="discount-type-select price-field" data-field="discount_type">
+                                        <option value="" {{ !$product->discount_type ? 'selected' : '' }}>No Discount
+                                        </option>
+                                        <option value="flat" {{ $product->discount_type == 'flat' ? 'selected' : '' }}>₹
+                                            Flat</option>
+                                        <option value="percentage" {{ $product->discount_type == 'percentage' ? 'selected' : '' }}>% Percent</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" step="0.01" min="0" class="price-input price-field"
+                                        data-field="offered_price" value="{{ $product->offered_price }}"
+                                        placeholder="Sales Price">
+                                </td>
+                                <td>
+                                    <input type="number" step="0.01" min="0" class="price-input price-field"
+                                        data-field="purchase_price" value="{{ $product->purchase_price }}">
+                                </td>
+                                <td style="white-space:nowrap">
+                                    @permission('quotation_system', 'quote_price_management', 'edit')
+                                    <button type="button" class="btn-save-row" disabled>
+                                        <i class="fa fa-save"></i> Save
+                                    </button>
+                                    @endpermission
+                                    <button type="button" class="btn-view-logs" data-product-id="{{ $product->id }}">
+                                        <i class="fa fa-history"></i> Logs
+                                    </button>
+                                    <div class="save-indicator"></div>
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="6" style="text-align:center;padding:40px;color:var(--text-hint)">
-                                        No Internal Inventory products match these filters.
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="6" style="text-align:center;padding:40px;color:var(--text-hint)">
+                                    No Internal Inventory products match these filters.
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -841,7 +849,8 @@
             <button type="button" id="closeImportModal">&times;</button>
         </div>
         <div class="wm-logs-modal-body">
-            <form method="POST" action="{{ route('admin.quote-price-management.import') }}" enctype="multipart/form-data">
+            <form method="POST" action="{{ route('admin.quote-price-management.import') }}"
+                enctype="multipart/form-data">
                 @csrf
                 <p style="font-size:12.5px;color:var(--text-secondary);margin-bottom:12px">
                     CSV must include an <strong>id</strong> column matching an existing Internal Inventory product.

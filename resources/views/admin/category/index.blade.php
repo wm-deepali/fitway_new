@@ -428,10 +428,35 @@
                 min-width: 100%;
             }
         }
-          .icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); color: var(--text-secondary) !important; text-decoration: none !important; cursor: pointer; }
-    .icon-btn:hover { background: var(--bg); }
-    .icon-btn.danger:hover { background: #fdecec; color: #b22222 !important; border-color: #f3c6c6; }
-     .row-actions { display: flex; gap: 6px; }
+
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--surface);
+            color: var(--text-secondary) !important;
+            text-decoration: none !important;
+            cursor: pointer;
+        }
+
+        .icon-btn:hover {
+            background: var(--bg);
+        }
+
+        .icon-btn.danger:hover {
+            background: #fdecec;
+            color: #b22222 !important;
+            border-color: #f3c6c6;
+        }
+
+        .row-actions {
+            display: flex;
+            gap: 6px;
+        }
     </style>
 
     <div class="app-content content container-fluid">
@@ -448,9 +473,11 @@
                 </div>
 
                 <div style="display:flex;gap:8px;flex-wrap:wrap">
+                    @permission('gym_equipments', 'categories', 'add')
                     <a href="{{ route('admin.categories.create') }}" class="btn-primary-dash">
                         <i class="fa fa-plus"></i> Add Category
                     </a>
+                    @endpermission
                 </div>
             </div>
 
@@ -511,33 +538,39 @@
                         </thead>
                         <tbody>
                             @foreach($categories as $category)
-                                <tr>
-                                    <td><img src="{{ asset('storage/' . $category->image) }}" width="40" height="40"
-                                            style="object-fit:cover;border-radius:6px" alt="{{ $category->category_name }}">
-                                    </td>
-                                    <td>{{ $category->category_name }}</td>
-                                    <td>{{ Str::limit($category->short_description, 40) }}</td>
-                                    <td>
-                                        @if($category->banner_type === 'video')
-                                            <span class="badge bg-info">Video</span>
-                                        @else
-                                            <span class="badge bg-secondary">Image</span>
-                                        @endif
-                                    </td>
-                                    <td>{{ $category->status ? 'Active' : 'Inactive' }}</td>
-                                    <td>{{ $category->premium ? 'Yes' : 'No' }}</td>
-                                    <td>
-                                        <div class="row-actions">
-                                             <a href="{{ route('admin.categories.edit', $category) }}" class="icon-btn" title="Edit">
-                                                <i class="fa fa-pencil"></i>
-                                            </a>
-                                         <button type="button" class="icon-btn danger" title="Delete"
-                                                onclick="deleteCategory({{ $category->id }})">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                         </div>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td><img src="{{ asset('storage/' . $category->image) }}" width="40" height="40"
+                                        style="object-fit:cover;border-radius:6px" alt="{{ $category->category_name }}">
+                                </td>
+                                <td>{{ $category->category_name }}</td>
+                                <td>{{ Str::limit($category->short_description, 40) }}</td>
+                                <td>
+                                    @if($category->banner_type === 'video')
+                                        <span class="badge bg-info">Video</span>
+                                    @else
+                                        <span class="badge bg-secondary">Image</span>
+                                    @endif
+                                </td>
+                                <td>{{ $category->status ? 'Active' : 'Inactive' }}</td>
+                                <td>{{ $category->premium ? 'Yes' : 'No' }}</td>
+                                <td>
+                                    <div class="row-actions">
+                                        @permission('gym_equipments', 'categories', 'edit')
+                                        <a href="{{ route('admin.categories.edit', $category) }}" class="icon-btn"
+                                            title="Edit">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                        @endpermission
+
+                                        @permission('gym_equipments', 'categories', 'delete')
+                                        <button type="button" class="icon-btn danger" title="Delete"
+                                            onclick="deleteCategory({{ $category->id }})">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                        @endpermission
+                                    </div>
+                                </td>
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>

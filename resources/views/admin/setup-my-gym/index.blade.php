@@ -445,10 +445,12 @@
                                         <button class="action-btn" title="View" onclick="viewGymRequest({{ $item->id }})">
                                             <i class="fa fa-eye"></i>
                                         </button>
-                                        <button class="action-btn action-btn-danger" title="Delete"
-                                            onclick="deleteGymRequest({{ $item->id }})">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        @permission('contact_inquiries', 'setup_my_gym', 'delete')
+                                            <button class="action-btn action-btn-danger" title="Delete"
+                                                onclick="deleteGymRequest({{ $item->id }})">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        @endpermission
                                     </td>
                                 </tr>
                             @empty

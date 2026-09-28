@@ -563,6 +563,7 @@ the admin abandons the quote. --}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.js"></script>
 <script>
+
     $(function () {
 
         var itemIndex = 0;
@@ -1433,12 +1434,48 @@ the admin abandons the quote. --}}
 
         }
 
-        prefillFromDraft(draftData);
+        // ---------- Default location for a new customer: Uttar Pradesh / Lucknow ----------
+var DEFAULT_STATE_NAME = 'uttar pradesh';   // lowercase
+var DEFAULT_CITY_NAME  = 'lucknow';         // lowercase
+
+function applyDefaultLocation() {
+
+    var $state = $('#state_id');
+    var $city  = $('#city_id');
+
+    var $opt = $state.find('option').filter(function () {
+        return $.trim($(this).text()).toLowerCase() === DEFAULT_STATE_NAME;
+    }).first();
+
+    if (!$opt.length) {
+        return;
+    }
+
+    $state.val($opt.val());
+    $city.html('<option value="">Select City</option>');
+
+    $.get('{{ route('admin.quote-settings.get-cities', ':state_id') }}'.replace(':state_id', $opt.val()), function (cities) {
+
+        $.each(cities, function (i, city) {
+            var selected = ($.trim(city.name).toLowerCase() === DEFAULT_CITY_NAME) ? 'selected' : '';
+            $city.append('<option value="' + city.id + '" ' + selected + '>' + city.name + '</option>');
+        });
+
+    });
+}
+
+        if (draftData) {
+            prefillFromDraft(draftData);      // draft resume: saved state/city hi rahegi
+        } else {
+            applyDefaultLocation();           // fresh quote: UP + Lucknow
+        }
 
         // active row always comes last — after any prefilled items — with a fresh search box
         renderActiveRow();
 
     });
+
+  
 </script>
 
 {{-- ==========================================================

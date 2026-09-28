@@ -80,6 +80,8 @@ Route::controller(FrontController::class)->group(function () {
     Route::get('/outdoor-gym-setup', 'outdoorGymSetup')->name('outdoor-gym-setup');
     Route::get('/resorts-gym-setup', 'resortsGymSetup')->name('resorts-gym-setup');
 
+    Route::get('/register-complaint', 'registerComplaint')->name('register-complaint');
+    Route::post('/register-complaint', 'registerComplaintStore')->name('register-complaint.store');
 
 });
 
@@ -87,6 +89,10 @@ Route::get('/thank-you', function () {
     return view('front.thanks', ['message' => request('message')]);
 })->name('thank-you');
 
+
+Route::get('/complaint/cities-by-state/{state}', function (\App\Models\State $state) {
+    return $state->cities()->select('id', 'name')->get();
+})->name('complaint.public-cities-by-state');
 
 Route::prefix('cart')->name('cart.')->group(function () {
     Route::get('/', [CartController::class, 'index'])->name('index');
@@ -105,7 +111,8 @@ Route::post('/login', [LoginController::class, 'login'])->name('login.post');
 
 Route::prefix('admin')->name('admin.')->group(function () {
 
-    Route::middleware(['auth'])->group(function () {
+    // 'admin.access' = permission check for sub-admins (see AdminAccess middleware + config/admin_permissions.php)
+    Route::middleware(['auth', 'admin.access'])->group(function () {
 
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
         Route::get('profile-setting', [ProfileSettingController::class, 'index'])->name('profile.index');
@@ -278,19 +285,18 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/{pageQuoteRequest}', [PageQuoteRequestController::class, 'destroy'])->name('destroy');
         });
 
-Route::get('/admin-role-setting', [Adminrolescontroller::class, 'index'])
-    ->name('admin-role-setting');
+        // Sub Admins (super admin only — anything not listed in config/admin_permissions.php is blocked for sub-admins)
+        Route::resource('admin-role-setting', Adminrolescontroller::class)
+            ->except(['show'])
+            ->parameters(['admin-role-setting' => 'id']);
 
-Route::get('/admin-role-setting/create', [Adminrolescontroller::class, 'create'])
-    ->name('admin-role-setting.create');
-    
         Route::prefix('seo')->name('seo.')->group(function () {
             Route::get('/', [SeoController::class, 'index'])->name('index');
             Route::get('/{id}/edit', [SeoController::class, 'edit'])->name('edit');
             Route::put('/{id}', [SeoController::class, 'update'])->name('update');
         });
-        
-        
+
+
 
         Route::get('manage-vendors/get-cities', [VendorController::class, 'getCities'])->name('vendors.getCities');
         Route::resource('manage-vendors', VendorController::class);
@@ -327,31 +333,29 @@ Route::get('/admin-role-setting/create', [Adminrolescontroller::class, 'create']
         Route::post('quotes/quick-store-product', [QuoteController::class, 'quickStoreProduct'])->name('quotes.quick-store-product');
         Route::get('quotes/{customer}/previous-quotes', [QuoteController::class, 'customerQuotes'])->name('quotes.customer-quotes');
         Route::delete('quotes/{quote}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
-        
 
-Route::prefix('complaint')->name('complaint.')->group(function () {
 
-    Route::resource('technicians', TechnicianController::class);
+        Route::prefix('complaint')->name('complaint.')->group(function () {
 
-    Route::resource('complaints', ComplaintController::class)
-        ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+            Route::resource('technicians', TechnicianController::class);
 
-    Route::get('complaints-search/customers', [ComplaintController::class, 'searchCustomers'])
-        ->name('complaints.searchCustomers');
-    Route::get('complaints-search/technicians', [ComplaintController::class, 'searchTechnicians'])
-        ->name('complaints.searchTechnicians');
-    Route::get('customers/{customer}/history', [ComplaintController::class, 'customerHistory'])
-        ->name('complaints.customerHistory');
-    Route::get('cities-by-state/{state}', [ComplaintController::class, 'citiesByState'])
-        ->name('complaints.citiesByState');
-});  
+            Route::resource('complaints', ComplaintController::class)
+                ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
+            Route::get('complaints-search/customers', [ComplaintController::class, 'searchCustomers'])
+                ->name('complaints.searchCustomers');
+            Route::get('complaints-search/technicians', [ComplaintController::class, 'searchTechnicians'])
+                ->name('complaints.searchTechnicians');
+            Route::get('customers/{customer}/history', [ComplaintController::class, 'customerHistory'])
+                ->name('complaints.customerHistory');
+            Route::get('cities-by-state/{state}', [ComplaintController::class, 'citiesByState'])
+                ->name('complaints.citiesByState');
+        });
 
 
         Route::prefix('complaint-reports')->name('complaint-reports.')->group(function () {
             Route::get('/', [ComplaintReportController::class, 'index'])->name('index');
         });
-
-
 
     });
 });

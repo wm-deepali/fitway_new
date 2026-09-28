@@ -1,84 +1,12 @@
 @include('admin.top-header')
 
 @php
-    // Module / permission structure — mirrors the sidebar (admin.header) menu.
-    // Each item renders a View / Add / Edit / Delete checkbox row.
-    // Checkbox names: permissions[<module_key>][<item_key>][<action>]
-    $permissionGroups = [
-        [
-            'key' => 'gym_equipments',
-            'label' => 'Gym Equipments',
-            'icon' => 'fa-layer-group',
-            'items' => [
-                ['key' => 'categories', 'label' => 'Categories'],
-                ['key' => 'subcategories', 'label' => 'Sub Categories'],
-                ['key' => 'subsubcategories', 'label' => 'Sub Sub Categories'],
-                ['key' => 'products', 'label' => 'Products'],
-                ['key' => 'price_management', 'label' => 'Price Management'],
-            ],
-        ],
-        [
-            'key' => 'quotation_system',
-            'label' => 'Quotation System',
-            'icon' => 'fa-file-invoice-dollar',
-            'items' => [
-                ['key' => 'manage_vendors', 'label' => 'Manage Vendors'],
-                ['key' => 'brands', 'label' => 'Manage Brands'],
-                ['key' => 'customers', 'label' => 'Manage Customers'],
-                ['key' => 'quote_price_management', 'label' => 'Price Management'],
-                ['key' => 'quotes', 'label' => 'Manage Quotes'],
-                ['key' => 'quote_settings', 'label' => 'Quote Settings'],
-            ],
-        ],
-        [
-            'key' => 'content_management',
-            'label' => 'Content Management',
-            'icon' => 'fa-house',
-            'items' => [
-                ['key' => 'sliders', 'label' => 'Slider'],
-                ['key' => 'about_us', 'label' => 'About Us & Who Are We'],
-                ['key' => 'portfolio_category', 'label' => 'Portfolio Category'],
-                ['key' => 'portfolio', 'label' => 'Portfolio'],
-                ['key' => 'blogs', 'label' => 'Blogs'],
-                ['key' => 'testimonials', 'label' => 'Testimonials'],
-                ['key' => 'dynamic_pages', 'label' => 'Manage Dynamic Pages'],
-                ['key' => 'faqs', 'label' => 'Manage Faq'],
-                ['key' => 'seo', 'label' => 'SEO Management'],
-            ],
-        ],
-        [
-            'key' => 'contact_inquiries',
-            'label' => 'Contact & Inquiries',
-            'icon' => 'fa-inbox',
-            'items' => [
-                ['key' => 'quote_requests', 'label' => 'Cart Quote Requests'],
-                ['key' => 'page_quote_requests', 'label' => 'Page Quote Requests'],
-                ['key' => 'contact_us', 'label' => 'Contact Us'],
-                ['key' => 'product_enquiries', 'label' => 'Product Enquiries'],
-                ['key' => 'setup_my_gym', 'label' => 'Setup My Gym'],
-                ['key' => 'newsletter', 'label' => 'Newsletter'],
-            ],
-        ],
-        [
-            'key' => 'complaint_management',
-            'label' => 'Complaint Management',
-            'icon' => 'fa-triangle-exclamation',
-            'items' => [
-                ['key' => 'complaints', 'label' => 'Manage Complaint'],
-                ['key' => 'technicians', 'label' => 'Manage Technician'],
-                ['key' => 'complaint_reports', 'label' => 'Reports'],
-            ],
-        ],
-        [
-            'key' => 'settings',
-            'label' => 'Settings',
-            'icon' => 'fa-gear',
-            'items' => [
-                ['key' => 'general_settings', 'label' => 'General Settings'],
-                ['key' => 'smtp_settings', 'label' => 'SMTP Settings'],
-            ],
-        ],
-    ];
+    // Shared with the controller via config/admin_permissions.php
+    $permissionGroups = config('admin_permissions.groups');
+
+    // Same view is used for Create and Edit
+    $isEdit = isset($employee);
+    $oldPerms = old('permissions', $isEdit ? ($employee->permissions ?? []) : []);
 @endphp
 
 <div class="main-section">
@@ -98,15 +26,14 @@
                         </a>
                     </li>
 
-                    {{-- TODO: point this at the real "index" route once it exists --}}
                     <li class="breadcrumb-item">
-                        <a href="#">
+                        <a href="{{ route('admin.admin-role-setting.index') }}">
                             Admin Roles &amp; Permissions
                         </a>
                     </li>
 
                     <li class="breadcrumb-item active">
-                        Create New
+                        {{ $isEdit ? 'Edit' : 'Create New' }}
                     </li>
 
                 </ol>
@@ -116,10 +43,24 @@
 
         <div class="content-wrapper pb-4">
 
-            {{-- TODO: point the form action at the real "store" route once it exists --}}
-            <form action="#" method="POST" enctype="multipart/form-data" id="employeeForm">
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    <ul class="mb-0">
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            <form
+                action="{{ $isEdit ? route('admin.admin-role-setting.update', $employee->id) : route('admin.admin-role-setting.store') }}"
+                method="POST" enctype="multipart/form-data" id="employeeForm">
 
                 @csrf
+                @if($isEdit)
+                    @method('PUT')
+                @endif
 
                 {{-- Employee Details --}}
                 <div class="card wm-card mb-4">
@@ -137,25 +78,28 @@
                                 <div class="form-group wm-form-group">
                                     <label class="wm-label">Employee Name</label>
                                     <input type="text" name="employee_name" id="employee_name"
-                                        class="form-control wm-input" required>
+                                        class="form-control wm-input"
+                                        value="{{ old('employee_name', $employee->name ?? '') }}" required>
                                 </div>
 
                                 <div class="form-group wm-form-group">
                                     <label class="wm-label">Email Id</label>
                                     <input type="email" name="email" id="email" class="form-control wm-input"
-                                        required>
+                                        value="{{ old('email', $employee->email ?? '') }}" required>
                                 </div>
 
                                 <div class="form-group wm-form-group">
                                     <label class="wm-label">Mobile Number</label>
                                     <input type="text" name="mobile_number" id="mobile_number"
-                                        class="form-control wm-input" maxlength="15" required>
+                                        class="form-control wm-input" maxlength="15"
+                                        value="{{ old('mobile_number', $employee->contact ?? '') }}" required>
                                 </div>
 
                                 <div class="form-group wm-form-group mb-0">
                                     <label class="wm-label">WhatsApp Number</label>
                                     <input type="text" name="whatsapp_number" id="whatsapp_number"
-                                        class="form-control wm-input" maxlength="15">
+                                        class="form-control wm-input" maxlength="15"
+                                        value="{{ old('whatsapp_number', $employee->whatsapp_number ?? '') }}">
                                     <small class="text-muted wm-hint">Mobile Number daalte hi yahan khud aa jaayega —
                                         chahen to alag se edit kar sakte hain.</small>
                                 </div>
@@ -167,7 +111,7 @@
                                 <div class="form-group wm-form-group">
                                     <label class="wm-label">Address</label>
                                     <textarea name="address" id="address" rows="4"
-                                        class="form-control wm-input"></textarea>
+                                        class="form-control wm-input">{{ old('address', $employee->address ?? '') }}</textarea>
                                 </div>
 
                                 <div class="form-group wm-form-group mb-0">
@@ -176,7 +120,11 @@
                                     <div class="d-flex align-items-center wm-photo-row">
 
                                         <div class="wm-photo-preview" id="photoPreview">
-                                            <i class="fa-solid fa-user"></i>
+                                            @if($isEdit && $employee->image)
+                                                <img src="{{ asset('storage/' . $employee->image) }}" alt="Photo">
+                                            @else
+                                                <i class="fa-solid fa-user"></i>
+                                            @endif
                                         </div>
 
                                         <div class="flex-grow-1">
@@ -202,12 +150,16 @@
                                     <label class="wm-label">Password</label>
                                     <div class="wm-password-group">
                                         <input type="password" name="password" id="password"
-                                            class="form-control wm-input" required>
+                                            class="form-control wm-input" autocomplete="new-password"
+                                            {{ $isEdit ? '' : 'required' }}>
                                         <button type="button" class="wm-password-toggle" data-target="#password"
                                             tabindex="-1">
                                             <i class="fa-solid fa-eye"></i>
                                         </button>
                                     </div>
+                                    @if($isEdit)
+                                        <small class="text-muted wm-hint">Leave blank to keep the current password.</small>
+                                    @endif
                                 </div>
                             </div>
 
@@ -216,7 +168,8 @@
                                     <label class="wm-label">Confirm Password</label>
                                     <div class="wm-password-group">
                                         <input type="password" name="password_confirmation" id="password_confirmation"
-                                            class="form-control wm-input" required>
+                                            class="form-control wm-input" autocomplete="new-password"
+                                            {{ $isEdit ? '' : 'required' }}>
                                         <button type="button" class="wm-password-toggle"
                                             data-target="#password_confirmation" tabindex="-1">
                                             <i class="fa-solid fa-eye"></i>
@@ -225,6 +178,18 @@
                                 </div>
                             </div>
 
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-6">
+                                <div class="form-group wm-form-group mb-0">
+                                    <label class="wm-label">Status</label>
+                                    <select name="status" id="status" class="form-control wm-input">
+                                        <option value="1" {{ (string) old('status', $employee->status ?? 1) === '1' ? 'selected' : '' }}>Active</option>
+                                        <option value="0" {{ (string) old('status', $employee->status ?? 1) === '0' ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
                     </div>
@@ -250,7 +215,7 @@
                         <div class="wm-permission-module">
 
                             <div class="wm-permission-module-header">
-                                <i class="fa-solid fa-gauge"></i> Dashboard
+                                <span><i class="fa-solid fa-gauge"></i> Dashboard</span>
                             </div>
 
                             <div class="table-responsive">
@@ -259,7 +224,8 @@
                                         <tr>
                                             <td>Dashboard</td>
                                             <td width="90" class="text-center">
-                                                <input type="checkbox" name="permissions[dashboard][view]" value="1">
+                                                <input type="checkbox" name="permissions[dashboard][view]" value="1"
+                                                    {{ data_get($oldPerms, 'dashboard.view') ? 'checked' : '' }}>
                                                 <label class="mb-0 small">View</label>
                                             </td>
                                         </tr>
@@ -309,7 +275,8 @@
                                                             <input type="checkbox"
                                                                 class="wm-perm-checkbox wm-perm-{{ $group['key'] }}"
                                                                 name="permissions[{{ $group['key'] }}][{{ $item['key'] }}][{{ $action }}]"
-                                                                value="1">
+                                                                value="1"
+                                                                {{ data_get($oldPerms, $group['key'] . '.' . $item['key'] . '.' . $action) ? 'checked' : '' }}>
                                                         </td>
                                                     @endforeach
 
@@ -333,11 +300,10 @@
                 <div class="card wm-card">
                     <div class="card-footer wm-card-footer text-right">
 
-                        {{-- TODO: point this at the real "index" route once it exists --}}
-                        <a href="#" class="btn wm-btn-cancel">Cancel</a>
+                        <a href="{{ route('admin.admin-role-setting.index') }}" class="btn wm-btn-cancel">Cancel</a>
 
                         <button type="submit" class="btn wm-btn-primary">
-                            <i class="fa-solid fa-floppy-disk"></i> Save Employee
+                            <i class="fa-solid fa-floppy-disk"></i> {{ $isEdit ? 'Update Employee' : 'Save Employee' }}
                         </button>
 
                     </div>
@@ -361,6 +327,11 @@
         // ---------- WhatsApp Number auto-fill from Mobile Number ----------
         // Keeps syncing until the person manually edits the WhatsApp field themselves.
         var whatsappManuallyEdited = false;
+
+        // Edit mode / validation-error reload: don't overwrite an existing WhatsApp number
+        if ($('#whatsapp_number').val() !== '') {
+            whatsappManuallyEdited = true;
+        }
 
         $('#mobile_number').on('input', function () {
             if (!whatsappManuallyEdited) {
@@ -426,6 +397,8 @@
 
             $('.wm-perm-' + module).prop('checked', checked);
 
+            syncMasterCheckbox();
+
         });
 
         // If every checkbox in a module gets ticked/unticked by hand, keep that
@@ -438,7 +411,32 @@
 
             $row.find('.wm-module-select-all').prop('checked', $all.length === $checked.length);
 
+            syncMasterCheckbox();
+
         });
+
+        // Master checkbox is ticked only when every permission checkbox is ticked
+        function syncMasterCheckbox() {
+
+            var $all = $('.wm-perm-checkbox');
+
+            $('#selectAllMaster').prop('checked', $all.length > 0 && $all.length === $all.filter(':checked').length);
+
+        }
+
+        // ---------- Initial state (edit mode / reload after validation error) ----------
+        $('.wm-permission-module').each(function () {
+
+            var $all = $(this).find('.wm-perm-checkbox');
+
+            if ($all.length) {
+                $(this).find('.wm-module-select-all')
+                    .prop('checked', $all.length === $all.filter(':checked').length);
+            }
+
+        });
+
+        syncMasterCheckbox();
 
     });
 </script>

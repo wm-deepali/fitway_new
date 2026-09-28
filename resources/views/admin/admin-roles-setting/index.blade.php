@@ -28,13 +28,16 @@
 
         <div class="content-wrapper pb-4">
 
+            @if(session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+            @endif
+
             {{-- Header card: title + Add New --}}
             <div class="card wm-card mb-4">
 
                 <div class="card-header wm-card-header d-flex align-items-center justify-content-between">
                     <h4 class="mb-0 wm-card-title">Admin Roles &amp; Permissions</h4>
 
-                    {{-- TODO: point this at the real "create" route once it exists --}}
                     <a href="{{ route('admin.admin-role-setting.create') }}" class="btn wm-btn-primary">
                         <i class="fa-solid fa-plus"></i> Add New
                     </a>
@@ -42,34 +45,47 @@
 
                 <div class="card-body wm-form-body">
 
-                    <div class="row">
+                    <form method="GET" action="{{ route('admin.admin-role-setting.index') }}">
 
-                        <div class="col-md-4">
-                            <div class="form-group mb-0 wm-form-group">
-                                <label class="wm-label">Search</label>
-                                <input type="text" class="form-control wm-input"
-                                    placeholder="Search by name, email or mobile">
+                        <div class="row">
+
+                            <div class="col-md-4">
+                                <div class="form-group mb-0 wm-form-group">
+                                    <label class="wm-label">Search</label>
+                                    <input type="text" name="search" value="{{ request('search') }}"
+                                        class="form-control wm-input" placeholder="Search by name, email or mobile">
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-3">
-                            <div class="form-group mb-0 wm-form-group">
-                                <label class="wm-label">Status</label>
-                                <select class="form-control wm-input">
-                                    <option value="">All</option>
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
-                                </select>
+                            <div class="col-md-3">
+                                <div class="form-group mb-0 wm-form-group">
+                                    <label class="wm-label">Status</label>
+                                    <select name="status" class="form-control wm-input">
+                                        <option value="">All</option>
+                                        <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active</option>
+                                        <option value="inactive" {{ request('status') === 'inactive' ? 'selected' : '' }}>Inactive</option>
+                                    </select>
+                                </div>
                             </div>
+
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn wm-btn-outline btn-block">
+                                    <i class="fa-solid fa-filter"></i> Filter
+                                </button>
+                            </div>
+
+                            @if(request()->filled('search') || request()->filled('status'))
+                                <div class="col-md-2 d-flex align-items-end">
+                                    <a href="{{ route('admin.admin-role-setting.index') }}"
+                                        class="btn wm-btn-cancel btn-block">
+                                        Reset
+                                    </a>
+                                </div>
+                            @endif
+
                         </div>
 
-                        <div class="col-md-2 d-flex align-items-end">
-                            <button type="button" class="btn wm-btn-outline btn-block">
-                                <i class="fa-solid fa-filter"></i> Filter
-                            </button>
-                        </div>
-
-                    </div>
+                    </form>
 
                 </div>
 
@@ -96,52 +112,49 @@
 
                         <tbody>
 
-                            {{-- Sample rows — swap this for a real @foreach($employees as $employee) loop --}}
-                            <tr>
-                                <td>
-                                    <div class="wm-avatar">RS</div>
-                                </td>
-                                <td class="wm-emp-name">Rahul Sharma</td>
-                                <td>rahul.sharma@example.com</td>
-                                <td>9876543210</td>
-                                <td>9876543210</td>
-                                <td><span class="wm-badge wm-badge-active">Active</span></td>
-                                <td>
-                                    <a href="#" class="btn btn-sm wm-btn-outline" title="Edit">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-sm wm-btn-danger" title="Delete">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                            @forelse($employees as $employee)
+                                <tr>
+                                    <td>
+                                        @if($employee->image)
+                                            <img src="{{ asset('storage/' . $employee->image) }}" class="wm-avatar"
+                                                alt="{{ $employee->name }}">
+                                        @else
+                                            <div class="wm-avatar">{{ strtoupper(substr($employee->name, 0, 1)) }}</div>
+                                        @endif
+                                    </td>
+                                    <td class="wm-emp-name">{{ $employee->name }}</td>
+                                    <td>{{ $employee->email }}</td>
+                                    <td>{{ $employee->contact }}</td>
+                                    <td>{{ $employee->whatsapp_number }}</td>
+                                    <td>
+                                        <span
+                                            class="wm-badge {{ $employee->status ? 'wm-badge-active' : 'wm-badge-inactive' }}">
+                                            {{ $employee->status ? 'Active' : 'Inactive' }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.admin-role-setting.edit', $employee->id) }}"
+                                            class="btn btn-sm wm-btn-outline" title="Edit">
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
 
-                            <tr>
-                                <td>
-                                    <div class="wm-avatar">PK</div>
-                                </td>
-                                <td class="wm-emp-name">Priya Kapoor</td>
-                                <td>priya.kapoor@example.com</td>
-                                <td>9123456780</td>
-                                <td>9123456780</td>
-                                <td><span class="wm-badge wm-badge-inactive">Inactive</span></td>
-                                <td>
-                                    <a href="#" class="btn btn-sm wm-btn-outline" title="Edit">
-                                        <i class="fa-solid fa-pen"></i>
-                                    </a>
-                                    <a href="#" class="btn btn-sm wm-btn-danger" title="Delete">
-                                        <i class="fa-solid fa-trash"></i>
-                                    </a>
-                                </td>
-                            </tr>
-
-                            {{--
-                            <tr>
-                                <td colspan="7" class="text-center text-muted wm-empty-state">
-                                    No records found.
-                                </td>
-                            </tr>
-                            --}}
+                                        <form action="{{ route('admin.admin-role-setting.destroy', $employee->id) }}"
+                                            method="POST" class="d-inline delete-form">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm wm-btn-danger" title="Delete">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="text-center text-muted wm-empty-state">
+                                        No records found.
+                                    </td>
+                                </tr>
+                            @endforelse
 
                         </tbody>
 
@@ -151,15 +164,12 @@
 
                 <div class="card-footer wm-card-footer d-flex align-items-center justify-content-between">
 
-                    <small class="text-muted">Showing 2 of 2 entries</small>
+                    <small class="text-muted">
+                        Showing {{ $employees->firstItem() ?? 0 }} to {{ $employees->lastItem() ?? 0 }}
+                        of {{ $employees->total() }} entries
+                    </small>
 
-                    <nav>
-                        <ul class="pagination pagination-sm mb-0">
-                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                        </ul>
-                    </nav>
+                    {{ $employees->links('pagination::bootstrap-4') }}
 
                 </div>
 
@@ -175,6 +185,35 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+{{-- Remove this line if admin.footer already loads SweetAlert2 --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(function () {
+
+        // ---------- Delete confirmation ----------
+        $(document).on('submit', '.delete-form', function (e) {
+
+            e.preventDefault();
+
+            var form = this;
+
+            Swal.fire({
+                title: 'Delete this sub admin?',
+                text: 'This cannot be undone.',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#b3261e',
+                confirmButtonText: 'Yes, delete'
+            }).then(function (result) {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+
+        });
+
+    });
+</script>
 
 <style>
     :root {
@@ -252,7 +291,8 @@
 
     .wm-btn-primary,
     .wm-btn-outline,
-    .wm-btn-danger {
+    .wm-btn-danger,
+    .wm-btn-cancel {
         border-radius: 8px !important;
         font-weight: 600 !important;
         font-size: 0.85rem !important;
@@ -294,6 +334,12 @@
         background-color: var(--wm-danger) !important;
         border-color: var(--wm-danger) !important;
         color: #fff !important;
+    }
+
+    .wm-btn-cancel {
+        background-color: #fff !important;
+        border-color: var(--wm-border) !important;
+        color: var(--wm-muted) !important;
     }
 
     .wm-table {
@@ -346,6 +392,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        object-fit: cover;
     }
 
     .wm-badge {

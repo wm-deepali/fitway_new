@@ -812,14 +812,18 @@
 
                 <!-- Tab navigation -->
                 <div class="tab-nav">
+                    @permission('settings', 'general_settings', 'view')
                     <button class="tab-btn {{ $activeTab == 'general' ? 'active' : '' }}"
                         onclick="switchTab('general', this)">
                         <i class="fa-solid fa-sliders"></i> General Settings
                     </button>
+                    @endpermission
+                    @permission('settings', 'smtp_settings', 'view')
                     <button class="tab-btn {{ $activeTab == 'smtp' ? 'active' : '' }}"
                         onclick="switchTab('smtp', this)">
                         <i class="fa-solid fa-envelope"></i> SMTP / Email
                     </button>
+                    @endpermission
                     <!-- <button class="tab-btn {{ $activeTab == 'tracking' ? 'active' : '' }}"
                         onclick="switchTab('tracking', this)">
                         <i class="fa-brands fa-google"></i> Tracking &amp; Pixels
@@ -829,18 +833,22 @@
                 <!-- ══════════════════════════════════
                      TAB 1 — GENERAL SETTINGS
                 ══════════════════════════════════ -->
+                @permission('settings', 'general_settings', 'view')
                 <div class="tab-panel {{ $activeTab == 'general' ? 'active' : '' }}" id="tab-general">
                     @include('admin.admin-settings.general')
                 </div>
+                @endpermission
                 <!-- /tab-general -->
 
                 <!-- ══════════════════════════════════
                      TAB 2 — SMTP / EMAIL
                 ══════════════════════════════════ -->
+                @permission('settings', 'smtp_settings', 'view')
                 <div class="tab-panel {{ $activeTab == 'smtp' ? 'active' : '' }}" id="tab-smtp">
                     @include('admin.admin-settings.smtp')
 
                 </div><!-- /tab-smtp -->
+                @endpermission
 
                 <!-- ══════════════════════════════════
                      TAB 3 — GOOGLE SETTINGS

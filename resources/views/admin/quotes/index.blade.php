@@ -29,16 +29,17 @@
         <div class="content-wrapper pb-4">
 
             <div class="card wm-quotes-card">
-               @if(session('success'))
-    <div class="alert wm-alert-success m-3 mb-0">{{ session('success') }}</div>
-@endif
+                @if(session('success'))
+                    <div class="alert wm-alert-success m-3 mb-0">{{ session('success') }}</div>
+                @endif
 
-@if($filterCustomer)
-    <div class="alert wm-alert-filter m-3 mb-0 d-flex align-items-center justify-content-between">
-        <span>Showing proposals for <strong>{{ $filterCustomer->business_name ?? $filterCustomer->customer_name }}</strong></span>
-        <a href="{{ route('admin.quotes.index') }}" class="btn btn-sm wm-btn-outline">Clear filter</a>
-    </div>
-@endif
+                @if($filterCustomer)
+                    <div class="alert wm-alert-filter m-3 mb-0 d-flex align-items-center justify-content-between">
+                        <span>Showing proposals for
+                            <strong>{{ $filterCustomer->business_name ?? $filterCustomer->customer_name }}</strong></span>
+                        <a href="{{ route('admin.quotes.index') }}" class="btn btn-sm wm-btn-outline">Clear filter</a>
+                    </div>
+                @endif
                 <div class="card-header d-flex align-items-center justify-content-between wm-quotes-header">
 
                     <h4 class="mb-0 wm-quotes-title">
@@ -64,9 +65,11 @@
 
                         </form>
 
+                        @permission('quotation_system', 'quotes', 'add')
                         <a href="{{ route('admin.quotes.create') }}" class="btn btn-sm wm-btn-success">
                             <i class="fa fa-plus"></i> New Proposal
                         </a>
+                        @endpermission
 
                     </div>
 
@@ -95,59 +98,66 @@
 
                                 @forelse($quotes as $quote)
 
-                                    <tr>
-                                        <td>{{ $quote->created_at->format('d M Y, h:i A') }}</td>
-                                        <td><span class="wm-badge-id">{{ $quote->proposal_id }}</span></td>
-                                        <td>{{ $quote->customer->business_name ?? '-' }}</td>
-                                        <td>{{ $quote->customer->mobile_number ?? '-' }}</td>
-                                        <td>{{ $quote->items_count }}</td>
-                                        <td class="wm-amount">₹{{ number_format($quote->total_amount, 2) }}</td>
-                                        <td>
-                                            @if($quote->status === 'draft')
-                                                <span class="badge badge-warning">Draft</span>
-                                            @else
-                                                <span class="badge badge-success">Print Ready</span>
+                                <tr>
+                                    <td>{{ $quote->created_at->format('d M Y, h:i A') }}</td>
+                                    <td><span class="wm-badge-id">{{ $quote->proposal_id }}</span></td>
+                                    <td>{{ $quote->customer->business_name ?? '-' }}</td>
+                                    <td>{{ $quote->customer->mobile_number ?? '-' }}</td>
+                                    <td>{{ $quote->items_count }}</td>
+                                    <td class="wm-amount">₹{{ number_format($quote->total_amount, 2) }}</td>
+                                    <td>
+                                        @if($quote->status === 'draft')
+                                            <span class="badge badge-warning">Draft</span>
+                                        @else
+                                            <span class="badge badge-success">Print Ready</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="wm-action-group">
+
+                                            @permission('quotation_system', 'quotes', 'edit')
+                                            <a href="{{ route('admin.quotes.edit', $quote->id) }}"
+                                                class="btn btn-sm wm-btn-info">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            @endpermission
+
+                                            @if($quote->status !== 'draft')
+                                                <a href="{{ route('admin.quotes.preview', $quote->id) }}"
+                                                    class="btn btn-sm wm-btn-info">
+                                                    <i class="fa fa-eye"></i>
+                                                </a>
+
+                                                <a href="{{ route('admin.quotes.download', $quote->id) }}"
+                                                    class="btn btn-sm wm-btn-outline">
+                                                    <i class="fa fa-download"></i>
+                                                </a>
                                             @endif
-                                        </td>
-                                        <td>
-                                            <div class="wm-action-group">
 
-    <a href="{{ route('admin.quotes.edit', $quote->id) }}" class="btn btn-sm wm-btn-info">
-        <i class="fa fa-pencil"></i>
-    </a>
+                                            @permission('quotation_system', 'quotes', 'delete')
+                                            <form action="{{ route('admin.quotes.destroy', $quote->id) }}" method="POST"
+                                                class="d-inline"
+                                                onsubmit="return confirm('Are you sure you want to delete this proposal? This cannot be undone.');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm wm-btn-danger">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                            @endpermission
 
-    @if($quote->status !== 'draft')
-        <a href="{{ route('admin.quotes.preview', $quote->id) }}" class="btn btn-sm wm-btn-info">
-            <i class="fa fa-eye"></i>
-        </a>
-
-        <a href="{{ route('admin.quotes.download', $quote->id) }}" class="btn btn-sm wm-btn-outline">
-            <i class="fa fa-download"></i>
-        </a>
-    @endif
-
-    <form action="{{ route('admin.quotes.destroy', $quote->id) }}" method="POST"
-        class="d-inline"
-        onsubmit="return confirm('Are you sure you want to delete this proposal? This cannot be undone.');">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-sm wm-btn-danger">
-            <i class="fa fa-trash"></i>
-        </button>
-    </form>
-
-</div>
-                                        </td>
-                                    </tr>
+                                        </div>
+                                    </td>
+                                </tr>
 
                                 @empty
 
-                                    <tr>
-                                        <td colspan="7" class="text-center py-4 wm-empty-state">
-                                            <i class="fa fa-file-text-o wm-empty-icon"></i>
-                                            <div>No proposals found.</div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td colspan="7" class="text-center py-4 wm-empty-state">
+                                        <i class="fa fa-file-text-o wm-empty-icon"></i>
+                                        <div>No proposals found.</div>
+                                    </td>
+                                </tr>
 
                                 @endforelse
 
@@ -193,7 +203,6 @@ or dynamic data touched — purely presentational.
         --wm-danger-light: #fbeceb;
     }
 
-    /* Card shell */
     .wm-quotes-card {
         border: 1px solid var(--wm-border);
         border-radius: var(--wm-radius);
@@ -446,13 +455,13 @@ or dynamic data touched — purely presentational.
         font-weight: 500;
         padding: 0.7rem 1rem;
     }
-    
+
     .wm-alert-filter {
-    background-color: #fff8e6;
-    border: 1px solid #f0dfa8;
-    color: #916a00;
-    border-radius: 8px;
-    font-weight: 500;
-    padding: 0.7rem 1rem;
-}
+        background-color: #fff8e6;
+        border: 1px solid #f0dfa8;
+        color: #916a00;
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 0.7rem 1rem;
+    }
 </style>

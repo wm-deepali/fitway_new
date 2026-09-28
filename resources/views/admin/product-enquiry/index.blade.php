@@ -408,33 +408,36 @@
 
                         <tbody>
                             @forelse($enquiries as $index => $item)
-                                <tr id="row{{ $item->id }}">
-                                    <td><span class="id-chip">{{ $enquiries->firstItem() + $index }}</span></td>
-                                    <td style="font-weight:600;font-size:13px">{{ $item->product->name ?? '—' }}</td>
-                                    <td style="font-weight:600;font-size:13px">{{ $item->name }}</td>
-                                    <td style="color:var(--text-secondary);font-size:13px">{{ $item->email }}</td>
-                                    <td style="color:var(--text-secondary);font-size:13px">{{ $item->phone ?: '—' }}</td>
-                                    <td class="addr-cell" title="{{ $item->details }}">{{ $item->details ?: '—' }}</td>
-                                    <td style="color:var(--text-secondary);font-size:13px">
-                                        {{ $item->created_at->format('d M Y') }}</td>
-                                    <td>
-                                        <button class="action-btn action-btn-danger" title="Delete"
-                                            onclick="deleteProductEnquiry({{ $item->id }})">
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    </td>
-                                </tr>
+                            <tr id="row{{ $item->id }}">
+                                <td><span class="id-chip">{{ $enquiries->firstItem() + $index }}</span></td>
+                                <td style="font-weight:600;font-size:13px">{{ $item->product->name ?? '—' }}</td>
+                                <td style="font-weight:600;font-size:13px">{{ $item->name }}</td>
+                                <td style="color:var(--text-secondary);font-size:13px">{{ $item->email }}</td>
+                                <td style="color:var(--text-secondary);font-size:13px">{{ $item->phone ?: '—' }}</td>
+                                <td class="addr-cell" title="{{ $item->details }}">{{ $item->details ?: '—' }}</td>
+                                <td style="color:var(--text-secondary);font-size:13px">
+                                    {{ $item->created_at->format('d M Y') }}
+                                </td>
+                                <td>
+                                    @permission('contact_inquiries', 'product_enquiries', 'delete')
+                                    <button class="action-btn action-btn-danger" title="Delete"
+                                        onclick="deleteProductEnquiry({{ $item->id }})">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    @endpermission
+                                </td>
+                            </tr>
                             @empty
-                                <tr>
-                                    <td colspan="8">
-                                        <div class="empty-state">
-                                            <div class="empty-icon"><i class="fa fa-box-open"></i></div>
-                                            <strong style="font-size:14px;color:var(--text-primary)">No product enquiries
-                                                yet</strong>
-                                            <p>Product enquiry form submissions will show up here.</p>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td colspan="8">
+                                    <div class="empty-state">
+                                        <div class="empty-icon"><i class="fa fa-box-open"></i></div>
+                                        <strong style="font-size:14px;color:var(--text-primary)">No product enquiries
+                                            yet</strong>
+                                        <p>Product enquiry form submissions will show up here.</p>
+                                    </div>
+                                </td>
+                            </tr>
                             @endforelse
                         </tbody>
                     </table>

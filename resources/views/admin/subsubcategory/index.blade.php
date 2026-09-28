@@ -82,9 +82,11 @@
                         Manage Sub Sub Categories
                     </div>
                 </div>
+                @permission('gym_equipments', 'subsubcategories', 'add')
                 <a href="{{ route('admin.subsubcategories.create') }}" class="btn-primary-dash">
                     <i class="fa fa-plus"></i> Add Sub Sub Category
                 </a>
+                @endpermission
             </div>
 
             <div class="cat-card">
@@ -213,14 +215,18 @@
 
                                     <td>
                                         <div style="display:flex;gap:6px">
+                                            @permission('gym_equipments', 'subsubcategories', 'edit')
                                             <a href="{{ route('admin.subsubcategories.edit', ['subsubcategory' => $sub->id, 'redirect' => request()->fullUrl()]) }}"
                                                 class="action-btn" title="Edit">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
+                                            @endpermission
+                                            @permission('gym_equipments', 'subsubcategories', 'delete')
                                             <button class="action-btn action-btn-danger"
                                                 onclick="deleteSubSubCategory({{ $sub->id }})" title="Delete">
                                                 <i class="fa fa-trash"></i>
                                             </button>
+                                            @endpermission
                                         </div>
                                     </td>
 

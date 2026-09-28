@@ -37,9 +37,11 @@
 
             <div class="cat-page-header">
                 <h1>Portfolio</h1>
-                <a href="{{ route('admin.portfolio.create') }}" class="btn-primary-dash">
-                    <i class="fa fa-plus"></i> Add Portfolio
-                </a>
+                @permission('content_management', 'portfolio', 'add')
+                    <a href="{{ route('admin.portfolio.create') }}" class="btn-primary-dash">
+                        <i class="fa fa-plus"></i> Add Portfolio
+                    </a>
+                @endpermission
             </div>
 
             @if(session('success'))
@@ -72,17 +74,21 @@
                                 <td class="row-desc">{{ strip_tags($portfolio->description) }}</td>
                                 <td>
                                     <div class="row-actions">
-                                        <a href="{{ route('admin.portfolio.edit', $portfolio) }}" class="icon-btn" title="Edit">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
-                                        <form action="{{ route('admin.portfolio.destroy', $portfolio) }}" method="POST"
-                                            onsubmit="return confirm('Delete this portfolio item?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="icon-btn danger" title="Delete">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        @permission('content_management', 'portfolio', 'edit')
+                                            <a href="{{ route('admin.portfolio.edit', $portfolio) }}" class="icon-btn" title="Edit">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                        @endpermission
+                                        @permission('content_management', 'portfolio', 'delete')
+                                            <form action="{{ route('admin.portfolio.destroy', $portfolio) }}" method="POST"
+                                                onsubmit="return confirm('Delete this portfolio item?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="icon-btn danger" title="Delete">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endpermission
                                     </div>
                                 </td>
                             </tr>

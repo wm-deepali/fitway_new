@@ -390,10 +390,12 @@
 
     <div class="action-bar">
         <button class="btn-secondary-dash">Discard Changes</button>
+        @permission('settings', 'general_settings', 'edit')
         <button type="submit" class="btn-primary-dash">
             <i class="fa fa-save"></i>
             Save General Settings
         </button>
+        @endpermission
     </div>
 
 </form>

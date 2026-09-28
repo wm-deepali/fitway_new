@@ -83,11 +83,13 @@
                         @error('description') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
 
-                    <div class="form-field" style="margin-bottom:0;">
-                        <button type="submit" class="btn-primary-dash">
-                            <i class="fa fa-check"></i> Update About Us
-                        </button>
-                    </div>
+                    @permission('content_management', 'about_us', 'edit')
+                        <div class="form-field" style="margin-bottom:0;">
+                            <button type="submit" class="btn-primary-dash">
+                                <i class="fa fa-check"></i> Update About Us
+                            </button>
+                        </div>
+                    @endpermission
                 </form>
             </div>
 
@@ -113,11 +115,13 @@
                         @error('url') <div class="form-error">{{ $message }}</div> @enderror
                     </div>
 
-                    <div class="form-field" style="margin-bottom:0;">
-                        <button type="submit" class="btn-primary-dash">
-                            <i class="fa fa-check"></i> Update Who We Are
-                        </button>
-                    </div>
+                    @permission('content_management', 'about_us', 'edit')
+                        <div class="form-field" style="margin-bottom:0;">
+                            <button type="submit" class="btn-primary-dash">
+                                <i class="fa fa-check"></i> Update Who We Are
+                            </button>
+                        </div>
+                    @endpermission
                 </form>
             </div>
 

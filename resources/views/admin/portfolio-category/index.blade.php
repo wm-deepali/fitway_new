@@ -51,9 +51,11 @@
                         Portfolio Categories
                     </div>
                 </div>
-                <a href="{{ route('admin.portfolio-category.create') }}" class="btn-primary-dash">
-                    <i class="fa fa-plus"></i> Add New
-                </a>
+                @permission('content_management', 'portfolio_category', 'add')
+                    <a href="{{ route('admin.portfolio-category.create') }}" class="btn-primary-dash">
+                        <i class="fa fa-plus"></i> Add New
+                    </a>
+                @endpermission
             </div>
 
             @if (session('success'))
@@ -84,16 +86,20 @@
                                 </td>
                                 <td>
                                     <div class="cat-actions">
-                                        <a href="{{ route('admin.portfolio-category.edit', $category) }}" class="icon-btn" title="Edit">
-                                            <i class="fa fa-pen"></i>
-                                        </a>
-                                        <form action="{{ route('admin.portfolio-category.destroy', $category) }}" method="POST" class="delete-form">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="icon-btn danger delete-btn" title="Delete">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        @permission('content_management', 'portfolio_category', 'edit')
+                                            <a href="{{ route('admin.portfolio-category.edit', $category) }}" class="icon-btn" title="Edit">
+                                                <i class="fa fa-pen"></i>
+                                            </a>
+                                        @endpermission
+                                        @permission('content_management', 'portfolio_category', 'delete')
+                                            <form action="{{ route('admin.portfolio-category.destroy', $category) }}" method="POST" class="delete-form">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="button" class="icon-btn danger delete-btn" title="Delete">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endpermission
                                     </div>
                                 </td>
                             </tr>

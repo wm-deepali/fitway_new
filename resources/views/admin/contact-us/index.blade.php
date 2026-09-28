@@ -169,10 +169,12 @@
                                                 onclick="viewContact({{ $item->id }})">
                                                 <i class="fa fa-eye"></i>
                                             </button>
+                                            @permission('contact_inquiries', 'contact_us', 'delete')
                                             <button class="action-btn action-btn-danger" title="Delete"
                                                 onclick="deleteContact({{ $item->id }})">
                                                 <i class="fa fa-trash"></i>
                                             </button>
+                                             @endpermission
                                         </div>
                                     </td>
                                 </tr>

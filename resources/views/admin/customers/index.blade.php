@@ -36,21 +36,15 @@
                         Manage Customers
                     </h4>
 
-                    <form action="{{ route('admin.customers.index') }}"
-                        method="GET"
-                        class="d-flex wm-search-form">
+                    <form action="{{ route('admin.customers.index') }}" method="GET" class="d-flex wm-search-form">
 
                         <div class="wm-search-wrap">
                             <i class="fa fa-search wm-search-icon"></i>
-                            <input type="text"
-                                name="search"
-                                class="form-control form-control-sm mr-2 wm-search-input"
-                                placeholder="Search business, email, mobile..."
-                                value="{{ request('search') }}">
+                            <input type="text" name="search" class="form-control form-control-sm mr-2 wm-search-input"
+                                placeholder="Search business, email, mobile..." value="{{ request('search') }}">
                         </div>
 
-                        <button type="submit"
-                            class="btn btn-sm wm-btn-primary">
+                        <button type="submit" class="btn btn-sm wm-btn-primary">
                             <i class="fa fa-search"></i>
                         </button>
 
@@ -64,93 +58,100 @@
 
                         <table class="table table-hover mb-0 wm-quotes-table">
 
-                          <thead>
-    <tr>
-        <th>Date & Time</th>
-        <th>Business Name</th>
-        <th>Email Id</th>
-        <th>Mobile Number</th>
-        <th>Quotes</th>
-        <th>Complaints</th>
-        <th>Status</th>
-        <th>Action</th>
-    </tr>
-</thead>
+                            <thead>
+                                <tr>
+                                    <th>Date & Time</th>
+                                    <th>Business Name</th>
+                                    <th>Email Id</th>
+                                    <th>Mobile Number</th>
+                                    <th>Quotes</th>
+                                    <th>Complaints</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
 
-<tbody>
+                            <tbody>
 
-    @forelse($customers as $customer)
+                                @forelse($customers as $customer)
 
-        @php
-            $quotesCount = $customer->quotes_count;
-            $singleQuote = $quotesCount === 1 ? $customer->quotes->first() : null;
+                                @php
+                                    $quotesCount = $customer->quotes_count;
+                                    $singleQuote = $quotesCount === 1 ? $customer->quotes->first() : null;
 
-            $complaintsCount = $customer->complaints_count;
-            $singleComplaint = $complaintsCount === 1 ? $customer->complaints->first() : null;
-        @endphp
+                                    $complaintsCount = $customer->complaints_count;
+                                    $singleComplaint = $complaintsCount === 1 ? $customer->complaints->first() : null;
+                                @endphp
 
-        <tr>
-            <td>{{ $customer->created_at->format('d M Y, h:i A') }}</td>
-            <td>{{ $customer->business_name ?? '-' }}</td>
-            <td>{{ $customer->email ?? '-' }}</td>
-            <td>{{ $customer->mobile_number }}</td>
+                                <tr>
+                                    <td>{{ $customer->created_at->format('d M Y, h:i A') }}</td>
+                                    <td>{{ $customer->business_name ?? '-' }}</td>
+                                    <td>{{ $customer->email ?? '-' }}</td>
+                                    <td>{{ $customer->mobile_number }}</td>
 
-            <td>
-                @if($quotesCount === 0)
-                    0
-                @elseif($quotesCount === 1)
-                    @if($singleQuote->status === 'draft')
-                        <a href="{{ route('admin.quotes.edit', $singleQuote->id) }}">1</a>
-                    @else
-                        <a href="{{ route('admin.quotes.preview', $singleQuote->id) }}">1</a>
-                    @endif
-                @else
-                    <a href="{{ route('admin.quotes.index', ['customer_id' => $customer->id]) }}">{{ $quotesCount }}</a>
-                @endif
-            </td>
+                                    <td>
+                                        @if($quotesCount === 0)
+                                            0
+                                        @elseif($quotesCount === 1)
+                                            @if($singleQuote->status === 'draft')
+                                                <a href="{{ route('admin.quotes.edit', $singleQuote->id) }}">1</a>
+                                            @else
+                                                <a href="{{ route('admin.quotes.preview', $singleQuote->id) }}">1</a>
+                                            @endif
+                                        @else
+                                            <a
+                                                href="{{ route('admin.quotes.index', ['customer_id' => $customer->id]) }}">{{ $quotesCount }}</a>
+                                        @endif
+                                    </td>
 
-            <td>
-                @if($complaintsCount === 0)
-                    0
-                @elseif($complaintsCount === 1)
-                    <a href="{{ route('admin.complaint.complaints.edit', $singleComplaint->id) }}">1</a>
-                @else
-                    <a href="{{ route('admin.complaint.complaints.index', ['customer_id' => $customer->id]) }}">{{ $complaintsCount }}</a>
-                @endif
-            </td>
+                                    <td>
+                                        @if($complaintsCount === 0)
+                                            0
+                                        @elseif($complaintsCount === 1)
+                                            <a
+                                                href="{{ route('admin.complaint.complaints.edit', $singleComplaint->id) }}">1</a>
+                                        @else
+                                            <a
+                                                href="{{ route('admin.complaint.complaints.index', ['customer_id' => $customer->id]) }}">{{ $complaintsCount }}</a>
+                                        @endif
+                                    </td>
 
-            <td>
-                @if($customer->status === 'active')
-                    <span class="badge wm-badge-active">Active</span>
-                @else
-                    <span class="badge wm-badge-inactive">Inactive</span>
-                @endif
-            </td>
+                                    <td>
+                                        @if($customer->status === 'active')
+                                            <span class="badge wm-badge-active">Active</span>
+                                        @else
+                                            <span class="badge wm-badge-inactive">Inactive</span>
+                                        @endif
+                                    </td>
 
-            <td>
-                <div class="wm-row-actions">
-                    <a href="{{ route('admin.customers.show', $customer->id) }}" class="btn btn-sm wm-btn-info">
-                        <i class="fa fa-eye"></i> View
-                    </a>
-                    <a href="{{ route('admin.customers.edit', $customer->id) }}" class="btn btn-sm wm-btn-outline">
-                        <i class="fa fa-pencil"></i> Edit
-                    </a>
-                </div>
-            </td>
-        </tr>
+                                    <td>
+                                        <div class="wm-row-actions">
+                                            <a href="{{ route('admin.customers.show', $customer->id) }}"
+                                                class="btn btn-sm wm-btn-info">
+                                                <i class="fa fa-eye"></i> View
+                                            </a>
+                                            @permission('quotation_system', 'customers', 'edit')
+                                            <a href="{{ route('admin.customers.edit', $customer->id) }}"
+                                                class="btn btn-sm wm-btn-outline">
+                                                <i class="fa fa-pencil"></i> Edit
+                                            </a>
+                                            @endpermission
+                                        </div>
+                                    </td>
+                                </tr>
 
-    @empty
+                                @empty
 
-        <tr>
-            <td colspan="8" class="text-center py-4 wm-empty-state">
-                <i class="fa fa-users wm-empty-icon"></i>
-                <div>No customers found.</div>
-            </td>
-        </tr>
+                                <tr>
+                                    <td colspan="8" class="text-center py-4 wm-empty-state">
+                                        <i class="fa fa-users wm-empty-icon"></i>
+                                        <div>No customers found.</div>
+                                    </td>
+                                </tr>
 
-    @endforelse
+                                @endforelse
 
-</tbody>
+                            </tbody>
 
                         </table>
 
@@ -173,11 +174,11 @@
 @include('admin.footer')
 
 {{-- ==========================================================
-     Scoped UI styling for Manage Customers page — re-themed to
-     match the Product create page's indigo design system. No
-     Blade logic, routes, or dynamic data touched above — purely
-     presentational.
-     ========================================================== --}}
+Scoped UI styling for Manage Customers page — re-themed to
+match the Product create page's indigo design system. No
+Blade logic, routes, or dynamic data touched above — purely
+presentational.
+========================================================== --}}
 <style>
     :root {
         --wm-primary: #303d89;

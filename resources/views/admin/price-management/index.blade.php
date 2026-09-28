@@ -1,4 +1,9 @@
 @include('admin.top-header')
+
+@php
+    $canEdit = auth()->user()->hasPermission('gym_equipments', 'price_management', 'edit');
+@endphp
+
 <div class="main-section">
     @include('admin.header')
 
@@ -641,9 +646,11 @@
                     <a href="{{ route('admin.price-management.export', request()->query()) }}" class="btn-filter-reset">
                         <i class="fa fa-download"></i> Export CSV
                     </a>
-                    <button type="button" class="btn-filter" id="openImportModal">
-                        <i class="fa fa-upload"></i> Import CSV
-                    </button>
+                    @if($canEdit)
+                        <button type="button" class="btn-filter" id="openImportModal">
+                            <i class="fa fa-upload"></i> Import CSV
+                        </button>
+                    @endif
                 </div>
             </div>
 
@@ -688,7 +695,8 @@
 
             <div class="stock-card">
 
-                <form method="GET" action="{{ route('admin.price-management.index') }}" class="filter-bar" id="filters-form">
+                <form method="GET" action="{{ route('admin.price-management.index') }}" class="filter-bar"
+                    id="filters-form">
                     <div class="filter-row">
                         <div class="filter-group" style="flex:1">
                             <label>Search</label>
@@ -762,14 +770,16 @@
                                     </td>
                                     <td>
                                         <input type="number" step="0.01" min="0" class="price-input price-field"
-                                            data-field="mrp" value="{{ $product->mrp }}">
+                                            data-field="mrp" value="{{ $product->mrp }}" {{ $canEdit ? '' : 'disabled' }}>
                                     </td>
                                     <td>
                                         <input type="number" step="0.01" min="0" class="price-input price-field"
                                             data-field="discount_value" value="{{ $product->discount_value }}">
                                         <select class="discount-type-select price-field" data-field="discount_type">
-                                            <option value="" {{ !$product->discount_type ? 'selected' : '' }}>No Discount</option>
-                                            <option value="flat" {{ $product->discount_type == 'flat' ? 'selected' : '' }}>₹ Flat</option>
+                                            <option value="" {{ !$product->discount_type ? 'selected' : '' }}>No Discount
+                                            </option>
+                                            <option value="flat" {{ $product->discount_type == 'flat' ? 'selected' : '' }}>₹
+                                                Flat</option>
                                             <option value="percentage" {{ $product->discount_type == 'percentage' ? 'selected' : '' }}>% Percent</option>
                                         </select>
                                     </td>
@@ -783,9 +793,11 @@
                                             data-field="purchase_price" value="{{ $product->purchase_price }}">
                                     </td>
                                     <td style="white-space:nowrap">
-                                        <button type="button" class="btn-save-row" disabled>
-                                            <i class="fa fa-save"></i> Save
-                                        </button>
+                                        @if($canEdit)
+                                            <button type="button" class="btn-save-row" disabled>
+                                                <i class="fa fa-save"></i> Save
+                                            </button>
+                                        @endif
                                         <button type="button" class="btn-view-logs" data-product-id="{{ $product->id }}">
                                             <i class="fa fa-history"></i> Logs
                                         </button>
@@ -886,13 +898,14 @@
 
     // ---------- Import modal ----------
     const importBackdrop = document.getElementById('importModalBackdrop');
-    document.getElementById('openImportModal').addEventListener('click', () => importBackdrop.classList.add('show'));
+    document.getElementById('openImportModal')?.addEventListener('click', () => importBackdrop.classList.add('show'));
     document.getElementById('closeImportModal').addEventListener('click', () => importBackdrop.classList.remove('show'));
     importBackdrop.addEventListener('click', (e) => { if (e.target === importBackdrop) importBackdrop.classList.remove('show'); });
 
     document.querySelectorAll('tr[data-product-id]').forEach(row => {
         const productId = row.dataset.productId;
         const saveBtn = row.querySelector('.btn-save-row');
+        if (!saveBtn) return;   // view-only user: no save button on this row
         const indicator = row.querySelector('.save-indicator');
         const fields = row.querySelectorAll('.price-field');
 

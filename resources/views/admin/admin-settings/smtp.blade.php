@@ -122,9 +122,11 @@
 
 <div class="action-bar">
     <button class="btn-secondary-dash">Discard Changes</button>
-    <button class="btn-primary-dash" type="submit">
-        <i class="fa fa-save"></i> Save SMTP Settings
-    </button>
+    @permission('settings', 'smtp_settings', 'edit')
+        <button class="btn-primary-dash" type="submit">
+            <i class="fa fa-save"></i> Save SMTP Settings
+        </button>
+    @endpermission
 </div>
 
 </form>

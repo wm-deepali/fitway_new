@@ -49,9 +49,11 @@
                             <button type="submit" class="btn btn-sm wm-btn-primary"><i class="fa fa-search"></i></button>
                         </form>
 
-                        <a href="{{ route('admin.complaint.complaints.create') }}" class="btn btn-sm wm-btn-success">
-                            <i class="fa fa-plus"></i> Raise Complaint
-                        </a>
+                        @permission('complaint_management', 'complaints', 'add')
+                            <a href="{{ route('admin.complaint.complaints.create') }}" class="btn btn-sm wm-btn-success">
+                                <i class="fa fa-plus"></i> Raise Complaint
+                            </a>
+                        @endpermission
 
                     </div>
 
@@ -96,9 +98,13 @@
                                         <td><span class="badge {{ $complaint->status_badge_class }}">{{ $complaint->status_label }}</span></td>
                                         <td>
                                             <div class="wm-action-group">
-                                                <a href="{{ route('admin.complaint.complaints.edit', $complaint) }}" class="btn btn-sm wm-btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
+                                                @permission('complaint_management', 'complaints', 'edit')
+                                                    <a href="{{ route('admin.complaint.complaints.edit', $complaint) }}" class="btn btn-sm wm-btn-info" title="Edit"><i class="fa fa-pencil"></i></a>
+                                                @endpermission
                                                 <a href="#" class="btn btn-sm wm-btn-outline" title="Add Notes"><i class="fa fa-sticky-note"></i></a>
-                                                <button type="button" class="btn btn-sm wm-btn-danger" title="Delete" onclick="deleteComplaint({{ $complaint->id }})"><i class="fa fa-trash"></i></button>
+                                                @permission('complaint_management', 'complaints', 'delete')
+                                                    <button type="button" class="btn btn-sm wm-btn-danger" title="Delete" onclick="deleteComplaint({{ $complaint->id }})"><i class="fa fa-trash"></i></button>
+                                                @endpermission
                                             </div>
                                         </td>
                                     </tr>

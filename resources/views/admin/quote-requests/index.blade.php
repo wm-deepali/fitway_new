@@ -122,10 +122,12 @@
                                             <a href="{{ route('admin.quoteRequests.show', $quoteRequest) }}" class="icon-btn" title="View">
                                                 <i class="fa fa-eye"></i>
                                             </a>
-                                            <button type="button" class="icon-btn danger" title="Delete"
-                                                onclick="deleteQuoteRequest({{ $quoteRequest->id }})">
-                                                <i class="fa fa-trash"></i>
-                                            </button>
+                                            @permission('contact_inquiries', 'quote_requests', 'delete')
+                                                <button type="button" class="icon-btn danger" title="Delete"
+                                                    onclick="deleteQuoteRequest({{ $quoteRequest->id }})">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            @endpermission
                                         </div>
                                     </td>
                                 </tr>
