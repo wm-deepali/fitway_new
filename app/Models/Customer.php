@@ -12,6 +12,7 @@ class Customer extends Model
         'email',
         'mobile_number',
         'address',
+        'landmark',
         'state_id',
         'city_id',
         'pincode',
@@ -33,4 +34,9 @@ class Customer extends Model
     {
         return $this->hasMany(Quote::class);
     }
+    
+    public function complaints()
+{
+    return $this->hasMany(\App\Models\Complaint::class);
+}
 }

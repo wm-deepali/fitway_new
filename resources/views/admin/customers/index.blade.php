@@ -64,67 +64,93 @@
 
                         <table class="table table-hover mb-0 wm-quotes-table">
 
-                            <thead>
-                                <tr>
-                                    <th>Date & Time</th>
-                                    <th>Business Name</th>
-                                    <th>Email Id</th>
-                                    <th>Mobile Number</th>
-                                    <th>Total Proposals</th>
-                                    <th>Status</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
+                          <thead>
+    <tr>
+        <th>Date & Time</th>
+        <th>Business Name</th>
+        <th>Email Id</th>
+        <th>Mobile Number</th>
+        <th>Quotes</th>
+        <th>Complaints</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+</thead>
 
-                            <tbody>
+<tbody>
 
-                                @forelse($customers as $customer)
+    @forelse($customers as $customer)
 
-                                    <tr>
-                                        <td>{{ $customer->created_at->format('d M Y, h:i A') }}</td>
-                                        <td>{{ $customer->business_name ?? '-' }}</td>
-                                        <td>{{ $customer->email ?? '-' }}</td>
-                                        <td>{{ $customer->mobile_number }}</td>
-                                        <td>{{ $customer->quotes_count }}</td>
-                                        <td>
+        @php
+            $quotesCount = $customer->quotes_count;
+            $singleQuote = $quotesCount === 1 ? $customer->quotes->first() : null;
 
-                                            @if($customer->status === 'active')
-                                                <span class="badge wm-badge-active">Active</span>
-                                            @else
-                                                <span class="badge wm-badge-inactive">Inactive</span>
-                                            @endif
+            $complaintsCount = $customer->complaints_count;
+            $singleComplaint = $complaintsCount === 1 ? $customer->complaints->first() : null;
+        @endphp
 
-                                        </td>
-                                        <td>
+        <tr>
+            <td>{{ $customer->created_at->format('d M Y, h:i A') }}</td>
+            <td>{{ $customer->business_name ?? '-' }}</td>
+            <td>{{ $customer->email ?? '-' }}</td>
+            <td>{{ $customer->mobile_number }}</td>
 
-                                            <div class="wm-row-actions">
-                                                <a href="{{ route('admin.customers.show', $customer->id) }}"
-                                                    class="btn btn-sm wm-btn-info">
-                                                    <i class="fa fa-eye"></i> View
-                                                </a>
+            <td>
+                @if($quotesCount === 0)
+                    0
+                @elseif($quotesCount === 1)
+                    @if($singleQuote->status === 'draft')
+                        <a href="{{ route('admin.quotes.edit', $singleQuote->id) }}">1</a>
+                    @else
+                        <a href="{{ route('admin.quotes.preview', $singleQuote->id) }}">1</a>
+                    @endif
+                @else
+                    <a href="{{ route('admin.quotes.index', ['customer_id' => $customer->id]) }}">{{ $quotesCount }}</a>
+                @endif
+            </td>
 
-                                                <a href="{{ route('admin.customers.edit', $customer->id) }}"
-                                                    class="btn btn-sm wm-btn-outline">
-                                                    <i class="fa fa-pencil"></i> Edit
-                                                </a>
-                                            </div>
+            <td>
+                @if($complaintsCount === 0)
+                    0
+                @elseif($complaintsCount === 1)
+                    <a href="{{ route('admin.complaint.complaints.edit', $singleComplaint->id) }}">1</a>
+                @else
+                    <a href="{{ route('admin.complaint.complaints.index', ['customer_id' => $customer->id]) }}">{{ $complaintsCount }}</a>
+                @endif
+            </td>
 
-                                        </td>
-                                    </tr>
+            <td>
+                @if($customer->status === 'active')
+                    <span class="badge wm-badge-active">Active</span>
+                @else
+                    <span class="badge wm-badge-inactive">Inactive</span>
+                @endif
+            </td>
 
-                                @empty
+            <td>
+                <div class="wm-row-actions">
+                    <a href="{{ route('admin.customers.show', $customer->id) }}" class="btn btn-sm wm-btn-info">
+                        <i class="fa fa-eye"></i> View
+                    </a>
+                    <a href="{{ route('admin.customers.edit', $customer->id) }}" class="btn btn-sm wm-btn-outline">
+                        <i class="fa fa-pencil"></i> Edit
+                    </a>
+                </div>
+            </td>
+        </tr>
 
-                                    <tr>
-                                        <td colspan="7"
-                                            class="text-center py-4 wm-empty-state">
-                                            <i class="fa fa-users wm-empty-icon"></i>
-                                            <div>No customers found.</div>
-                                        </td>
-                                    </tr>
+    @empty
 
-                                @endforelse
+        <tr>
+            <td colspan="8" class="text-center py-4 wm-empty-state">
+                <i class="fa fa-users wm-empty-icon"></i>
+                <div>No customers found.</div>
+            </td>
+        </tr>
 
-                            </tbody>
+    @endforelse
+
+</tbody>
 
                         </table>
 

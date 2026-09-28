@@ -117,7 +117,7 @@
                                     <img src="{{ asset('storage/' . $settings->company_logo) }}"
                                         style="max-height: 60px; max-width: 180px;" class="mb-2 d-block">
                                 @endif
-                                <h5 class="mb-0 wm-invoice-company">{{ $settings?->company_name }}</h5>
+                                <!--<h5 class="mb-0 wm-invoice-company">{{ $settings?->company_name }}</h5>-->
                                 @if(!empty($settings?->tagline))
                                     <div class="text-muted small wm-invoice-tagline">{{ $settings->tagline }}</div>
                                 @endif
@@ -268,32 +268,23 @@
                         {{-- Grand total --}}
                         @php
                             // Sub Total is the pre-tax value of all items combined (price x qty),
-                            // plus (packing_charges x packing_qty) and (shipping_charges x shipping_qty).
-                            // Each is taxed independently at its own percentage — matches QuoteController@store.
+                            // plus flat Installation Charges and Shipping Charges (no qty/tax on
+                            // either anymore — matches QuoteController@store).
                             $subTotal = $quote->items->sum(function ($item) {
                                 return $item->price * $item->quantity;
                             });
 
                             $discount = $quote->discount_amount ?? 0;
 
-                            $packingRate = $quote->packing_charges ?? 0;
-                            $packingQty = $quote->packing_quantity ?? 1;
-                            $packingAmount = $packingRate * $packingQty;
+                            $installationAmount = $quote->packing_charges ?? 0;
+                            $shippingAmount = $quote->shipping_charges ?? 0;
+                            $shippingTypeLabel = $quote->shipping_type === 'showroom' ? 'From Showroom' : 'From Factory';
 
-                            $shippingRate = $quote->shipping_charges ?? 0;
-                            $shippingQty = $quote->shipping_quantity ?? 1;
-                            $shippingAmount = $shippingRate * $shippingQty;
-
-                            $subTotal += $packingAmount + $shippingAmount;
+                            $subTotal += $installationAmount + $shippingAmount;
 
                             $taxes = $quote->items->sum(function ($item) {
                                 return ($item->price * $item->quantity) * ($item->tax_percentage / 100);
                             });
-
-                            $packingTax = $packingAmount * (($quote->packing_tax_percentage ?? 0) / 100);
-                            $shippingTax = $shippingAmount * (($quote->shipping_tax_percentage ?? 0) / 100);
-
-                            $taxes += $packingTax + $shippingTax;
                         @endphp
 
                         <div class="d-flex justify-content-end mt-3">
@@ -310,17 +301,13 @@
                                 </div>
 
                                 <div class="d-flex justify-content-between mb-1">
-                                    <span>Packaging Charges
-                                        <span class="wm-charge-meta">({{ $packingQty }} x
-                                            ₹{{ number_format($packingRate, 2) }})</span>
-                                    </span>
-                                    <span>₹{{ number_format($packingAmount, 2) }}</span>
+                                    <span>Installation Charges</span>
+                                    <span>₹{{ number_format($installationAmount, 2) }}</span>
                                 </div>
 
                                 <div class="d-flex justify-content-between mb-1">
                                     <span>Shipping Charges
-                                        <span class="wm-charge-meta">({{ $shippingQty }} x
-                                            ₹{{ number_format($shippingRate, 2) }})</span>
+                                        <span class="wm-charge-meta">({{ $shippingTypeLabel }})</span>
                                     </span>
                                     <span>₹{{ number_format($shippingAmount, 2) }}</span>
                                 </div>

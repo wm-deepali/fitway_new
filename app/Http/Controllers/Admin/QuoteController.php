@@ -15,29 +15,35 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Mail\QuoteProposalMail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 
 class QuoteController extends Controller
 {
-    public function index(Request $request)
-    {
-        $quotes = Quote::with('customer')
-            ->withCount('items')
-            ->when($request->search, function ($query) use ($request) {
-                $query->where('proposal_id', 'like', '%' . $request->search . '%')
-                    ->orWhereHas('customer', function ($q) use ($request) {
-                        $q->where('business_name', 'like', '%' . $request->search . '%')
-                            ->orWhere('mobile_number', 'like', '%' . $request->search . '%');
-                    });
-            })
-            ->when($request->status, function ($query) use ($request) {
-                $query->where('status', $request->status);
-            })
-            ->latest()
-            ->paginate(20)
-            ->withQueryString();
+public function index(Request $request)
+{
+    $quotes = Quote::with('customer')
+        ->withCount('items')
+        ->when($request->search, function ($query) use ($request) {
+            $query->where('proposal_id', 'like', '%' . $request->search . '%')
+                ->orWhereHas('customer', function ($q) use ($request) {
+                    $q->where('business_name', 'like', '%' . $request->search . '%')
+                        ->orWhere('mobile_number', 'like', '%' . $request->search . '%');
+                });
+        })
+        ->when($request->status, function ($query) use ($request) {
+            $query->where('status', $request->status);
+        })
+        ->when($request->customer_id, function ($query) use ($request) {
+            $query->where('customer_id', $request->customer_id);
+        })
+        ->latest()
+        ->paginate(20)
+        ->withQueryString();
 
-        return view('admin.quotes.index', compact('quotes'));
-    }
+    $filterCustomer = $request->customer_id ? Customer::find($request->customer_id) : null;
+
+    return view('admin.quotes.index', compact('quotes', 'filterCustomer'));
+}
 
     /**
      * Blank form for a brand-new proposal (no existing quote row yet).
@@ -78,12 +84,11 @@ class QuoteController extends Controller
             'city_id' => $quote->customer->city_id,
             'pincode' => $quote->customer->pincode,
             'prepared_by' => $quote->prepared_by,
+            // Installation Charges (flat amount only now)
             'packing_charges' => $quote->packing_charges,
-            'packing_quantity' => $quote->packing_quantity,
-            'packing_tax_percentage' => $quote->packing_tax_percentage,
+            // Shipping (dropdown type + flat amount only now)
+            'shipping_type' => $quote->shipping_type,
             'shipping_charges' => $quote->shipping_charges,
-            'shipping_quantity' => $quote->shipping_quantity,
-            'shipping_tax_percentage' => $quote->shipping_tax_percentage,
             'items' => $quote->items->map(function ($item) {
                 return [
                     'product_id' => $item->product_id,
@@ -97,6 +102,9 @@ class QuoteController extends Controller
                     'price' => $item->price,
                     'tax_percentage' => $item->tax_percentage,
                     'quantity' => $item->quantity,
+                    // Already-saved rows always point at a real product now,
+                    // so this is never treated as "new" again on edit.
+                    'is_new_product' => false,
                 ];
             })->toArray(),
         ];
@@ -109,37 +117,50 @@ class QuoteController extends Controller
         ]);
     }
 
+    /**
+     * Live customer search — matches Name OR Mobile OR Email as the admin
+     * types. No separate "exact search" flow anymore; every hit returns an
+     * array of matches for the suggestion dropdown.
+     */
     public function searchCustomer(Request $request)
     {
         $request->validate([
-            'search' => 'required|string',
+            'term' => 'required|string|min:2',
         ]);
 
-        $term = $request->search;
+        $term = $request->term;
 
-        $customer = Customer::with('state', 'city')
-            ->where('mobile_number', $term)
-            ->orWhere('email', $term)
-            ->first();
+        $customers = Customer::where('customer_name', 'like', '%' . $term . '%')
+            ->orWhere('mobile_number', 'like', '%' . $term . '%')
+            ->orWhere('email', 'like', '%' . $term . '%')
+            ->limit(10)
+            ->get([
+                'id', 'customer_name', 'business_name', 'mobile_number',
+                'email', 'gst_number', 'address', 'state_id', 'city_id', 'pincode',
+            ]);
 
-        if (!$customer) {
-            return response()->json(['found' => false]);
-        }
-
-        $cities = City::where('state_id', $customer->state_id)
-            ->orderBy('name')
-            ->get(['id', 'name']);
-
-        return response()->json([
-            'found' => true,
-            'customer' => $customer,
-            'cities' => $cities,
-        ]);
+        return response()->json($customers);
     }
 
     /**
-     * Only Internal Inventory products are quotable — Catalog products
-     * (storefront items, source_type = 'catalog') never show up here.
+     * Last 4-5 quotes for a customer, shown in the "Previous Quotations"
+     * panel once that customer is selected from search suggestions.
+     */
+    public function customerQuotes(Customer $customer)
+    {
+        $quotes = Quote::where('customer_id', $customer->id)
+            ->latest()
+            ->limit(5)
+            ->get(['id', 'proposal_id', 'status', 'total_amount', 'created_at']);
+
+        return response()->json($quotes);
+    }
+
+    /**
+     * Product search for the quote items table — shows products of every
+     * source_type (not just Internal Inventory). Products not found here
+     * can be staged via the "+ Add New Product" modal and are only
+     * actually created in store() when the whole quote is submitted.
      */
     public function searchProducts(Request $request)
     {
@@ -147,8 +168,7 @@ class QuoteController extends Controller
             'term' => 'nullable|string',
         ]);
 
-        $products = Product::where('source_type', 'internal_inventory')
-            ->where('status', 1)
+        $products = Product::where('status', 1)
             ->where('name', 'like', '%' . $request->term . '%')
             ->limit(10)
             ->get()
@@ -156,13 +176,13 @@ class QuoteController extends Controller
                 return [
                     'id' => $product->id,
                     'name' => $product->name,
-                    // Sales Price is the "Offered Price" set on the Internal Inventory form
                     'price' => $product->offered_price ?? $product->mrp,
                     'image' => $product->image ? asset('storage/' . $product->image) : null,
                     'brand_id' => $product->brand_id,
                     // Features text pulled from the product's description/editor field,
                     // only sent to the quotation PDF if "Show Features" is checked.
                     'features' => (string) $product->description,
+                    'source_type' => $product->source_type,
                 ];
             });
 
@@ -190,25 +210,14 @@ class QuoteController extends Controller
     }
 
     /**
-     * Calculates the tax-inclusive amount for a flat charge (packing/shipping).
-     * Amount = (rate * qty) + tax_percentage on that subtotal.
-     */
-    private function calculateChargeTotal(float $rate, int $quantity, float $taxPercentage): array
-    {
-        $subtotal = $rate * $quantity;
-        $taxAmount = $subtotal * ($taxPercentage / 100);
-
-        return [
-            'subtotal' => $subtotal,
-            'tax_amount' => $taxAmount,
-            'total' => $subtotal + $taxAmount,
-        ];
-    }
-
-    /**
      * Persists the proposal straight to the DB as a draft (status = draft).
      * If `quote_id` is present in the payload, updates that existing draft
      * in place instead of creating a new row (the "Edit" flow).
+     *
+     * Any item flagged is_new_product (staged via the "+ Add New Product"
+     * modal, never saved to the DB before now) gets its Product row created
+     * here first — always as Internal Inventory — before the quote items
+     * themselves are written.
      */
     public function store(Request $request)
     {
@@ -224,12 +233,11 @@ class QuoteController extends Controller
             'pincode' => 'nullable|string|max:10',
             'prepared_by' => 'nullable|string|max:255',
             'gst_number' => 'nullable|string|max:20',
+            // Installation Charges — flat amount, no qty/tax anymore
             'packing_charges' => 'nullable|numeric|min:0',
-            'packing_quantity' => 'nullable|integer|min:0',
-            'packing_tax_percentage' => 'nullable|numeric|min:0|max:100',
+            // Shipping — dropdown type + flat amount, no qty/tax anymore
+            'shipping_type' => 'nullable|in:factory,showroom',
             'shipping_charges' => 'nullable|numeric|min:0',
-            'shipping_quantity' => 'nullable|integer|min:0',
-            'shipping_tax_percentage' => 'nullable|numeric|min:0|max:100',
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'nullable|exists:products,id',
             'items.*.brand_id' => 'nullable|exists:brands,id',
@@ -242,6 +250,7 @@ class QuoteController extends Controller
             'items.*.price' => 'required|numeric|min:0',
             'items.*.tax_percentage' => 'required|numeric|min:0|max:100',
             'items.*.quantity' => 'required|integer|min:1',
+            'items.*.is_new_product' => 'nullable|boolean',
         ]);
 
         $quote = DB::transaction(function () use ($validated) {
@@ -260,30 +269,58 @@ class QuoteController extends Controller
                 ]
             );
 
-            $itemsTotal = collect($validated['items'])->sum(function ($item) {
+            // Create any products the admin staged via "+ Add New Product"
+            // during this quote (they don't exist in the DB yet). Always
+            // Internal Inventory, regardless of what else was searchable.
+            // If a product with the exact same name already exists, reuse
+            // it instead of erroring out on a unique-name collision.
+            $items = collect($validated['items'])->map(function ($item) {
+
+                if (empty($item['product_id']) && !empty($item['is_new_product'])) {
+
+                    $existing = Product::where('name', $item['product_name'])->first();
+
+                    if ($existing) {
+                        $item['product_id'] = $existing->id;
+                    } else {
+
+                        $product = Product::create([
+                            'name' => $item['product_name'],
+                            'slug' => Str::slug($item['product_name']) . '-' . uniqid(),
+                            'mrp' => $item['price'],
+                            'offered_price' => $item['price'],
+                            'brand_id' => $item['brand_id'] ?? null,
+                            'description' => $item['product_features'] ?? null,
+                            'source_type' => 'internal_inventory',
+                            'status' => 1,
+                        ]);
+
+                        $item['product_id'] = $product->id;
+                    }
+                }
+
+                return $item;
+            })->all();
+
+            $itemsTotal = collect($items)->sum(function ($item) {
                 return $this->calculateItemTotals($item)['total'];
             });
 
-            $packingCharges = (float) ($validated['packing_charges'] ?? 0);
-            $packingQuantity = (int) ($validated['packing_quantity'] ?? 1);
-            $packingTaxPercentage = (float) ($validated['packing_tax_percentage'] ?? 0);
-            $packingTotals = $this->calculateChargeTotal($packingCharges, $packingQuantity, $packingTaxPercentage);
-
+            $installationCharges = (float) ($validated['packing_charges'] ?? 0);
+            $shippingType = $validated['shipping_type'] ?? null;
             $shippingCharges = (float) ($validated['shipping_charges'] ?? 0);
-            $shippingQuantity = (int) ($validated['shipping_quantity'] ?? 1);
-            $shippingTaxPercentage = (float) ($validated['shipping_tax_percentage'] ?? 0);
-            $shippingTotals = $this->calculateChargeTotal($shippingCharges, $shippingQuantity, $shippingTaxPercentage);
 
             $quoteData = [
                 'customer_id' => $customer->id,
                 'prepared_by' => $validated['prepared_by'] ?? null,
-                'packing_charges' => $packingCharges,
-                'packing_quantity' => $packingQuantity,
-                'packing_tax_percentage' => $packingTaxPercentage,
+                'packing_charges' => $installationCharges,
+                'packing_quantity' => 1,
+                'packing_tax_percentage' => 0,
+                'shipping_type' => $shippingType,
                 'shipping_charges' => $shippingCharges,
-                'shipping_quantity' => $shippingQuantity,
-                'shipping_tax_percentage' => $shippingTaxPercentage,
-                'total_amount' => $itemsTotal + $packingTotals['total'] + $shippingTotals['total'],
+                'shipping_quantity' => 1,
+                'shipping_tax_percentage' => 0,
+                'total_amount' => $itemsTotal + $installationCharges + $shippingCharges,
             ];
 
             if (!empty($validated['quote_id'])) {
@@ -298,7 +335,7 @@ class QuoteController extends Controller
                 $quote = Quote::create($quoteData);
             }
 
-            foreach ($validated['items'] as $item) {
+            foreach ($items as $item) {
 
                 $totals = $this->calculateItemTotals($item);
 
@@ -490,9 +527,9 @@ class QuoteController extends Controller
     }
 
     /**
-     * Quick-add a brand from the quote's Options modal. Saved as inactive
-     * (status = 0) so it stays hidden on the website front until the admin
-     * approves it via Manage Brands -> Edit.
+     * Quick-add a brand from the quote's Options modal / New Product modal.
+     * Saved as inactive (status = 0) so it stays hidden on the website
+     * front until the admin approves it via Manage Brands -> Edit.
      */
     public function storeBrand(Request $request)
     {

@@ -37,7 +37,11 @@ use App\Http\Controllers\Admin\{
     CustomerController,
     QuoteSettingController,
     QuoteController,
-    QuotePriceManagementController
+    QuotePriceManagementController,
+    ComplaintController,
+    TechnicianController,
+    ComplaintReportController,
+    Adminrolescontroller,
 
 };
 
@@ -274,11 +278,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
             Route::delete('/{pageQuoteRequest}', [PageQuoteRequestController::class, 'destroy'])->name('destroy');
         });
 
+Route::get('/admin-role-setting', [Adminrolescontroller::class, 'index'])
+    ->name('admin-role-setting');
+
+Route::get('/admin-role-setting/create', [Adminrolescontroller::class, 'create'])
+    ->name('admin-role-setting.create');
+    
         Route::prefix('seo')->name('seo.')->group(function () {
             Route::get('/', [SeoController::class, 'index'])->name('index');
             Route::get('/{id}/edit', [SeoController::class, 'edit'])->name('edit');
             Route::put('/{id}', [SeoController::class, 'update'])->name('update');
         });
+        
+        
 
         Route::get('manage-vendors/get-cities', [VendorController::class, 'getCities'])->name('vendors.getCities');
         Route::resource('manage-vendors', VendorController::class);
@@ -312,7 +324,33 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('quotes/{quote}/download', [QuoteController::class, 'download'])->name('quotes.download');
         Route::post('quotes/{quote}/send-email', [QuoteController::class, 'sendEmail'])->name('quotes.sendEmail');
         Route::post('quotes/brands', [QuoteController::class, 'storeBrand'])->name('quotes.store-brand');
+        Route::post('quotes/quick-store-product', [QuoteController::class, 'quickStoreProduct'])->name('quotes.quick-store-product');
+        Route::get('quotes/{customer}/previous-quotes', [QuoteController::class, 'customerQuotes'])->name('quotes.customer-quotes');
         Route::delete('quotes/{quote}', [QuoteController::class, 'destroy'])->name('quotes.destroy');
+        
+
+Route::prefix('complaint')->name('complaint.')->group(function () {
+
+    Route::resource('technicians', TechnicianController::class);
+
+    Route::resource('complaints', ComplaintController::class)
+        ->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+
+    Route::get('complaints-search/customers', [ComplaintController::class, 'searchCustomers'])
+        ->name('complaints.searchCustomers');
+    Route::get('complaints-search/technicians', [ComplaintController::class, 'searchTechnicians'])
+        ->name('complaints.searchTechnicians');
+    Route::get('customers/{customer}/history', [ComplaintController::class, 'customerHistory'])
+        ->name('complaints.customerHistory');
+    Route::get('cities-by-state/{state}', [ComplaintController::class, 'citiesByState'])
+        ->name('complaints.citiesByState');
+});  
+
+
+        Route::prefix('complaint-reports')->name('complaint-reports.')->group(function () {
+            Route::get('/', [ComplaintReportController::class, 'index'])->name('index');
+        });
+
 
 
     });

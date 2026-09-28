@@ -44,7 +44,7 @@
         {{-- CATALOG --}}
         <li
             class="{{ request()->routeIs(['admin.categories.*', 'admin.subcategories.*', 'admin.subsubcategories.*', 'admin.products.*', 'admin.price-management.*']) ? 'active' : '' }}">
-            <a href="#"><i class="fa-solid fa-layer-group"></i> Gym Equipments</a>
+            <a href="#"><i class="fa-solid fa-layer-group"></i> Product Catalogue</a>
             <ul>
                 <li class="{{ request()->routeIs('admin.categories.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.categories.index') }}">Categories</a>
@@ -78,19 +78,72 @@
                 <li class="{{ request()->routeIs('admin.customers.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.customers.index') }}">Manage Customers</a>
                 </li>
-                <li class="{{ request()->routeIs('admin.quote-price-management.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.quote-price-management.index') }}">Price Management</a>
-                </li>
+                
                 <li class="{{ request()->routeIs('admin.quotes.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.quotes.index') }}">Manage Quotes</a>
                 </li>
                 <li class="{{ request()->routeIs('admin.quote-settings.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.quote-settings.index') }}">Quote Settings</a>
                 </li>
+                <li class="{{ request()->routeIs('admin.quote-price-management.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.quote-price-management.index') }}">Price Management</a>
+                </li>
             </ul>
         </li>
 
-        {{-- HOME PAGE --}}
+        
+
+
+        {{-- LEADS & SUBMISSIONS --}}
+        <li
+            class="{{ request()->routeIs(['admin.contactUs.*', 'admin.inquiries.*', 'admin.setupMyGym.*', 'admin.productEnquiries.*', 'admin.newsletter.*', 'admin.feedbacks.*', 'admin.bmi-calculator.*', 'admin.quoteRequests.*', 'admin.pageQuoteRequests.*']) ? 'active' : '' }}">
+            <a href="#"><i class="fa-solid fa-inbox"></i> Contact & Inquiries</a>
+            <ul>
+                <li class="{{ request()->routeIs('admin.quoteRequests.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.quoteRequests.index') }}">Cart Quote Requests</a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.pageQuoteRequests.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.pageQuoteRequests.index') }}">Page Quote Requests</a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.contactUs.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.contactUs.index') }}">Contact Us</a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.productEnquiries.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.productEnquiries.index') }}">Product Enquiries</a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.setupMyGym.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.setupMyGym.index') }}">Setup My Gym</a>
+                </li>
+
+                <li class="{{ request()->routeIs('admin.newsletter.*') ? 'active' : '' }}">
+                    <a href="{{ route('admin.newsletter.index') }}">Newsletter</a>
+                </li>
+            </ul>
+        </li>
+        
+        
+       <li
+    class="{{ request()->routeIs(['admin.complaint.complaints*', 'admin.complaint.technician.*', 'admin.complaint-reports.*']) ? 'active' : '' }}">
+    <a href="#"><i class="fa-solid fa-triangle-exclamation"></i> Complaint Management</a>
+    <ul>
+        <li class="{{ request()->routeIs('admin.complaint.complaints*') ? 'active' : '' }}">
+            <a href="{{ route('admin.complaint.complaints.index') }}">Manage Complaint</a>
+        </li>
+
+        <li class="{{ request()->routeIs('admin.complaint.technicians.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.complaint.technicians.index') }}">Manage Technician</a>
+        </li>
+
+        <li class="{{ request()->routeIs('admin.complaint-reports.*') ? 'active' : '' }}">
+            <a href="{{ route('admin.complaint-reports.index') }}">Reports</a>
+        </li>
+    </ul>
+</li>
+{{-- HOME PAGE --}}
         <li
             class="{{ request()->routeIs(['admin.sliders.*', 'admin.about-us.*', 'admin.client-gallery.*', 'admin.portfolio.*', 'admin.instagram.*', 'admin.plan-prices.*']) ? 'active' : '' }}">
             <a href="#"><i class="fa-solid fa-house"></i> Content Management</a>
@@ -137,38 +190,6 @@
         </li>
 
 
-
-        {{-- LEADS & SUBMISSIONS --}}
-        <li
-            class="{{ request()->routeIs(['admin.contactUs.*', 'admin.inquiries.*', 'admin.setupMyGym.*', 'admin.productEnquiries.*', 'admin.newsletter.*', 'admin.feedbacks.*', 'admin.bmi-calculator.*', 'admin.quoteRequests.*', 'admin.pageQuoteRequests.*']) ? 'active' : '' }}">
-            <a href="#"><i class="fa-solid fa-inbox"></i> Contact & Inquiries</a>
-            <ul>
-                <li class="{{ request()->routeIs('admin.quoteRequests.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.quoteRequests.index') }}">Cart Quote Requests</a>
-                </li>
-
-                <li class="{{ request()->routeIs('admin.pageQuoteRequests.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.pageQuoteRequests.index') }}">Page Quote Requests</a>
-                </li>
-
-                <li class="{{ request()->routeIs('admin.contactUs.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.contactUs.index') }}">Contact Us</a>
-                </li>
-
-                <li class="{{ request()->routeIs('admin.productEnquiries.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.productEnquiries.index') }}">Product Enquiries</a>
-                </li>
-
-                <li class="{{ request()->routeIs('admin.setupMyGym.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.setupMyGym.index') }}">Setup My Gym</a>
-                </li>
-
-                <li class="{{ request()->routeIs('admin.newsletter.*') ? 'active' : '' }}">
-                    <a href="{{ route('admin.newsletter.index') }}">Newsletter</a>
-                </li>
-            </ul>
-        </li>
-
         {{-- SETTINGS --}}
         <li class="{{ request()->routeIs(['admin.settings.*', 'admin.smtp-settings.*']) ? 'active' : '' }}">
             <a href="#"><i class="fa-solid fa-gear"></i> Settings</a>
@@ -179,8 +200,19 @@
                 <li class="{{ request()->routeIs('admin.smtp-settings.*') ? 'active' : '' }}">
                     <a href="{{ route('admin.admin-setting.index', ['tab' => 'smtp']) }}">SMTP Settings</a>
                 </li>
+                <li class="{{ request()->routeIs('admin.admin-role-setting') ? 'active' : '' }}">
+    <a href="{{ route('admin.admin-role-setting') }}">
+        Manage Sub Admins
+    </a>
+</li>
             </ul>
         </li>
+        
+        
+        
+        
+        
+        
 
     </ul>
 </div>

@@ -11,6 +11,7 @@ class Quote extends Model
         'customer_id',
         'packing_charges',
         'shipping_charges',
+        'shipping_type',
         'packing_quantity',
         'packing_tax_percentage',
         'shipping_quantity',

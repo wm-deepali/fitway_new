@@ -70,19 +70,8 @@
 
                                     <label class="wm-label">Search by Name, Mobile Number or Email</label>
 
-                                    <div class="input-group wm-search-group">
-
-                                        <input type="text" id="customerSearchTerm" class="form-control wm-input"
-                                            placeholder="Enter name, mobile number or email" autocomplete="off">
-
-                                        <div class="input-group-append">
-                                            <button type="button" id="searchCustomerBtn"
-                                                class="btn btn-primary wm-btn-primary">
-                                                <i class="fa fa-search"></i> Search
-                                            </button>
-                                        </div>
-
-                                    </div>
+                                    <input type="text" id="customerSearchTerm" class="form-control wm-input"
+                                        placeholder="Type name, mobile number or email..." autocomplete="off">
 
                                 </div>
 
@@ -228,8 +217,8 @@
                                     <div class="col-md-4">
                                         <div class="form-group wm-form-group mb-0">
                                             <label class="wm-label">Pin Code</label>
-                                            <input type="text" name="pincode" id="pincode"
-                                                class="form-control wm-input" maxlength="10">
+                                            <input type="text" name="pincode" id="pincode" class="form-control wm-input"
+                                                maxlength="10">
                                         </div>
                                     </div>
 
@@ -259,7 +248,7 @@
 
                 </div>
 
-                {{-- Products (Internal Inventory only) --}}
+                {{-- Products --}}
                 <div class="card wm-quotes-card mb-4">
 
                     <div class="card-header wm-quotes-header">
@@ -271,7 +260,9 @@
                         <small class="text-muted d-block mb-3 wm-hint">
                             Product search seedha table ki row me hi hota hai — search karein, Qty / MRP / Discount /
                             GST set karke <i class="fa fa-plus"></i> se row confirm karein, agli row turant neeche
-                            khud aa jaayegi apne search box ke saath. Features add karne ke liye
+                            khud aa jaayegi apne search box ke saath. Agar product list me nahi mile to "+ Add New
+                            Product" se details bhar sakte hain — woh product tabhi save hoga jab poori quote submit
+                            hogi (hamesha Internal Inventory me). Features add karne ke liye
                             <i class="fa fa-list-alt"></i> icon use karein.
                         </small>
 
@@ -285,14 +276,15 @@
                                     <tr>
                                         <th>Product</th>
                                         {{--
-                                            SKU / HSN / Brand columns disabled for now — currently not mandatory.
-                                            Uncomment these <th>s AND the matching <td>s inside buildItemRowHtml()
+                                        SKU / HSN / Brand columns disabled for now — currently not mandatory.
+                                        Uncomment these <th>s AND the matching
+                                        <td>s inside buildItemRowHtml()
                                             in the script below, plus the SKU/HSN/Brand block in the Product
                                             Features modal, to bring this back.
 
-                                            <th width="110">SKU</th>
-                                            <th width="110">HSN</th>
-                                            <th width="120">Brand</th>
+                                        <th width="110">SKU</th>
+                                        <th width="110">HSN</th>
+                                        <th width="120">Brand</th>
                                         --}}
                                         <th width="90">Qty</th>
                                         <th width="110">MRP</th>
@@ -306,8 +298,8 @@
 
                                 <tbody id="itemsTableBody">
                                     {{-- Rows are rendered entirely by JS: confirmed product rows, plus one
-                                         always-present "active" row (id="activeRow") with a live product
-                                         search box, at the very bottom, ready for the next entry. --}}
+                                    always-present "active" row (id="activeRow") with a live product
+                                    search box, at the very bottom, ready for the next entry. --}}
                                 </tbody>
 
                             </table>
@@ -319,15 +311,15 @@
                         <small id="itemsError" class="text-danger"></small>
 
                         {{-- Product search suggestions — a single shared, viewport-fixed dropdown
-                             (positioned by JS next to #productSearch) so it always floats on top,
-                             regardless of the table's own scrolling. Never needs manual scrolling. --}}
+                        (positioned by JS next to #productSearch) so it always floats on top,
+                        regardless of the table's own scrolling. Never needs manual scrolling. --}}
                         <div id="productSearchResults" class="list-group wm-search-dropdown wm-fixed-dropdown"></div>
 
                     </div>
 
                 </div>
 
-                {{-- Additional Charges (Packing & Shipping) --}}
+                {{-- Additional Charges (Installation & Shipping) --}}
                 <div class="card wm-quotes-card mb-4">
 
                     <div class="card-header wm-quotes-header">
@@ -336,102 +328,26 @@
 
                     <div class="card-body wm-form-body">
 
-                        <div class="row">
+                        <div class="wm-charges-wrap ml-auto">
 
-                            {{-- Packaging Chargess --}}
-                            <div class="col-md-6">
-
-                                <label class="wm-label mb-2">Packaging Chargess</label>
-
-                                <div class="row">
-
-                                    <div class="col-4">
-                                        <div class="form-group wm-form-group mb-0">
-                                            <label class="mb-0 small wm-label">Quantity</label>
-                                            <input type="number" name="packing_quantity" id="packing_quantity"
-                                                class="form-control wm-input packing-calc" min="0" value="1">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-4">
-                                        <div class="form-group wm-form-group mb-0">
-                                            <label class="mb-0 small wm-label">Rate</label>
-                                            <input type="number" name="packing_charges" id="packing_charges"
-                                                class="form-control wm-input packing-calc" step="0.01" min="0"
-                                                value="0">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-4">
-                                        <div class="form-group wm-form-group mb-0">
-                                            <label class="mb-0 small wm-label">Tax</label>
-                                            <select name="packing_tax_percentage" id="packing_tax_percentage"
-                                                class="form-control wm-input packing-calc">
-                                                <option value="0">0%</option>
-                                                <option value="5">5%</option>
-                                                <option value="12">12%</option>
-                                                <option value="18" selected>18%</option>
-                                                <option value="28">28%</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group wm-form-group mb-0 mt-2">
-                                    <label class="mb-0 small wm-label">Packing Amount (preview)</label>
-                                    <input type="text" id="packing_amount_preview"
-                                        class="form-control wm-input wm-input-readonly" readonly value="0.00">
-                                </div>
-
+                            {{-- Installation Charges --}}
+                            <div class="form-group wm-form-group">
+                                <label class="wm-label">Installation Charges</label>
+                                <input type="number" name="packing_charges" id="packing_charges"
+                                    class="form-control wm-input" step="0.01" min="0" value="0">
                             </div>
 
                             {{-- Shipping Charges --}}
-                            <div class="col-md-6">
-
-                                <label class="wm-label mb-2">Shipping Charges</label>
-
-                                <div class="row">
-
-                                    <div class="col-4">
-                                        <div class="form-group wm-form-group mb-0">
-                                            <label class="mb-0 small wm-label">Quantity</label>
-                                            <input type="number" name="shipping_quantity" id="shipping_quantity"
-                                                class="form-control wm-input shipping-calc" min="0" value="1">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-4">
-                                        <div class="form-group wm-form-group mb-0">
-                                            <label class="mb-0 small wm-label">Rate</label>
-                                            <input type="number" name="shipping_charges" id="shipping_charges"
-                                                class="form-control wm-input shipping-calc" step="0.01" min="0"
-                                                value="0">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-4">
-                                        <div class="form-group wm-form-group mb-0">
-                                            <label class="mb-0 small wm-label">Tax</label>
-                                            <select name="shipping_tax_percentage" id="shipping_tax_percentage"
-                                                class="form-control wm-input shipping-calc">
-                                                <option value="0">0%</option>
-                                                <option value="5">5%</option>
-                                                <option value="12">12%</option>
-                                                <option value="18" selected>18%</option>
-                                                <option value="28">28%</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
+                            <div class="form-group wm-form-group mb-0">
+                                <label class="wm-label">Shipping Charges</label>
+                                <div class="wm-shipping-row">
+                                    <select name="shipping_type" id="shipping_type" class="form-control wm-input">
+                                        <option value="factory">From Factory</option>
+                                        <option value="showroom">From Showroom</option>
+                                    </select>
+                                    <input type="number" name="shipping_charges" id="shipping_charges"
+                                        class="form-control wm-input" step="0.01" min="0" value="0" placeholder="Price">
                                 </div>
-
-                                <div class="form-group wm-form-group mb-0 mt-2">
-                                    <label class="mb-0 small wm-label">Shipping Amount (preview)</label>
-                                    <input type="text" id="shipping_amount_preview"
-                                        class="form-control wm-input wm-input-readonly" readonly value="0.00">
-                                </div>
-
                             </div>
 
                         </div>
@@ -550,10 +466,102 @@
     </div>
 </div>
 
+{{-- Add New Product Modal — collects full details, but the Product row itself is
+only created in the DB when the whole quote is submitted (QuoteController@store),
+so a name/price/brand/features entered here never becomes an orphan product if
+the admin abandons the quote. --}}
+<div class="modal fade" id="newProductModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content wm-modal-content">
+
+            <div class="modal-header wm-modal-header">
+                <h5 class="modal-title wm-modal-title">Add New Product</h5>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body wm-modal-body">
+
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group wm-form-group">
+                            <label class="wm-label">Product Name</label>
+                            <input type="text" id="newProductName" class="form-control wm-input">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group wm-form-group">
+                            <label class="wm-label">Price</label>
+                            <input type="number" id="newProductPrice" class="form-control wm-input" step="0.01" min="0">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group wm-form-group">
+                            <label class="wm-label">SKU Code</label>
+                            <input type="text" id="newProductSku" class="form-control wm-input">
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group wm-form-group">
+                            <label class="wm-label">HSN Code</label>
+                            <input type="text" id="newProductHsn" class="form-control wm-input">
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group wm-form-group">
+                            <label class="wm-label">Select Brand</label>
+                            <select id="newProductBrandId" class="form-control wm-input">
+                                <option value="">Select Brand</option>
+                                <option value="__add_new__">+ Add New Brand</option>
+                                <option disabled>──────────</option>
+                                @foreach($brands as $brand)
+                                    <option value="{{ $brand->id }}">{{ $brand->name }}</option>
+                                @endforeach
+                            </select>
+
+                            <div id="newProductBrandGroup" class="input-group mt-2" style="display:none;">
+                                <input type="text" id="newProductBrandName" class="form-control wm-input"
+                                    placeholder="Enter new brand name">
+                                <div class="input-group-append">
+                                    <button type="button" id="saveNewProductBrandBtn" class="btn btn-sm wm-btn-primary">
+                                        <i class="fa fa-plus"></i> Add
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group wm-form-group mb-0">
+                            <label class="wm-label">Product Features (default description)</label>
+                            <textarea id="newProductFeatures" rows="3" class="form-control wm-input"></textarea>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="modal-footer wm-modal-footer">
+                <button type="button" class="btn btn-secondary wm-btn-cancel" data-dismiss="modal">Cancel</button>
+                <button type="button" id="saveNewProductBtn" class="btn btn-primary wm-btn-primary">Add to
+                    Quote</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @include('admin.footer')
 
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.20/summernote-bs4.min.js"></script>
 <script>
     $(function () {
 
@@ -577,6 +585,19 @@
         // Features modal shared between "staging" (new product) and "edit" (an added row)
         var featuresModalMode = null; // 'stage' or 'edit'
         var featuresEditIndex = null;
+
+        // Rich text editors for Product Features (Features modal + New Product modal)
+        var featuresEditorConfig = {
+            height: 150,
+            toolbar: [
+                ['style', ['bold', 'italic', 'underline', 'clear']],
+                ['para', ['ul', 'ol']],
+                ['insert', ['link']],
+            ],
+        };
+
+        $('#opt_product_features').summernote(featuresEditorConfig);
+        $('#newProductFeatures').summernote($.extend({}, featuresEditorConfig, { height: 120 }));
 
         // Sub Total = ((price x qty) - discount) + tax on the discounted amount.
         function calcTotal(price, qty, discountType, discountValue, taxPercentage) {
@@ -632,31 +653,6 @@
             }
         });
 
-        // ---------- Packing / Shipping amount preview ----------
-        function updateChargePreview(qtySelector, rateSelector, taxSelector, previewSelector) {
-
-            var qty = parseFloat($(qtySelector).val()) || 0;
-            var rate = parseFloat($(rateSelector).val()) || 0;
-            var tax = parseFloat($(taxSelector).val()) || 0;
-
-            var subtotal = qty * rate;
-            var amount = subtotal + (subtotal * (tax / 100));
-
-            $(previewSelector).val(amount.toFixed(2));
-
-            return amount;
-        }
-
-        function updateChargesPreview() {
-            updateChargePreview('#packing_quantity', '#packing_charges', '#packing_tax_percentage', '#packing_amount_preview');
-            updateChargePreview('#shipping_quantity', '#shipping_charges', '#shipping_tax_percentage', '#shipping_amount_preview');
-        }
-
-        $('.packing-calc, .shipping-calc').on('input change', updateChargesPreview);
-
-        // initial run in case draft prefill sets values
-        updateChargesPreview();
-
         // ---------- Features modal (also carries optional SKU / HSN / Brand) ----------
         function fillFeaturesModal(data, product) {
 
@@ -671,7 +667,7 @@
 
             var featuresText = (data && data.product_features) || (product ? product.features : '') || '';
 
-            $('#opt_product_features').val(featuresText);
+            $('#opt_product_features').summernote('code', featuresText);
             $('#opt_features_group').toggle(!!(data && data.show_features));
         }
 
@@ -705,6 +701,9 @@
                 $('#opt_brand_id option[value="__add_new__"]').before($option);
                 $('#opt_brand_id').val(brand.id);
 
+                // keep the "+ Add New Product" modal's brand dropdown in sync too
+                $('#newProductBrandId option[value="__add_new__"]').before($option.clone());
+
                 $('#newBrandGroup').hide();
                 $('#newBrandName').val('');
 
@@ -724,7 +723,7 @@
             $('#opt_features_group').toggle(checked);
 
             // pehli baar tick karne par, agar textarea empty hai to product's default features bhar do
-            if (checked && !$('#opt_product_features').val().trim()) {
+            if (checked && $('#opt_product_features').summernote('isEmpty')) {
 
                 var defaultFeatures = '';
 
@@ -734,7 +733,7 @@
                     defaultFeatures = items[featuresEditIndex].product_features || '';
                 }
 
-                $('#opt_product_features').val(defaultFeatures);
+                $('#opt_product_features').summernote('code', defaultFeatures);
             }
 
         });
@@ -779,7 +778,7 @@
                 hsn_code: $('#opt_hsn_code').val(),
                 brand_id: ($('#opt_brand_id').val() === '__add_new__') ? '' : $('#opt_brand_id').val(),
                 show_features: $('#opt_show_features').is(':checked'),
-                product_features: $('#opt_product_features').val(),
+                product_features: $('#opt_product_features').summernote('isEmpty') ? '' : $('#opt_product_features').summernote('code'),
             };
 
             if (featuresModalMode === 'stage') {
@@ -801,7 +800,7 @@
         });
 
         // ============================================================
-        // Customer search — by Name, Mobile Number or Email
+        // Customer search — live suggestions only, matches Name, Mobile or Email
         // ============================================================
 
         // Fills the customer form from a selected suggestion (fetches its
@@ -838,99 +837,46 @@
                 .text('Existing customer found — details auto-filled.');
         }
 
-        function clearCustomerFieldsForNew(term) {
+        // Fetch + render this customer's last 4-5 quotations in the side panel
+        function fetchPreviousQuotes(customerId) {
 
-            if (term.indexOf('@') !== -1) {
-                $('#email').val(term);
-                $('#mobile_number').val('');
-                $('#customer_name').val('');
-            } else if (/^[0-9+\-\s]+$/.test(term)) {
-                $('#mobile_number').val(term);
-                $('#email').val('');
-                $('#customer_name').val('');
-            } else {
-                $('#customer_name').val(term);
-                $('#mobile_number').val('');
-                $('#email').val('');
-            }
+            var $list = $('#previousQuotationsList');
+            $list.html('<small class="text-muted">Loading previous quotations...</small>');
 
-            $('#business_name').val('');
-            $('#gst_number').val('');
-            $('#address').val('');
-            $('#pincode').val('');
-            $('#state_id').val('');
-            $('#city_id').html('<option value="">Select City</option>');
+            $.get('{{ route('admin.quotes.customer-quotes', ':id') }}'.replace(':id', customerId), function (quotes) {
 
-            $('#customerSearchStatus')
-                .removeClass('text-success')
-                .addClass('text-danger')
-                .text('New customer — please fill in the details below.');
-        }
-
-        // Exact search (Search button / Enter key) — unchanged behaviour, still
-        // uses the "search" query param and the existing {found, customer, cities} response.
-        function searchCustomer(term) {
-
-            if (!term) {
-                return;
-            }
-
-            $('#customerSearchStatus').removeClass('text-success text-danger').text('Searching...');
-
-            $.get('{{ route('admin.quotes.search-customer') }}', { search: term }, function (res) {
-
-                if (res.found) {
-
-                    var c = res.customer;
-
-                    $('#mobile_number').val(c.mobile_number);
-                    $('#customer_name').val(c.customer_name);
-                    $('#business_name').val(c.business_name);
-                    $('#email').val(c.email);
-                    $('#gst_number').val(c.gst_number);
-                    $('#address').val(c.address);
-                    $('#pincode').val(c.pincode);
-                    $('#state_id').val(c.state_id);
-
-                    var $city = $('#city_id');
-                    $city.html('<option value="">Select City</option>');
-
-                    $.each(res.cities, function (i, city) {
-                        var selected = (city.id == c.city_id) ? 'selected' : '';
-                        $city.append('<option value="' + city.id + '" ' + selected + '>' + city.name + '</option>');
-                    });
-
-                    $('#customerSearchStatus')
-                        .addClass('text-success')
-                        .text('Existing customer found — details auto-filled.');
-
-                } else {
-
-                    clearCustomerFieldsForNew(term);
+                if (!quotes || quotes.length === 0) {
+                    $list.html('<small class="text-muted">No previous quotations found for this customer.</small>');
+                    return;
                 }
+
+                var html = '';
+
+                $.each(quotes, function (i, q) {
+
+                    var label = q.proposal_id ? q.proposal_id : ('Draft #' + q.id);
+                    var date = new Date(q.created_at).toLocaleDateString();
+                    var amount = parseFloat(q.total_amount || 0).toFixed(2);
+                    var url = '{{ route('admin.quotes.preview', ':id') }}'.replace(':id', q.id);
+
+                    html += '<a href="' + url + '" class="wm-prev-quote-item" target="_blank">'
+                        + '<span class="wm-prev-quote-no">' + label + '</span>'
+                        + '<span class="wm-prev-quote-date">' + date + '</span>'
+                        + '<span class="wm-prev-quote-amount">₹' + amount + '</span>'
+                        + '</a>';
+
+                });
+
+                $list.html(html);
             });
         }
 
         var customerSearchTimer = null;
 
         // Live suggestions while typing — matches Name OR Mobile OR Email.
-        //
-        // NOTE (backend): "admin.quotes.search-customer" route ko ab ek naya
-        // "term" query param bhi handle karna hoga — customer_name OR
-        // mobile_number OR email me partial match karke matching customers ka
-        // ARRAY return karein (jaise "admin.quotes.search-products" karta hai):
-        //   [{ id, customer_name, mobile_number, email, business_name,
-        //      gst_number, address, pincode, state_id, city_id }, ...]
-        // Purana "search" param wala exact-match behaviour (single customer +
-        // found flag, Search button / Enter key se) bilkul waisa hi rahega.
-        $('#customerSearchTerm').on('keyup', function (e) {
-
-            if (e.which === 13) {
-                e.preventDefault();
-                $('#customerSearchResults').empty();
-                searchCustomer($(this).val().trim());
-                return;
-            }
+        // No separate exact-match / Enter-key flow anymore — every hit
+        // returns an array of matches for the dropdown.
+        $('#customerSearchTerm').on('keyup', function () {
 
             var term = $(this).val().trim();
             var $results = $('#customerSearchResults');
@@ -980,14 +926,10 @@
             }
 
             fillCustomerFields(c);
+            fetchPreviousQuotes(c.id);
 
             $('#customerSearchTerm').val(c.customer_name);
             $('#customerSearchResults').empty();
-        });
-
-        $('#searchCustomerBtn').on('click', function () {
-            $('#customerSearchResults').empty();
-            searchCustomer($('#customerSearchTerm').val().trim());
         });
 
         // hide suggestions dropdown on outside click
@@ -1020,9 +962,10 @@
         });
 
         // ============================================================
-        // Product search (Internal Inventory only) — lives inside the
-        // table's always-present "active" row (#activeRow), rendered by
-        // renderActiveRow() below.
+        // Product search — lives inside the table's always-present
+        // "active" row (#activeRow), rendered by renderActiveRow() below.
+        // Shows products of every source_type; lets the admin add a new
+        // one via modal if not found (staged locally, saved only on submit).
         // ============================================================
         var searchTimer = null;
 
@@ -1045,19 +988,23 @@
                     $results.empty();
 
                     if (products.length === 0) {
-                        $results.append('<div class="list-group-item">No Internal Inventory products found.</div>');
-                        return;
+                        $results.append('<div class="list-group-item">No products found.</div>');
+                    } else {
+                        $.each(products, function (i, product) {
+
+                            var $item = $('<a href="javascript:void(0);" class="list-group-item list-group-item-action"></a>')
+                                .text(product.name)
+                                .data('product', product);
+
+                            $results.append($item);
+
+                        });
                     }
 
-                    $.each(products, function (i, product) {
-
-                        var $item = $('<a href="javascript:void(0);" class="list-group-item list-group-item-action"></a>')
-                            .text(product.name)
-                            .data('product', product);
-
-                        $results.append($item);
-
-                    });
+                    $results.append(
+                        '<a href="javascript:void(0);" id="addNewProductLink" class="list-group-item list-group-item-action text-primary">'
+                        + '<i class="fa fa-plus"></i> Add New Product "' + term + '"</a>'
+                    );
 
                 });
 
@@ -1065,7 +1012,7 @@
 
         });
 
-        $(document).on('click', '#productSearchResults a', function () {
+        $(document).on('click', '#productSearchResults a:not(#addNewProductLink)', function () {
 
             selectedProduct = $(this).data('product');
 
@@ -1100,6 +1047,120 @@
             }
         });
 
+        // ---------- "+ Add New Product" modal — staged locally, NOT saved to DB yet.
+        // The actual Product row is only created when the whole quote is submitted
+        // (see QuoteController@store), using product_name/price/brand_id/sku_code/
+        // hsn_code/product_features already carried in this item's hidden inputs.
+        // ============================================================
+        $(document).on('click', '#addNewProductLink', function () {
+            $('#newProductName').val($('#productSearch').val().trim());
+            $('#newProductPrice').val('');
+            $('#newProductSku').val('');
+            $('#newProductHsn').val('');
+            $('#newProductBrandId').val('');
+            $('#newProductBrandGroup').hide();
+            $('#newProductFeatures').summernote('code', '');
+            $('#productSearchResults').empty();
+            $('#newProductModal').modal('show');
+        });
+
+        $('#newProductModal').on('shown.bs.modal', function () {
+            $('#newProductPrice').focus();
+        });
+
+        // inline "+ Add New Brand" from inside the new-product modal itself
+        $('#newProductBrandId').on('change', function () {
+            if ($(this).val() === '__add_new__') {
+                $('#newProductBrandGroup').show();
+                $('#newProductBrandName').focus();
+            } else {
+                $('#newProductBrandGroup').hide();
+            }
+        });
+
+        $('#saveNewProductBrandBtn').on('click', function () {
+
+            var name = $('#newProductBrandName').val().trim();
+
+            if (!name) {
+                alert('Please enter a brand name.');
+                return;
+            }
+
+            $.post('{{ route('admin.quotes.store-brand') }}', {
+                _token: '{{ csrf_token() }}',
+                name: name,
+            }, function (brand) {
+
+                var $option = $('<option></option>').val(brand.id).text(brand.name);
+                $('#newProductBrandId option[value="__add_new__"]').before($option);
+                $('#newProductBrandId').val(brand.id);
+
+                // keep the main Features-modal brand dropdown in sync too
+                $('#opt_brand_id option[value="__add_new__"]').before($option.clone());
+
+                $('#newProductBrandGroup').hide();
+                $('#newProductBrandName').val('');
+
+            }).fail(function (xhr) {
+                var msg = (xhr.responseJSON && xhr.responseJSON.errors && xhr.responseJSON.errors.name)
+                    ? xhr.responseJSON.errors.name[0]
+                    : 'Could not add brand — it may already exist.';
+                alert(msg);
+            });
+
+        });
+
+        $('#saveNewProductBtn').on('click', function () {
+
+            var name = $('#newProductName').val().trim();
+            var price = $('#newProductPrice').val();
+
+            if (!name || price === '') {
+                alert('Please enter product name and price.');
+                return;
+            }
+
+            var brandId = ($('#newProductBrandId').val() === '__add_new__') ? '' : $('#newProductBrandId').val();
+            var features = $('#newProductFeatures').summernote('isEmpty') ? '' : $('#newProductFeatures').summernote('code');
+
+            // Staged product — id is intentionally blank; real Product row gets
+            // created at quote submit time, along with brand/sku/hsn/features.
+            selectedProduct = {
+                id: '',
+                name: name,
+                price: parseFloat(price) || 0,
+                image: null,
+                brand_id: brandId,
+                features: features,
+                is_new: true,
+            };
+
+            $('#productSearch').val(name);
+
+            $('#rowQty').val(1).prop('disabled', false);
+            $('#rowPrice').val(selectedProduct.price).prop('disabled', false);
+            $('#rowDiscountType').val('percentage').prop('disabled', false);
+            $('#rowDiscountValue').val(0).prop('disabled', false);
+            $('#rowTax').val(5).prop('disabled', false);
+
+            currentFeatures = {
+                show_features: !!features,
+                product_features: features,
+                sku_code: $('#newProductSku').val(),
+                hsn_code: $('#newProductHsn').val(),
+                brand_id: brandId,
+            };
+
+            $('#featuresBtn').prop('disabled', false);
+            $('#addProductBtn').prop('disabled', false);
+
+            updateRowPreview();
+
+            $('#newProductModal').modal('hide');
+
+        });
+
         // ---------- Build a table row for an already-confirmed item (fully inline-editable) ----------
         function buildItemRowHtml(index, data) {
 
@@ -1113,7 +1174,7 @@
             });
 
             return '<tr id="itemRow' + index + '">'
-                + '<td class="itemProductName">' + data.product_name + '</td>'
+                + '<td class="itemProductName">' + data.product_name + (data.is_new_product ? ' <span class="badge badge-info wm-new-badge">New</span>' : '') + '</td>'
                 /* SKU / HSN / Brand <td>s disabled for now — uncomment the matching <th>s
                    in the thead above to bring these back:
                 + '<td>' + (data.sku_code || '-') + '</td>'
@@ -1123,8 +1184,8 @@
                 + '<td><input type="number" class="form-control form-control-sm wm-input itemQtyInput" data-index="' + index + '" min="1" value="' + data.quantity + '"></td>'
                 + '<td><input type="number" class="form-control form-control-sm wm-input itemPriceInput" data-index="' + index + '" step="0.01" min="0" value="' + data.price + '"></td>'
                 + '<td class="wm-discount-cell">'
-                +   '<select class="form-control form-control-sm wm-input itemDiscountTypeInput" data-index="' + index + '">' + discountTypeOptions + '</select>'
-                +   '<input type="number" class="form-control form-control-sm wm-input itemDiscountValueInput" data-index="' + index + '" step="0.01" min="0" value="' + data.discount_value + '">'
+                + '<select class="form-control form-control-sm wm-input itemDiscountTypeInput" data-index="' + index + '">' + discountTypeOptions + '</select>'
+                + '<input type="number" class="form-control form-control-sm wm-input itemDiscountValueInput" data-index="' + index + '" step="0.01" min="0" value="' + data.discount_value + '">'
                 + '</td>'
                 + '<td><select class="form-control form-control-sm wm-input itemTaxInput" data-index="' + index + '">' + taxOptions + '</select></td>'
                 + '<td class="itemSubTotal">' + data.total.toFixed(2) + '</td>'
@@ -1142,23 +1203,23 @@
 
             var rowHtml = '<tr id="activeRow">'
                 + '<td>'
-                +   '<input type="text" id="productSearch" class="form-control form-control-sm wm-input" placeholder="Type product name..." autocomplete="off">'
+                + '<input type="text" id="productSearch" class="form-control form-control-sm wm-input" placeholder="Type product name..." autocomplete="off">'
                 + '</td>'
                 + '<td><input type="number" id="rowQty" class="form-control form-control-sm wm-input" min="1" value="1" disabled></td>'
                 + '<td><input type="number" id="rowPrice" class="form-control form-control-sm wm-input" step="0.01" min="0" value="0" disabled></td>'
                 + '<td class="wm-discount-cell">'
-                +   '<select id="rowDiscountType" class="form-control form-control-sm wm-input" disabled>'
-                +     '<option value="percentage" selected>%</option>'
-                +     '<option value="flat">Flat (₹)</option>'
-                +   '</select>'
-                +   '<input type="number" id="rowDiscountValue" class="form-control form-control-sm wm-input" step="0.01" min="0" max="100" value="0" disabled>'
+                + '<select id="rowDiscountType" class="form-control form-control-sm wm-input" disabled>'
+                + '<option value="percentage" selected>%</option>'
+                + '<option value="flat">Flat (₹)</option>'
+                + '</select>'
+                + '<input type="number" id="rowDiscountValue" class="form-control form-control-sm wm-input" step="0.01" min="0" max="100" value="0" disabled>'
                 + '</td>'
                 + '<td><select id="rowTax" class="form-control form-control-sm wm-input" disabled>'
-                +   '<option value="0">0%</option>'
-                +   '<option value="5" selected>5%</option>'
-                +   '<option value="12">12%</option>'
-                +   '<option value="18">18%</option>'
-                +   '<option value="28">28%</option>'
+                + '<option value="0">0%</option>'
+                + '<option value="5" selected>5%</option>'
+                + '<option value="12">12%</option>'
+                + '<option value="18">18%</option>'
+                + '<option value="28">28%</option>'
                 + '</select></td>'
                 + '<td><input type="text" id="rowSubTotal" class="form-control form-control-sm wm-input wm-input-readonly" value="0.00" readonly></td>'
                 + '<td><button type="button" id="featuresBtn" class="btn btn-sm btn-outline-primary wm-icon-btn" disabled title="Product Features"><i class="fa fa-list-alt"></i></button></td>'
@@ -1194,6 +1255,7 @@
                 tax_percentage: parseFloat(itemData.tax_percentage) || 0,
                 show_features: !!itemData.show_features,
                 product_features: itemData.product_features || '',
+                is_new_product: !!itemData.is_new_product,
             };
 
             var calc = calcTotal(normalized.price, normalized.quantity, normalized.discount_type, normalized.discount_value, normalized.tax_percentage);
@@ -1233,6 +1295,7 @@
                 brand_id: currentFeatures.brand_id,
                 sku_code: currentFeatures.sku_code,
                 hsn_code: currentFeatures.hsn_code,
+                is_new_product: selectedProduct.is_new ? 1 : 0,
             };
 
             addItemRow(itemData);
@@ -1297,7 +1360,8 @@
                 + '<input type="hidden" name="items[' + index + '][discount_type]" value="' + data.discount_type + '">'
                 + '<input type="hidden" name="items[' + index + '][discount_value]" value="' + data.discount_value + '">'
                 + '<input type="hidden" name="items[' + index + '][tax_percentage]" value="' + data.tax_percentage + '">'
-                + '<input type="hidden" name="items[' + index + '][quantity]" value="' + data.quantity + '">';
+                + '<input type="hidden" name="items[' + index + '][quantity]" value="' + data.quantity + '">'
+                + '<input type="hidden" name="items[' + index + '][is_new_product]" value="' + (data.is_new_product ? '1' : '0') + '">';
 
             $('#itemHidden' + index).remove();
             $('#hiddenItemsContainer').append('<div id="itemHidden' + index + '">' + hiddenHtml + '</div>');
@@ -1342,12 +1406,8 @@
             $('#pincode').val(draft.pincode || '');
             $('#prepared_by').val(draft.prepared_by || '');
             $('#packing_charges').val(draft.packing_charges || 0);
+            $('#shipping_type').val(draft.shipping_type || 'factory');
             $('#shipping_charges').val(draft.shipping_charges || 0);
-            $('#packing_quantity').val(draft.packing_quantity || 1);
-            $('#packing_tax_percentage').val(draft.packing_tax_percentage || 18);
-            $('#shipping_quantity').val(draft.shipping_quantity || 1);
-            $('#shipping_tax_percentage').val(draft.shipping_tax_percentage || 18);
-            updateChargesPreview();
 
             if (draft.state_id) {
 
@@ -1407,7 +1467,7 @@ JS selectors changed — visual tokens only.
         border: 1px solid var(--wm-border);
         border-radius: var(--wm-radius);
         box-shadow: 0 1px 3px rgba(0, 0, 0, .08), 0 0 0 1px var(--wm-border);
-        overflow: hidden;
+        /*overflow: hidden;*/
     }
 
     .wm-quotes-header {
@@ -1464,18 +1524,6 @@ JS selectors changed — visual tokens only.
         color: var(--wm-muted);
         text-align: center;
         font-weight: 600;
-    }
-
-    .wm-search-group {
-        gap: 10px;
-    }
-
-    .wm-search-group .wm-input {
-        border-radius: 8px !important;
-    }
-
-    .wm-search-group .input-group-append {
-        margin-left: 0 !important;
     }
 
     .wm-hint {
@@ -1660,6 +1708,15 @@ JS selectors changed — visual tokens only.
         font-weight: 600;
     }
 
+    .wm-new-badge {
+        background-color: var(--wm-primary-light);
+        color: var(--wm-primary);
+        font-weight: 600;
+        font-size: 0.68rem;
+        padding: 0.25em 0.5em;
+        vertical-align: middle;
+    }
+
     .wm-quotes-table .itemSubTotal {
         font-weight: 700;
         color: var(--wm-primary);
@@ -1835,5 +1892,22 @@ JS selectors changed — visual tokens only.
         .wm-form-body {
             padding: 1.1rem 1rem;
         }
+    }
+
+    .wm-charges-wrap {
+        max-width: 380px;
+    }
+
+    .wm-shipping-row {
+        display: flex;
+        gap: 10px;
+    }
+
+    .wm-shipping-row select {
+        flex: 0 0 45%;
+    }
+
+    .wm-shipping-row input {
+        flex: 1 1 auto;
     }
 </style>

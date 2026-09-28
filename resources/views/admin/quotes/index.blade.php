@@ -29,9 +29,16 @@
         <div class="content-wrapper pb-4">
 
             <div class="card wm-quotes-card">
-                @if(session('success'))
-                    <div class="alert wm-alert-success m-3 mb-0">{{ session('success') }}</div>
-                @endif
+               @if(session('success'))
+    <div class="alert wm-alert-success m-3 mb-0">{{ session('success') }}</div>
+@endif
+
+@if($filterCustomer)
+    <div class="alert wm-alert-filter m-3 mb-0 d-flex align-items-center justify-content-between">
+        <span>Showing proposals for <strong>{{ $filterCustomer->business_name ?? $filterCustomer->customer_name }}</strong></span>
+        <a href="{{ route('admin.quotes.index') }}" class="btn btn-sm wm-btn-outline">Clear filter</a>
+    </div>
+@endif
                 <div class="card-header d-flex align-items-center justify-content-between wm-quotes-header">
 
                     <h4 class="mb-0 wm-quotes-title">
@@ -104,33 +111,32 @@
                                         </td>
                                         <td>
                                             <div class="wm-action-group">
-                                                @if($quote->status === 'draft')
-                                                    <a href="{{ route('admin.quotes.edit', $quote->id) }}"
-                                                        class="btn btn-sm wm-btn-info">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                @else
-                                                    <a href="{{ route('admin.quotes.preview', $quote->id) }}"
-                                                        class="btn btn-sm wm-btn-info">
-                                                        <i class="fa fa-eye"></i>
-                                                    </a>
 
-                                                    <a href="{{ route('admin.quotes.download', $quote->id) }}"
-                                                        class="btn btn-sm wm-btn-outline">
-                                                        <i class="fa fa-download"></i>
-                                                    </a>
-                                                @endif
+    <a href="{{ route('admin.quotes.edit', $quote->id) }}" class="btn btn-sm wm-btn-info">
+        <i class="fa fa-pencil"></i>
+    </a>
 
-                                                <form action="{{ route('admin.quotes.destroy', $quote->id) }}" method="POST"
-                                                    class="d-inline"
-                                                    onsubmit="return confirm('Are you sure you want to delete this proposal? This cannot be undone.');">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm wm-btn-danger">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                            </div>
+    @if($quote->status !== 'draft')
+        <a href="{{ route('admin.quotes.preview', $quote->id) }}" class="btn btn-sm wm-btn-info">
+            <i class="fa fa-eye"></i>
+        </a>
+
+        <a href="{{ route('admin.quotes.download', $quote->id) }}" class="btn btn-sm wm-btn-outline">
+            <i class="fa fa-download"></i>
+        </a>
+    @endif
+
+    <form action="{{ route('admin.quotes.destroy', $quote->id) }}" method="POST"
+        class="d-inline"
+        onsubmit="return confirm('Are you sure you want to delete this proposal? This cannot be undone.');">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-sm wm-btn-danger">
+            <i class="fa fa-trash"></i>
+        </button>
+    </form>
+
+</div>
                                         </td>
                                     </tr>
 
@@ -440,4 +446,13 @@ or dynamic data touched — purely presentational.
         font-weight: 500;
         padding: 0.7rem 1rem;
     }
+    
+    .wm-alert-filter {
+    background-color: #fff8e6;
+    border: 1px solid #f0dfa8;
+    color: #916a00;
+    border-radius: 8px;
+    font-weight: 500;
+    padding: 0.7rem 1rem;
+}
 </style>

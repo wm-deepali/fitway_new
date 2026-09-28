@@ -380,7 +380,7 @@
                         @endif
                     </td>
                     <td>
-                        <div class="company-name">{{ $settings?->company_name }}</div>
+                        <!--<div class="company-name">{{ $settings?->company_name }}</div>-->
 
                         @if($settings?->address || $settings?->city?->name || $settings?->state?->name || $settings?->pincode)
                             <div class="company-line">
@@ -552,32 +552,23 @@
 
         @php
             // Sub Total is the pre-tax value of all items combined (price x qty),
-            // plus (packing_charges x packing_qty) and (shipping_charges x shipping_qty).
-            // Each is taxed independently at its own percentage — matches QuoteController@store.
+            // plus flat Installation Charges and Shipping Charges (no qty/tax on
+            // either anymore — matches QuoteController@store).
             $subTotal = $quote->items->sum(function ($item) {
                 return $item->price * $item->quantity;
             });
 
             $discount = $quote->discount_amount ?? 0;
 
-            $packingRate = $quote->packing_charges ?? 0;
-            $packingQty = $quote->packing_quantity ?? 1;
-            $packingAmount = $packingRate * $packingQty;
+            $installationAmount = $quote->packing_charges ?? 0;
+            $shippingAmount = $quote->shipping_charges ?? 0;
+            $shippingTypeLabel = $quote->shipping_type === 'showroom' ? 'From Showroom' : 'From Factory';
 
-            $shippingRate = $quote->shipping_charges ?? 0;
-            $shippingQty = $quote->shipping_quantity ?? 1;
-            $shippingAmount = $shippingRate * $shippingQty;
-
-            $subTotal += $packingAmount + $shippingAmount;
+            $subTotal += $installationAmount + $shippingAmount;
 
             $taxes = $quote->items->sum(function ($item) {
                 return ($item->price * $item->quantity) * ($item->tax_percentage / 100);
             });
-
-            $packingTax = $packingAmount * (($quote->packing_tax_percentage ?? 0) / 100);
-            $shippingTax = $shippingAmount * (($quote->shipping_tax_percentage ?? 0) / 100);
-
-            $taxes += $packingTax + $shippingTax;
         @endphp
 
         <table class="totals-table">
@@ -593,12 +584,12 @@
             </tr>
 
             <tr>
-                <td>Packaging Charges ({{ $packingQty }} x &#8377;{{ number_format($packingRate, 2) }})</td>
-                <td class="text-right">&#8377;{{ number_format($packingAmount, 2) }}</td>
+                <td>Installation Charges</td>
+                <td class="text-right">&#8377;{{ number_format($installationAmount, 2) }}</td>
             </tr>
 
             <tr>
-                <td>Shipping Charges ({{ $shippingQty }} x &#8377;{{ number_format($shippingRate, 2) }})</td>
+                <td>Shipping Charges ({{ $shippingTypeLabel }})</td>
                 <td class="text-right">&#8377;{{ number_format($shippingAmount, 2) }}</td>
             </tr>
 
